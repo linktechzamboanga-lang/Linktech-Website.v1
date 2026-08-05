@@ -1,0 +1,698 @@
+/* ==========================================
+   LINKTECH CUSTOMER SUPPORT PORTAL
+   CUSTOMER CSS
+   PART 5/5
+========================================== */
+
+
+*{
+
+box-sizing:border-box;
+
+margin:0;
+
+padding:0;
+
+font-family:'Poppins',sans-serif;
+
+}
+
+
+
+body{
+
+background:#050a19;
+
+color:white;
+
+min-height:100vh;
+
+}
+
+
+
+
+
+/* HEADER */
+
+
+header{
+
+display:flex;
+
+justify-content:space-between;
+
+align-items:center;
+
+padding:15px 5%;
+
+background:#081326;
+
+position:sticky;
+
+top:0;
+
+z-index:1000;
+
+}
+
+header b{
+font-size:24px;
+color:#00f7ff;
+}
+
+.logo{
+
+display:flex;
+
+align-items:center;
+
+gap:10px;
+
+font-size:22px;
+
+}
+
+
+
+.logo img{
+
+width:45px;
+
+height:45px;
+
+object-fit:contain;
+
+}
+
+
+
+
+
+nav{
+    display:flex;
+    gap:15px;
+    align-items:center;
+}
+
+@media(max-width:768px){
+    nav{
+        flex-wrap:wrap;
+        justify-content:center;
+    }
+}
+
+
+
+nav a{
+
+color:white;
+
+text-decoration:none;
+
+font-size:14px;
+
+padding:8px 12px;
+
+border-radius:8px;
+
+}
+
+
+
+nav a:hover{
+
+background:#00aaff;
+
+}
+
+
+
+
+
+/* HERO */
+
+
+.hero{
+
+text-align:center;
+
+padding:60px 20px;
+
+background:
+
+linear-gradient(
+
+135deg,
+
+#07142d,
+
+#003b6f
+
+);
+
+}
+
+
+
+.hero h1{
+
+font-size:40px;
+
+}
+
+
+
+.hero h2{
+
+font-size:22px;
+
+margin-top:10px;
+
+}
+
+
+
+
+
+/* LOGIN */
+
+.login-section{
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    flex-direction:column;
+    width:100%;
+    padding:30px 20px;
+    text-align:center;
+}
+
+#g_id_signin,
+#googleLoginButton
+.google-signin{
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    width:100%;
+    margin:20px auto;
+}
+
+#userProfile{
+
+background:#101c35;
+
+padding:20px;
+
+border-radius:15px;
+
+display:inline-block;
+
+}
+
+
+
+#userProfile img{
+
+border-radius:50%;
+
+}
+
+
+
+
+
+/* DASHBOARD MENU */
+
+
+.dashboard-menu{
+
+display:flex;
+
+justify-content:center;
+
+gap:15px;
+
+flex-wrap:wrap;
+
+padding:20px;
+
+}
+
+
+
+button{
+    display:inline-flex;
+    justify-content:center;
+    align-items:center;
+background:#008cff;
+
+border:none;
+
+color:white;
+
+padding:12px 20px;
+
+border-radius:10px;
+
+cursor:pointer;
+
+font-weight:500;
+
+}
+
+
+
+button:hover{
+
+background:#00c6ff;
+
+}
+
+
+
+
+
+/* CONTAINERS */
+
+
+.box{
+
+background:#101a31;
+
+margin:20px auto;
+
+padding:25px;
+
+    width:min(90%,1000px);
+
+max-width:900px;
+
+border-radius:18px;
+
+box-shadow:0 10px 25px rgba(0,0,0,.3);
+
+}
+
+
+
+
+
+.box h2{
+
+margin-bottom:20px;
+
+color:#00c6ff;
+
+}
+
+
+
+
+
+/* FORM */
+
+
+input,
+textarea{
+
+
+width:100%;
+
+padding:12px;
+
+margin:8px 0;
+
+background:#071226;
+
+border:1px solid #29456d;
+
+color:white;
+
+border-radius:8px;
+
+}
+
+
+
+textarea{
+
+height:120px;
+
+resize:none;
+
+}
+
+
+
+
+
+/* TIMELINE */
+
+
+#timeline{
+
+display:grid;
+
+grid-template-columns:repeat(auto-fit,minmax(320px,1fr));
+gap:20px;
+
+}
+
+
+
+
+
+.timeline-post{
+
+
+background:#081326;
+
+padding:20px;
+
+border-radius:15px;
+
+overflow:hidden;
+
+}
+
+
+
+.timeline-post img{
+
+
+width:100%;
+
+height:200px;
+
+object-fit:cover;
+
+border-radius:12px;
+
+}
+
+
+
+
+.timeline-post h3{
+
+margin-top:15px;
+
+color:#00c6ff;
+
+}
+
+
+
+.timeline-post p{
+
+margin:10px 0;
+
+color:#ddd;
+
+}
+
+
+
+
+
+/* COMMENTS */
+
+
+#comments{
+
+margin-bottom:20px;
+
+}
+
+
+
+.comment{
+
+background:#081326;
+
+padding:15px;
+
+margin:10px 0;
+
+border-radius:10px;
+
+}
+
+
+
+
+
+/* ADMIN */
+
+
+#adminPanel{
+
+border:1px solid #00aaff;
+
+}
+
+
+
+#adminLoginBox{
+
+border:1px solid #334;
+
+}
+
+
+
+
+
+.admin-card{
+
+background:#071226;
+
+padding:15px;
+
+margin:10px 0;
+
+border-radius:10px;
+
+}
+
+
+/* ADMIN STATISTICS */
+
+.stats{
+
+display:grid;
+
+grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
+
+gap:15px;
+
+}
+
+
+.stat-card{
+
+background:#071226;
+
+padding:20px;
+
+border-radius:15px;
+
+text-align:center;
+
+}
+
+
+.stat-card span{
+
+font-size:32px;
+
+color:#00f7ff;
+
+font-weight:bold;
+
+}
+
+
+
+
+/* TABLE */
+
+
+table{
+
+width:100%;
+
+border-collapse:collapse;
+
+}
+
+
+
+th,
+td{
+
+padding:12px;
+
+border-bottom:1px solid #333;
+
+text-align:left;
+
+}
+
+
+
+th{
+
+color:#00c6ff;
+
+}
+
+
+
+
+
+
+
+
+/* FOOTER */
+
+
+footer{
+
+text-align:center;
+
+padding:25px;
+
+background:#081326;
+
+margin-top:40px;
+
+color:#aaa;
+
+}
+
+
+
+
+
+
+
+
+/* ==============================
+   MOBILE RESPONSIVE
+============================== */
+
+
+@media(max-width:768px){
+
+
+
+header{
+
+flex-direction:column;
+
+gap:15px;
+
+}
+
+
+
+nav{
+
+justify-content:center;
+
+}
+
+
+
+.hero h1{
+
+font-size:30px;
+
+}
+
+
+
+.hero h2{
+
+font-size:18px;
+
+}
+
+
+
+.box{
+
+width:95%;
+
+padding:18px;
+
+}
+
+
+
+.dashboard-menu button{
+
+
+width:100%;
+
+
+}
+
+
+
+.timeline-card img{
+
+height:180px;
+
+}
+
+
+
+}
+
+
+
+
+/* SMALL PHONE */
+
+
+@media(max-width:480px){
+
+
+
+.logo{
+
+font-size:18px;
+
+}
+
+
+
+nav a{
+
+font-size:12px;
+
+padding:6px;
+
+}
+
+
+
+.hero{
+
+padding:40px 15px;
+
+}
+
+
+
+button{
+
+width:100%;
+
+}
+
+
+
+}
