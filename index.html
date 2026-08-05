@@ -1,0 +1,711 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>
+LinkTech Customer Support Portal
+</title>
+
+
+<link rel="icon" href="images/LinkTech-logo.png">
+
+
+<link rel="stylesheet" href="css/home.css">
+
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+
+<!-- Google Identity Service -->
+<script src="https://accounts.google.com/gsi/client" async defer></script>
+
+
+<meta name="theme-color" content="#050a19">
+
+
+<meta name="description"
+content="LinkTech Customer Support Portal - Freelance IT Specialist Zamboanga">
+
+
+</head>
+
+
+<body>
+
+
+<header>
+
+
+<div class="logo">
+
+<img src="images/LinkTech-logo.png"
+alt="LinkTech Logo">
+
+<b>
+LinkTech
+</b>
+
+</div>
+
+
+<nav>
+
+<a href="index.html">
+Customer Support
+</a>
+
+
+<a href="download.html">
+Download
+</a>
+
+
+<a href="services.html">
+Services
+</a>
+
+
+<a href="it-portal.html">
+IT Portal
+</a>
+
+
+<a href="about.html">
+About
+</a>
+
+</nav>
+
+
+</header>
+
+
+
+
+<!-- HERO SECTION -->
+
+
+<section class="hero">
+
+
+<h1>
+Customer Support Portal
+</h1>
+
+
+<h2>
+Freelance IT Specialist Zamboanga
+</h2>
+
+
+</section>
+
+
+<!-- GOOGLE LOGIN -->
+
+<section class="login-section">
+
+
+<h2>
+Sign in with Google to continue
+</h2>
+
+
+<div id="googleLoginButton">
+
+</div>
+
+
+
+
+<!-- USER PROFILE -->
+
+
+<div id="userProfile"
+style="display:none;">
+
+
+<img id="userImage"
+src=""
+width="70"
+height="70"
+alt="Profile">
+
+
+<h3 id="userName">
+
+</h3>
+
+
+<p id="userEmail">
+
+</p>
+
+
+
+<button onclick="logoutUser()">
+
+Logout
+
+</button>
+
+
+</div>
+
+
+</section>
+
+
+
+
+
+<!-- MAIN DASHBOARD -->
+
+
+<section id="dashboard"
+style="display:none;">
+
+
+<div class="dashboard-menu">
+
+
+<button onclick="showConcern()">
+
+🛠 Submit Concern
+
+</button>
+
+
+<button onclick="showRequests()">
+
+📋 My Requests
+
+</button>
+
+
+<button onclick="showTimeline()">
+
+📰 Timeline
+
+</button>
+
+
+</div>
+<!-- ===================================== -->
+<!-- TERMS & CONDITIONS -->
+<!-- ===================================== -->
+
+<section id="concernSection" class="box">
+
+<h2>
+Submit IT Concern
+</h2>
+
+<div class="terms-box">
+
+<h3>
+Terms & Conditions
+</h3>
+
+<p>
+
+By submitting this concern, you agree that:
+
+</p>
+
+<ul>
+
+<li>Your Google account will be used to identify your request.</li>
+
+<li>All information submitted must be accurate.</li>
+
+<li>False, abusive, spam, or duplicate reports may be removed.</li>
+
+<li>LinkTech may contact you using your provided email or contact number.</li>
+
+<li>Your information will only be used for customer support purposes.</li>
+
+</ul>
+
+<label class="checkbox">
+
+<input
+type="checkbox"
+id="agreeTerms">
+
+I have read and agree to the Terms & Conditions.
+
+</label>
+
+</div>
+
+<hr>
+
+<input
+id="name"
+type="text"
+placeholder="Full Name"
+readonly>
+
+<input
+id="email"
+type="email"
+placeholder="Google Email"
+readonly>
+
+<input
+id="address"
+type="text"
+placeholder="Complete Address">
+
+<input
+id="contact"
+type="text"
+placeholder="Contact Number">
+
+<select id="category">
+
+<option value="">
+Select Concern Category
+</option>
+
+<option>
+Computer Repair
+</option>
+
+<option>
+Laptop Repair
+</option>
+
+<option>
+Networking
+</option>
+
+<option>
+Printer
+</option>
+
+<option>
+CCTV
+</option>
+
+<option>
+Software Installation
+</option>
+
+<option>
+Internet Connection
+</option>
+
+<option>
+Others
+</option>
+
+</select>
+
+<textarea
+id="problem"
+rows="6"
+placeholder="Describe your concern..."></textarea>
+
+<button
+id="submitConcernBtn"
+onclick="submitConcern()">
+
+Submit Concern
+
+</button>
+
+<p id="concernMessage"></p>
+
+</section>
+
+
+
+<!-- ===================================== -->
+<!-- USER COMMENT -->
+<!-- ===================================== -->
+
+<section
+id="commentSection"
+class="box">
+
+<h2>
+
+Community Comment
+
+</h2>
+
+<p>
+
+Each Google account may post only one comment every 24 hours.
+
+</p>
+
+<textarea
+id="commentText"
+rows="4"
+maxlength="500"
+placeholder="Write your comment..."></textarea>
+
+<button
+onclick="submitComment()">
+
+Post Comment
+
+</button>
+
+<p
+id="commentLimitMessage"
+style="color:red;font-weight:bold;">
+
+</p>
+
+<hr>
+
+<div id="commentList">
+
+<!-- Comments loaded here -->
+
+</div>
+
+</section>
+
+<!-- ===================================== -->
+<!-- MY REQUESTS -->
+<!-- ===================================== -->
+
+<section
+id="requestSection"
+class="box"
+style="display:none;">
+
+<h2>
+
+My Submitted Concerns
+
+</h2>
+
+<button onclick="loadMyRequests()">
+Refresh
+</button>
+
+<div id="myRequests">
+
+<!-- User requests will be loaded here -->
+
+</div>
+
+</section>
+
+
+
+<!-- ===================================== -->
+<!-- TIMELINE -->
+<!-- ===================================== -->
+
+<section
+id="timelineSection"
+class="box"
+style="display:none;">
+
+<h2>
+
+LinkTech Timeline
+
+</h2>
+
+<p>
+
+Latest announcements, completed projects, and technology updates.
+
+</p>
+
+<div id="timelineList">
+
+<!-- Timeline posts will be loaded here -->
+
+<!-- Example Post Template
+
+<div class="timeline-post">
+
+<div class="timeline-image">
+
+<img
+src=""
+alt="Timeline Image">
+
+</div>
+
+<div class="timeline-content">
+
+<h3>
+Post Title
+</h3>
+
+<p>
+Caption goes here...
+</p>
+
+<small>
+
+Posted by LinkTech
+
+</small>
+
+<br><br>
+
+<button onclick="toggleComments('POST_ID')">
+
+💬 Comments
+
+</button>
+
+<span>
+
+❤️
+<span id="likeCount_POST_ID">
+
+0
+
+</span>
+
+</span>
+
+<div
+id="comments_POST_ID"
+style="display:none;">
+
+<div class="timeline-comments">
+
+</div>
+
+<textarea
+id="comment_POST_ID"
+placeholder="Write a comment..."></textarea>
+
+<button
+onclick="submitTimelineComment('POST_ID')">
+
+Post Comment
+
+</button>
+
+</div>
+
+</div>
+
+</div>
+
+-->
+
+</div>
+
+</section>
+
+<!-- ===================================== -->
+<!-- ADMIN DASHBOARD -->
+<!-- Automatically shown only if the signed-in
+     Google account is an Admin -->
+<!-- ===================================== -->
+
+<section
+id="adminPanel"
+class="box"
+style="display:none;">
+
+<h2>
+
+Admin Dashboard
+
+</h2>
+
+<div class="stats">
+
+<div class="stat-card">
+<h3>Total Concerns</h3>
+<span id="totalConcerns">0</span>
+</div>
+
+<div class="stat-card">
+<h3>Pending</h3>
+<span id="pending">0</span>
+</div>
+
+<div class="stat-card">
+<h3>Completed</h3>
+<span id="completed">0</span>
+</div>
+
+</div>
+
+<hr>
+
+<h3>
+
+Customer Concern Reports
+
+</h3>
+
+<label>
+
+Filter Report
+
+</label>
+
+<select id="reportType">
+
+<option value="week">
+This Week
+</option>
+
+<option value="month">
+This Month
+</option>
+
+<option value="year">
+This Year
+</option>
+
+<option value="all">
+All Records
+</option>
+
+</select>
+
+<button onclick="loadAdminData()">
+
+Refresh
+
+</button>
+
+<button onclick="printReport()">
+
+🖨 Print
+
+</button>
+
+<button onclick="printReport()">
+
+📄 Print / Save PDF
+
+</button>
+
+<button onclick="downloadCSV()">
+
+📊 Download CSV
+
+</button>
+
+<hr>
+
+<div id="adminConcerns">
+
+<!-- Customer concerns -->
+
+</div>
+
+</section>
+
+
+
+<!-- ===================================== -->
+<!-- TIMELINE MANAGEMENT -->
+<!-- Admin Only -->
+<!-- ===================================== -->
+
+<section
+id="timelineAdmin"
+class="box"
+style="display:none;">
+
+<h2>
+
+Create Timeline Post
+
+</h2>
+
+<input
+id="postTitle"
+type="text"
+placeholder="Post Title">
+
+<textarea
+id="postCaption"
+rows="5"
+placeholder="Write your caption..."></textarea>
+
+<input
+id="postImage"
+type="file"
+accept="image/*">
+
+<button onclick="createPost()">
+
+Publish Post
+
+</button>
+
+<hr>
+
+<h3>
+
+Manage Timeline
+
+</h3>
+
+<div id="adminTimelineList">
+
+<!-- Timeline posts -->
+
+<!--
+Each post should display:
+
+Image
+
+Title
+
+Caption
+
+Edit Button
+
+Delete Button
+
+-->
+
+</div>
+
+</section>
+
+
+
+<!-- ===================================== -->
+<!-- FOOTER -->
+<!-- ===================================== -->
+
+<footer>
+
+<p>
+
+© 2026 LinkTech Freelance IT Specialist Zamboanga
+
+</p>
+
+</footer>
+
+
+
+<!-- ===================================== -->
+<!-- JAVASCRIPT -->
+<!-- ===================================== -->
+
+<script src="js/home.js"></script>
+
+</body>
+
+</html>
