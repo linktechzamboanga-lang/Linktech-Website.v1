@@ -1,49 +1,15 @@
-// ==========================================
-// LINKTECH CUSTOMER SUPPORT PORTAL
-// JAVASCRIPT
-// PART 8/10
-// GOOGLE LOGIN + AUTO ADMIN SYSTEM
-// ==========================================
-
-
-// ==========================================
-// GOOGLE CLIENT ID
-// ==========================================
-
 const GOOGLE_CLIENT_ID =
 "495855477306-9rdg89fh3g5mtolu8th08ltojor8lkkr.apps.googleusercontent.com";
 
-
-
-// ==========================================
-// GOOGLE APPS SCRIPT API URL
-// ==========================================
-
 const API_URL =
-"https://script.google.com/macros/s/AKfycbzRmfdun0BXZvGC9S3Hw9EsCUD-CzUQtna6gPI8bKz6X6pl5kHDOrJbFDV9F4iLqVOv/exec";
-
-
-
-// ==========================================
-// ADMIN GOOGLE ACCOUNT
-// ==========================================
+"https://script.google.com/macros/s/AKfycbz_r84riscYI5Cdyq4qucX3kb64VWsH-WPSxffqJs-lQZEXCouPv73QlDTC0xSnxCxV/exec";
 
 const ADMIN_EMAIL =
 "linktechzamboanga@gmail.com";
 
-
-
-
-// ==========================================
-// CURRENT USER
-// ==========================================
-
 let currentUser = null;
 
 let isAdmin = false;
-
-
-
 
 // ==========================================
 // START SYSTEM
@@ -59,9 +25,6 @@ initializeGoogle();
 
 
 };
-
-
-
 
 
 // ==========================================
