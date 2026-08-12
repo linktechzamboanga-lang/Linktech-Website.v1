@@ -1,181 +1,139 @@
 /* ==========================================
    LINKTECH CUSTOMER SUPPORT PORTAL
-   CUSTOMER CSS
-   PART 5/5
+   HOME.CSS
+   UPDATED VERSION
+   PART 1/4
+   BASE + HEADER + HERO + LOGIN + DASHBOARD
 ========================================== */
 
 
+/* ==========================================
+   GLOBAL RESET
+========================================== */
+
 *{
-
-box-sizing:border-box;
-
-margin:0;
-
-padding:0;
-
-font-family:'Poppins',sans-serif;
-
+    box-sizing:border-box;
+    margin:0;
+    padding:0;
+    font-family:'Poppins',sans-serif;
 }
 
-
+html{
+    scroll-behavior:smooth;
+}
 
 body{
+    background:#050a19;
+    color:white;
+    min-height:100vh;
+    overflow-x:hidden;
+}
 
-background:#050a19;
+img{
+    max-width:100%;
+}
 
-color:white;
-
-min-height:100vh;
-
+button,
+input,
+textarea,
+select{
+    font-family:'Poppins',sans-serif;
 }
 
 
-
-
-
-/* HEADER */
-
+/* ==========================================
+   HEADER
+========================================== */
 
 header{
-
-display:flex;
-
-justify-content:space-between;
-
-align-items:center;
-
-padding:15px 5%;
-
-background:#081326;
-
-position:sticky;
-
-top:0;
-
-z-index:1000;
-
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:15px 5%;
+    background:#081326;
+    position:sticky;
+    top:0;
+    z-index:1000;
+    box-shadow:0 4px 15px rgba(0,0,0,.25);
 }
 
 header b{
-font-size:24px;
-color:#00f7ff;
+    font-size:24px;
+    color:#00f7ff;
 }
 
 .logo{
-
-display:flex;
-
-align-items:center;
-
-gap:10px;
-
-font-size:22px;
-
+    display:flex;
+    align-items:center;
+    gap:10px;
+    font-size:22px;
+    white-space:nowrap;
 }
-
-
 
 .logo img{
-
-width:45px;
-
-height:45px;
-
-object-fit:contain;
-
+    width:45px;
+    height:45px;
+    object-fit:contain;
 }
 
 
-
-
+/* ==========================================
+   NAVIGATION
+========================================== */
 
 nav{
     display:flex;
     gap:15px;
     align-items:center;
+    flex-wrap:wrap;
+    justify-content:center;
 }
-
-@media(max-width:768px){
-    nav{
-        flex-wrap:wrap;
-        justify-content:center;
-    }
-}
-
-
 
 nav a{
-
-color:white;
-
-text-decoration:none;
-
-font-size:14px;
-
-padding:8px 12px;
-
-border-radius:8px;
-
+    color:white;
+    text-decoration:none;
+    font-size:14px;
+    padding:8px 12px;
+    border-radius:8px;
+    transition:.2s ease;
 }
-
-
 
 nav a:hover{
-
-background:#00aaff;
-
+    background:#00aaff;
+    color:white;
 }
 
 
-
-
-
-/* HERO */
-
+/* ==========================================
+   HERO
+========================================== */
 
 .hero{
-
-text-align:center;
-
-padding:60px 20px;
-
-background:
-
-linear-gradient(
-
-135deg,
-
-#07142d,
-
-#003b6f
-
-);
-
+    text-align:center;
+    padding:60px 20px;
+    background:
+        linear-gradient(
+            135deg,
+            #07142d,
+            #003b6f
+        );
 }
-
-
 
 .hero h1{
-
-font-size:40px;
-
+    font-size:40px;
+    line-height:1.2;
 }
-
-
 
 .hero h2{
-
-font-size:22px;
-
-margin-top:10px;
-
+    font-size:22px;
+    margin-top:10px;
+    color:#d8faff;
 }
 
 
-
-
-
-/* LOGIN */
+/* ==========================================
+   LOGIN SECTION
+========================================== */
 
 .login-section{
     display:flex;
@@ -187,512 +145,1222 @@ margin-top:10px;
     text-align:center;
 }
 
+
+/* Google Identity Services container */
+
 #g_id_signin,
-#googleLoginButton
+#googleLoginButton,
 .google-signin{
     display:flex;
     justify-content:center;
     align-items:center;
     width:100%;
+    min-height:44px;
     margin:20px auto;
 }
 
-#userProfile{
 
-background:#101c35;
+/* Do not hide Google's generated iframe */
 
-padding:20px;
-
-border-radius:15px;
-
-display:inline-block;
-
+#googleLoginButton iframe{
+    max-width:100%;
 }
 
 
+/* ==========================================
+   USER PROFILE
+========================================== */
+
+#userProfile{
+    background:#101c35;
+    padding:20px;
+    border-radius:15px;
+    display:inline-block;
+    box-shadow:0 8px 25px rgba(0,0,0,.25);
+}
 
 #userProfile img{
-
-border-radius:50%;
-
+    width:60px;
+    height:60px;
+    border-radius:50%;
+    object-fit:cover;
 }
 
 
-
-
-
-/* DASHBOARD MENU */
-
+/* ==========================================
+   DASHBOARD MENU
+========================================== */
 
 .dashboard-menu{
-
-display:flex;
-
-justify-content:center;
-
-gap:15px;
-
-flex-wrap:wrap;
-
-padding:20px;
-
+    display:flex;
+    justify-content:center;
+    gap:15px;
+    flex-wrap:wrap;
+    padding:20px;
 }
 
 
+/* ==========================================
+   BUTTONS
+========================================== */
 
 button{
     display:inline-flex;
     justify-content:center;
     align-items:center;
-background:#008cff;
-
-border:none;
-
-color:white;
-
-padding:12px 20px;
-
-border-radius:10px;
-
-cursor:pointer;
-
-font-weight:500;
-
+    background:#008cff;
+    border:none;
+    color:white;
+    padding:12px 20px;
+    border-radius:10px;
+    cursor:pointer;
+    font-weight:500;
+    transition:
+        background .2s ease,
+        transform .2s ease,
+        box-shadow .2s ease;
 }
-
-
 
 button:hover{
+    background:#00c6ff;
+    transform:translateY(-1px);
+    box-shadow:0 5px 15px rgba(0,198,255,.2);
+}
 
-background:#00c6ff;
-
+button:active{
+    transform:translateY(0);
 }
 
 
-
-
-
-/* CONTAINERS */
-
+/* ==========================================
+   MAIN CONTAINERS
+========================================== */
 
 .box{
-
-background:#101a31;
-
-margin:20px auto;
-
-padding:25px;
-
-    width:min(90%,1000px);
-
-max-width:900px;
-
-border-radius:18px;
-
-box-shadow:0 10px 25px rgba(0,0,0,.3);
-
+    background:#101a31;
+    margin:20px auto;
+    padding:25px;
+    width:min(90%,1100px);
+    max-width:1100px;
+    border-radius:18px;
+    box-shadow:0 10px 25px rgba(0,0,0,.3);
 }
-
-
-
-
 
 .box h2{
-
-margin-bottom:20px;
-
-color:#00c6ff;
-
+    margin-bottom:20px;
+    color:#00c6ff;
 }
 
 
-
-
-
-/* FORM */
-
+/* ==========================================
+   FORM ELEMENTS
+========================================== */
 
 input,
-textarea{
-
-
-width:100%;
-
-padding:12px;
-
-margin:8px 0;
-
-background:#071226;
-
-border:1px solid #29456d;
-
-color:white;
-
-border-radius:8px;
-
+textarea,
+select{
+    width:100%;
+    padding:12px;
+    margin:8px 0;
+    background:#071226;
+    border:1px solid #29456d;
+    color:white;
+    border-radius:8px;
+    outline:none;
+    transition:border-color .2s ease;
 }
 
-
+input:focus,
+textarea:focus,
+select:focus{
+    border-color:#00c6ff;
+}
 
 textarea{
+    height:120px;
+    resize:vertical;
+}
 
-height:120px;
+select{
+    cursor:pointer;
+}
 
-resize:none;
-
+select option{
+    background:#071226;
+    color:white;
 }
 
 
-
-
-
-/* TIMELINE */
-
-
-#timeline{
-
-display:grid;
-
-grid-template-columns:repeat(auto-fit,minmax(320px,1fr));
-gap:20px;
-
-}
-
-
-
-
-
-.timeline-post{
-
-
-background:#081326;
-
-padding:20px;
-
-border-radius:15px;
-
-overflow:hidden;
-
-}
-
-
-
-.timeline-post img{
-
-
-width:100%;
-
-height:200px;
-
-object-fit:cover;
-
-border-radius:12px;
-
-}
-
-
-
-
-.timeline-post h3{
-
-margin-top:15px;
-
-color:#00c6ff;
-
-}
-
-
-
-.timeline-post p{
-
-margin:10px 0;
-
-color:#ddd;
-
-}
-
-
-
-
-
-/* COMMENTS */
-
-
-#comments{
-
-margin-bottom:20px;
-
-}
-
-
-
-.comment{
-
-background:#081326;
-
-padding:15px;
-
-margin:10px 0;
-
-border-radius:10px;
-
-}
-
-
-
-
-
-/* ADMIN */
-
-
-#adminPanel{
-
-border:1px solid #00aaff;
-
-}
-
-
-
-#adminLoginBox{
-
-border:1px solid #334;
-
-}
-
-
-
-
-
-.admin-card{
-
-background:#071226;
-
-padding:15px;
-
-margin:10px 0;
-
-border-radius:10px;
-
-}
-
-
-/* ADMIN STATISTICS */
-
-.stats{
-
-display:grid;
-
-grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
-
-gap:15px;
-
-}
-
-
-.stat-card{
-
-background:#071226;
-
-padding:20px;
-
-border-radius:15px;
-
-text-align:center;
-
-}
-
-
-.stat-card span{
-
-font-size:32px;
-
-color:#00f7ff;
-
-font-weight:bold;
-
-}
-
-
-
-
-/* TABLE */
-
-
-table{
-
-width:100%;
-
-border-collapse:collapse;
-
-}
-
-
-
-th,
-td{
-
-padding:12px;
-
-border-bottom:1px solid #333;
-
-text-align:left;
-
-}
-
-
-
-th{
-
-color:#00c6ff;
-
-}
-
-
-
-
-
-
-
-
-/* FOOTER */
-
+/* ==========================================
+   FOOTER
+========================================== */
 
 footer{
+    text-align:center;
+    padding:25px;
+    background:#081326;
+    margin-top:40px;
+    color:#aaa;
+}
 
-text-align:center;
+/* ==========================================
+   LINKTECH CUSTOMER SUPPORT PORTAL
+   HOME.CSS
+   PART 2/4
+   ADMIN DASHBOARD + FILTERS + STATUS
+========================================== */
 
-padding:25px;
 
-background:#081326;
+/* ==========================================
+   ADMIN PANEL
+========================================== */
 
-margin-top:40px;
+#adminPanel{
+    border:1px solid #00aaff;
+    width:min(95%,1200px);
+    max-width:1200px;
+}
 
-color:#aaa;
+#adminLoginBox{
+    border:1px solid #334;
+}
+
+
+/* ==========================================
+   ADMIN CARD
+========================================== */
+
+.admin-card{
+    background:#071226;
+    padding:15px;
+    margin:10px 0;
+    border-radius:10px;
+}
+
+
+/* ==========================================
+   ADMIN STATISTICS
+========================================== */
+
+.stats{
+    display:grid;
+    grid-template-columns:
+        repeat(auto-fit,minmax(180px,1fr));
+    gap:15px;
+    margin-bottom:25px;
+}
+
+.stat-card{
+    background:#071226;
+    padding:20px;
+    border-radius:15px;
+    text-align:center;
+    border:1px solid #1b3150;
+    transition:.2s ease;
+}
+
+.stat-card:hover{
+    transform:translateY(-2px);
+    border-color:#00aaff;
+}
+
+.stat-card span{
+    display:block;
+    font-size:32px;
+    color:#00f7ff;
+    font-weight:bold;
+    margin-top:5px;
+}
+
+
+/* ==========================================
+   ADMIN FILTER AREA
+========================================== */
+
+.admin-filters{
+    display:grid;
+    grid-template-columns:
+        repeat(auto-fit,minmax(180px,1fr));
+    gap:12px;
+    margin:20px 0;
+    padding:18px;
+    background:#071226;
+    border:1px solid #1d3555;
+    border-radius:14px;
+}
+
+.admin-filter-group{
+    display:flex;
+    flex-direction:column;
+    gap:6px;
+}
+
+.admin-filter-group label{
+    font-size:13px;
+    color:#a9c8e8;
+    font-weight:500;
+}
+
+.admin-filter-group select,
+.admin-filter-group input{
+    margin:0;
+}
+
+
+/* ==========================================
+   FILTER BUTTONS
+========================================== */
+
+.filter-buttons{
+    display:flex;
+    gap:8px;
+    flex-wrap:wrap;
+    margin:15px 0;
+}
+
+.filter-buttons button{
+    padding:9px 14px;
+    font-size:13px;
+}
+
+.filter-buttons button.active{
+    background:#00c6ff;
+    color:#00111c;
+    font-weight:600;
+}
+
+
+/* ==========================================
+   NEW CONCERN INDICATOR
+========================================== */
+
+.new-concern{
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    padding:4px 8px;
+    border-radius:20px;
+    background:#ff3b3b;
+    color:white;
+    font-size:11px;
+    font-weight:700;
+    margin-left:6px;
+    white-space:nowrap;
+}
+
+.new-concern-count{
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    min-width:28px;
+    height:28px;
+    padding:0 8px;
+    background:#ff3b3b;
+    color:white;
+    border-radius:20px;
+    font-size:12px;
+    font-weight:700;
+}
+
+
+/* ==========================================
+   STATUS BADGES
+========================================== */
+
+.status-badge,
+.status-pending,
+.status-processing,
+.status-completed,
+.status-aborted,
+.status-unknown{
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    min-width:90px;
+    padding:5px 10px;
+    border-radius:20px;
+    font-size:12px;
+    font-weight:600;
+    white-space:nowrap;
+}
+
+
+/* Pending */
+
+.status-pending{
+    background:rgba(255,193,7,.15);
+    color:#ffc107;
+    border:1px solid rgba(255,193,7,.4);
+}
+
+
+/* Processing */
+
+.status-processing{
+    background:rgba(0,174,255,.15);
+    color:#00c6ff;
+    border:1px solid rgba(0,198,255,.4);
+}
+
+
+/* Completed */
+
+.status-completed{
+    background:rgba(0,200,120,.15);
+    color:#00d084;
+    border:1px solid rgba(0,208,132,.4);
+}
+
+
+/* Aborted */
+
+.status-aborted{
+    background:rgba(255,70,70,.15);
+    color:#ff5c5c;
+    border:1px solid rgba(255,92,92,.4);
+}
+
+
+/* Unknown */
+
+.status-unknown{
+    background:rgba(150,150,150,.15);
+    color:#aaa;
+    border:1px solid #555;
+}
+
+
+/* ==========================================
+   ADMIN CONCERN HEADER
+========================================== */
+
+.admin-concerns-header{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:15px;
+    flex-wrap:wrap;
+    margin-bottom:15px;
+}
+
+.admin-concerns-header h2{
+    margin:0;
+}
+
+
+/* ==========================================
+   CONCERN TABLE WRAPPER
+========================================== */
+
+.admin-table-wrapper{
+    width:100%;
+    overflow-x:auto;
+    overflow-y:hidden;
+    border:1px solid #1c3555;
+    border-radius:12px;
+    background:#071226;
+}
+
+
+/* ==========================================
+   ADMIN CONCERN TABLE
+========================================== */
+
+.admin-concern-table{
+    width:100%;
+    min-width:1000px;
+    border-collapse:collapse;
+    table-layout:auto;
+}
+
+.admin-concern-table th,
+.admin-concern-table td{
+    padding:12px 14px;
+    border-bottom:1px solid #24344c;
+    text-align:left;
+    vertical-align:middle;
+}
+
+.admin-concern-table th{
+    background:#0b1d36;
+    color:#00c6ff;
+    font-size:13px;
+    font-weight:600;
+    position:sticky;
+    top:0;
+    z-index:2;
+}
+
+.admin-concern-table td{
+    color:#e5edf7;
+    font-size:13px;
+}
+
+.admin-concern-table tbody tr{
+    transition:background .2s ease;
+}
+
+.admin-concern-table tbody tr:hover{
+    background:#0c1d35;
+}
+
+
+/* ==========================================
+   TABLE COLUMN WIDTHS
+========================================== */
+
+.admin-concern-table .col-id{
+    min-width:150px;
+}
+
+.admin-concern-table .col-customer{
+    min-width:160px;
+}
+
+.admin-concern-table .col-category{
+    min-width:140px;
+}
+
+.admin-concern-table .col-problem{
+    min-width:240px;
+    max-width:350px;
+}
+
+.admin-concern-table .col-date{
+    min-width:150px;
+}
+
+.admin-concern-table .col-status{
+    min-width:120px;
+}
+
+.admin-concern-table .col-action{
+    min-width:190px;
+}
+
+
+/* ==========================================
+   TABLE PROBLEM TEXT
+========================================== */
+
+.problem-cell{
+    max-width:350px;
+    white-space:normal;
+    word-break:break-word;
+    line-height:1.5;
+}
+
+
+/* ==========================================
+   ADMIN ACTION BUTTONS
+========================================== */
+
+.admin-action-buttons{
+    display:flex;
+    gap:6px;
+    flex-wrap:wrap;
+}
+
+.admin-action-buttons button{
+    padding:7px 10px;
+    font-size:11px;
+    border-radius:7px;
+}
+
+.admin-action-buttons .pending-btn{
+    background:#9a7200;
+}
+
+.admin-action-buttons .processing-btn{
+    background:#0077a8;
+}
+
+.admin-action-buttons .completed-btn{
+    background:#007c51;
+}
+
+.admin-action-buttons .aborted-btn{
+    background:#8e2929;
+}
+
+
+/* ==========================================
+   EMPTY STATE
+========================================== */
+
+.no-concerns{
+    padding:40px 20px;
+    text-align:center;
+    color:#8fa5bd;
+}
+
+.error-message{
+    padding:20px;
+    text-align:center;
+    color:#ff6b6b;
+}
+
+
+/* ==========================================
+   ADMIN REQUEST LEGACY SUPPORT
+========================================== */
+
+.admin-request{
+    background:#071226;
+    padding:15px;
+    margin:10px 0;
+    border-radius:10px;
+    border:1px solid #1b3150;
+}
+
+.admin-request-header{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:10px;
+    margin-bottom:12px;
+}
+
+.admin-request-header h3{
+    color:#00c6ff;
+}
+
+.admin-request-info{
+    line-height:1.6;
+}
+
+.admin-request-actions{
+    display:flex;
+    flex-wrap:wrap;
+    gap:8px;
+    margin-top:15px;
+}
+
+/* ==========================================
+   LINKTECH CUSTOMER SUPPORT PORTAL
+   HOME.CSS
+   PART 3/4
+   TIMELINE + COMMENTS + MODAL
+========================================== */
+
+
+/* ==========================================
+   TIMELINE CONTAINER
+========================================== */
+
+#timeline{
+    display:grid;
+    grid-template-columns:
+        repeat(auto-fit,minmax(300px,1fr));
+    gap:20px;
+    width:100%;
+}
+
+
+/* ==========================================
+   TIMELINE POST
+========================================== */
+
+.timeline-post{
+    background:#081326;
+    padding:20px;
+    border-radius:15px;
+    overflow:hidden;
+    border:1px solid #172c48;
+    box-shadow:0 8px 20px rgba(0,0,0,.2);
+    transition:
+        transform .2s ease,
+        border-color .2s ease;
+}
+
+.timeline-post:hover{
+    transform:translateY(-3px);
+    border-color:#00aaff;
+}
+
+
+/* ==========================================
+   TIMELINE IMAGE
+========================================== */
+
+.timeline-post img{
+    width:100%;
+    height:200px;
+    object-fit:cover;
+    border-radius:12px;
+    display:block;
+    background:#050a19;
+}
+
+
+/* ==========================================
+   TIMELINE TITLE
+========================================== */
+
+.timeline-post h3{
+    margin-top:15px;
+    color:#00c6ff;
+    font-size:20px;
+}
+
+
+/* ==========================================
+   TIMELINE TEXT
+========================================== */
+
+.timeline-post p{
+    margin:10px 0;
+    color:#ddd;
+    line-height:1.6;
+}
+
+
+/* ==========================================
+   TIMELINE DATE
+========================================== */
+
+.timeline-date{
+    font-size:12px;
+    color:#7f9bb8;
+}
+
+
+/* ==========================================
+   TIMELINE ADMIN CONTROLS
+========================================== */
+
+.timeline-admin-actions{
+    display:flex;
+    gap:8px;
+    flex-wrap:wrap;
+    margin-top:15px;
+    padding-top:12px;
+    border-top:1px solid #223650;
+}
+
+.timeline-admin-actions button{
+    padding:8px 12px;
+    font-size:12px;
+}
+
+
+/* ==========================================
+   TIMELINE VIEW BUTTON
+========================================== */
+
+.timeline-view-btn{
+    width:auto;
+    margin-top:10px;
+    background:#0077c8;
+}
+
+.timeline-view-btn:hover{
+    background:#00b8ff;
+}
+
+
+/* ==========================================
+   TIMELINE EMPTY STATE
+========================================== */
+
+.timeline-empty{
+    grid-column:1/-1;
+    text-align:center;
+    padding:40px 20px;
+    color:#8fa5bd;
+}
+
+
+/* ==========================================
+   TIMELINE LOADING
+========================================== */
+
+.timeline-loading{
+    grid-column:1/-1;
+    text-align:center;
+    padding:30px;
+    color:#00c6ff;
+}
+
+
+/* ==========================================
+   TIMELINE MODAL OVERLAY
+========================================== */
+
+.timeline-modal,
+#timelineModal,
+.modal{
+    position:fixed;
+    inset:0;
+    width:100%;
+    height:100%;
+    background:rgba(0,0,0,.78);
+    display:none;
+    align-items:center;
+    justify-content:center;
+    padding:20px;
+    z-index:9999;
+}
+
+
+/* ==========================================
+   SHOW MODAL
+========================================== */
+
+.timeline-modal.show,
+#timelineModal.show,
+.modal.show{
+    display:flex;
+}
+
+
+/* ==========================================
+   MODAL CONTENT
+========================================== */
+
+.timeline-modal-content,
+#timelineModal .modal-content,
+.modal-content{
+    width:min(95%,750px);
+    max-height:90vh;
+    overflow-y:auto;
+    background:#101a31;
+    border:1px solid #00aaff;
+    border-radius:18px;
+    padding:25px;
+    position:relative;
+    box-shadow:0 15px 50px rgba(0,0,0,.5);
+}
+
+
+/* ==========================================
+   MODAL CLOSE
+========================================== */
+
+.modal-close,
+.timeline-modal-close,
+#timelineModal .close{
+    position:absolute;
+    top:12px;
+    right:15px;
+    width:38px;
+    height:38px;
+    border-radius:50%;
+    padding:0;
+    background:#182b46;
+    color:white;
+    font-size:22px;
+    line-height:1;
+}
+
+.modal-close:hover,
+.timeline-modal-close:hover,
+#timelineModal .close:hover{
+    background:#ff3b3b;
+}
+
+
+/* ==========================================
+   MODAL IMAGE
+========================================== */
+
+.timeline-modal-content img,
+#timelineModal img,
+.modal-content img{
+    width:100%;
+    max-height:400px;
+    object-fit:contain;
+    border-radius:12px;
+    margin-bottom:15px;
+}
+
+
+/* ==========================================
+   MODAL TITLE
+========================================== */
+
+.timeline-modal-content h2,
+#timelineModal h2,
+.modal-content h2{
+    color:#00c6ff;
+    margin-bottom:10px;
+}
+
+
+/* ==========================================
+   MODAL DESCRIPTION
+========================================== */
+
+.timeline-modal-content p,
+#timelineModal p,
+.modal-content p{
+    color:#ddd;
+    line-height:1.7;
+    margin:10px 0;
+}
+
+
+/* ==========================================
+   COMMENTS
+========================================== */
+
+#comments{
+    margin-bottom:20px;
+}
+
+.comment{
+    background:#081326;
+    padding:15px;
+    margin:10px 0;
+    border-radius:10px;
+    border:1px solid #172c48;
+}
+
+.comment strong{
+    color:#00c6ff;
+}
+
+.comment-date{
+    color:#7188a2;
+    font-size:11px;
+    margin-top:5px;
+}
+
+
+/* ==========================================
+   COMMENT LIST
+========================================== */
+
+#commentList{
+    margin-top:15px;
+}
+
+#commentList:empty{
+    display:none;
+}
+
+
+/* ==========================================
+   TIMELINE RESPONSIVE GRID
+========================================== */
+
+@media(max-width:700px){
+
+    #timeline{
+        grid-template-columns:1fr;
+    }
+
+    .timeline-post{
+        padding:15px;
+    }
+
+    .timeline-post img{
+        height:180px;
+    }
+
+    .timeline-modal-content,
+    #timelineModal .modal-content,
+    .modal-content{
+        padding:18px;
+        width:96%;
+    }
+
+}
+
+/* ==========================================
+   LINKTECH CUSTOMER SUPPORT PORTAL
+   HOME.CSS
+   PART 4/4
+   RESPONSIVE + MOBILE
+========================================== */
+
+
+/* ==========================================
+   TABLET
+========================================== */
+
+@media(max-width:900px){
+
+    .box{
+        width:94%;
+        padding:20px;
+    }
+
+    #adminPanel{
+        width:95%;
+    }
+
+    .admin-concern-table{
+        min-width:950px;
+    }
+
+    .stats{
+        grid-template-columns:
+            repeat(2,1fr);
+    }
 
 }
 
 
-
-
-
-
-
-
-/* ==============================
-   MOBILE RESPONSIVE
-============================== */
-
+/* ==========================================
+   MOBILE
+========================================== */
 
 @media(max-width:768px){
 
+    header{
+        flex-direction:column;
+        gap:15px;
+        padding:12px 4%;
+    }
+
+    nav{
+        justify-content:center;
+        width:100%;
+    }
+
+    nav a{
+        font-size:13px;
+        padding:7px 9px;
+    }
 
 
-header{
+    .hero{
+        padding:45px 15px;
+    }
 
-flex-direction:column;
+    .hero h1{
+        font-size:30px;
+    }
 
-gap:15px;
+    .hero h2{
+        font-size:18px;
+    }
+
+
+    .box{
+        width:95%;
+        padding:18px;
+    }
+
+
+    .dashboard-menu{
+        flex-direction:column;
+        padding:15px;
+    }
+
+    .dashboard-menu button{
+        width:100%;
+    }
+
+
+    button{
+        min-height:42px;
+    }
+
+
+    /* Admin filters */
+
+    .admin-filters{
+        grid-template-columns:1fr;
+    }
+
+
+    /* Statistics */
+
+    .stats{
+        grid-template-columns:
+            repeat(2,1fr);
+        gap:10px;
+    }
+
+    .stat-card{
+        padding:15px 10px;
+    }
+
+    .stat-card span{
+        font-size:25px;
+    }
+
+
+    /* Admin table */
+
+    .admin-table-wrapper{
+        margin-left:0;
+        margin-right:0;
+        border-radius:10px;
+    }
+
+    .admin-concern-table{
+        min-width:950px;
+    }
+
+
+    /* Timeline */
+
+    #timeline{
+        grid-template-columns:1fr;
+    }
+
+
+    .timeline-card img{
+        height:180px;
+    }
+
+
+    .timeline-post img{
+        height:180px;
+    }
+
+
+    /* Modal */
+
+    .timeline-modal,
+    #timelineModal,
+    .modal{
+        padding:10px;
+    }
 
 }
 
 
-
-nav{
-
-justify-content:center;
-
-}
-
-
-
-.hero h1{
-
-font-size:30px;
-
-}
-
-
-
-.hero h2{
-
-font-size:18px;
-
-}
-
-
-
-.box{
-
-width:95%;
-
-padding:18px;
-
-}
-
-
-
-.dashboard-menu button{
-
-
-width:100%;
-
-
-}
-
-
-
-.timeline-card img{
-
-height:180px;
-
-}
-
-
-
-}
-
-
-
-
-/* SMALL PHONE */
-
+/* ==========================================
+   SMALL PHONE
+========================================== */
 
 @media(max-width:480px){
 
+    .logo{
+        font-size:18px;
+    }
+
+    .logo img{
+        width:38px;
+        height:38px;
+    }
 
 
-.logo{
+    nav{
+        gap:5px;
+    }
 
-font-size:18px;
+    nav a{
+        font-size:12px;
+        padding:6px 8px;
+    }
+
+
+    .hero{
+        padding:40px 15px;
+    }
+
+    .hero h1{
+        font-size:26px;
+    }
+
+    .hero h2{
+        font-size:16px;
+    }
+
+
+    .box{
+        width:96%;
+        padding:15px;
+        border-radius:13px;
+    }
+
+
+    button{
+        width:100%;
+    }
+
+
+    .stats{
+        grid-template-columns:1fr 1fr;
+    }
+
+
+    .stat-card{
+        padding:12px 7px;
+    }
+
+
+    .stat-card span{
+        font-size:22px;
+    }
+
+
+    .filter-buttons{
+        flex-direction:column;
+    }
+
+    .filter-buttons button{
+        width:100%;
+    }
+
+
+    .admin-request-header{
+        flex-direction:column;
+        align-items:flex-start;
+    }
+
+
+    .timeline-post{
+        padding:14px;
+    }
+
+
+    .timeline-post h3{
+        font-size:18px;
+    }
+
+
+    .timeline-modal-content,
+    #timelineModal .modal-content,
+    .modal-content{
+        width:98%;
+        padding:15px;
+        border-radius:14px;
+    }
+
+
+    .timeline-modal-content img,
+    #timelineModal img,
+    .modal-content img{
+        max-height:280px;
+    }
 
 }
 
 
+/* ==========================================
+   ACCESSIBILITY / SELECTION
+========================================== */
 
-nav a{
-
-font-size:12px;
-
-padding:6px;
-
+::selection{
+    background:#00aaff;
+    color:white;
 }
 
 
+/* ==========================================
+   SCROLLBAR
+========================================== */
 
-.hero{
-
-padding:40px 15px;
-
+::-webkit-scrollbar{
+    width:8px;
+    height:8px;
 }
 
-
-
-button{
-
-width:100%;
-
+::-webkit-scrollbar-track{
+    background:#050a19;
 }
 
+::-webkit-scrollbar-thumb{
+    background:#1b4165;
+    border-radius:10px;
+}
 
-
+::-webkit-scrollbar-thumb:hover{
+    background:#00aaff;
 }
