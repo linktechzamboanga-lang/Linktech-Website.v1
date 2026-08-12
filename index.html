@@ -5,32 +5,32 @@
 
 <meta charset="UTF-8">
 
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0">
 
 <title>
 LinkTech Customer Support Portal
 </title>
 
+<link rel="icon"
+      href="images/LinkTech-logo.png">
 
-<link rel="icon" href="images/LinkTech-logo.png">
+<link rel="stylesheet"
+      href="css/home.css">
 
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet">
 
-<link rel="stylesheet" href="css/home.css">
+<!-- Google Identity Services -->
+<script src="https://accounts.google.com/gsi/client"
+        async
+        defer></script>
 
-
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-
-
-<!-- Google Identity Service -->
-<script src="https://accounts.google.com/gsi/client" async defer></script>
-
-
-<meta name="theme-color" content="#050a19">
-
+<meta name="theme-color"
+      content="#050a19">
 
 <meta name="description"
-content="LinkTech Customer Support Portal - Freelance IT Specialist Zamboanga">
-
+      content="LinkTech Customer Support Portal - Freelance IT Specialist Zamboanga">
 
 </head>
 
@@ -38,673 +38,842 @@ content="LinkTech Customer Support Portal - Freelance IT Specialist Zamboanga">
 <body>
 
 
+<!-- ==========================================
+     HEADER
+========================================== -->
+
 <header>
 
+    <div class="logo">
 
-<div class="logo">
+        <img
+            src="images/LinkTech-logo.png"
+            alt="LinkTech Logo">
 
-<img src="images/LinkTech-logo.png"
-alt="LinkTech Logo">
+        <b>
+            LinkTech
+        </b>
 
-<b>
-LinkTech
-</b>
-
-</div>
-
-
-<nav>
-
-<a href="index.html">
-Customer Support
-</a>
+    </div>
 
 
-<a href="download.html">
-Download
-</a>
+    <nav>
 
+        <a href="index.html">
+            Customer Support
+        </a>
 
-<a href="services.html">
-Services
-</a>
+        <a href="download.html">
+            Download
+        </a>
 
+        <a href="services.html">
+            Services
+        </a>
 
-<a href="it-portal.html">
-IT Portal
-</a>
+        <a href="it-portal.html">
+            IT Portal
+        </a>
 
+        <a href="about.html">
+            About
+        </a>
 
-<a href="about.html">
-About
-</a>
-
-</nav>
-
+    </nav>
 
 </header>
 
 
 
-
-<!-- HERO SECTION -->
-
+<!-- ==========================================
+     HERO
+========================================== -->
 
 <section class="hero">
 
+    <h1>
+        Customer Support Portal
+    </h1>
 
-<h1>
-Customer Support Portal
-</h1>
-
-
-<h2>
-Freelance IT Specialist Zamboanga
-</h2>
-
+    <h2>
+        Freelance IT Specialist Zamboanga
+    </h2>
 
 </section>
 
 
-<!-- GOOGLE LOGIN -->
+
+<!-- ==========================================
+     GOOGLE LOGIN
+========================================== -->
 
 <section class="login-section">
 
+    <h2>
+        Sign in with Google to continue
+    </h2>
 
-<h2>
-Sign in with Google to continue
-</h2>
 
-
-<div id="googleLoginButton">
-
-</div>
+    <div id="googleLoginButton"></div>
 
 
 
+    <!-- ======================================
+         USER PROFILE
+    ======================================= -->
 
-<!-- USER PROFILE -->
+    <div id="userProfile"
+         style="display:none;">
 
+        <img
+            id="userImage"
+            src=""
+            width="70"
+            height="70"
+            alt="Profile">
 
-<div id="userProfile"
-style="display:none;">
+        <h3 id="userName"></h3>
 
+        <p id="userEmail"></p>
 
-<img id="userImage"
-src=""
-width="70"
-height="70"
-alt="Profile">
+        <button
+            type="button"
+            onclick="logoutUser()">
 
+            Logout
 
-<h3 id="userName">
+        </button>
 
-</h3>
-
-
-<p id="userEmail">
-
-</p>
-
-
-
-<button onclick="logoutUser()">
-
-Logout
-
-</button>
-
-
-</div>
-
+    </div>
 
 </section>
 
 
 
-
-
-<!-- MAIN DASHBOARD -->
-
+<!-- ==========================================
+     MAIN DASHBOARD
+========================================== -->
 
 <section id="dashboard"
-style="display:none;">
+         style="display:none;">
+
+    <div class="dashboard-menu">
+
+        <button
+            type="button"
+            id="showConcernBtn"
+            onclick="showConcern()">
+
+            🛠 Submit Concern
+
+        </button>
 
 
-<div class="dashboard-menu">
+        <button
+            type="button"
+            id="showRequestsBtn"
+            onclick="showRequests()">
+
+            📋 My Requests
+
+        </button>
 
 
-<button onclick="showConcern()">
+        <button
+            type="button"
+            id="showTimelineBtn"
+            onclick="showTimeline()">
 
-🛠 Submit Concern
+            📰 Timeline
 
-</button>
+        </button>
 
-
-<button onclick="showRequests()">
-
-📋 My Requests
-
-</button>
+    </div>
 
 
-<button onclick="showTimeline()">
 
-📰 Timeline
+    <!-- ======================================
+         CONTENT CONTAINER
+    ======================================= -->
 
-</button>
+    <div id="customerContent">
 
 
-</div>
-<!-- ===================================== -->
-<!-- TERMS & CONDITIONS -->
-<!-- ===================================== -->
+        <!-- =====================================
+             SUBMIT CONCERN
+        ====================================== -->
 
-<section id="concernSection" class="box">
+        <section
+            id="concernSection"
+            class="box"
+            style="display:none;">
 
-<h2>
-Submit IT Concern
-</h2>
+            <h2>
+                Submit IT Concern
+            </h2>
 
-<div class="terms-box">
 
-<h3>
-Terms & Conditions
-</h3>
+            <!-- TERMS -->
 
-<p>
+            <div class="terms-box">
 
-By submitting this concern, you agree that:
+                <h3>
+                    Terms & Conditions
+                </h3>
 
-</p>
+                <p>
+                    By submitting this concern, you agree that:
+                </p>
 
-<ul>
+                <ul>
 
-<li>Your Google account will be used to identify your request.</li>
+                    <li>
+                        Your Google account will be used
+                        to identify your request.
+                    </li>
 
-<li>All information submitted must be accurate.</li>
+                    <li>
+                        All information submitted must
+                        be accurate.
+                    </li>
 
-<li>False, abusive, spam, or duplicate reports may be removed.</li>
+                    <li>
+                        False, abusive, spam, or duplicate
+                        reports may be removed.
+                    </li>
 
-<li>LinkTech may contact you using your provided email or contact number.</li>
+                    <li>
+                        LinkTech may contact you using
+                        your provided email or contact number.
+                    </li>
 
-<li>Your information will only be used for customer support purposes.</li>
+                    <li>
+                        Your information will only be used
+                        for customer support purposes.
+                    </li>
 
-</ul>
+                </ul>
 
-<label class="checkbox">
 
-<input
-type="checkbox"
-id="agreeTerms">
+                <label class="checkbox">
 
-I have read and agree to the Terms & Conditions.
+                    <input
+                        type="checkbox"
+                        id="agreeTerms">
 
-</label>
+                    I have read and agree to the
+                    Terms & Conditions.
 
-</div>
+                </label>
 
-<hr>
+            </div>
 
-<input
-id="name"
-type="text"
-placeholder="Full Name"
-readonly>
 
-<input
-id="email"
-type="email"
-placeholder="Google Email"
-readonly>
+            <hr>
 
-<input
-id="address"
-type="text"
-placeholder="Complete Address">
 
-<input
-id="contact"
-type="text"
-placeholder="Contact Number">
 
-<select id="category">
+            <!-- CUSTOMER NAME -->
 
-<option value="">
-Select Concern Category
-</option>
+            <input
+                id="name"
+                type="text"
+                placeholder="Full Name"
+                readonly>
 
-<option>
-Computer Repair
-</option>
 
-<option>
-Laptop Repair
-</option>
 
-<option>
-Networking
-</option>
+            <!-- CUSTOMER EMAIL -->
 
-<option>
-Printer
-</option>
+            <input
+                id="email"
+                type="email"
+                placeholder="Google Email"
+                readonly>
 
-<option>
-CCTV
-</option>
 
-<option>
-Software Installation
-</option>
 
-<option>
-Internet Connection
-</option>
+            <!-- ADDRESS -->
 
-<option>
-Others
-</option>
+            <input
+                id="address"
+                type="text"
+                placeholder="Complete Address">
 
-</select>
 
-<textarea
-id="problem"
-rows="6"
-placeholder="Describe your concern..."></textarea>
 
-<button
-id="submitConcernBtn"
-onclick="submitConcern()">
+            <!-- CONTACT -->
 
-Submit Concern
+            <input
+                id="contact"
+                type="text"
+                placeholder="Contact Number">
 
-</button>
 
-<p id="concernMessage"></p>
+
+            <!-- CATEGORY -->
+
+            <select id="category">
+
+                <option value="">
+                    Select Concern Category
+                </option>
+
+                <option value="Computer Repair">
+                    Computer Repair
+                </option>
+
+                <option value="Laptop Repair">
+                    Laptop Repair
+                </option>
+
+                <option value="Networking">
+                    Networking
+                </option>
+
+                <option value="Printer">
+                    Printer
+                </option>
+
+                <option value="CCTV">
+                    CCTV
+                </option>
+
+                <option value="Software Installation">
+                    Software Installation
+                </option>
+
+                <option value="Internet Connection">
+                    Internet Connection
+                </option>
+
+                <option value="Others">
+                    Others
+                </option>
+
+            </select>
+
+
+
+            <!-- PROBLEM -->
+
+            <textarea
+                id="problem"
+                rows="6"
+                placeholder="Describe your concern..."></textarea>
+
+
+
+            <!-- SUBMIT -->
+
+            <button
+                type="button"
+                id="submitConcernBtn"
+                onclick="submitConcern()">
+
+                Submit Concern
+
+            </button>
+
+
+
+            <!-- MESSAGE -->
+
+            <p id="concernMessage"></p>
+
+        </section>
+
+
+
+        <!-- =====================================
+             COMMUNITY COMMENTS
+        ====================================== -->
+
+        <section
+            id="commentSection"
+            class="box"
+            style="display:none;">
+
+            <h2>
+                Community Comment
+            </h2>
+
+            <p>
+                Each Google account may post only
+                one comment every 24 hours.
+            </p>
+
+
+            <textarea
+                id="commentText"
+                rows="4"
+                maxlength="500"
+                placeholder="Write your comment..."></textarea>
+
+
+            <button
+                type="button"
+                onclick="submitComment()">
+
+                Post Comment
+
+            </button>
+
+
+            <p
+                id="commentLimitMessage"
+                style="color:red;font-weight:bold;">
+            </p>
+
+
+            <hr>
+
+
+            <div id="commentList">
+
+                <!-- Comments loaded by home.js -->
+
+            </div>
+
+        </section>
+
+
+
+        <!-- =====================================
+             MY REQUESTS
+        ====================================== -->
+
+        <section
+            id="requestSection"
+            class="box"
+            style="display:none;">
+
+            <h2>
+                My Submitted Concerns
+            </h2>
+
+
+            <button
+                type="button"
+                onclick="loadMyRequests()">
+
+                Refresh
+
+            </button>
+
+
+            <div id="myRequests">
+
+                <!-- User requests loaded here -->
+
+            </div>
+
+        </section>
+        
+                <!-- =====================================
+             TIMELINE
+        ====================================== -->
+
+        <section
+            id="timelineSection"
+            class="box"
+            style="display:none;">
+
+            <h2>
+                LinkTech Timeline
+            </h2>
+
+            <p>
+                Latest announcements, completed projects,
+                and technology updates.
+            </p>
+
+
+            <div id="timelineList">
+
+                <!-- Timeline posts loaded by home.js -->
+
+                <div class="timeline-loading"
+                     style="display:none;">
+
+                    Loading timeline...
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- =====================================
+             ADMIN DASHBOARD
+        ====================================== -->
+
+        <section
+            id="adminPanel"
+            class="box"
+            style="display:none;">
+
+            <h2>
+                Admin Dashboard
+            </h2>
+
+
+
+            <!-- ==================================
+                 ADMIN STATISTICS
+            =================================== -->
+
+            <div class="stats">
+
+
+                <div class="stat-card">
+
+                    <h3>
+                        Total Concerns
+                    </h3>
+
+                    <span id="totalConcerns">
+                        0
+                    </span>
+
+                </div>
+
+
+
+                <div class="stat-card">
+
+                    <h3>
+                        Pending
+                    </h3>
+
+                    <span id="pending">
+                        0
+                    </span>
+
+                </div>
+
+
+
+                <div class="stat-card">
+
+                    <h3>
+                        Processing
+                    </h3>
+
+                    <span id="processing">
+                        0
+                    </span>
+
+                </div>
+
+
+
+                <div class="stat-card">
+
+                    <h3>
+                        Completed
+                    </h3>
+
+                    <span id="completed">
+                        0
+                    </span>
+
+                </div>
+
+
+
+                <div class="stat-card">
+
+                    <h3>
+                        Aborted
+                    </h3>
+
+                    <span id="aborted">
+                        0
+                    </span>
+
+                </div>
+
+            </div>
+
+
+
+            <hr>
+
+
+
+            <!-- ==================================
+                 CUSTOMER CONCERN REPORT
+            =================================== -->
+
+            <h3>
+                Customer Concern Reports
+            </h3>
+
+
+            <label for="reportType">
+                Filter Report
+            </label>
+
+
+            <select id="reportType">
+
+                <option value="new">
+                    New Concerns
+                </option>
+
+                <option value="week">
+                    This Week
+                </option>
+
+                <option value="month">
+                    This Month
+                </option>
+
+                <option value="year">
+                    This Year
+                </option>
+
+                <option value="all">
+                    All Records
+                </option>
+
+            </select>
+
+
+
+            <!-- STATUS FILTER -->
+
+            <label for="statusFilter">
+                Status
+            </label>
+
+
+            <select id="statusFilter">
+
+                <option value="all">
+                    All Status
+                </option>
+
+                <option value="Pending">
+                    Pending
+                </option>
+
+                <option value="Processing">
+                    Processing
+                </option>
+
+                <option value="Completed">
+                    Completed
+                </option>
+
+                <option value="Aborted">
+                    Aborted
+                </option>
+
+            </select>
+
+
+
+            <!-- CATEGORY FILTER -->
+
+            <label for="categoryFilter">
+                Concern Category
+            </label>
+
+
+            <select id="categoryFilter">
+
+                <option value="all">
+                    All Categories
+                </option>
+
+                <option value="Computer Repair">
+                    Computer Repair
+                </option>
+
+                <option value="Laptop Repair">
+                    Laptop Repair
+                </option>
+
+                <option value="Networking">
+                    Networking
+                </option>
+
+                <option value="Printer">
+                    Printer
+                </option>
+
+                <option value="CCTV">
+                    CCTV
+                </option>
+
+                <option value="Software Installation">
+                    Software Installation
+                </option>
+
+                <option value="Internet Connection">
+                    Internet Connection
+                </option>
+
+                <option value="Others">
+                    Others
+                </option>
+
+            </select>
+
+
+
+            <div class="admin-toolbar">
+
+                <button
+                    type="button"
+                    onclick="loadAdminData()">
+
+                    🔄 Refresh
+
+                </button>
+
+
+                <button
+                    type="button"
+                    onclick="printReport()">
+
+                    🖨 Print
+
+                </button>
+
+
+                <button
+                    type="button"
+                    onclick="downloadCSV()">
+
+                    📊 Download CSV
+
+                </button>
+
+            </div>
+
+
+
+            <hr>
+
+
+
+            <!-- ==================================
+                 CUSTOMER CONCERNS
+            =================================== -->
+
+            <div
+                id="adminConcerns">
+
+                <!--
+                    Admin concern table/cards
+                    loaded by home.js
+                -->
+
+            </div>
+
+        </section>
+
+
+
+        <!-- =====================================
+             TIMELINE ADMIN MANAGEMENT
+        ====================================== -->
+
+        <section
+            id="timelineAdmin"
+            class="box"
+            style="display:none;">
+
+            <h2>
+                Timeline Management
+            </h2>
+
+
+
+            <h3>
+                Create Timeline Post
+            </h3>
+
+
+            <input
+                id="postTitle"
+                type="text"
+                placeholder="Post Title">
+
+
+
+            <textarea
+                id="postCaption"
+                rows="5"
+                placeholder="Write your caption..."></textarea>
+
+
+
+            <input
+                id="postImage"
+                type="url"
+                placeholder="Image URL (optional)">
+
+
+
+            <button
+                type="button"
+                onclick="createPost()">
+
+                Publish Post
+
+            </button>
+
+
+
+            <hr>
+
+
+
+            <h3>
+                Manage Timeline
+            </h3>
+
+
+            <div id="adminTimelineList">
+
+                <!-- Admin timeline posts -->
+
+            </div>
+
+        </section>
+
+
+    </div>
 
 </section>
 
-
-
-<!-- ===================================== -->
-<!-- USER COMMENT -->
-<!-- ===================================== -->
-
-<section
-id="commentSection"
-class="box">
-
-<h2>
-
-Community Comment
-
-</h2>
-
-<p>
-
-Each Google account may post only one comment every 24 hours.
-
-</p>
-
-<textarea
-id="commentText"
-rows="4"
-maxlength="500"
-placeholder="Write your comment..."></textarea>
-
-<button
-onclick="submitComment()">
-
-Post Comment
-
-</button>
-
-<p
-id="commentLimitMessage"
-style="color:red;font-weight:bold;">
-
-</p>
-
-<hr>
-
-<div id="commentList">
-
-<!-- Comments loaded here -->
-
-</div>
-
-</section>
-
-<!-- ===================================== -->
-<!-- MY REQUESTS -->
-<!-- ===================================== -->
-
-<section
-id="requestSection"
-class="box"
-style="display:none;">
-
-<h2>
-
-My Submitted Concerns
-
-</h2>
-
-<button onclick="loadMyRequests()">
-Refresh
-</button>
-
-<div id="myRequests">
-
-<!-- User requests will be loaded here -->
-
-</div>
-
-</section>
-
-
-
-<!-- ===================================== -->
-<!-- TIMELINE -->
-<!-- ===================================== -->
-
-<section
-id="timelineSection"
-class="box"
-style="display:none;">
-
-<h2>
-
-LinkTech Timeline
-
-</h2>
-
-<p>
-
-Latest announcements, completed projects, and technology updates.
-
-</p>
-
-<div id="timelineList">
-
-<!-- Timeline posts will be loaded here -->
-
-<!-- Example Post Template
-
-<div class="timeline-post">
-
-<div class="timeline-image">
-
-<img
-src=""
-alt="Timeline Image">
-
-</div>
-
-<div class="timeline-content">
-
-<h3>
-Post Title
-</h3>
-
-<p>
-Caption goes here...
-</p>
-
-<small>
-
-Posted by LinkTech
-
-</small>
-
-<br><br>
-
-<button onclick="toggleComments('POST_ID')">
-
-💬 Comments
-
-</button>
-
-<span>
-
-❤️
-<span id="likeCount_POST_ID">
-
-0
-
-</span>
-
-</span>
-
-<div
-id="comments_POST_ID"
-style="display:none;">
-
-<div class="timeline-comments">
-
-</div>
-
-<textarea
-id="comment_POST_ID"
-placeholder="Write a comment..."></textarea>
-
-<button
-onclick="submitTimelineComment('POST_ID')">
-
-Post Comment
-
-</button>
-
-</div>
-
-</div>
-
-</div>
-
--->
-
-</div>
-
-</section>
-
-<!-- ===================================== -->
-<!-- ADMIN DASHBOARD -->
-<!-- Automatically shown only if the signed-in
-     Google account is an Admin -->
-<!-- ===================================== -->
-
-<section
-id="adminPanel"
-class="box"
-style="display:none;">
-
-<h2>
-
-Admin Dashboard
-
-</h2>
-
-<div class="stats">
-
-<div class="stat-card">
-<h3>Total Concerns</h3>
-<span id="totalConcerns">0</span>
-</div>
-
-<div class="stat-card">
-<h3>Pending</h3>
-<span id="pending">0</span>
-</div>
-
-<div class="stat-card">
-<h3>Completed</h3>
-<span id="completed">0</span>
-</div>
-
-</div>
-
-<hr>
-
-<h3>
-
-Customer Concern Reports
-
-</h3>
-
-<label>
-
-Filter Report
-
-</label>
-
-<select id="reportType">
-
-<option value="week">
-This Week
-</option>
-
-<option value="month">
-This Month
-</option>
-
-<option value="year">
-This Year
-</option>
-
-<option value="all">
-All Records
-</option>
-
-</select>
-
-<button onclick="loadAdminData()">
-
-Refresh
-
-</button>
-
-<button onclick="printReport()">
-
-🖨 Print
-
-</button>
-
-<button onclick="printReport()">
-
-📄 Print / Save PDF
-
-</button>
-
-<button onclick="downloadCSV()">
-
-📊 Download CSV
-
-</button>
-
-<hr>
-
-<div id="adminConcerns">
-
-<!-- Customer concerns -->
-
-</div>
-
-</section>
-
-
-
-<!-- ===================================== -->
-<!-- TIMELINE MANAGEMENT -->
-<!-- Admin Only -->
-<!-- ===================================== -->
-
-<section
-id="timelineAdmin"
-class="box"
-style="display:none;">
-
-<h2>
-
-Create Timeline Post
-
-</h2>
-
-<input
-id="postTitle"
-type="text"
-placeholder="Post Title">
-
-<textarea
-id="postCaption"
-rows="5"
-placeholder="Write your caption..."></textarea>
-
-<input
-id="postImage"
-type="file"
-accept="image/*">
-
-<button onclick="createPost()">
-
-Publish Post
-
-</button>
-
-<hr>
-
-<h3>
-
-Manage Timeline
-
-</h3>
-
-<div id="adminTimelineList">
-
-<!-- Timeline posts -->
-
-<!--
-Each post should display:
-
-Image
-
-Title
-
-Caption
-
-Edit Button
-
-Delete Button
-
--->
-
-</div>
-
-</section>
-
-
-
-<!-- ===================================== -->
-<!-- FOOTER -->
-<!-- ===================================== -->
+<!-- ==========================================
+     FOOTER
+========================================== -->
 
 <footer>
 
-<p>
-
-© 2026 LinkTech Freelance IT Specialist Zamboanga
-
-</p>
+    <p>
+        © 2026 LinkTech Freelance IT Specialist
+        Zamboanga
+    </p>
 
 </footer>
 
 
 
-<!-- ===================================== -->
-<!-- JAVASCRIPT -->
-<!-- ===================================== -->
+<!-- ==========================================
+     JAVASCRIPT
+========================================== -->
 
 <script src="js/home.js"></script>
+
 
 </body>
 
