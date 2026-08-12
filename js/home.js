@@ -19,7 +19,7 @@ const GOOGLE_CLIENT_ID =
 // ==========================================
 
 const API_URL =
-"https://script.google.com/macros/s/AKfycbwTMkv0ch-JeM7cePjY-Qb0mWnG8nlKE2SbjJ_9L5aCsAbKSZaoWuHaoLlA0KCk4mhP/exec";
+"https://script.google.com/macros/s/AKfycbxzvfGPnBsZje_wElmPfXTitSs3Id5zU8h73yK9e_gXn-z8eHa4e8ye9jfOPLY6K5PS/exec";
 
 
 
@@ -957,270 +957,292 @@ function escapeHTML(value){
 // SUBMIT CUSTOMER CONCERN
 // ==========================================
 
-function submitConcern(){
+function submitConcern(data) {
 
-    if(!requireLogin()){
+    try {
 
-        return;
-
-    }
-
-
-    const agree =
-        document.getElementById(
-            "agreeTerms"
-        );
+        if (!data) {
+            return {
+                success: false,
+                message: "No concern data received."
+            };
+        }
 
 
-    if(
-        agree &&
-        !agree.checked
-    ){
-
-        alert(
-            "Please agree to the Terms & Conditions."
-        );
-
-        return;
-
-    }
+        const email =
+            String(data.email || "")
+            .trim()
+            .toLowerCase();
 
 
-    const name =
-        getValue("name");
-
-    const email =
-        getValue("email") ||
-        currentUser.email;
-
-    const address =
-        getValue("address");
-
-    const contact =
-        getValue("contact");
-
-    const category =
-        getValue("category");
-
-    const problem =
-        getValue("problem");
+        if (!email) {
+            return {
+                success: false,
+                message: "Google email is required."
+            };
+        }
 
 
-    if(!name){
+        const name =
+            String(data.name || "").trim();
 
-        alert(
-            "Full name is required."
-        );
+        const address =
+            String(data.address || "").trim();
 
-        return;
+        const contact =
+            String(data.contact || "").trim();
 
-    }
+        const category =
+            String(data.category || "").trim();
 
-
-    if(!email){
-
-        alert(
-            "Google email is required."
-        );
-
-        return;
-
-    }
+        const problem =
+            String(data.problem || "").trim();
 
 
-    if(!problem){
-
-        alert(
-            "Please describe your concern."
-        );
-
-        return;
-
-    }
+        if (!name) {
+            return {
+                success: false,
+                message: "Full name is required."
+            };
+        }
 
 
-    const button =
-        document.getElementById(
-            "submitConcernBtn"
-        );
+        if (!problem) {
+            return {
+                success: false,
+                message: "Please describe your concern."
+            };
+        }
 
 
-    if(button){
+        // ======================================
+        // CHECK EXISTING ACTIVE CONCERN
+        // ======================================
 
-        button.disabled =
-            true;
-
-        button.textContent =
-            "Submitting...";
-
-    }
+        const sheet =
+            ss.getSheetByName(CONCERNS);
 
 
-    const payload = {
+        if (!sheet) {
+            return {
+                success: false,
+                message: "Customer concern database not found."
+            };
+        }
 
-        action:
-            "submitConcern",
 
-        email:
-            email,
+        const values =
+            sheet.getDataRange().getValues();
 
-        name:
+
+        if (values.length > 1) {
+
+            const headers =
+                values[0].map(function(header) {
+                    return String(header)
+                        .trim()
+                        .toLowerCase();
+                });
+
+
+            const emailIndex =
+                headers.indexOf("email");
+
+            const statusIndex =
+                headers.indexOf("status");
+
+
+            if (
+                emailIndex !== -1 &&
+                statusIndex !== -1
+            ) {
+
+                for (
+                    let i = 1;
+                    i < values.length;
+                    i++
+                ) {
+
+                    const rowEmail =
+                        String(
+                            values[i][emailIndex] || ""
+                        )
+                        .trim()
+                        .toLowerCase();
+
+
+                    if (
+                        rowEmail !== email
+                    ) {
+                        continue;
+                    }
+
+
+                    const status =
+                        normalizeConcernStatus(
+                            values[i][statusIndex]
+                        );
+
+
+                    // ==================================
+                    // BLOCK ACTIVE REQUEST
+                    // ==================================
+
+                    if (
+                        status ===
+                        CONCERN_STATUS.PENDING ||
+
+                        status ===
+                        CONCERN_STATUS.PROCESSING
+                    ) {
+
+                        return {
+
+                            success: false,
+
+                            blocked: true,
+
+                            status: status,
+
+                            message:
+                                "You already have an active concern (" +
+                                status +
+                                "). Please wait until your current concern is completed or aborted before submitting another concern."
+
+                        };
+
+                    }
+
+                }
+
+            }
+
+        }
+
+
+        // ======================================
+        // GENERATE CONCERN ID
+        // ======================================
+
+        const concernId =
+            "CN-" +
+            Utilities.formatDate(
+                new Date(),
+                Session.getScriptTimeZone(),
+                "yyyyMMdd-HHmmss"
+            ) +
+            "-" +
+            Math.floor(
+                Math.random() * 1000
+            );
+
+
+        const now =
+            new Date();
+
+
+        // ======================================
+        // DEFAULT STATUS
+        // ======================================
+
+        const status =
+            CONCERN_STATUS.PENDING;
+
+
+        // ======================================
+        // ADD RECORD
+        // ======================================
+
+        sheet.appendRow([
+
+            concernId,
+
             name,
 
-        address:
+            email,
+
             address,
 
-        contact:
             contact,
 
-        category:
             category,
 
-        problem:
-            problem
+            problem,
 
-    };
+            status,
 
+            now
 
-    fetch(
-
-        API_URL,
-
-        {
-
-            method:
-                "POST",
-
-            headers:{
-                "Content-Type":
-                    "text/plain;charset=utf-8"
-            },
-
-            body:
-                JSON.stringify(
-                    payload
-                )
-
-        }
-
-    )
-
-    .then(function(response){
-
-        if(!response.ok){
-
-            throw new Error(
-                "HTTP " +
-                response.status
-            );
-
-        }
-
-        return response.json();
-
-    })
-
-    .then(function(result){
-
-        console.log(
-            "Submit concern:",
-            result
-        );
+        ]);
 
 
-        if(!result.success){
+        // ======================================
+        // RETURN SUCCESS
+        // ======================================
 
-            throw new Error(
-                result.message ||
-                "Unable to submit concern."
-            );
+        return {
 
-        }
+            success: true,
 
+            message:
+                "Concern submitted successfully.",
 
-        const message =
-            document.getElementById(
-                "concernMessage"
-            );
+            data: {
 
+                id:
+                    concernId,
 
-        if(message){
+                name:
+                    name,
 
-            message.textContent =
-                "Concern submitted successfully.";
+                email:
+                    email,
 
-            message.style.color =
-                "#00ff99";
+                address:
+                    address,
 
-        }
+                contact:
+                    contact,
 
+                category:
+                    category,
 
-        alert(
-            "Your concern has been submitted successfully."
-        );
+                problem:
+                    problem,
 
+                status:
+                    status,
 
-        clearConcernForm();
+                date:
+                    now
 
+            }
 
-        setTimeout(function(){
+        };
 
-            showRequests();
+    }
 
-        },500);
-
-    })
-
-    .catch(function(error){
+    catch (error) {
 
         console.error(
-            "Submit concern error:",
+            "submitConcern error:",
             error
         );
 
 
-        const message =
-            document.getElementById(
-                "concernMessage"
-            );
+        return {
 
+            success: false,
 
-        if(message){
+            message:
+                "Unable to submit concern: " +
+                error.message
 
-            message.textContent =
-                error.message ||
-                "Unable to submit concern.";
+        };
 
-            message.style.color =
-                "#ff5555";
-
-        }
-
-
-        alert(
-            error.message ||
-            "Unable to submit your concern."
-        );
-
-    })
-
-    .finally(function(){
-
-        if(button){
-
-            button.disabled =
-                false;
-
-            button.textContent =
-                "Submit Concern";
-
-        }
-
-    });
+    }
 
 }
-
-
 // ==========================================
 // GET ELEMENT VALUE
 // ==========================================
