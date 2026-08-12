@@ -1,8 +1,9 @@
 // ==========================================
 // LINKTECH CUSTOMER SUPPORT PORTAL
 // HOME.JS
+// UPDATED VERSION
 // PART 1/4
-// GOOGLE LOGIN + SESSION
+// GOOGLE LOGIN + SESSION + ADMIN AUTH
 // ==========================================
 
 
@@ -19,7 +20,7 @@ const GOOGLE_CLIENT_ID =
 // ==========================================
 
 const API_URL =
-"https://script.google.com/macros/s/AKfycbypDj8XZSTJvbTKugm6muqJRALIGv08HoYhXdhmJ2Ajw2eKFy3D_XH90DykQA1Kaqtr/exec";
+"https://script.google.com/macros/s/AKfycbwTMkv0ch-JeM7cePjY-Qb0mWnG8nlKE2SbjJ_9L5aCsAbKSZaoWuHaoLlA0KCk4mhP/exec";
 
 
 // ==========================================
@@ -34,6 +35,31 @@ let googleInitialized = false;
 
 
 // ==========================================
+// ADMIN STATUS
+// IMPORTANT:
+// NO ADMIN EMAIL IS STORED HERE.
+// Code.gs decides whether the user is admin.
+// ==========================================
+
+
+// ==========================================
+// STATUS DEFINITIONS
+// ==========================================
+
+const CONCERN_STATUS = {
+
+    PENDING: "Pending",
+
+    PROCESSING: "Processing",
+
+    COMPLETED: "Completed",
+
+    ABORTED: "Aborted"
+
+};
+
+
+// ==========================================
 // START SYSTEM
 // ==========================================
 
@@ -45,9 +71,12 @@ window.addEventListener(
             "LinkTech Home.js loaded."
         );
 
+
         restoreSession();
 
         initializeGoogle();
+
+        loadTimeline();
 
     }
 );
@@ -78,36 +107,45 @@ function restoreSession(){
         }
 
 
-        currentUser =
+        const user =
             JSON.parse(saved);
 
 
         if(
-            !currentUser ||
-            !currentUser.email
+            !user ||
+            !user.email
         ){
 
             localStorage.removeItem(
                 "linktechUser"
             );
 
-            currentUser = null;
-
             return;
 
         }
 
 
+        currentUser =
+            user;
+
+
+        isAdmin =
+            currentUser.isAdmin === true;
+
+
         console.log(
-            "Restored LinkTech user."
+            "Session restored:",
+            currentUser.email
         );
 
 
         showUser();
 
-        checkAdmin();
+
+        applyAdminAccess();
 
     }
+
     catch(error){
 
         console.error(
@@ -121,7 +159,11 @@ function restoreSession(){
         );
 
 
-        currentUser = null;
+        currentUser =
+            null;
+
+        isAdmin =
+            false;
 
     }
 
@@ -185,12 +227,8 @@ function initializeGoogle(){
     });
 
 
-    googleInitialized = true;
-
-
-    console.log(
-        "Google Identity Services initialized."
-    );
+    googleInitialized =
+        true;
 
 
     renderGoogleButton();
@@ -213,7 +251,7 @@ function renderGoogleButton(){
     if(!button){
 
         console.warn(
-            "googleLoginButton not found."
+            "googleLoginButton was not found."
         );
 
         return;
@@ -221,7 +259,8 @@ function renderGoogleButton(){
     }
 
 
-    button.innerHTML = "";
+    button.innerHTML =
+        "";
 
 
     google.accounts.id.renderButton(
@@ -251,7 +290,8 @@ function renderGoogleButton(){
 
 
     button.style.display =
-        "block";
+        "flex";
+
 
     button.style.visibility =
         "visible";
@@ -280,15 +320,9 @@ function handleGoogleLogin(response){
         !response.credential
     ){
 
-        console.error(
-            "Google credential missing."
-        );
-
-
         alert(
             "Google login failed. No credential received."
         );
-
 
         return;
 
@@ -319,72 +353,41 @@ function verifyGoogle(token){
     }
 
 
-    fetch(
-        API_URL,
-        {
-
-            method:
-                "POST",
-
-            headers:{
-
-                "Content-Type":
-                    "text/plain;charset=utf-8"
-
-            },
-
-            body:
-                JSON.stringify({
-
-                    action:
-                        "googleLogin",
-
-                    token:
-                        token
-
-                })
-
-        }
-    )
-
-    .then(function(response){
-
-        if(!response.ok){
-
-            throw new Error(
-                "HTTP error: " +
-                response.status
-            );
-
-        }
+    console.log(
+        "Verifying Google account..."
+    );
 
 
-        return response.json();
+    postAPI({
+
+        action:
+            "googleLogin",
+
+        token:
+            token
 
     })
 
-    .then(function(result){
+    .then(function(data){
 
         console.log(
-            "Google login result:",
-            result
+            "Google login response:",
+            data
         );
 
 
-        if(!result.success){
+        if(!data.success){
 
-            alert(
-                result.message ||
+            throw new Error(
+                data.message ||
                 "Google login failed."
             );
-
-            return;
 
         }
 
 
         currentUser =
-            result.data;
+            data.data;
 
 
         if(
@@ -393,10 +396,21 @@ function verifyGoogle(token){
         ){
 
             throw new Error(
-                "Invalid user data returned by server."
+                "Invalid user information returned by server."
             );
 
         }
+
+
+        /*
+         * IMPORTANT:
+         *
+         * isAdmin comes from Code.gs.
+         * No admin email is exposed here.
+         */
+
+        isAdmin =
+            currentUser.isAdmin === true;
 
 
         localStorage.setItem(
@@ -412,11 +426,22 @@ function verifyGoogle(token){
 
         showUser();
 
-        checkAdmin();
+        applyAdminAccess();
+
+
+        loadTimeline();
+
+
+        if(isAdmin){
+
+            loadAdminData();
+
+        }
 
 
         console.log(
-            "Google login successful."
+            "Login successful:",
+            currentUser.email
         );
 
     })
@@ -430,8 +455,78 @@ function verifyGoogle(token){
 
 
         alert(
+            error.message ||
             "Unable to connect to LinkTech login service."
         );
+
+    });
+
+}
+
+
+// ==========================================
+// GENERIC POST API
+// IMPORTANT
+// Sends URL-encoded parameters so Apps Script
+// can read e.parameter correctly.
+// ==========================================
+
+function postAPI(data){
+
+    const params =
+        new URLSearchParams();
+
+
+    Object.keys(data || {})
+        .forEach(function(key){
+
+            params.append(
+                key,
+                data[key] === undefined ||
+                data[key] === null
+                    ? ""
+                    : String(data[key])
+            );
+
+        });
+
+
+    return fetch(
+
+        API_URL,
+
+        {
+
+            method:
+                "POST",
+
+            headers:{
+
+                "Content-Type":
+                    "application/x-www-form-urlencoded;charset=UTF-8"
+
+            },
+
+            body:
+                params.toString()
+
+        }
+
+    )
+
+    .then(function(response){
+
+        if(!response.ok){
+
+            throw new Error(
+                "HTTP error: " +
+                response.status
+            );
+
+        }
+
+
+        return response.json();
 
     });
 
@@ -493,47 +588,47 @@ function showUser(){
     }
 
 
-    const userName =
+    const name =
         document.getElementById(
             "userName"
         );
 
 
-    if(userName){
+    if(name){
 
-        userName.textContent =
-            currentUser.name || "";
+        name.textContent =
+            currentUser.name ||
+            "";
 
     }
 
 
-    const userEmail =
+    const email =
         document.getElementById(
             "userEmail"
         );
 
 
-    if(userEmail){
+    if(email){
 
-        userEmail.textContent =
-            currentUser.email || "";
+        email.textContent =
+            currentUser.email ||
+            "";
 
     }
 
 
-    const userImage =
+    const image =
         document.getElementById(
             "userImage"
         );
 
 
-    if(
-        userImage &&
-        currentUser.picture
-    ){
+    if(image){
 
-        userImage.src =
-            currentUser.picture;
+        image.src =
+            currentUser.picture ||
+            "";
 
     }
 
@@ -547,7 +642,8 @@ function showUser(){
     if(inputName){
 
         inputName.value =
-            currentUser.name || "";
+            currentUser.name ||
+            "";
 
     }
 
@@ -561,7 +657,8 @@ function showUser(){
     if(inputEmail){
 
         inputEmail.value =
-            currentUser.email || "";
+            currentUser.email ||
+            "";
 
     }
 
@@ -569,39 +666,28 @@ function showUser(){
 
 
 // ==========================================
-// ADMIN CHECK
-// IMPORTANT:
-// ADMIN EMAIL IS NOT STORED IN HOME.JS
-// Code.gs returns isAdmin.
+// APPLY ADMIN ACCESS
 // ==========================================
 
-function checkAdmin(){
+function applyAdminAccess(){
 
-    isAdmin = false;
-
-
-    if(!currentUser){
-
-        return;
-
-    }
+    const adminPanel =
+        document.getElementById(
+            "adminPanel"
+        );
 
 
-    isAdmin =
-        currentUser.isAdmin === true;
+    const timelineAdmin =
+        document.getElementById(
+            "timelineAdmin"
+        );
 
 
     if(isAdmin){
 
         console.log(
-            "Administrator access granted."
+            "ADMIN ACCESS GRANTED."
         );
-
-
-        const adminPanel =
-            document.getElementById(
-                "adminPanel"
-            );
 
 
         if(adminPanel){
@@ -610,12 +696,6 @@ function checkAdmin(){
                 "block";
 
         }
-
-
-        const timelineAdmin =
-            document.getElementById(
-                "timelineAdmin"
-            );
 
 
         if(timelineAdmin){
@@ -629,17 +709,12 @@ function checkAdmin(){
         loadAdminData();
 
     }
+
     else{
 
         console.log(
-            "Customer access."
+            "Regular customer account."
         );
-
-
-        const adminPanel =
-            document.getElementById(
-                "adminPanel"
-            );
 
 
         if(adminPanel){
@@ -648,12 +723,6 @@ function checkAdmin(){
                 "none";
 
         }
-
-
-        const timelineAdmin =
-            document.getElementById(
-                "timelineAdmin"
-            );
 
 
         if(timelineAdmin){
@@ -669,7 +738,7 @@ function checkAdmin(){
 
 
 // ==========================================
-// ADMIN ACCESS REQUIREMENT
+// ADMIN ACCESS CHECK
 // ==========================================
 
 function requireAdmin(){
@@ -685,10 +754,10 @@ function requireAdmin(){
     }
 
 
-    if(currentUser.isAdmin !== true){
+    if(!isAdmin){
 
         alert(
-            "Administrator access required."
+            "Admin access required."
         );
 
         return false;
@@ -707,14 +776,22 @@ function requireAdmin(){
 
 function logoutUser(){
 
+    console.log(
+        "Logging out..."
+    );
+
+
     localStorage.removeItem(
         "linktechUser"
     );
 
 
-    currentUser = null;
+    currentUser =
+        null;
 
-    isAdmin = false;
+
+    isAdmin =
+        false;
 
 
     if(
@@ -736,29 +813,8 @@ function logoutUser(){
 // LINKTECH CUSTOMER SUPPORT PORTAL
 // HOME.JS
 // PART 2/4
-// CUSTOMER CONCERNS + STATUS MANAGEMENT
+// ADMIN DASHBOARD + FILTERS + STATUS
 // ==========================================
-
-
-// ==========================================
-// CONCERN STATUS
-// ==========================================
-
-const CONCERN_STATUS = {
-
-    PENDING:
-        "Pending",
-
-    PROCESSING:
-        "Processing",
-
-    COMPLETED:
-        "Completed",
-
-    ABORTED:
-        "Aborted"
-
-};
 
 
 // ==========================================
@@ -814,7 +870,7 @@ function normalizeConcernStatus(status){
 
         default:
 
-            return status;
+            return CONCERN_STATUS.PENDING;
 
     }
 
@@ -861,7 +917,7 @@ function getStatusClass(status){
 
 
 // ==========================================
-// ESCAPE HTML
+// SAFE HTML
 // ==========================================
 
 function escapeHTML(value){
@@ -907,300 +963,6 @@ function escapeHTML(value){
 
 
 // ==========================================
-// SUBMIT CONCERN
-// ==========================================
-
-function submitConcern(){
-
-    if(!currentUser){
-
-        alert(
-            "Please login with Google first."
-        );
-
-        return;
-
-    }
-
-
-    const address =
-        document.getElementById(
-            "address"
-        )?.value.trim() || "";
-
-
-    const contact =
-        document.getElementById(
-            "contact"
-        )?.value.trim() || "";
-
-
-    const category =
-        document.getElementById(
-            "category"
-        )?.value.trim() || "";
-
-
-    const problem =
-        document.getElementById(
-            "problem"
-        )?.value.trim() || "";
-
-
-    if(!problem){
-
-        alert(
-            "Please describe your IT concern."
-        );
-
-        return;
-
-    }
-
-
-    fetch(
-        API_URL,
-        {
-
-            method:
-                "POST",
-
-            body:
-                JSON.stringify({
-
-                    action:
-                        "submitConcern",
-
-                    email:
-                        currentUser.email,
-
-                    name:
-                        currentUser.name || "",
-
-                    address:
-                        address,
-
-                    contact:
-                        contact,
-
-                    category:
-                        category,
-
-                    problem:
-                        problem
-
-                })
-
-        }
-    )
-
-    .then(function(response){
-
-        return response.json();
-
-    })
-
-    .then(function(result){
-
-        if(!result.success){
-
-            alert(
-                result.message ||
-                "Unable to submit concern."
-            );
-
-            return;
-
-        }
-
-
-        alert(
-            result.message ||
-            "Concern submitted successfully."
-        );
-
-
-        loadMyRequests();
-
-    })
-
-    .catch(function(error){
-
-        console.error(
-            "Submit concern error:",
-            error
-        );
-
-
-        alert(
-            "Unable to connect to LinkTech."
-        );
-
-    });
-
-}
-
-
-// ==========================================
-// LOAD CUSTOMER REQUESTS
-// ==========================================
-
-function loadMyRequests(){
-
-    if(!currentUser){
-
-        return;
-
-    }
-
-
-    fetch(
-
-        API_URL +
-        "?action=getMyRequests" +
-        "&email=" +
-        encodeURIComponent(
-            currentUser.email
-        )
-
-    )
-
-    .then(function(response){
-
-        return response.json();
-
-    })
-
-    .then(function(result){
-
-        if(!result.success){
-
-            console.error(
-                result.message
-            );
-
-            return;
-
-        }
-
-
-        const requests =
-            Array.isArray(result.data)
-                ? result.data
-                : [];
-
-
-        renderMyRequests(
-            requests
-        );
-
-    })
-
-    .catch(function(error){
-
-        console.error(
-            "Load customer requests error:",
-            error
-        );
-
-    });
-
-}
-
-
-// ==========================================
-// RENDER CUSTOMER REQUESTS
-// ==========================================
-
-function renderMyRequests(requests){
-
-    const box =
-        document.getElementById(
-            "myRequests"
-        );
-
-
-    if(!box){
-
-        return;
-
-    }
-
-
-    if(!requests.length){
-
-        box.innerHTML =
-            "<p>No customer concerns found.</p>";
-
-        return;
-
-    }
-
-
-    let html = "";
-
-
-    requests.forEach(
-        function(item){
-
-            const status =
-                normalizeConcernStatus(
-                    item.status
-                );
-
-
-            html += `
-
-                <div class="customer-request">
-
-                    <div class="customer-request-header">
-
-                        <strong>
-                            ${escapeHTML(
-                                item.category ||
-                                "IT Concern"
-                            )}
-                        </strong>
-
-                        <span class="${getStatusClass(status)}">
-                            ${escapeHTML(status)}
-                        </span>
-
-                    </div>
-
-                    <p>
-                        <strong>Reference ID:</strong>
-                        ${escapeHTML(item.id)}
-                    </p>
-
-                    <p>
-                        <strong>Problem:</strong>
-                    </p>
-
-                    <div>
-                        ${escapeHTML(item.problem)}
-                    </div>
-
-                    <p>
-                        <strong>Date:</strong>
-                        ${escapeHTML(item.date)}
-                    </p>
-
-                </div>
-
-            `;
-
-        }
-    );
-
-
-    box.innerHTML =
-        html;
-
-}
-
-
-// ==========================================
 // LOAD ADMIN DATA
 // ==========================================
 
@@ -1240,7 +1002,8 @@ function loadAdminDashboard(){
         "&email=" +
         encodeURIComponent(
             currentUser.email
-        )
+        ) +
+        "&filter=all"
 
     )
 
@@ -1249,7 +1012,7 @@ function loadAdminDashboard(){
         if(!response.ok){
 
             throw new Error(
-                "HTTP " +
+                "HTTP error: " +
                 response.status
             );
 
@@ -1273,11 +1036,12 @@ function loadAdminDashboard(){
         }
 
 
+        const data =
+            result.data || {};
+
+
         const summary =
-            result.data &&
-            result.data.summary
-                ? result.data.summary
-                : {};
+            data.summary || {};
 
 
         setText(
@@ -1309,6 +1073,12 @@ function loadAdminDashboard(){
             summary.aborted || 0
         );
 
+
+        setText(
+            "newConcerns",
+            summary.newConcerns || 0
+        );
+
     })
 
     .catch(function(error){
@@ -1324,7 +1094,7 @@ function loadAdminDashboard(){
 
 
 // ==========================================
-// SET TEXT HELPER
+// SET ELEMENT TEXT
 // ==========================================
 
 function setText(id,value){
@@ -1339,6 +1109,158 @@ function setText(id,value){
             value;
 
     }
+
+}
+
+
+// ==========================================
+// GET ADMIN FILTER VALUES
+// ==========================================
+
+function getAdminFilters(){
+
+    const periodElement =
+        document.getElementById(
+            "reportType"
+        );
+
+
+    const statusElement =
+        document.getElementById(
+            "statusFilter"
+        );
+
+
+    const categoryElement =
+        document.getElementById(
+            "categoryFilter"
+        );
+
+
+    return {
+
+        period:
+            periodElement
+                ? periodElement.value
+                : "all",
+
+        status:
+            statusElement
+                ? statusElement.value
+                : "all",
+
+        category:
+            categoryElement
+                ? categoryElement.value
+                : "all"
+
+    };
+
+}
+
+
+// ==========================================
+// FILTER DATE
+// ==========================================
+
+function matchesPeriod(dateValue,period){
+
+    if(
+        period === "all" ||
+        !period
+    ){
+
+        return true;
+
+    }
+
+
+    const date =
+        new Date(dateValue);
+
+
+    if(
+        isNaN(
+            date.getTime()
+        )
+    ){
+
+        return false;
+
+    }
+
+
+    const now =
+        new Date();
+
+
+    if(period === "new"){
+
+        /*
+         * New = Pending concerns.
+         * Actual status is handled separately.
+         */
+
+        return true;
+
+    }
+
+
+    if(period === "week"){
+
+        const start =
+            new Date(now);
+
+        start.setDate(
+            now.getDate() - 7
+        );
+
+        return date >= start;
+
+    }
+
+
+    if(period === "month"){
+
+        return (
+            date.getMonth() ===
+            now.getMonth()
+        ) &&
+        (
+            date.getFullYear() ===
+            now.getFullYear()
+        );
+
+    }
+
+
+    if(period === "lastMonth"){
+
+        const firstThisMonth =
+            new Date(
+                now.getFullYear(),
+                now.getMonth(),
+                1
+            );
+
+
+        const firstLastMonth =
+            new Date(
+                now.getFullYear(),
+                now.getMonth() - 1,
+                1
+            );
+
+
+        return (
+            date >= firstLastMonth &&
+            date < firstThisMonth
+        );
+
+    }
+
+
+    return true;
 
 }
 
@@ -1364,6 +1286,10 @@ function loadAdminConcerns(){
 
     if(!box){
 
+        console.warn(
+            "adminConcerns element not found."
+        );
+
         return;
 
     }
@@ -1373,16 +1299,8 @@ function loadAdminConcerns(){
         "<p>Loading customer concerns...</p>";
 
 
-    const reportType =
-        document.getElementById(
-            "reportType"
-        );
-
-
-    const filter =
-        reportType
-            ? reportType.value
-            : "all";
+    const filters =
+        getAdminFilters();
 
 
     fetch(
@@ -1395,7 +1313,7 @@ function loadAdminConcerns(){
         ) +
         "&filter=" +
         encodeURIComponent(
-            filter
+            filters.period
         )
 
     )
@@ -1405,7 +1323,7 @@ function loadAdminConcerns(){
         if(!response.ok){
 
             throw new Error(
-                "HTTP " +
+                "HTTP error: " +
                 response.status
             );
 
@@ -1419,7 +1337,7 @@ function loadAdminConcerns(){
     .then(function(result){
 
         console.log(
-            "Admin data:",
+            "ADMIN DATA:",
             result
         );
 
@@ -1427,7 +1345,7 @@ function loadAdminConcerns(){
         if(!result.success){
 
             box.innerHTML =
-                `<p>
+                `<p class="error-message">
                     ${escapeHTML(
                         result.message ||
                         "Unable to load concerns."
@@ -1439,27 +1357,129 @@ function loadAdminConcerns(){
         }
 
 
-        const requests =
+        let data = [];
+
+
+        if(
             result.data &&
             Array.isArray(
                 result.data.requests
             )
-                ? result.data.requests
-                : [];
+        ){
 
-
-        if(!requests.length){
-
-            box.innerHTML =
-                "<p>No customer concerns found.</p>";
-
-            return;
+            data =
+                result.data.requests;
 
         }
 
 
-        renderAdminConcerns(
-            requests
+        /*
+         * CLIENT-SIDE STATUS FILTER
+         */
+
+        if(
+            filters.status &&
+            filters.status !== "all"
+        ){
+
+            data =
+                data.filter(
+                    function(item){
+
+                        return normalizeConcernStatus(
+                            item.status
+                        ).toLowerCase()
+                        ===
+                        filters.status.toLowerCase();
+
+                    }
+                );
+
+        }
+
+
+        /*
+         * CLIENT-SIDE CATEGORY FILTER
+         */
+
+        if(
+            filters.category &&
+            filters.category !== "all"
+        ){
+
+            data =
+                data.filter(
+                    function(item){
+
+                        return String(
+                            item.category || ""
+                        )
+                        .toLowerCase()
+                        ===
+                        String(
+                            filters.category
+                        )
+                        .toLowerCase();
+
+                    }
+                );
+
+        }
+
+
+        /*
+         * NEW CONCERNS
+         *
+         * New = Pending.
+         */
+
+        if(
+            filters.period === "new"
+        ){
+
+            data =
+                data.filter(
+                    function(item){
+
+                        return normalizeConcernStatus(
+                            item.status
+                        ) ===
+                        CONCERN_STATUS.PENDING;
+
+                    }
+                );
+
+        }
+
+
+        /*
+         * LOCAL DATE FILTER
+         *
+         * Needed for lastMonth because
+         * Code.gs may not implement it yet.
+         */
+
+        if(
+            filters.period === "lastMonth"
+        ){
+
+            data =
+                data.filter(
+                    function(item){
+
+                        return matchesPeriod(
+                            item.date,
+                            "lastMonth"
+                        );
+
+                    }
+                );
+
+        }
+
+
+        renderAdminConcernTable(
+            data
         );
 
     })
@@ -1467,14 +1487,14 @@ function loadAdminConcerns(){
     .catch(function(error){
 
         console.error(
-            "Admin concerns error:",
+            "Admin concern loading error:",
             error
         );
 
 
         box.innerHTML =
-            `<p>
-                Unable to connect to LinkTech API.
+            `<p class="error-message">
+                Unable to connect to the LinkTech API.
             </p>`;
 
     });
@@ -1483,10 +1503,53 @@ function loadAdminConcerns(){
 
 
 // ==========================================
-// RENDER ADMIN CONCERNS
+// REFRESH ADMIN DATA
 // ==========================================
 
-function renderAdminConcerns(data){
+function refreshAdminData(){
+
+    if(!requireAdmin()){
+
+        return;
+
+    }
+
+
+    loadAdminData();
+
+}
+
+
+// ==========================================
+// FILTER CHANGE
+// ==========================================
+
+function applyConcernFilters(){
+
+    if(!requireAdmin()){
+
+        return;
+
+    }
+
+
+    loadAdminConcerns();
+
+}
+
+// ==========================================
+// LINKTECH CUSTOMER SUPPORT PORTAL
+// HOME.JS
+// PART 3/4
+// ADMIN CONCERN TABLE + STATUS UPDATE
+// ==========================================
+
+
+// ==========================================
+// RENDER ADMIN CONCERN TABLE
+// ==========================================
+
+function renderAdminConcernTable(data){
 
     const box =
         document.getElementById(
@@ -1501,108 +1564,195 @@ function renderAdminConcerns(data){
     }
 
 
-    let html = "";
+    if(
+        !Array.isArray(data) ||
+        data.length === 0
+    ){
+
+        box.innerHTML =
+
+            `<div class="no-concerns">
+
+                <p>
+                    No customer concerns found.
+                </p>
+
+            </div>`;
+
+        return;
+
+    }
 
 
-    data.forEach(
-        function(item){
+    let html = `
 
-            const status =
-                normalizeConcernStatus(
-                    item.status
-                );
+        <div class="admin-table-wrapper">
+
+            <table class="admin-concern-table">
+
+                <thead>
+
+                    <tr>
+
+                        <th class="col-id">
+                            Concern ID
+                        </th>
+
+                        <th class="col-customer">
+                            Customer
+                        </th>
+
+                        <th>
+                            Email
+                        </th>
+
+                        <th class="col-category">
+                            Category
+                        </th>
+
+                        <th class="col-problem">
+                            Problem
+                        </th>
+
+                        <th class="col-date">
+                            Date
+                        </th>
+
+                        <th class="col-status">
+                            Status
+                        </th>
+
+                        <th class="col-action">
+                            Action
+                        </th>
+
+                    </tr>
+
+                </thead>
+
+                <tbody>
+    `;
 
 
-            const id =
-                escapeHTML(
-                    item.id || ""
-                );
+    data.forEach(function(item){
+
+        const status =
+            normalizeConcernStatus(
+                item.status
+            );
 
 
-            html += `
-
-                <div class="admin-request">
-
-                    <div class="admin-request-header">
-
-                        <h3>
-                            ${escapeHTML(
-                                item.name ||
-                                "Unknown Customer"
-                            )}
-                        </h3>
-
-                        <span class="${getStatusClass(status)}">
-                            ${escapeHTML(status)}
-                        </span>
-
-                    </div>
+        const statusClass =
+            getStatusClass(
+                status
+            );
 
 
-                    <p>
-                        <strong>Concern ID:</strong>
-                        ${id}
-                    </p>
+        /*
+         * New concern indicator
+         */
+
+        const isNew =
+            status ===
+            CONCERN_STATUS.PENDING;
 
 
-                    <p>
-                        <strong>Email:</strong>
+        html += `
+
+            <tr>
+
+                <td class="col-id">
+
+                    ${escapeHTML(
+                        item.id || ""
+                    )}
+
+                    ${
+                        isNew
+
+                        ?
+
+                        `<span class="new-concern">
+                            NEW
+                        </span>`
+
+                        :
+
+                        ""
+                    }
+
+                </td>
+
+
+                <td class="col-customer">
+
+                    <strong>
                         ${escapeHTML(
-                            item.email || ""
+                            item.name ||
+                            "Unknown"
                         )}
-                    </p>
+                    </strong>
+
+                </td>
 
 
-                    <p>
-                        <strong>Contact:</strong>
-                        ${escapeHTML(
-                            item.contact || ""
-                        )}
-                    </p>
+                <td>
+
+                    ${escapeHTML(
+                        item.email ||
+                        ""
+                    )}
+
+                </td>
 
 
-                    <p>
-                        <strong>Address:</strong>
-                        ${escapeHTML(
-                            item.address || ""
-                        )}
-                    </p>
+                <td class="col-category">
+
+                    ${escapeHTML(
+                        item.category ||
+                        "General"
+                    )}
+
+                </td>
 
 
-                    <p>
-                        <strong>Category:</strong>
-                        ${escapeHTML(
-                            item.category || ""
-                        )}
-                    </p>
+                <td class="problem-cell">
+
+                    ${escapeHTML(
+                        item.problem ||
+                        ""
+                    )}
+
+                </td>
 
 
-                    <p>
-                        <strong>Problem:</strong>
-                    </p>
+                <td class="col-date">
+
+                    ${formatDate(
+                        item.date
+                    )}
+
+                </td>
 
 
-                    <div class="problem-description">
-                        ${escapeHTML(
-                            item.problem || ""
-                        )}
-                    </div>
+                <td class="col-status">
+
+                    <span class="${statusClass}">
+                        ${escapeHTML(status)}
+                    </span>
+
+                </td>
 
 
-                    <p>
-                        <strong>Date:</strong>
-                        ${escapeHTML(
-                            item.date || ""
-                        )}
-                    </p>
+                <td class="col-action">
 
-
-                    <div class="admin-request-actions">
+                    <div class="admin-action-buttons">
 
                         <button
                             type="button"
+                            class="pending-btn"
                             onclick="updateConcern(
-                                '${id}',
+                                '${escapeJS(item.id)}',
                                 'Pending'
                             )"
                         >
@@ -1612,8 +1762,9 @@ function renderAdminConcerns(data){
 
                         <button
                             type="button"
+                            class="processing-btn"
                             onclick="updateConcern(
-                                '${id}',
+                                '${escapeJS(item.id)}',
                                 'Processing'
                             )"
                         >
@@ -1623,8 +1774,9 @@ function renderAdminConcerns(data){
 
                         <button
                             type="button"
+                            class="completed-btn"
                             onclick="updateConcern(
-                                '${id}',
+                                '${escapeJS(item.id)}',
                                 'Completed'
                             )"
                         >
@@ -1634,8 +1786,9 @@ function renderAdminConcerns(data){
 
                         <button
                             type="button"
+                            class="aborted-btn"
                             onclick="updateConcern(
-                                '${id}',
+                                '${escapeJS(item.id)}',
                                 'Aborted'
                             )"
                         >
@@ -1644,12 +1797,24 @@ function renderAdminConcerns(data){
 
                     </div>
 
-                </div>
+                </td>
 
-            `;
+            </tr>
 
-        }
-    );
+        `;
+
+    });
+
+
+    html += `
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    `;
 
 
     box.innerHTML =
@@ -1659,7 +1824,98 @@ function renderAdminConcerns(data){
 
 
 // ==========================================
-// UPDATE CUSTOMER CONCERN STATUS
+// ESCAPE JAVASCRIPT STRING
+// ==========================================
+
+function escapeJS(value){
+
+    if(
+        value === null ||
+        value === undefined
+    ){
+
+        return "";
+
+    }
+
+
+    return String(value)
+
+        .replace(
+            /\\/g,
+            "\\\\"
+        )
+
+        .replace(
+            /'/g,
+            "\\'"
+        )
+
+        .replace(
+            /"/g,
+            '\\"'
+        )
+
+        .replace(
+            /\r?\n/g,
+            "\\n"
+        );
+
+}
+
+
+// ==========================================
+// FORMAT DATE
+// ==========================================
+
+function formatDate(value){
+
+    if(!value){
+
+        return "";
+
+    }
+
+
+    const date =
+        new Date(value);
+
+
+    if(
+        isNaN(
+            date.getTime()
+        )
+    ){
+
+        return escapeHTML(
+            value
+        );
+
+    }
+
+
+    return date.toLocaleString(
+        undefined,
+        {
+
+            year:"numeric",
+
+            month:"short",
+
+            day:"numeric",
+
+            hour:"numeric",
+
+            minute:"2-digit"
+
+        }
+    );
+
+}
+
+
+// ==========================================
+// UPDATE CONCERN STATUS
 // ==========================================
 
 function updateConcern(id,status){
@@ -1688,68 +1944,36 @@ function updateConcern(id,status){
         );
 
 
-    if(
-        !confirm(
-            "Change concern status to " +
+    const confirmed =
+        confirm(
+
+            "Change this concern status to " +
             newStatus +
             "?"
-        )
-    ){
+
+        );
+
+
+    if(!confirmed){
 
         return;
 
     }
 
 
-    fetch(
+    postAPI({
 
-        API_URL,
-        {
+        action:
+            "updateConcernStatus",
 
-            method:
-                "POST",
+        email:
+            currentUser.email,
 
-            headers:{
+        id:
+            id,
 
-                "Content-Type":
-                    "text/plain;charset=utf-8"
-
-            },
-
-            body:
-                JSON.stringify({
-
-                    action:
-                        "updateConcernStatus",
-
-                    email:
-                        currentUser.email,
-
-                    id:
-                        id,
-
-                    status:
-                        newStatus
-
-                })
-
-        }
-
-    )
-
-    .then(function(response){
-
-        if(!response.ok){
-
-            throw new Error(
-                "HTTP " +
-                response.status
-            );
-
-        }
-
-
-        return response.json();
+        status:
+            newStatus
 
     })
 
@@ -1763,23 +1987,32 @@ function updateConcern(id,status){
 
         if(!result.success){
 
-            alert(
+            throw new Error(
                 result.message ||
-                "Status update failed."
+                "Unable to update concern."
             );
-
-            return;
 
         }
 
 
         alert(
+
             result.message ||
             "Concern status updated successfully."
+
         );
 
 
+        /*
+         * Refresh dashboard statistics
+         */
+
         loadAdminDashboard();
+
+
+        /*
+         * Refresh concern table
+         */
 
         loadAdminConcerns();
 
@@ -1794,6 +2027,7 @@ function updateConcern(id,status){
 
 
         alert(
+            error.message ||
             "Unable to update concern status."
         );
 
@@ -1803,28 +2037,21 @@ function updateConcern(id,status){
 
 
 // ==========================================
-// REFRESH ADMIN
+// REPORT FILTER EVENT HELPERS
 // ==========================================
 
-function refreshAdminData(){
+function filterAdminConcerns(){
 
-    if(!requireAdmin()){
-
-        return;
-
-    }
-
-
-    loadAdminData();
+    loadAdminConcerns();
 
 }
 
 
 // ==========================================
-// REPORT FILTER CHANGE
+// PRINT REPORT
 // ==========================================
 
-function filterAdminReport(){
+function printReport(){
 
     if(!requireAdmin()){
 
@@ -1833,267 +2060,353 @@ function filterAdminReport(){
     }
 
 
-    loadAdminConcerns();
+    const container =
+        document.getElementById(
+            "adminConcerns"
+        );
+
+
+    if(!container){
+
+        alert(
+            "Admin concern list not found."
+        );
+
+        return;
+
+    }
+
+
+    const printWindow =
+        window.open(
+            "",
+            "",
+            "width=1200,height=800"
+        );
+
+
+    if(!printWindow){
+
+        alert(
+            "Please allow pop-ups to print the report."
+        );
+
+        return;
+
+    }
+
+
+    printWindow.document.write(`
+
+        <!DOCTYPE html>
+
+        <html>
+
+        <head>
+
+            <title>
+                LinkTech Customer Concern Report
+            </title>
+
+            <style>
+
+                body{
+                    font-family:Arial,sans-serif;
+                    padding:25px;
+                    color:#111;
+                }
+
+                table{
+                    width:100%;
+                    border-collapse:collapse;
+                }
+
+                th,
+                td{
+                    border:1px solid #ccc;
+                    padding:8px;
+                    text-align:left;
+                    vertical-align:top;
+                }
+
+                th{
+                    background:#eee;
+                }
+
+                button{
+                    display:none !important;
+                }
+
+                .new-concern{
+                    display:none;
+                }
+
+            </style>
+
+        </head>
+
+        <body>
+
+            <h2>
+                LinkTech Customer Concern Report
+            </h2>
+
+            <p>
+                Generated:
+                ${new Date().toLocaleString()}
+            </p>
+
+            ${container.innerHTML}
+
+        </body>
+
+        </html>
+
+    `);
+
+
+    printWindow.document.close();
+
+    printWindow.focus();
+
+    printWindow.print();
+
+}
+
+
+// ==========================================
+// DOWNLOAD CSV
+// ==========================================
+
+function csvEscape(value){
+
+    if(
+        value === null ||
+        value === undefined
+    ){
+
+        return "";
+
+    }
+
+
+    return '"' +
+        String(value)
+            .replace(
+                /"/g,
+                '""'
+            ) +
+        '"';
+
+}
+
+
+function downloadCSV(){
+
+    if(!requireAdmin()){
+
+        return;
+
+    }
+
+
+    fetch(
+
+        API_URL +
+        "?action=getAdminData" +
+        "&email=" +
+        encodeURIComponent(
+            currentUser.email
+        ) +
+        "&filter=all"
+
+    )
+
+    .then(function(response){
+
+        return response.json();
+
+    })
+
+    .then(function(result){
+
+        if(!result.success){
+
+            throw new Error(
+                result.message ||
+                "Unable to generate report."
+            );
+
+        }
+
+
+        const requests =
+            result.data &&
+            Array.isArray(
+                result.data.requests
+            )
+
+            ?
+
+            result.data.requests
+
+            :
+
+            [];
+
+
+        const rows = [
+
+            [
+
+                "Concern ID",
+
+                "Name",
+
+                "Email",
+
+                "Address",
+
+                "Contact",
+
+                "Category",
+
+                "Problem",
+
+                "Status",
+
+                "Date"
+
+            ]
+
+        ];
+
+
+        requests.forEach(
+            function(item){
+
+                rows.push([
+
+                    item.id || "",
+
+                    item.name || "",
+
+                    item.email || "",
+
+                    item.address || "",
+
+                    item.contact || "",
+
+                    item.category || "",
+
+                    item.problem || "",
+
+                    normalizeConcernStatus(
+                        item.status
+                    ),
+
+                    item.date || ""
+
+                ]);
+
+            }
+        );
+
+
+        const csv =
+            rows
+
+                .map(function(row){
+
+                    return row
+
+                        .map(
+                            csvEscape
+                        )
+
+                        .join(",");
+
+                })
+
+                .join("\r\n");
+
+
+        const blob =
+            new Blob(
+
+                [csv],
+
+                {
+                    type:
+                    "text/csv;charset=utf-8;"
+                }
+
+            );
+
+
+        const url =
+            URL.createObjectURL(
+                blob
+            );
+
+
+        const a =
+            document.createElement(
+                "a"
+            );
+
+
+        a.href =
+            url;
+
+
+        a.download =
+            "LinkTech_Customer_Concern_Report.csv";
+
+
+        document.body.appendChild(a);
+
+        a.click();
+
+        document.body.removeChild(a);
+
+
+        URL.revokeObjectURL(
+            url
+        );
+
+    })
+
+    .catch(function(error){
+
+        console.error(
+            "CSV error:",
+            error
+        );
+
+
+        alert(
+            error.message ||
+            "Unable to download CSV report."
+        );
+
+    });
 
 }
 
 // ==========================================
 // LINKTECH CUSTOMER SUPPORT PORTAL
 // HOME.JS
-// PART 3/4
-// COMMENTS + TIMELINE
+// PART 4/4
+// TIMELINE + VIEW + ADMIN MANAGEMENT
 // ==========================================
 
 
 // ==========================================
-// SUBMIT COMMENT
+// TIMELINE DATA CACHE
 // ==========================================
 
-function submitComment(){
-
-    if(!currentUser){
-
-        alert(
-            "Please login first."
-        );
-
-        return;
-
-    }
-
-
-    const field =
-        document.getElementById(
-            "ccomment"
-        );
-
-
-    if(!field){
-
-        return;
-
-    }
-
-
-    const comment =
-        field.value.trim();
-
-
-    if(!comment){
-
-        alert(
-            "Please enter your comment."
-        );
-
-        return;
-
-    }
-
-
-    fetch(
-
-        API_URL,
-        {
-
-            method:
-                "POST",
-
-            headers:{
-
-                "Content-Type":
-                    "text/plain;charset=utf-8"
-
-            },
-
-            body:
-                JSON.stringify({
-
-                    action:
-                        "submitComment",
-
-                    email:
-                        currentUser.email,
-
-                    comment:
-                        comment
-
-                })
-
-        }
-
-    )
-
-    .then(function(response){
-
-        return response.json();
-
-    })
-
-    .then(function(result){
-
-        if(!result.success){
-
-            alert(
-                result.message ||
-                "Unable to post comment."
-            );
-
-            return;
-
-        }
-
-
-        field.value = "";
-
-
-        alert(
-            result.message ||
-            "Comment posted."
-        );
-
-
-        loadComments();
-
-    })
-
-    .catch(function(error){
-
-        console.error(
-            "Comment error:",
-            error
-        );
-
-
-        alert(
-            "Unable to connect to LinkTech."
-        );
-
-    });
-
-}
-
-
-// ==========================================
-// LOAD COMMENTS
-// ==========================================
-
-function loadComments(){
-
-    fetch(
-
-        API_URL +
-        "?action=getComments"
-
-    )
-
-    .then(function(response){
-
-        return response.json();
-
-    })
-
-    .then(function(result){
-
-        if(!result.success){
-
-            console.error(
-                result.message
-            );
-
-            return;
-
-        }
-
-
-        renderComments(
-            Array.isArray(result.data)
-                ? result.data
-                : []
-        );
-
-    })
-
-    .catch(function(error){
-
-        console.error(
-            "Load comments error:",
-            error
-        );
-
-    });
-
-}
-
-
-// ==========================================
-// RENDER COMMENTS
-// ==========================================
-
-function renderComments(comments){
-
-    const box =
-        document.getElementById(
-            "commentList"
-        );
-
-
-    if(!box){
-
-        return;
-
-    }
-
-
-    if(!comments.length){
-
-        box.innerHTML =
-            "<p>No comments yet.</p>";
-
-        return;
-
-    }
-
-
-    let html = "";
-
-
-    comments.forEach(
-        function(item){
-
-            html += `
-
-                <div class="comment-item">
-
-                    <strong>
-                        ${escapeHTML(
-                            item.email || ""
-                        )}
-                    </strong>
-
-                    <p>
-                        ${escapeHTML(
-                            item.comment || ""
-                        )}
-                    </p>
-
-                    <small>
-                        ${escapeHTML(
-                            item.date || ""
-                        )}
-                    </small>
-
-                </div>
-
-            `;
-
-        }
-    );
-
-
-    box.innerHTML =
-        html;
-
-}
+let timelinePosts = [];
 
 
 // ==========================================
@@ -2101,6 +2414,29 @@ function renderComments(comments){
 // ==========================================
 
 function loadTimeline(){
+
+    const container =
+        document.getElementById(
+            "timeline"
+        );
+
+
+    if(!container){
+
+        console.warn(
+            "Timeline container not found."
+        );
+
+        return;
+
+    }
+
+
+    container.innerHTML =
+        `<div class="timeline-loading">
+            Loading timeline...
+        </div>`;
+
 
     fetch(
 
@@ -2114,7 +2450,7 @@ function loadTimeline(){
         if(!response.ok){
 
             throw new Error(
-                "HTTP " +
+                "HTTP error: " +
                 response.status
             );
 
@@ -2128,30 +2464,37 @@ function loadTimeline(){
     .then(function(result){
 
         console.log(
-            "Timeline:",
+            "Timeline API:",
             result
         );
 
 
         if(!result.success){
 
-            console.error(
-                result.message
+            throw new Error(
+                result.message ||
+                "Unable to load timeline."
             );
-
-            return;
 
         }
 
 
-        const posts =
-            Array.isArray(result.data)
-                ? result.data
-                : [];
+        timelinePosts =
+            Array.isArray(
+                result.data
+            )
+
+            ?
+
+            result.data
+
+            :
+
+            [];
 
 
         renderTimeline(
-            posts
+            timelinePosts
         );
 
     })
@@ -2159,9 +2502,18 @@ function loadTimeline(){
     .catch(function(error){
 
         console.error(
-            "Timeline error:",
+            "Timeline loading error:",
             error
         );
+
+
+        container.innerHTML =
+
+            `<div class="timeline-empty">
+
+                Unable to load timeline.
+
+            </div>`;
 
     });
 
@@ -2174,117 +2526,168 @@ function loadTimeline(){
 
 function renderTimeline(posts){
 
-    const box =
+    const container =
         document.getElementById(
             "timeline"
         );
 
 
-    if(!box){
+    if(!container){
 
         return;
 
     }
 
 
-    if(!posts.length){
+    if(
+        !Array.isArray(posts) ||
+        posts.length === 0
+    ){
 
-        box.innerHTML =
-            "<p>No timeline posts yet.</p>";
+        container.innerHTML =
+
+            `<div class="timeline-empty">
+
+                No timeline posts available.
+
+            </div>`;
 
         return;
 
     }
 
 
-    let html = "";
+    let html =
+        "";
 
 
     posts.forEach(
         function(post){
 
+            const id =
+                escapeJS(
+                    post.id || ""
+                );
+
+
+            const title =
+                escapeHTML(
+                    post.title ||
+                    "Untitled"
+                );
+
+
+            const caption =
+                escapeHTML(
+                    post.caption ||
+                    ""
+                );
+
+
             const image =
-                post.image
-                    ? `
-                        <img
-                            src="${escapeHTML(
-                                post.image
-                            )}"
-                            alt="${escapeHTML(
-                                post.title
-                            )}"
-                            loading="lazy"
-                        >
-                    `
-                    : "";
+                escapeHTML(
+                    post.image ||
+                    ""
+                );
 
 
-            let adminButtons = "";
-
-
-            if(
-                currentUser &&
-                currentUser.isAdmin === true
-            ){
-
-                adminButtons = `
-
-                    <div class="timeline-admin-actions">
-
-                        <button
-                            type="button"
-                            onclick="editTimelinePost(
-                                '${escapeHTML(post.id)}'
-                            )"
-                        >
-                            Edit
-                        </button>
-
-
-                        <button
-                            type="button"
-                            onclick="deleteTimelinePost(
-                                '${escapeHTML(post.id)}'
-                            )"
-                        >
-                            Delete
-                        </button>
-
-                    </div>
-
-                `;
-
-            }
+            const date =
+                formatDate(
+                    post.date
+                );
 
 
             html += `
 
-                <article class="timeline-post">
+                <article
+                    class="timeline-post"
+                >
 
-                    ${image}
+                    ${
+                        image
 
-                    <h2>
-                        ${escapeHTML(
-                            post.title || ""
-                        )}
-                    </h2>
+                        ?
+
+                        `<img
+                            src="${image}"
+                            alt="${title}"
+                            loading="lazy"
+                            onerror="this.style.display='none';"
+                        >`
+
+                        :
+
+                        ""
+                    }
+
+
+                    <h3>
+                        ${title}
+                    </h3>
 
 
                     <p>
-                        ${escapeHTML(
-                            post.caption || ""
-                        )}
+                        ${caption}
                     </p>
 
 
-                    <small>
-                        ${escapeHTML(
-                            post.date || ""
-                        )}
-                    </small>
+                    <p class="timeline-date">
+
+                        ${date}
+
+                    </p>
 
 
-                    ${adminButtons}
+                    <button
+                        type="button"
+                        class="timeline-view-btn"
+                        onclick="viewTimelinePost(
+                            '${id}'
+                        )"
+                    >
+                        View
+                    </button>
+
+
+                    ${
+                        isAdmin
+
+                        ?
+
+                        `
+
+                        <div
+                            class="timeline-admin-actions"
+                        >
+
+                            <button
+                                type="button"
+                                onclick="editTimelinePost(
+                                    '${id}'
+                                )"
+                            >
+                                Edit
+                            </button>
+
+
+                            <button
+                                type="button"
+                                onclick="deleteTimelinePost(
+                                    '${id}'
+                                )"
+                            >
+                                Delete
+                            </button>
+
+                        </div>
+
+                        `
+
+                        :
+
+                        ""
+
+                    }
 
                 </article>
 
@@ -2294,64 +2697,205 @@ function renderTimeline(posts){
     );
 
 
-    box.innerHTML =
+    container.innerHTML =
         html;
 
 }
 
 
 // ==========================================
-// INITIAL LOAD
+// VIEW TIMELINE POST
 // ==========================================
 
-function initializeHomeData(){
+function viewTimelinePost(id){
 
-    loadTimeline();
+    const post =
+        timelinePosts.find(
+            function(item){
 
-    loadComments();
+                return String(
+                    item.id
+                ) ===
+                String(id);
+
+            }
+        );
 
 
-    if(currentUser){
+    if(!post){
 
-        loadMyRequests();
+        alert(
+            "Timeline post not found."
+        );
+
+        return;
 
     }
 
 
-    if(
-        currentUser &&
-        currentUser.isAdmin === true
-    ){
+    /*
+     * Look for an existing modal.
+     */
 
-        loadAdminData();
+    let modal =
+        document.getElementById(
+            "timelineModal"
+        );
+
+
+    /*
+     * If the HTML does not already
+     * contain a modal, create one.
+     */
+
+    if(!modal){
+
+        modal =
+            document.createElement(
+                "div"
+            );
+
+
+        modal.id =
+            "timelineModal";
+
+
+        modal.className =
+            "timeline-modal";
+
+
+        document.body.appendChild(
+            modal
+        );
 
     }
+
+
+    const image =
+        post.image
+        ?
+
+        `<img
+            src="${escapeHTML(
+                post.image
+            )}"
+            alt="${escapeHTML(
+                post.title ||
+                ""
+            )}"
+        >`
+
+        :
+
+        "";
+
+
+    modal.innerHTML = `
+
+        <div
+            class="timeline-modal-content"
+        >
+
+            <button
+                type="button"
+                class="timeline-modal-close"
+                onclick="closeTimelineModal()"
+            >
+                ×
+            </button>
+
+
+            ${image}
+
+
+            <h2>
+                ${escapeHTML(
+                    post.title ||
+                    "Untitled"
+                )}
+            </h2>
+
+
+            <p>
+                ${escapeHTML(
+                    post.caption ||
+                    ""
+                )}
+            </p>
+
+
+            <p class="timeline-date">
+
+                Posted:
+                ${formatDate(
+                    post.date
+                )}
+
+            </p>
+
+
+            <p>
+
+                Posted by:
+                ${escapeHTML(
+                    post.postedBy ||
+                    ""
+                )}
+
+            </p>
+
+        </div>
+
+    `;
+
+
+    modal.classList.add(
+        "show"
+    );
+
+
+    /*
+     * Close when clicking outside
+     */
+
+    modal.onclick =
+        function(event){
+
+            if(
+                event.target ===
+                modal
+            ){
+
+                closeTimelineModal();
+
+            }
+
+        };
 
 }
 
 
 // ==========================================
-// OPTIONAL DOM READY INITIALIZATION
+// CLOSE TIMELINE MODAL
 // ==========================================
 
-document.addEventListener(
-    "DOMContentLoaded",
-    function(){
+function closeTimelineModal(){
 
-        setTimeout(
-            initializeHomeData,
-            500
+    const modal =
+        document.getElementById(
+            "timelineModal"
+        );
+
+
+    if(modal){
+
+        modal.classList.remove(
+            "show"
         );
 
     }
-);
 
-// ==========================================
-// LINKTECH CUSTOMER SUPPORT PORTAL
-// HOME.JS
-// PART 4/4
-// TIMELINE ADMIN + REPORTS
-// ==========================================
+}
 
 
 // ==========================================
@@ -2417,7 +2961,7 @@ function createPost(){
     if(!caption){
 
         alert(
-            "Please enter a caption."
+            "Please enter a post caption."
         );
 
         return;
@@ -2425,48 +2969,22 @@ function createPost(){
     }
 
 
-    fetch(
+    postAPI({
 
-        API_URL,
-        {
+        action:
+            "createPost",
 
-            method:
-                "POST",
+        email:
+            currentUser.email,
 
-            headers:{
+        title:
+            title,
 
-                "Content-Type":
-                    "text/plain;charset=utf-8"
+        caption:
+            caption,
 
-            },
-
-            body:
-                JSON.stringify({
-
-                    action:
-                        "createPost",
-
-                    email:
-                        currentUser.email,
-
-                    title:
-                        title,
-
-                    caption:
-                        caption,
-
-                    image:
-                        image
-
-                })
-
-        }
-
-    )
-
-    .then(function(response){
-
-        return response.json();
+        image:
+            image
 
     })
 
@@ -2482,21 +3000,24 @@ function createPost(){
 
             if(titleElement){
 
-                titleElement.value = "";
+                titleElement.value =
+                    "";
 
             }
 
 
             if(captionElement){
 
-                captionElement.value = "";
+                captionElement.value =
+                    "";
 
             }
 
 
             if(imageElement){
 
-                imageElement.value = "";
+                imageElement.value =
+                    "";
 
             }
 
@@ -2516,110 +3037,8 @@ function createPost(){
 
 
         alert(
+            error.message ||
             "Unable to create timeline post."
-        );
-
-    });
-
-}
-
-
-// ==========================================
-// DELETE TIMELINE POST
-// ==========================================
-
-function deleteTimelinePost(id){
-
-    if(!requireAdmin()){
-
-        return;
-
-    }
-
-
-    if(!id){
-
-        return;
-
-    }
-
-
-    if(
-        !confirm(
-            "Delete this timeline post?"
-        )
-    ){
-
-        return;
-
-    }
-
-
-    fetch(
-
-        API_URL,
-        {
-
-            method:
-                "POST",
-
-            headers:{
-
-                "Content-Type":
-                    "text/plain;charset=utf-8"
-
-            },
-
-            body:
-                JSON.stringify({
-
-                    action:
-                        "deletePost",
-
-                    email:
-                        currentUser.email,
-
-                    id:
-                        id
-
-                })
-
-        }
-
-    )
-
-    .then(function(response){
-
-        return response.json();
-
-    })
-
-    .then(function(result){
-
-        alert(
-            result.message ||
-            "Operation completed."
-        );
-
-
-        if(result.success){
-
-            loadTimeline();
-
-        }
-
-    })
-
-    .catch(function(error){
-
-        console.error(
-            "Delete post error:",
-            error
-        );
-
-
-        alert(
-            "Unable to delete timeline post."
         );
 
     });
@@ -2640,7 +3059,24 @@ function editTimelinePost(id){
     }
 
 
-    if(!id){
+    const post =
+        timelinePosts.find(
+            function(item){
+
+                return String(
+                    item.id
+                ) ===
+                String(id);
+
+            }
+        );
+
+
+    if(!post){
+
+        alert(
+            "Timeline post not found."
+        );
 
         return;
 
@@ -2649,7 +3085,8 @@ function editTimelinePost(id){
 
     const title =
         prompt(
-            "Enter new title:"
+            "Enter new title:",
+            post.title || ""
         );
 
 
@@ -2662,7 +3099,8 @@ function editTimelinePost(id){
 
     const caption =
         prompt(
-            "Enter new caption:"
+            "Enter new caption:",
+            post.caption || ""
         );
 
 
@@ -2673,51 +3111,39 @@ function editTimelinePost(id){
     }
 
 
-    fetch(
+    const image =
+        prompt(
+            "Enter image URL:",
+            post.image || ""
+        );
 
-        API_URL,
-        {
 
-            method:
-                "POST",
+    if(image === null){
 
-            headers:{
+        return;
 
-                "Content-Type":
-                    "text/plain;charset=utf-8"
+    }
 
-            },
 
-            body:
-                JSON.stringify({
+    postAPI({
 
-                    action:
-                        "updatePost",
+        action:
+            "updatePost",
 
-                    email:
-                        currentUser.email,
+        email:
+            currentUser.email,
 
-                    id:
-                        id,
+        id:
+            id,
 
-                    title:
-                        title.trim(),
+        title:
+            title.trim(),
 
-                    caption:
-                        caption.trim(),
+        caption:
+            caption.trim(),
 
-                    image:
-                        ""
-
-                })
-
-        }
-
-    )
-
-    .then(function(response){
-
-        return response.json();
+        image:
+            image.trim()
 
     })
 
@@ -2725,7 +3151,7 @@ function editTimelinePost(id){
 
         alert(
             result.message ||
-            "Operation completed."
+            "Post updated."
         );
 
 
@@ -2740,12 +3166,13 @@ function editTimelinePost(id){
     .catch(function(error){
 
         console.error(
-            "Edit post error:",
+            "Edit timeline error:",
             error
         );
 
 
         alert(
+            error.message ||
             "Unable to update timeline post."
         );
 
@@ -2755,10 +3182,10 @@ function editTimelinePost(id){
 
 
 // ==========================================
-// PRINT ADMIN REPORT
+// DELETE TIMELINE POST
 // ==========================================
 
-function printReport(){
+function deleteTimelinePost(id){
 
     if(!requireAdmin()){
 
@@ -2767,327 +3194,59 @@ function printReport(){
     }
 
 
-    const container =
-        document.getElementById(
-            "adminConcerns"
+    const confirmed =
+        confirm(
+            "Delete this timeline post?"
         );
 
 
-    if(!container){
-
-        alert(
-            "Admin concern list not found."
-        );
+    if(!confirmed){
 
         return;
 
     }
 
 
-    const printWindow =
-        window.open(
-            "",
-            "",
-            "width=900,height=700"
-        );
+    postAPI({
 
+        action:
+            "deletePost",
 
-    if(!printWindow){
+        email:
+            currentUser.email,
 
-        alert(
-            "Please allow pop-ups."
-        );
-
-        return;
-
-    }
-
-
-    printWindow.document.write(`
-
-        <!DOCTYPE html>
-
-        <html>
-
-        <head>
-
-            <title>
-                LinkTech Customer Concern Report
-            </title>
-
-            <style>
-
-                body{
-                    font-family:Arial,sans-serif;
-                    padding:30px;
-                }
-
-                .admin-request{
-                    border:1px solid #ccc;
-                    padding:15px;
-                    margin-bottom:15px;
-                    page-break-inside:avoid;
-                }
-
-                button{
-                    display:none;
-                }
-
-            </style>
-
-        </head>
-
-        <body>
-
-            <h2>
-                LinkTech Customer Concern Report
-            </h2>
-
-            <p>
-                Generated:
-                ${new Date().toLocaleString()}
-            </p>
-
-            ${container.innerHTML}
-
-        </body>
-
-        </html>
-
-    `);
-
-
-    printWindow.document.close();
-
-    printWindow.focus();
-
-    printWindow.print();
-
-}
-
-
-// ==========================================
-// CSV ESCAPE
-// ==========================================
-
-function csvEscape(value){
-
-    if(
-        value === null ||
-        value === undefined
-    ){
-
-        return "";
-
-    }
-
-
-    return '"' +
-        String(value)
-            .replace(
-                /"/g,
-                '""'
-            ) +
-        '"';
-
-}
-
-
-// ==========================================
-// DOWNLOAD CSV
-// ==========================================
-
-function downloadCSV(){
-
-    if(!requireAdmin()){
-
-        return;
-
-    }
-
-
-    fetch(
-
-        API_URL +
-        "?action=getAdminData" +
-        "&email=" +
-        encodeURIComponent(
-            currentUser.email
-        )
-
-    )
-
-    .then(function(response){
-
-        if(!response.ok){
-
-            throw new Error(
-                "HTTP " +
-                response.status
-            );
-
-        }
-
-
-        return response.json();
+        id:
+            id
 
     })
 
     .then(function(result){
 
-        if(!result.success){
+        alert(
+            result.message ||
+            "Post deleted."
+        );
 
-            alert(
-                result.message ||
-                "Unable to generate report."
-            );
 
-            return;
+        if(result.success){
+
+            loadTimeline();
 
         }
-
-
-        // IMPORTANT:
-        // Code.gs returns:
-        //
-        // data.summary
-        // data.requests
-
-        const requests =
-            result.data &&
-            Array.isArray(
-                result.data.requests
-            )
-                ? result.data.requests
-                : [];
-
-
-        const rows = [
-
-            [
-                "Concern ID",
-                "Name",
-                "Email",
-                "Contact",
-                "Address",
-                "Category",
-                "Problem",
-                "Status",
-                "Date"
-            ]
-
-        ];
-
-
-        requests.forEach(
-            function(item){
-
-                rows.push([
-
-                    item.id || "",
-
-                    item.name || "",
-
-                    item.email || "",
-
-                    item.contact || "",
-
-                    item.address || "",
-
-                    item.category || "",
-
-                    item.problem || "",
-
-                    normalizeConcernStatus(
-                        item.status
-                    ),
-
-                    item.date || ""
-
-                ]);
-
-            }
-        );
-
-
-        const csv =
-            rows
-
-                .map(
-                    function(row){
-
-                        return row
-                            .map(csvEscape)
-                            .join(",");
-
-                    }
-                )
-
-                .join("\r\n");
-
-
-        const blob =
-            new Blob(
-
-                [csv],
-
-                {
-                    type:
-                        "text/csv;charset=utf-8;"
-                }
-
-            );
-
-
-        const url =
-            URL.createObjectURL(
-                blob
-            );
-
-
-        const link =
-            document.createElement(
-                "a"
-            );
-
-
-        link.href =
-            url;
-
-
-        link.download =
-            "LinkTech_Customer_Concern_Report.csv";
-
-
-        document.body.appendChild(
-            link
-        );
-
-
-        link.click();
-
-
-        document.body.removeChild(
-            link
-        );
-
-
-        URL.revokeObjectURL(
-            url
-        );
 
     })
 
     .catch(function(error){
 
         console.error(
-            "CSV error:",
+            "Delete timeline error:",
             error
         );
 
 
         alert(
-            "Unable to download CSV report."
+            error.message ||
+            "Unable to delete timeline post."
         );
 
     });
@@ -3096,59 +3255,80 @@ function downloadCSV(){
 
 
 // ==========================================
-// CHECK LOGIN STATUS
+// CLOSE MODAL WITH ESC KEY
 // ==========================================
 
-function isLoggedIn(){
+document.addEventListener(
+    "keydown",
+    function(event){
 
-    return !!(
-        currentUser &&
-        currentUser.email
-    );
+        if(
+            event.key ===
+            "Escape"
+        ){
 
-}
+            closeTimelineModal();
 
-
-// ==========================================
-// GET CURRENT USER EMAIL
-// ==========================================
-
-function getCurrentUserEmail(){
-
-    if(!currentUser){
-
-        return "";
+        }
 
     }
-
-
-    return currentUser.email || "";
-
-}
+);
 
 
 // ==========================================
-// SAFE API ERROR LOGGER
+// FILTER EVENT AUTO-CONNECTION
 // ==========================================
 
-function logAPIError(
-    operation,
-    error
-){
+document.addEventListener(
+    "DOMContentLoaded",
+    function(){
 
-    console.error(
-        "LinkTech API error:",
-        operation,
-        error
-    );
-
-}
+        const reportType =
+            document.getElementById(
+                "reportType"
+            );
 
 
-// ==========================================
-// FINAL INITIALIZATION
-// ==========================================
+        const statusFilter =
+            document.getElementById(
+                "statusFilter"
+            );
 
-console.log(
-    "LinkTech Home.js Parts 1-4 loaded."
+
+        const categoryFilter =
+            document.getElementById(
+                "categoryFilter"
+            );
+
+
+        if(reportType){
+
+            reportType.addEventListener(
+                "change",
+                applyConcernFilters
+            );
+
+        }
+
+
+        if(statusFilter){
+
+            statusFilter.addEventListener(
+                "change",
+                applyConcernFilters
+            );
+
+        }
+
+
+        if(categoryFilter){
+
+            categoryFilter.addEventListener(
+                "change",
+                applyConcernFilters
+            );
+
+        }
+
+    }
 );
