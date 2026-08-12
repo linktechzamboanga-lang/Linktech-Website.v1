@@ -957,292 +957,359 @@ function escapeHTML(value){
 // SUBMIT CUSTOMER CONCERN
 // ==========================================
 
-function submitConcern(data) {
+// ==========================================
+// SUBMIT CUSTOMER CONCERN
+// ==========================================
 
-    try {
+function submitConcern(){
 
-        if (!data) {
-            return {
-                success: false,
-                message: "No concern data received."
-            };
-        }
+    if(!requireLogin()){
 
-
-        const email =
-            String(data.email || "")
-            .trim()
-            .toLowerCase();
-
-
-        if (!email) {
-            return {
-                success: false,
-                message: "Google email is required."
-            };
-        }
-
-
-        const name =
-            String(data.name || "").trim();
-
-        const address =
-            String(data.address || "").trim();
-
-        const contact =
-            String(data.contact || "").trim();
-
-        const category =
-            String(data.category || "").trim();
-
-        const problem =
-            String(data.problem || "").trim();
-
-
-        if (!name) {
-            return {
-                success: false,
-                message: "Full name is required."
-            };
-        }
-
-
-        if (!problem) {
-            return {
-                success: false,
-                message: "Please describe your concern."
-            };
-        }
-
-
-        // ======================================
-        // CHECK EXISTING ACTIVE CONCERN
-        // ======================================
-
-        const sheet =
-            ss.getSheetByName(CONCERNS);
-
-
-        if (!sheet) {
-            return {
-                success: false,
-                message: "Customer concern database not found."
-            };
-        }
-
-
-        const values =
-            sheet.getDataRange().getValues();
-
-
-        if (values.length > 1) {
-
-            const headers =
-                values[0].map(function(header) {
-                    return String(header)
-                        .trim()
-                        .toLowerCase();
-                });
-
-
-            const emailIndex =
-                headers.indexOf("email");
-
-            const statusIndex =
-                headers.indexOf("status");
-
-
-            if (
-                emailIndex !== -1 &&
-                statusIndex !== -1
-            ) {
-
-                for (
-                    let i = 1;
-                    i < values.length;
-                    i++
-                ) {
-
-                    const rowEmail =
-                        String(
-                            values[i][emailIndex] || ""
-                        )
-                        .trim()
-                        .toLowerCase();
-
-
-                    if (
-                        rowEmail !== email
-                    ) {
-                        continue;
-                    }
-
-
-                    const status =
-                        normalizeConcernStatus(
-                            values[i][statusIndex]
-                        );
-
-
-                    // ==================================
-                    // BLOCK ACTIVE REQUEST
-                    // ==================================
-
-                    if (
-                        status ===
-                        CONCERN_STATUS.PENDING ||
-
-                        status ===
-                        CONCERN_STATUS.PROCESSING
-                    ) {
-
-                        return {
-
-                            success: false,
-
-                            blocked: true,
-
-                            status: status,
-
-                            message:
-                                "You already have an active concern (" +
-                                status +
-                                "). Please wait until your current concern is completed or aborted before submitting another concern."
-
-                        };
-
-                    }
-
-                }
-
-            }
-
-        }
-
-
-        // ======================================
-        // GENERATE CONCERN ID
-        // ======================================
-
-        const concernId =
-            "CN-" +
-            Utilities.formatDate(
-                new Date(),
-                Session.getScriptTimeZone(),
-                "yyyyMMdd-HHmmss"
-            ) +
-            "-" +
-            Math.floor(
-                Math.random() * 1000
-            );
-
-
-        const now =
-            new Date();
-
-
-        // ======================================
-        // DEFAULT STATUS
-        // ======================================
-
-        const status =
-            CONCERN_STATUS.PENDING;
-
-
-        // ======================================
-        // ADD RECORD
-        // ======================================
-
-        sheet.appendRow([
-
-            concernId,
-
-            name,
-
-            email,
-
-            address,
-
-            contact,
-
-            category,
-
-            problem,
-
-            status,
-
-            now
-
-        ]);
-
-
-        // ======================================
-        // RETURN SUCCESS
-        // ======================================
-
-        return {
-
-            success: true,
-
-            message:
-                "Concern submitted successfully.",
-
-            data: {
-
-                id:
-                    concernId,
-
-                name:
-                    name,
-
-                email:
-                    email,
-
-                address:
-                    address,
-
-                contact:
-                    contact,
-
-                category:
-                    category,
-
-                problem:
-                    problem,
-
-                status:
-                    status,
-
-                date:
-                    now
-
-            }
-
-        };
+        return;
 
     }
 
-    catch (error) {
+
+    // ======================================
+    // CHECK TERMS & CONDITIONS
+    // ======================================
+
+    const agree =
+        document.getElementById(
+            "agreeTerms"
+        );
+
+
+    if(
+        agree &&
+        !agree.checked
+    ){
+
+        alert(
+            "Please agree to the Terms & Conditions."
+        );
+
+        return;
+
+    }
+
+
+    // ======================================
+    // GET FORM DATA
+    // ======================================
+
+    const name =
+        getValue("name");
+
+    const email =
+        getValue("email") ||
+        currentUser.email;
+
+    const address =
+        getValue("address");
+
+    const contact =
+        getValue("contact");
+
+    const category =
+        getValue("category");
+
+    const problem =
+        getValue("problem");
+
+
+    // ======================================
+    // VALIDATION
+    // ======================================
+
+    if(!name){
+
+        alert(
+            "Full name is required."
+        );
+
+        return;
+
+    }
+
+
+    if(!email){
+
+        alert(
+            "Google email is required."
+        );
+
+        return;
+
+    }
+
+
+    if(!problem){
+
+        alert(
+            "Please describe your concern."
+        );
+
+        return;
+
+    }
+
+
+    // ======================================
+    // SUBMIT BUTTON
+    // ======================================
+
+    const button =
+        document.getElementById(
+            "submitConcernBtn"
+        );
+
+
+    if(button){
+
+        button.disabled =
+            true;
+
+        button.textContent =
+            "Checking...";
+
+    }
+
+
+    // ======================================
+    // SEND TO CODE.GS
+    // ======================================
+
+    const payload = {
+
+        action:
+            "submitConcern",
+
+        email:
+            email,
+
+        name:
+            name,
+
+        address:
+            address,
+
+        contact:
+            contact,
+
+        category:
+            category,
+
+        problem:
+            problem
+
+    };
+
+
+    fetch(
+
+        API_URL,
+
+        {
+
+            method:
+                "POST",
+
+            headers:{
+                "Content-Type":
+                    "text/plain;charset=utf-8"
+            },
+
+            body:
+                JSON.stringify(
+                    payload
+                )
+
+        }
+
+    )
+
+    .then(function(response){
+
+        if(!response.ok){
+
+            throw new Error(
+                "HTTP " +
+                response.status
+            );
+
+        }
+
+        return response.json();
+
+    })
+
+    .then(function(result){
+
+        console.log(
+            "Submit concern result:",
+            result
+        );
+
+
+        // ==================================
+        // BLOCKED ACTIVE CONCERN
+        // ==================================
+
+        if(
+            result.blocked === true ||
+            (
+                result.data &&
+                result.data.blocked === true
+            )
+        ){
+
+            const blockedStatus =
+                result.status ||
+                (
+                    result.data &&
+                    result.data.status
+                ) ||
+                "Pending";
+
+
+            const message =
+                result.message ||
+                (
+                    "You already have an active concern (" +
+                    blockedStatus +
+                    "). Please wait until it is Completed or Aborted."
+                );
+
+
+            const concernMessage =
+                document.getElementById(
+                    "concernMessage"
+                );
+
+
+            if(concernMessage){
+
+                concernMessage.textContent =
+                    message;
+
+                concernMessage.style.color =
+                    "#ff5555";
+
+            }
+
+
+            alert(message);
+
+            return;
+
+        }
+
+
+        // ==================================
+        // OTHER SERVER ERROR
+        // ==================================
+
+        if(!result.success){
+
+            throw new Error(
+                result.message ||
+                "Unable to submit concern."
+            );
+
+        }
+
+
+        // ==================================
+        // SUCCESS
+        // ==================================
+
+        const message =
+            document.getElementById(
+                "concernMessage"
+            );
+
+
+        if(message){
+
+            message.textContent =
+                "Concern submitted successfully.";
+
+            message.style.color =
+                "#00ff99";
+
+        }
+
+
+        alert(
+            "Your concern has been submitted successfully."
+        );
+
+
+        clearConcernForm();
+
+
+        // ==================================
+        // SHOW MY REQUESTS
+        // ==================================
+
+        setTimeout(function(){
+
+            showRequests();
+
+        },500);
+
+    })
+
+    .catch(function(error){
 
         console.error(
-            "submitConcern error:",
+            "Submit concern error:",
             error
         );
 
 
-        return {
+        const message =
+            document.getElementById(
+                "concernMessage"
+            );
 
-            success: false,
 
-            message:
-                "Unable to submit concern: " +
-                error.message
+        if(message){
 
-        };
+            message.textContent =
+                error.message ||
+                "Unable to submit your concern.";
 
-    }
+            message.style.color =
+                "#ff5555";
+
+        }
+
+
+        alert(
+            error.message ||
+            "Unable to submit your concern."
+        );
+
+    })
+
+    .finally(function(){
+
+        if(button){
+
+            button.disabled =
+                false;
+
+            button.textContent =
+                "Submit Concern";
+
+        }
+
+    });
 
 }
+
 // ==========================================
 // GET ELEMENT VALUE
 // ==========================================
