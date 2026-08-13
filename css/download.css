@@ -31,54 +31,35 @@ min-height:100vh;
 
 
 header{
-
-display:flex;
-
-justify-content:space-between;
-
-align-items:center;
-
-padding:15px 5%;
-
-background:#081326;
-
-position:sticky;
-
-top:0;
-
-z-index:1000;
-
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:15px 5%;
+    background:#081326;
+    position:sticky;
+    top:0;
+    z-index:1000;
+    box-shadow:0 4px 15px rgba(0,0,0,.25);
 }
 
 header b{
-font-size:24px;
-color:#00f7ff;1
+    font-size:24px;
+    color:#00f7ff;
 }
 
 .logo{
-
-display:flex;
-
-align-items:center;
-
-gap:10px;
-
-font-size:22px;
-
+    display:flex;
+    align-items:center;
+    gap:10px;
+    font-size:22px;
+    white-space:nowrap;
 }
-
-
 
 .logo img{
-
-width:45px;
-
-height:45px;
-
-object-fit:contain;
-
+    width:45px;
+    height:45px;
+    object-fit:contain;
 }
-
 
 
 
