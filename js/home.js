@@ -19,7 +19,7 @@ const GOOGLE_CLIENT_ID =
 // ==========================================
 
 const API_URL =
-"https://script.google.com/macros/s/AKfycbxzvfGPnBsZje_wElmPfXTitSs3Id5zU8h73yK9e_gXn-z8eHa4e8ye9jfOPLY6K5PS/exec";
+"https://script.google.com/macros/s/AKfycbxS41IxkdowzyM_8tl-sNFgALp9eLSopQ7zg6GFCrr3tL2IKGJgVpDUm5Vhhos1_62r/exec";
 
 
 
@@ -952,13 +952,9 @@ function escapeHTML(value){
 // CONCERNS + REQUESTS + COMMENTS
 // ==========================================
 
-
 // ==========================================
 // SUBMIT CUSTOMER CONCERN
-// ==========================================
-
-// ==========================================
-// SUBMIT CUSTOMER CONCERN
+// VALIDATED VERSION
 // ==========================================
 
 function submitConcern(){
@@ -988,6 +984,8 @@ function submitConcern(){
         alert(
             "Please agree to the Terms & Conditions."
         );
+
+        agree.focus();
 
         return;
 
@@ -1019,7 +1017,7 @@ function submitConcern(){
 
 
     // ======================================
-    // VALIDATION
+    // NAME VALIDATION
     // ======================================
 
     if(!name){
@@ -1028,10 +1026,16 @@ function submitConcern(){
             "Full name is required."
         );
 
+        document.getElementById("name").focus();
+
         return;
 
     }
 
+
+    // ======================================
+    // EMAIL VALIDATION
+    // ======================================
 
     if(!email){
 
@@ -1044,15 +1048,179 @@ function submitConcern(){
     }
 
 
+    // ======================================
+    // ADDRESS VALIDATION
+    // ======================================
+
+    if(!address){
+
+        alert(
+            "Complete address is required."
+        );
+
+        document.getElementById("address").focus();
+
+        return;
+
+    }
+
+
+    if(address.length < 10){
+
+        alert(
+            "Please enter your complete address. Address must contain at least 10 characters."
+        );
+
+        document.getElementById("address").focus();
+
+        return;
+
+    }
+
+
+    if(address.length > 200){
+
+        alert(
+            "Address is too long. Please keep it within 200 characters."
+        );
+
+        document.getElementById("address").focus();
+
+        return;
+
+    }
+
+
+    // ======================================
+    // CONTACT NUMBER VALIDATION
+    // ======================================
+
+    if(!contact){
+
+        alert(
+            "Contact number is required."
+        );
+
+        document.getElementById("contact").focus();
+
+        return;
+
+    }
+
+
+    // Remove accidental spaces before checking
+    const cleanContact =
+        contact.replace(/\s/g, "");
+
+
+    // Must contain numbers only
+    if(!/^[0-9]+$/.test(cleanContact)){
+
+        alert(
+            "Contact number must contain numbers only."
+        );
+
+        document.getElementById("contact").focus();
+
+        return;
+
+    }
+
+
+    // Must be exactly 11 digits
+    if(cleanContact.length !== 11){
+
+        alert(
+            "Contact number must contain exactly 11 digits. Example: 09171234567"
+        );
+
+        document.getElementById("contact").focus();
+
+        return;
+
+    }
+
+
+    // Must start with 09
+    if(!cleanContact.startsWith("09")){
+
+        alert(
+            "Please enter a valid Philippine mobile number starting with 09. Example: 09171234567"
+        );
+
+        document.getElementById("contact").focus();
+
+        return;
+
+    }
+
+
+    // ======================================
+    // CATEGORY VALIDATION
+    // ======================================
+
+    if(!category){
+
+        alert(
+            "Please select a concern category."
+        );
+
+        document.getElementById("category").focus();
+
+        return;
+
+    }
+
+
+    // ======================================
+    // PROBLEM VALIDATION
+    // ======================================
+
     if(!problem){
 
         alert(
             "Please describe your concern."
         );
 
+        document.getElementById("problem").focus();
+
         return;
 
     }
+
+
+    if(problem.length < 10){
+
+        alert(
+            "Please provide more details about your concern. Your description must contain at least 10 characters."
+        );
+
+        document.getElementById("problem").focus();
+
+        return;
+
+    }
+
+
+    if(problem.length > 1000){
+
+        alert(
+            "Your concern description is too long. Please keep it within 1000 characters."
+        );
+
+        document.getElementById("problem").focus();
+
+        return;
+
+    }
+
+
+    // ======================================
+    // FINAL CLEAN VALUES
+    // ======================================
+
+    const finalContact =
+        cleanContact;
 
 
     // ======================================
@@ -1095,7 +1263,7 @@ function submitConcern(){
             address,
 
         contact:
-            contact,
+            finalContact,
 
         category:
             category,
@@ -1207,7 +1375,7 @@ function submitConcern(){
 
 
         // ==================================
-        // OTHER SERVER ERROR
+        // SERVER ERROR
         // ==================================
 
         if(!result.success){
@@ -1309,7 +1477,6 @@ function submitConcern(){
     });
 
 }
-
 // ==========================================
 // GET ELEMENT VALUE
 // ==========================================
