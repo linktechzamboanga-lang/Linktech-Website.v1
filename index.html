@@ -71,10 +71,6 @@ LinkTech Customer Support Portal
             Services
         </a>
 
-        <a href="it-portal.html">
-            IT Portal
-        </a>
-
         <a href="about.html">
             About
         </a>
@@ -273,95 +269,158 @@ LinkTech Customer Support Portal
 
 
 
-            <!-- CUSTOMER NAME -->
+<!-- =====================================
+     CUSTOMER NAME
+====================================== -->
 
-            <input
-                id="name"
-                type="text"
-                placeholder="Full Name"
-                readonly>
+<label for="name">
+    Full Name
+</label>
 
-
-
-            <!-- CUSTOMER EMAIL -->
-
-            <input
-                id="email"
-                type="email"
-                placeholder="Google Email"
-                readonly>
-
-
-
-            <!-- ADDRESS -->
-
-            <input
-                id="address"
-                type="text"
-                placeholder="Complete Address">
+<input
+    id="name"
+    name="name"
+    type="text"
+    placeholder="Full Name"
+    minlength="3"
+    maxlength="100"
+    autocomplete="name"
+    readonly
+    required>
 
 
 
-            <!-- CONTACT -->
+<!-- =====================================
+     CUSTOMER EMAIL
+====================================== -->
 
-            <input
-                id="contact"
-                type="text"
-                placeholder="Contact Number">
+<label for="email">
+    Google Email
+</label>
 
-
-
-            <!-- CATEGORY -->
-
-            <select id="category">
-
-                <option value="">
-                    Select Concern Category
-                </option>
-
-                <option value="Computer Repair">
-                    Computer Repair
-                </option>
-
-                <option value="Laptop Repair">
-                    Laptop Repair
-                </option>
-
-                <option value="Networking">
-                    Networking
-                </option>
-
-                <option value="Printer">
-                    Printer
-                </option>
-
-                <option value="CCTV">
-                    CCTV
-                </option>
-
-                <option value="Software Installation">
-                    Software Installation
-                </option>
-
-                <option value="Internet Connection">
-                    Internet Connection
-                </option>
-
-                <option value="Others">
-                    Others
-                </option>
-
-            </select>
+<input
+    id="email"
+    name="email"
+    type="email"
+    placeholder="Google Email"
+    autocomplete="email"
+    readonly
+    required>
 
 
 
-            <!-- PROBLEM -->
+<!-- =====================================
+     COMPLETE ADDRESS
+====================================== -->
 
-            <textarea
-                id="problem"
-                rows="6"
-                placeholder="Describe your concern..."></textarea>
+<label for="address">
+    Complete Address
+</label>
 
+<input
+    id="address"
+    name="address"
+    type="text"
+    placeholder="House/Street, Barangay, City/Municipality, Province"
+    minlength="10"
+    maxlength="250"
+    autocomplete="street-address"
+    required>
+
+
+
+<!-- =====================================
+     PHILIPPINE CONTACT NUMBER
+====================================== -->
+
+<label for="contact">
+    Contact Number
+</label>
+
+<input
+    id="contact"
+    name="contact"
+    type="tel"
+    placeholder="09XXXXXXXXX"
+    inputmode="numeric"
+    autocomplete="tel"
+    minlength="11"
+    maxlength="11"
+    pattern="09[0-9]{9}"
+    title="Enter a valid Philippine mobile number with exactly 11 digits, starting with 09."
+    required>
+
+
+
+<!-- =====================================
+     CONCERN CATEGORY
+====================================== -->
+
+<label for="category">
+    Concern Category
+</label>
+
+<select
+    id="category"
+    name="category"
+    required>
+
+    <option value="">
+        Select Concern Category
+    </option>
+
+    <option value="Computer Repair">
+        Computer Repair
+    </option>
+
+    <option value="Laptop Repair">
+        Laptop Repair
+    </option>
+
+    <option value="Networking">
+        Networking
+    </option>
+
+    <option value="Printer">
+        Printer
+    </option>
+
+    <option value="CCTV">
+        CCTV
+    </option>
+
+    <option value="Software Installation">
+        Software Installation
+    </option>
+
+    <option value="Internet Connection">
+        Internet Connection
+    </option>
+
+    <option value="Others">
+        Others
+    </option>
+
+</select>
+
+
+
+<!-- =====================================
+     PROBLEM / CONCERN
+====================================== -->
+
+<label for="problem">
+    Describe Your Concern
+</label>
+
+<textarea
+    id="problem"
+    name="problem"
+    rows="6"
+    minlength="10"
+    maxlength="2000"
+    placeholder="Please describe your concern in detail..."
+    required></textarea>
 
 
             <!-- SUBMIT -->
