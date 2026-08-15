@@ -403,7 +403,6 @@ nav a:hover::after{
     max-width:100%;
 }
 
-
 /* ==========================================
    USER PROFILE
 ========================================== */
@@ -420,7 +419,15 @@ nav a:hover::after{
 
     border-radius:18px;
 
-    display:inline-block;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+
+    width:fit-content;
+    margin:0 auto;
+
+    text-align:center;
 
     border:1px solid #e2e8f0;
 
@@ -448,6 +455,9 @@ nav a:hover::after{
     width:60px;
     height:60px;
 
+    display:block;
+    margin:0 auto;
+
     border-radius:50%;
 
     object-fit:cover;
@@ -458,7 +468,6 @@ nav a:hover::after{
         0 5px 15px
         rgba(14,165,233,.20);
 }
-
 
 /* ==========================================
    DASHBOARD MENU
