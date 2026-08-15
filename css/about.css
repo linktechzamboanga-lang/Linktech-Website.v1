@@ -51,29 +51,39 @@ header{
 
     padding:14px 5%;
 
-    background:rgba(255,255,255,.92);
+    background:rgba(255,255,255,.94);
 
     position:sticky;
     top:0;
-
     z-index:1000;
 
-    border-bottom:1px solid rgba(15,23,42,.08);
+    border-bottom:1px solid #e5e7eb;
 
     box-shadow:
-        0 5px 25px rgba(15,23,42,.08);
+        0 4px 20px rgba(15,23,42,.08);
 
-    backdrop-filter:blur(14px);
+    backdrop-filter:blur(15px);
 
     transition:
         background .3s ease,
         box-shadow .3s ease;
 }
 
+header:hover{
+    box-shadow:
+        0 7px 25px rgba(15,23,42,.12);
+}
+
 
 /* ==========================================
-   LOGO
+   HEADER LOGO
 ========================================== */
+
+header b{
+    font-size:24px;
+    color:#0284c7;
+    font-weight:700;
+}
 
 .logo{
     display:flex;
@@ -81,8 +91,9 @@ header{
     gap:10px;
 
     font-size:22px;
-
     white-space:nowrap;
+
+    color:#0f172a;
 }
 
 .logo img{
@@ -97,19 +108,15 @@ header{
 }
 
 .logo:hover img{
-    transform:rotate(-5deg) scale(1.08);
+    transform:
+        rotate(-5deg)
+        scale(1.08);
 
     filter:
         drop-shadow(
-            0 5px 12px
+            0 5px 10px
             rgba(14,165,233,.35)
         );
-}
-
-header b{
-    font-size:24px;
-
-    color:#0284c7;
 }
 
 
