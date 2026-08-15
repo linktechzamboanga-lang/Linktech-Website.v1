@@ -367,6 +367,192 @@ nav a:hover::after{
    HERO
 ========================================== */
 
+/* ==========================================
+   GLOBAL RESET
+========================================== */
+
+*{
+    box-sizing:border-box;
+    margin:0;
+    padding:0;
+    font-family:'Poppins',sans-serif;
+}
+
+html{
+    scroll-behavior:smooth;
+}
+
+body{
+    background:#f5f9ff;
+    color:#0f172a;
+    min-height:100vh;
+    overflow-x:hidden;
+}
+
+img{
+    max-width:100%;
+}
+
+button,
+input,
+textarea,
+select{
+    font-family:'Poppins',sans-serif;
+}
+
+
+/* ==========================================
+   HEADER
+========================================== */
+
+header{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+
+    padding:14px 5%;
+
+    background:rgba(255,255,255,.92);
+
+    position:sticky;
+    top:0;
+
+    z-index:1000;
+
+    border-bottom:1px solid rgba(15,23,42,.08);
+
+    box-shadow:
+        0 5px 25px rgba(15,23,42,.08);
+
+    backdrop-filter:blur(14px);
+
+    transition:
+        background .3s ease,
+        box-shadow .3s ease;
+}
+
+
+/* ==========================================
+   LOGO
+========================================== */
+
+.logo{
+    display:flex;
+    align-items:center;
+    gap:10px;
+
+    font-size:22px;
+
+    white-space:nowrap;
+}
+
+.logo img{
+    width:45px;
+    height:45px;
+
+    object-fit:contain;
+
+    transition:
+        transform .4s ease,
+        filter .4s ease;
+}
+
+.logo:hover img{
+    transform:rotate(-5deg) scale(1.08);
+
+    filter:
+        drop-shadow(
+            0 5px 12px
+            rgba(14,165,233,.35)
+        );
+}
+
+header b{
+    font-size:24px;
+
+    color:#0284c7;
+}
+
+
+/* ==========================================
+   NAVIGATION
+========================================== */
+
+nav{
+    display:flex;
+
+    gap:8px;
+
+    align-items:center;
+
+    flex-wrap:wrap;
+
+    justify-content:center;
+}
+
+nav a{
+    position:relative;
+
+    color:#334155;
+
+    text-decoration:none;
+
+    font-size:14px;
+
+    font-weight:500;
+
+    padding:9px 13px;
+
+    border-radius:10px;
+
+    transition:
+        color .25s ease,
+        background .25s ease,
+        transform .25s ease,
+        box-shadow .25s ease;
+}
+
+nav a::after{
+    content:"";
+
+    position:absolute;
+
+    left:50%;
+    bottom:4px;
+
+    width:0;
+    height:2px;
+
+    background:#0ea5e9;
+
+    border-radius:10px;
+
+    transform:translateX(-50%);
+
+    transition:width .3s ease;
+}
+
+nav a:hover{
+    background:#e0f2fe;
+
+    color:#0284c7;
+
+    transform:translateY(-2px);
+
+    box-shadow:
+        0 5px 15px
+        rgba(14,165,233,.12);
+}
+
+nav a:hover::after{
+    width:55%;
+}
+
+
+/* ==========================================
+   HERO
+========================================== */
+
 .hero{
     position:relative;
 
