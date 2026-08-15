@@ -993,34 +993,19 @@ section{
 ========================================== */
 
 footer{
+
     text-align:center;
 
     padding:30px 20px;
 
-    background:#0f172a;
+    background:#ffffff;
+
+    border-top:1px solid #e2e8f0;
 
     margin-top:0;
 
-    color:#cbd5e1;
-
-    border-top:
-        1px solid
-        rgba(255,255,255,.08);
+    color:#64748b;
 }
-
-footer a{
-    color:#38bdf8;
-
-    text-decoration:none;
-
-    transition:
-        color .25s ease;
-}
-
-footer a:hover{
-    color:#7dd3fc;
-}
-
 
 /* ==========================================
    BUTTON GENERAL ANIMATION
