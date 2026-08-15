@@ -49,43 +49,48 @@ header{
     justify-content:space-between;
     align-items:center;
 
-    padding:15px 5%;
+    padding:14px 5%;
 
-    background:rgba(255,255,255,.95);
+    background:rgba(255,255,255,.94);
 
     position:sticky;
     top:0;
-
     z-index:1000;
 
-    border-bottom:1px solid #e2e8f0;
+    border-bottom:1px solid #e5e7eb;
 
     box-shadow:
         0 4px 20px rgba(15,23,42,.08);
 
-    backdrop-filter:blur(14px);
+    backdrop-filter:blur(15px);
+
+    transition:
+        background .3s ease,
+        box-shadow .3s ease;
 }
 
-header b{
-    font-size:24px;
-    color:#0284c7;
+header:hover{
+    box-shadow:
+        0 7px 25px rgba(15,23,42,.12);
 }
 
 
 /* ==========================================
-   LOGO
+   HEADER LOGO
 ========================================== */
+
+header b{
+    font-size:24px;
+    color:#0284c7;
+    font-weight:700;
+}
 
 .logo{
     display:flex;
     align-items:center;
-
     gap:10px;
 
     font-size:22px;
-
-    font-weight:700;
-
     white-space:nowrap;
 
     color:#0f172a;
@@ -96,6 +101,22 @@ header b{
     height:45px;
 
     object-fit:contain;
+
+    transition:
+        transform .4s ease,
+        filter .4s ease;
+}
+
+.logo:hover img{
+    transform:
+        rotate(-5deg)
+        scale(1.08);
+
+    filter:
+        drop-shadow(
+            0 5px 10px
+            rgba(14,165,233,.35)
+        );
 }
 
 
