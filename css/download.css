@@ -223,15 +223,111 @@ nav a:hover::after{
     height:300px;
 
     border-radius:50%;
+    flex-wrap:wrap;
+}
+
+nav a{
+    position:relative;
+
+    color:#334155;
+    text-decoration:none;
+
+    font-size:14px;
+    font-weight:500;
+
+    padding:9px 13px;
+
+    border-radius:10px;
+
+    transition:
+        color .25s ease,
+        background .25s ease,
+        transform .25s ease;
+}
+
+nav a::after{
+    content:"";
+
+    position:absolute;
+
+    left:50%;
+    bottom:4px;
+
+    width:0;
+    height:2px;
+
+    background:#0ea5e9;
+
+    border-radius:10px;
+
+    transform:translateX(-50%);
+
+    transition:width .25s ease;
+}
+
+nav a:hover{
+    color:#0284c7;
+    background:#f0f9ff;
+
+    transform:translateY(-2px);
+}
+
+nav a:hover::after{
+    width:55%;
+}
+
+
+/* ==========================================
+   HERO
+========================================== */
+
+.hero{
+    position:relative;
+
+    text-align:center;
+
+    padding:75px 20px;
+
+    overflow:hidden;
 
     background:
-        rgba(14,165,233,.10);
+        linear-gradient(
+            135deg,
+            #f8fcff 0%,
+            #eef8ff 45%,
+            #ffffff 100%
+        );
 
-    top:-120px;
+    border-bottom:1px solid #e2e8f0;
+}
+
+
+/* ==========================================
+   HERO DECORATIVE GLOW
+========================================== */
+
+.hero::before{
+    content:"";
+
+    position:absolute;
+
+    width:280px;
+    height:280px;
+
+    top:-140px;
     left:-100px;
 
+    background:
+        radial-gradient(
+            circle,
+            rgba(56,189,248,.20),
+            transparent 70%
+        );
+
     animation:
-        floatShape 7s ease-in-out infinite;
+        heroGlow 6s ease-in-out infinite alternate;
+
+    pointer-events:none;
 }
 
 .hero::after{
@@ -239,38 +335,47 @@ nav a:hover::after{
 
     position:absolute;
 
-    width:260px;
-    height:260px;
+    width:300px;
+    height:300px;
 
-    border-radius:50%;
+    right:-120px;
+    bottom:-160px;
 
     background:
-        rgba(56,189,248,.10);
-
-    right:-100px;
-    bottom:-120px;
+        radial-gradient(
+            circle,
+            rgba(14,165,233,.14),
+            transparent 70%
+        );
 
     animation:
-        floatShape 8s ease-in-out infinite reverse;
+        heroGlow 7s ease-in-out infinite alternate-reverse;
+
+    pointer-events:none;
 }
+
+
+/* ==========================================
+   HERO TEXT
+========================================== */
 
 .hero h1{
     position:relative;
-
     z-index:2;
 
     font-size:40px;
-
     line-height:1.2;
 
     color:#0f172a;
 
     font-weight:700;
+
+    animation:
+        fadeUp .7s ease both;
 }
 
 .hero h2{
     position:relative;
-
     z-index:2;
 
     font-size:22px;
@@ -278,29 +383,17 @@ nav a:hover::after{
     margin-top:10px;
 
     color:#0284c7;
+
+    font-weight:500;
+
+    animation:
+        fadeUp .9s ease both;
 }
 
-@keyframes floatShape{
-
-    0%{
-        transform:
-            translateY(0)
-            rotate(0deg);
-    }
-
-    50%{
-        transform:
-            translateY(-20px)
-            rotate(8deg);
-    }
-
-    100%{
-        transform:
-            translateY(0)
-            rotate(0deg);
-    }
-
+.hero h1 span{
+    color:#0ea5e9;
 }
+
 
 
 /* ==========================================
