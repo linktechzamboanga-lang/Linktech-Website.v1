@@ -1,12 +1,4 @@
 /* ==========================================
-   LINKTECH SERVICES
-   SERVICES.CSS
-   MODERN LIGHT DESIGN
-   MATCHES UPDATED HOME.CSS
-========================================== */
-
-
-/* ==========================================
    GLOBAL RESET
 ========================================== */
 
@@ -22,7 +14,7 @@ html{
 }
 
 body{
-    background:#f8fafc;
+    background:#f5f9ff;
     color:#0f172a;
     min-height:100vh;
     overflow-x:hidden;
@@ -43,6 +35,7 @@ select{
 /* ==========================================
    HEADER
 ========================================== */
+
 header{
     display:flex;
     justify-content:space-between;
@@ -50,39 +43,29 @@ header{
 
     padding:14px 5%;
 
-    background:rgba(255,255,255,.94);
+    background:rgba(255,255,255,.92);
 
     position:sticky;
     top:0;
+
     z-index:1000;
 
-    border-bottom:1px solid #e5e7eb;
+    border-bottom:1px solid rgba(15,23,42,.08);
 
     box-shadow:
-        0 4px 20px rgba(15,23,42,.08);
+        0 5px 25px rgba(15,23,42,.08);
 
-    backdrop-filter:blur(15px);
+    backdrop-filter:blur(14px);
 
     transition:
         background .3s ease,
         box-shadow .3s ease;
 }
 
-header:hover{
-    box-shadow:
-        0 7px 25px rgba(15,23,42,.12);
-}
-
 
 /* ==========================================
-   HEADER LOGO
+   LOGO
 ========================================== */
-
-header b{
-    font-size:24px;
-    color:#0284c7;
-    font-weight:700;
-}
 
 .logo{
     display:flex;
@@ -90,9 +73,8 @@ header b{
     gap:10px;
 
     font-size:22px;
-    white-space:nowrap;
 
-    color:#0f172a;
+    white-space:nowrap;
 }
 
 .logo img{
@@ -107,17 +89,21 @@ header b{
 }
 
 .logo:hover img{
-    transform:
-        rotate(-5deg)
-        scale(1.08);
+    transform:rotate(-5deg) scale(1.08);
 
     filter:
         drop-shadow(
-            0 5px 10px
+            0 5px 12px
             rgba(14,165,233,.35)
         );
 }
-   
+
+header b{
+    font-size:24px;
+
+    color:#0284c7;
+}
+
 
 /* ==========================================
    NAVIGATION
@@ -125,6 +111,7 @@ header b{
 
 nav{
     display:flex;
+
     gap:8px;
 
     align-items:center;
@@ -142,6 +129,7 @@ nav a{
     text-decoration:none;
 
     font-size:14px;
+
     font-weight:500;
 
     padding:9px 13px;
@@ -151,36 +139,8 @@ nav a{
     transition:
         color .25s ease,
         background .25s ease,
-        transform .25s ease;
-}
-
-nav a::after{
-    content:"";
-
-    position:absolute;
-
-    left:50%;
-    bottom:4px;
-    flex-wrap:wrap;
-}
-
-nav a{
-    position:relative;
-
-    color:#334155;
-    text-decoration:none;
-
-    font-size:14px;
-    font-weight:500;
-
-    padding:9px 13px;
-
-    border-radius:10px;
-
-    transition:
-        color .25s ease,
-        background .25s ease,
-        transform .25s ease;
+        transform .25s ease,
+        box-shadow .25s ease;
 }
 
 nav a::after{
@@ -200,14 +160,19 @@ nav a::after{
 
     transform:translateX(-50%);
 
-    transition:width .25s ease;
+    transition:width .3s ease;
 }
 
 nav a:hover{
+    background:#e0f2fe;
+
     color:#0284c7;
-    background:#f0f9ff;
 
     transform:translateY(-2px);
+
+    box-shadow:
+        0 5px 15px
+        rgba(14,165,233,.12);
 }
 
 nav a:hover::after{
@@ -224,48 +189,41 @@ nav a:hover::after{
 
     text-align:center;
 
-    padding:75px 20px;
+    padding:70px 20px;
 
     overflow:hidden;
 
     background:
         linear-gradient(
             135deg,
-            #f8fcff 0%,
-            #eef8ff 45%,
-            #ffffff 100%
+            #e0f7ff,
+            #dbeafe,
+            #f8fbff
         );
 
-    border-bottom:1px solid #e2e8f0;
+    border-bottom:
+        1px solid
+        rgba(14,165,233,.12);
 }
-
-
-/* ==========================================
-   HERO DECORATIVE GLOW
-========================================== */
 
 .hero::before{
     content:"";
 
     position:absolute;
 
-    width:280px;
-    height:280px;
+    width:260px;
+    height:260px;
 
-    top:-140px;
-    left:-100px;
+    border-radius:50%;
 
     background:
-        radial-gradient(
-            circle,
-            rgba(56,189,248,.20),
-            transparent 70%
-        );
+        rgba(56,189,248,.15);
+
+    top:-120px;
+    left:-80px;
 
     animation:
-        heroGlow 6s ease-in-out infinite alternate;
-
-    pointer-events:none;
+        heroFloat 7s ease-in-out infinite;
 }
 
 .hero::after{
@@ -273,35 +231,28 @@ nav a:hover::after{
 
     position:absolute;
 
-    width:300px;
-    height:300px;
+    width:220px;
+    height:220px;
 
-    right:-120px;
-    bottom:-160px;
+    border-radius:50%;
 
     background:
-        radial-gradient(
-            circle,
-            rgba(14,165,233,.14),
-            transparent 70%
-        );
+        rgba(59,130,246,.10);
+
+    right:-70px;
+    bottom:-100px;
 
     animation:
-        heroGlow 7s ease-in-out infinite alternate-reverse;
-
-    pointer-events:none;
+        heroFloat 9s ease-in-out infinite reverse;
 }
-
-
-/* ==========================================
-   HERO TEXT
-========================================== */
 
 .hero h1{
     position:relative;
+
     z-index:2;
 
-    font-size:40px;
+    font-size:42px;
+
     line-height:1.2;
 
     color:#0f172a;
@@ -314,13 +265,14 @@ nav a:hover::after{
 
 .hero h2{
     position:relative;
+
     z-index:2;
 
-    font-size:22px;
+    font-size:21px;
 
-    margin-top:10px;
+    margin-top:12px;
 
-    color:#0284c7;
+    color:#0369a1;
 
     font-weight:500;
 
@@ -328,9 +280,19 @@ nav a:hover::after{
         fadeUp .9s ease both;
 }
 
-.hero h1 span{
-    color:#0ea5e9;
+@keyframes heroFloat{
+
+    0%,
+    100%{
+        transform:translateY(0);
+    }
+
+    50%{
+        transform:translateY(20px);
+    }
+
 }
+
 
 
 /* ==========================================
