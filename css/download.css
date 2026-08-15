@@ -954,6 +954,27 @@ footer{
     color:#64748b;
 }
 
+/* ==========================================
+   FADE ANIMATION
+========================================== */
+
+@keyframes fadeUp{
+
+    from{
+        opacity:0;
+
+        transform:
+            translateY(15px);
+    }
+
+    to{
+        opacity:1;
+
+        transform:
+            translateY(0);
+    }
+
+}
 
 /* ==========================================
    SCROLLBAR
