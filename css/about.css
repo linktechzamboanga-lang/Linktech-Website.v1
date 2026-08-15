@@ -1,4 +1,167 @@
 
+    /* ==========================================
+   GLOBAL RESET
+========================================== */
+
+*{
+    box-sizing:border-box;
+    margin:0;
+    padding:0;
+    font-family:'Poppins',sans-serif;
+}
+
+html{
+    scroll-behavior:smooth;
+}
+
+body{
+    background:#ffffff;
+    color:#172033;
+    min-height:100vh;
+    overflow-x:hidden;
+    line-height:1.6;
+}
+
+img{
+    max-width:100%;
+    display:block;
+}
+
+button,
+input,
+textarea,
+select{
+    font-family:'Poppins',sans-serif;
+}
+
+
+/* ==========================================
+   SELECTION
+========================================== */
+
+::selection{
+    background:#38bdf8;
+    color:#ffffff;
+}
+
+
+/* ==========================================
+   SCROLLBAR
+========================================== */
+
+::-webkit-scrollbar{
+    width:9px;
+}
+
+::-webkit-scrollbar-track{
+    background:#f1f5f9;
+}
+
+::-webkit-scrollbar-thumb{
+    background:linear-gradient(
+        180deg,
+        #38bdf8,
+        #0284c7
+    );
+    border-radius:20px;
+}
+
+::-webkit-scrollbar-thumb:hover{
+    background:#0284c7;
+}
+
+
+/* ==========================================
+   HEADER
+========================================== */
+
+header{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+
+    padding:14px 5%;
+
+    background:rgba(255,255,255,.94);
+
+    position:sticky;
+    top:0;
+    z-index:1000;
+
+    border-bottom:1px solid #e5e7eb;
+
+    box-shadow:
+        0 4px 20px rgba(15,23,42,.08);
+
+    backdrop-filter:blur(15px);
+
+    transition:
+        background .3s ease,
+        box-shadow .3s ease;
+}
+
+header:hover{
+    box-shadow:
+        0 7px 25px rgba(15,23,42,.12);
+}
+
+
+/* ==========================================
+   HEADER LOGO
+========================================== */
+
+header b{
+    font-size:24px;
+    color:#0284c7;
+    font-weight:700;
+}
+
+.logo{
+    display:flex;
+    align-items:center;
+    gap:10px;
+
+    font-size:22px;
+    white-space:nowrap;
+
+    color:#0f172a;
+}
+
+.logo img{
+    width:45px;
+    height:45px;
+
+    object-fit:contain;
+
+    transition:
+        transform .4s ease,
+        filter .4s ease;
+}
+
+.logo:hover img{
+    transform:
+        rotate(-5deg)
+        scale(1.08);
+
+    filter:
+        drop-shadow(
+            0 5px 10px
+            rgba(14,165,233,.35)
+        );
+}
+
+
+/* ==========================================
+   NAVIGATION
+========================================== */
+
+nav{
+    display:flex;
+    gap:8px;
+
+    align-items:center;
+    justify-content:center;
+
     flex-wrap:wrap;
 }
 
@@ -76,6 +239,122 @@ nav a:hover::after{
 
     border-bottom:1px solid #e2e8f0;
 }
+
+
+/* ==========================================
+   HERO DECORATIVE GLOW
+========================================== */
+
+.hero::before{
+    content:"";
+
+    position:absolute;
+
+    width:280px;
+    height:280px;
+
+    top:-140px;
+    left:-100px;
+
+    background:
+        radial-gradient(
+            circle,
+            rgba(56,189,248,.20),
+            transparent 70%
+        );
+
+    animation:
+        heroGlow 6s ease-in-out infinite alternate;
+
+    pointer-events:none;
+}
+
+.hero::after{
+    content:"";
+
+    position:absolute;
+
+    width:300px;
+    height:300px;
+
+    right:-120px;
+    bottom:-160px;
+
+    background:
+        radial-gradient(
+            circle,
+            rgba(14,165,233,.14),
+            transparent 70%
+        );
+
+    animation:
+        heroGlow 7s ease-in-out infinite alternate-reverse;
+
+    pointer-events:none;
+}
+
+
+/* ==========================================
+   HERO TEXT
+========================================== */
+
+.hero h1{
+    position:relative;
+    z-index:2;
+
+    font-size:40px;
+    line-height:1.2;
+
+    color:#0f172a;
+
+    font-weight:700;
+
+    animation:
+        fadeUp .7s ease both;
+}
+
+.hero h2{
+    position:relative;
+    z-index:2;
+
+    font-size:22px;
+
+    margin-top:10px;
+
+    color:#0284c7;
+
+    font-weight:500;
+
+    animation:
+        fadeUp .9s ease both;
+}
+
+.hero h1 span{
+    color:#0ea5e9;
+}
+
+
+/* ==========================================
+   GOOGLE LOGIN SECTION
+========================================== */
+
+.login-section{
+    display:flex;
+
+    justify-content:center;
+    align-items:center;
+
+    flex-direction:column;
+
+    width:100%;
+
+    padding:35px 20px;
+
+    text-align:center;
+
+    background:#ffffff;
+    }
+
 
 
 /* ==========================================
