@@ -87,6 +87,7 @@ header{
     display:flex;
     justify-content:space-between;
     align-items:center;
+
     padding:14px 5%;
 
     background:rgba(255,255,255,.94);
@@ -127,14 +128,17 @@ header b{
     display:flex;
     align-items:center;
     gap:10px;
+
     font-size:22px;
     white-space:nowrap;
+
     color:#0f172a;
 }
 
 .logo img{
     width:45px;
     height:45px;
+
     object-fit:contain;
 
     transition:
@@ -148,7 +152,10 @@ header b{
         scale(1.08);
 
     filter:
-        drop-shadow(0 5px 10px rgba(14,165,233,.35));
+        drop-shadow(
+            0 5px 10px
+            rgba(14,165,233,.35)
+        );
 }
 
 
@@ -159,9 +166,11 @@ header b{
 nav{
     display:flex;
     gap:8px;
+
     align-items:center;
-    flex-wrap:wrap;
     justify-content:center;
+
+    flex-wrap:wrap;
 }
 
 nav a{
@@ -206,6 +215,7 @@ nav a::after{
 nav a:hover{
     color:#0284c7;
     background:#f0f9ff;
+
     transform:translateY(-2px);
 }
 
@@ -239,7 +249,9 @@ nav a:hover::after{
 }
 
 
-/* Decorative animated glow */
+/* ==========================================
+   HERO DECORATIVE GLOW
+========================================== */
 
 .hero::before{
     content:"";
@@ -290,6 +302,10 @@ nav a:hover::after{
 }
 
 
+/* ==========================================
+   HERO TEXT
+========================================== */
+
 .hero h1{
     position:relative;
     z-index:2;
@@ -321,11 +337,6 @@ nav a:hover::after{
         fadeUp .9s ease both;
 }
 
-
-/* ==========================================
-   HERO TEXT HIGHLIGHT
-========================================== */
-
 .hero h1 span{
     color:#0ea5e9;
 }
@@ -355,17 +366,15 @@ nav a:hover::after{
 
 /* ==========================================
    GOOGLE SIGN-IN CONTAINER
-   KEEP GOOGLE'S GENERATED BUTTON INTACT
+   KEEP GOOGLE GENERATED BUTTON INTACT
 ========================================== */
 
 #g_id_signin,
 #googleLoginButton,
 .google-signin{
-
     display:flex;
 
     justify-content:center;
-
     align-items:center;
 
     width:100%;
@@ -377,12 +386,8 @@ nav a:hover::after{
     text-align:center;
 }
 
-
-/* Google iframe */
-
 #googleLoginButton iframe,
 #g_id_signin iframe{
-
     max-width:100%;
 
     margin-left:auto;
@@ -404,7 +409,6 @@ nav a:hover::after{
 ========================================== */
 
 #userProfile{
-
     background:
         linear-gradient(
             145deg,
@@ -421,7 +425,8 @@ nav a:hover::after{
     border:1px solid #e2e8f0;
 
     box-shadow:
-        0 10px 30px rgba(15,23,42,.10);
+        0 10px 30px
+        rgba(15,23,42,.10);
 
     animation:
         fadeUp .5s ease both;
@@ -432,15 +437,14 @@ nav a:hover::after{
 }
 
 #userProfile:hover{
-
     transform:translateY(-4px);
 
     box-shadow:
-        0 15px 35px rgba(14,165,233,.16);
+        0 15px 35px
+        rgba(14,165,233,.16);
 }
 
 #userProfile img{
-
     width:60px;
     height:60px;
 
@@ -451,7 +455,8 @@ nav a:hover::after{
     border:3px solid #38bdf8;
 
     box-shadow:
-        0 5px 15px rgba(14,165,233,.20);
+        0 5px 15px
+        rgba(14,165,233,.20);
 }
 
 
@@ -460,7 +465,6 @@ nav a:hover::after{
 ========================================== */
 
 .dashboard-menu{
-
     display:flex;
 
     justify-content:center;
@@ -480,7 +484,6 @@ nav a:hover::after{
 ========================================== */
 
 button{
-
     position:relative;
 
     display:inline-flex;
@@ -510,7 +513,8 @@ button{
     overflow:hidden;
 
     box-shadow:
-        0 5px 15px rgba(14,165,233,.18);
+        0 5px 15px
+        rgba(14,165,233,.18);
 
     transition:
         background .3s ease,
@@ -518,11 +522,7 @@ button{
         box-shadow .3s ease;
 }
 
-
-/* Button shine animation */
-
 button::before{
-
     content:"";
 
     position:absolute;
@@ -551,7 +551,6 @@ button:hover::before{
 }
 
 button:hover{
-
     background:
         linear-gradient(
             135deg,
@@ -562,27 +561,23 @@ button:hover{
     transform:translateY(-3px);
 
     box-shadow:
-        0 9px 22px rgba(14,165,233,.28);
+        0 9px 22px
+        rgba(14,165,233,.28);
 }
 
 button:active{
-
     transform:
         translateY(0)
         scale(.98);
 
     box-shadow:
-        0 4px 10px rgba(14,165,233,.15);
+        0 4px 10px
+        rgba(14,165,233,.15);
 }
 
-
-/* ==========================================
-   BUTTON FOCUS
-========================================== */
-
 button:focus-visible{
-
-    outline:3px solid rgba(56,189,248,.35);
+    outline:3px solid
+        rgba(56,189,248,.35);
 
     outline-offset:3px;
 }
@@ -593,7 +588,6 @@ button:focus-visible{
 ========================================== */
 
 .box{
-
     background:
         linear-gradient(
             145deg,
@@ -614,7 +608,8 @@ button:focus-visible{
     border:1px solid #e2e8f0;
 
     box-shadow:
-        0 10px 30px rgba(15,23,42,.08);
+        0 10px 30px
+        rgba(15,23,42,.08);
 
     transition:
         transform .3s ease,
@@ -623,15 +618,147 @@ button:focus-visible{
 }
 
 .box:hover{
+    transform:translateY(-3px);
 
     border-color:#bae6fd;
 
     box-shadow:
-        0 15px 40
-        
-        
-        
-    /* ==========================================
+        0 15px 40px
+        rgba(14,165,233,.10);
+}
+
+.box h2{
+    margin-bottom:20px;
+
+    color:#0284c7;
+}
+
+
+/* ==========================================
+   FORM ELEMENTS
+========================================== */
+
+input,
+textarea,
+select{
+    width:100%;
+
+    padding:12px;
+
+    margin:8px 0;
+
+    background:#ffffff;
+
+    border:1px solid #cbd5e1;
+
+    color:#172033;
+
+    border-radius:10px;
+
+    outline:none;
+
+    transition:
+        border-color .2s ease,
+        box-shadow .2s ease;
+}
+
+input::placeholder,
+textarea::placeholder{
+    color:#94a3b8;
+}
+
+input:focus,
+textarea:focus,
+select:focus{
+    border-color:#38bdf8;
+
+    box-shadow:
+        0 0 0 3px
+        rgba(56,189,248,.12);
+}
+
+textarea{
+    height:120px;
+    resize:vertical;
+}
+
+select{
+    cursor:pointer;
+}
+
+select option{
+    background:#ffffff;
+    color:#172033;
+}
+
+
+/* ==========================================
+   FOOTER
+========================================== */
+
+footer{
+    text-align:center;
+
+    padding:25px;
+
+    background:#f8fafc;
+
+    margin-top:40px;
+
+    color:#64748b;
+
+    border-top:1px solid #e2e8f0;
+}
+
+
+/* ==========================================
+   ANIMATIONS
+========================================== */
+
+@keyframes fadeUp{
+
+    from{
+        opacity:0;
+        transform:translateY(15px);
+    }
+
+    to{
+        opacity:1;
+        transform:translateY(0);
+    }
+
+}
+
+@keyframes heroGlow{
+
+    from{
+        transform:translate(0,0) scale(1);
+    }
+
+    to{
+        transform:translate(20px,20px) scale(1.15);
+    }
+
+}
+
+@keyframes pulseHighlight{
+
+    0%,
+    100%{
+        transform:scale(1);
+        box-shadow:
+            0 0 0 rgba(239,68,68,0);
+    }
+
+    50%{
+        transform:scale(1.05);
+        box-shadow:
+            0 0 15px rgba(239,68,68,.25);
+    }
+
+}
+
+/* ==========================================
    LINKTECH CUSTOMER SUPPORT PORTAL
    HOME.CSS
    PART 2/4
@@ -644,7 +771,6 @@ button:focus-visible{
 ========================================== */
 
 #adminPanel{
-
     width:min(95%,1200px);
 
     max-width:1200px;
@@ -656,13 +782,13 @@ button:focus-visible{
     border-radius:20px;
 
     box-shadow:
-        0 12px 35px rgba(15,23,42,.09);
+        0 12px 35px
+        rgba(15,23,42,.09);
 
     overflow:hidden;
 }
 
 #adminLoginBox{
-
     border:1px solid #e2e8f0;
 
     background:#f8fafc;
@@ -670,7 +796,8 @@ button:focus-visible{
     border-radius:16px;
 
     box-shadow:
-        0 8px 25px rgba(15,23,42,.06);
+        0 8px 25px
+        rgba(15,23,42,.06);
 }
 
 
@@ -679,7 +806,6 @@ button:focus-visible{
 ========================================== */
 
 .admin-card{
-
     background:
         linear-gradient(
             145deg,
@@ -696,7 +822,8 @@ button:focus-visible{
     border:1px solid #e2e8f0;
 
     box-shadow:
-        0 6px 18px rgba(15,23,42,.06);
+        0 6px 18px
+        rgba(15,23,42,.06);
 
     transition:
         transform .25s ease,
@@ -705,13 +832,13 @@ button:focus-visible{
 }
 
 .admin-card:hover{
-
     transform:translateY(-3px);
 
     border-color:#bae6fd;
 
     box-shadow:
-        0 10px 25px rgba(14,165,233,.10);
+        0 10px 25px
+        rgba(14,165,233,.10);
 }
 
 
@@ -720,7 +847,6 @@ button:focus-visible{
 ========================================== */
 
 .stats{
-
     display:grid;
 
     grid-template-columns:
@@ -732,7 +858,6 @@ button:focus-visible{
 }
 
 .stat-card{
-
     position:relative;
 
     overflow:hidden;
@@ -753,7 +878,8 @@ button:focus-visible{
     border:1px solid #e2e8f0;
 
     box-shadow:
-        0 7px 22px rgba(15,23,42,.07);
+        0 7px 22px
+        rgba(15,23,42,.07);
 
     transition:
         transform .3s ease,
@@ -761,11 +887,7 @@ button:focus-visible{
         box-shadow .3s ease;
 }
 
-
-/* Animated highlight */
-
 .stat-card::before{
-
     content:"";
 
     position:absolute;
@@ -788,22 +910,20 @@ button:focus-visible{
 }
 
 .stat-card:hover::before{
-
     transform:scale(1.5);
 }
 
 .stat-card:hover{
-
     transform:translateY(-6px);
 
     border-color:#7dd3fc;
 
     box-shadow:
-        0 14px 30px rgba(14,165,233,.12);
+        0 14px 30px
+        rgba(14,165,233,.12);
 }
 
 .stat-card span{
-
     display:block;
 
     font-size:32px;
@@ -823,7 +943,6 @@ button:focus-visible{
 ========================================== */
 
 .admin-filters{
-
     display:grid;
 
     grid-template-columns:
@@ -842,11 +961,11 @@ button:focus-visible{
     border-radius:16px;
 
     box-shadow:
-        inset 0 1px 0 rgba(255,255,255,.8);
+        inset 0 1px 0
+        rgba(255,255,255,.8);
 }
 
 .admin-filter-group{
-
     display:flex;
 
     flex-direction:column;
@@ -855,7 +974,6 @@ button:focus-visible{
 }
 
 .admin-filter-group label{
-
     font-size:13px;
 
     color:#475569;
@@ -865,7 +983,6 @@ button:focus-visible{
 
 .admin-filter-group select,
 .admin-filter-group input{
-
     margin:0;
 }
 
@@ -875,7 +992,6 @@ button:focus-visible{
 ========================================== */
 
 .filter-buttons{
-
     display:flex;
 
     gap:8px;
@@ -886,7 +1002,6 @@ button:focus-visible{
 }
 
 .filter-buttons button{
-
     padding:9px 14px;
 
     font-size:13px;
@@ -905,7 +1020,6 @@ button:focus-visible{
 }
 
 .filter-buttons button:hover{
-
     background:#e0f2fe;
 
     color:#0284c7;
@@ -913,11 +1027,11 @@ button:focus-visible{
     border-color:#7dd3fc;
 
     box-shadow:
-        0 5px 15px rgba(14,165,233,.10);
+        0 5px 15px
+        rgba(14,165,233,.10);
 }
 
 .filter-buttons button.active{
-
     background:
         linear-gradient(
             135deg,
@@ -932,7 +1046,8 @@ button:focus-visible{
     font-weight:600;
 
     box-shadow:
-        0 5px 15px rgba(14,165,233,.20);
+        0 5px 15px
+        rgba(14,165,233,.20);
 }
 
 
@@ -941,11 +1056,9 @@ button:focus-visible{
 ========================================== */
 
 .new-concern{
-
     display:inline-flex;
 
     align-items:center;
-
     justify-content:center;
 
     padding:4px 9px;
@@ -954,7 +1067,7 @@ button:focus-visible{
 
     background:#ef4444;
 
-    color:white;
+    color:#ffffff;
 
     font-size:11px;
 
@@ -969,11 +1082,9 @@ button:focus-visible{
 }
 
 .new-concern-count{
-
     display:inline-flex;
 
     align-items:center;
-
     justify-content:center;
 
     min-width:28px;
@@ -984,7 +1095,7 @@ button:focus-visible{
 
     background:#ef4444;
 
-    color:white;
+    color:#ffffff;
 
     border-radius:20px;
 
@@ -1007,11 +1118,9 @@ button:focus-visible{
 .status-completed,
 .status-aborted,
 .status-unknown{
-
     display:inline-flex;
 
     align-items:center;
-
     justify-content:center;
 
     min-width:90px;
@@ -1033,7 +1142,6 @@ button:focus-visible{
 ========================================== */
 
 .status-pending{
-
     background:#fff7d6;
 
     color:#a16207;
@@ -1047,7 +1155,6 @@ button:focus-visible{
 ========================================== */
 
 .status-processing{
-
     background:#e0f2fe;
 
     color:#0369a1;
@@ -1061,7 +1168,6 @@ button:focus-visible{
 ========================================== */
 
 .status-completed{
-
     background:#dcfce7;
 
     color:#15803d;
@@ -1075,7 +1181,6 @@ button:focus-visible{
 ========================================== */
 
 .status-aborted{
-
     background:#fee2e2;
 
     color:#b91c1c;
@@ -1089,7 +1194,6 @@ button:focus-visible{
 ========================================== */
 
 .status-unknown{
-
     background:#f1f5f9;
 
     color:#64748b;
@@ -1103,7 +1207,6 @@ button:focus-visible{
 ========================================== */
 
 .admin-concerns-header{
-
     display:flex;
 
     justify-content:space-between;
@@ -1118,7 +1221,6 @@ button:focus-visible{
 }
 
 .admin-concerns-header h2{
-
     margin:0;
 
     color:#0f172a;
@@ -1130,7 +1232,6 @@ button:focus-visible{
 ========================================== */
 
 .admin-table-wrapper{
-
     width:100%;
 
     overflow-x:auto;
@@ -1144,7 +1245,8 @@ button:focus-visible{
     background:#ffffff;
 
     box-shadow:
-        0 6px 20px rgba(15,23,42,.06);
+        0 6px 20px
+        rgba(15,23,42,.06);
 }
 
 
@@ -1153,7 +1255,6 @@ button:focus-visible{
 ========================================== */
 
 .admin-concern-table{
-
     width:100%;
 
     min-width:1000px;
@@ -1165,7 +1266,6 @@ button:focus-visible{
 
 .admin-concern-table th,
 .admin-concern-table td{
-
     padding:13px 14px;
 
     border-bottom:1px solid #e2e8f0;
@@ -1176,7 +1276,6 @@ button:focus-visible{
 }
 
 .admin-concern-table th{
-
     background:#f0f9ff;
 
     color:#0369a1;
@@ -1193,7 +1292,6 @@ button:focus-visible{
 }
 
 .admin-concern-table td{
-
     color:#334155;
 
     font-size:13px;
@@ -1202,14 +1300,12 @@ button:focus-visible{
 }
 
 .admin-concern-table tbody tr{
-
     transition:
         background .25s ease,
         transform .25s ease;
 }
 
 .admin-concern-table tbody tr:hover{
-
     background:#f8fcff;
 }
 
@@ -1231,9 +1327,7 @@ button:focus-visible{
 }
 
 .admin-concern-table .col-problem{
-
     min-width:240px;
-
     max-width:350px;
 }
 
@@ -1255,7 +1349,6 @@ button:focus-visible{
 ========================================== */
 
 .problem-cell{
-
     max-width:350px;
 
     white-space:normal;
@@ -1271,7 +1364,6 @@ button:focus-visible{
 ========================================== */
 
 .admin-action-buttons{
-
     display:flex;
 
     gap:6px;
@@ -1280,7 +1372,6 @@ button:focus-visible{
 }
 
 .admin-action-buttons button{
-
     padding:7px 10px;
 
     font-size:11px;
@@ -1289,22 +1380,18 @@ button:focus-visible{
 }
 
 .admin-action-buttons .pending-btn{
-
     background:#d97706;
 }
 
 .admin-action-buttons .processing-btn{
-
     background:#0284c7;
 }
 
 .admin-action-buttons .completed-btn{
-
     background:#16a34a;
 }
 
 .admin-action-buttons .aborted-btn{
-
     background:#dc2626;
 }
 
@@ -1314,7 +1401,6 @@ button:focus-visible{
 ========================================== */
 
 .no-concerns{
-
     padding:40px 20px;
 
     text-align:center;
@@ -1323,7 +1409,6 @@ button:focus-visible{
 }
 
 .error-message{
-
     padding:20px;
 
     text-align:center;
@@ -1343,7 +1428,6 @@ button:focus-visible{
 ========================================== */
 
 .admin-request{
-
     background:#ffffff;
 
     padding:18px;
@@ -1355,11 +1439,11 @@ button:focus-visible{
     border:1px solid #e2e8f0;
 
     box-shadow:
-        0 5px 18px rgba(15,23,42,.06);
+        0 5px 18px
+        rgba(15,23,42,.06);
 }
 
 .admin-request-header{
-
     display:flex;
 
     justify-content:space-between;
@@ -1372,19 +1456,16 @@ button:focus-visible{
 }
 
 .admin-request-header h3{
-
     color:#0284c7;
 }
 
 .admin-request-info{
-
     line-height:1.6;
 
     color:#475569;
 }
 
 .admin-request-actions{
-
     display:flex;
 
     flex-wrap:wrap;
@@ -1393,7 +1474,6 @@ button:focus-visible{
 
     margin-top:15px;
 }
-
 
 /* ==========================================
    LINKTECH CUSTOMER SUPPORT PORTAL
@@ -1404,11 +1484,10 @@ button:focus-visible{
 
 
 /* ==========================================
-   TIMELINE CONTAINER
+   TIMELINE SECTION
 ========================================== */
 
 #timeline{
-
     display:grid;
 
     grid-template-columns:
@@ -1425,9 +1504,6 @@ button:focus-visible{
 ========================================== */
 
 .timeline-post{
-
-    position:relative;
-
     background:
         linear-gradient(
             145deg,
@@ -1444,48 +1520,23 @@ button:focus-visible{
     border:1px solid #e2e8f0;
 
     box-shadow:
-        0 8px 25px rgba(15,23,42,.07);
+        0 8px 25px
+        rgba(15,23,42,.07);
 
     transition:
-        transform .35s ease,
-        border-color .35s ease,
-        box-shadow .35s ease;
-}
-
-.timeline-post::before{
-
-    content:"";
-
-    position:absolute;
-
-    top:0;
-    left:0;
-
-    width:100%;
-    height:3px;
-
-    background:
-        linear-gradient(
-            90deg,
-            #38bdf8,
-            #0284c7,
-            #38bdf8
-        );
-
-    background-size:200% 100%;
-
-    animation:
-        gradientMove 4s linear infinite;
+        transform .3s ease,
+        border-color .3s ease,
+        box-shadow .3s ease;
 }
 
 .timeline-post:hover{
-
-    transform:translateY(-7px);
+    transform:translateY(-6px);
 
     border-color:#7dd3fc;
 
     box-shadow:
-        0 15px 35px rgba(14,165,233,.13);
+        0 15px 35px
+        rgba(14,165,233,.12);
 }
 
 
@@ -1494,31 +1545,24 @@ button:focus-visible{
 ========================================== */
 
 .timeline-post img{
-
     width:100%;
 
     height:200px;
 
     object-fit:cover;
 
-    border-radius:13px;
+    border-radius:14px;
 
     display:block;
 
     background:#f1f5f9;
 
     transition:
-        transform .4s ease,
-        filter .4s ease;
+        transform .4s ease;
 }
 
 .timeline-post:hover img{
-
     transform:scale(1.02);
-
-    filter:
-        saturate(1.05)
-        brightness(1.02);
 }
 
 
@@ -1527,7 +1571,6 @@ button:focus-visible{
 ========================================== */
 
 .timeline-post h3{
-
     margin-top:15px;
 
     color:#0284c7;
@@ -1543,7 +1586,6 @@ button:focus-visible{
 ========================================== */
 
 .timeline-post p{
-
     margin:10px 0;
 
     color:#475569;
@@ -1557,7 +1599,6 @@ button:focus-visible{
 ========================================== */
 
 .timeline-date{
-
     font-size:12px;
 
     color:#94a3b8;
@@ -1569,7 +1610,6 @@ button:focus-visible{
 ========================================== */
 
 .timeline-admin-actions{
-
     display:flex;
 
     gap:8px;
@@ -1584,7 +1624,6 @@ button:focus-visible{
 }
 
 .timeline-admin-actions button{
-
     padding:8px 12px;
 
     font-size:12px;
@@ -1596,7 +1635,6 @@ button:focus-visible{
 ========================================== */
 
 .timeline-view-btn{
-
     width:auto;
 
     margin-top:10px;
@@ -1610,11 +1648,10 @@ button:focus-visible{
 }
 
 .timeline-view-btn:hover{
-
     background:
         linear-gradient(
             135deg,
-            #0ea5e9,
+            #38bdf8,
             #0284c7
         );
 }
@@ -1625,7 +1662,6 @@ button:focus-visible{
 ========================================== */
 
 .timeline-empty{
-
     grid-column:1/-1;
 
     text-align:center;
@@ -1647,7 +1683,6 @@ button:focus-visible{
 ========================================== */
 
 .timeline-loading{
-
     grid-column:1/-1;
 
     text-align:center;
@@ -1656,10 +1691,9 @@ button:focus-visible{
 
     color:#0284c7;
 
-    font-weight:600;
+    background:#f8fafc;
 
-    animation:
-        pulseText 1.5s ease-in-out infinite;
+    border-radius:16px;
 }
 
 
@@ -1670,19 +1704,14 @@ button:focus-visible{
 .timeline-modal,
 #timelineModal,
 .modal{
-
     position:fixed;
 
     inset:0;
 
     width:100%;
-
     height:100%;
 
-    background:
-        rgba(15,23,42,.55);
-
-    backdrop-filter:blur(8px);
+    background:rgba(15,23,42,.65);
 
     display:none;
 
@@ -1693,6 +1722,8 @@ button:focus-visible{
     padding:20px;
 
     z-index:9999;
+
+    backdrop-filter:blur(5px);
 }
 
 
@@ -1703,11 +1734,7 @@ button:focus-visible{
 .timeline-modal.show,
 #timelineModal.show,
 .modal.show{
-
     display:flex;
-
-    animation:
-        modalFade .25s ease both;
 }
 
 
@@ -1718,7 +1745,6 @@ button:focus-visible{
 .timeline-modal-content,
 #timelineModal .modal-content,
 .modal-content{
-
     width:min(95%,750px);
 
     max-height:90vh;
@@ -1736,10 +1762,11 @@ button:focus-visible{
     position:relative;
 
     box-shadow:
-        0 25px 70px rgba(15,23,42,.25);
+        0 20px 60px
+        rgba(15,23,42,.25);
 
     animation:
-        modalUp .3s ease both;
+        fadeUp .3s ease both;
 }
 
 
@@ -1750,15 +1777,12 @@ button:focus-visible{
 .modal-close,
 .timeline-modal-close,
 #timelineModal .close{
-
     position:absolute;
 
     top:12px;
-
     right:15px;
 
     width:38px;
-
     height:38px;
 
     border-radius:50%;
@@ -1773,8 +1797,6 @@ button:focus-visible{
 
     line-height:1;
 
-    border:1px solid #e2e8f0;
-
     box-shadow:none;
 }
 
@@ -1787,16 +1809,11 @@ button:focus-visible{
 .modal-close:hover,
 .timeline-modal-close:hover,
 #timelineModal .close:hover{
-
     background:#fee2e2;
 
     color:#dc2626;
 
-    border-color:#fca5a5;
-
-    transform:
-        rotate(90deg)
-        scale(1.05);
+    transform:none;
 
     box-shadow:none;
 }
@@ -1809,14 +1826,13 @@ button:focus-visible{
 .timeline-modal-content img,
 #timelineModal img,
 .modal-content img{
-
     width:100%;
 
     max-height:400px;
 
     object-fit:contain;
 
-    border-radius:12px;
+    border-radius:14px;
 
     margin-bottom:15px;
 
@@ -1831,12 +1847,11 @@ button:focus-visible{
 .timeline-modal-content h2,
 #timelineModal h2,
 .modal-content h2{
-
     color:#0284c7;
 
     margin-bottom:10px;
 
-    font-weight:700;
+    font-size:26px;
 }
 
 
@@ -1847,7 +1862,6 @@ button:focus-visible{
 .timeline-modal-content p,
 #timelineModal p,
 .modal-content p{
-
     color:#475569;
 
     line-height:1.7;
@@ -1861,12 +1875,10 @@ button:focus-visible{
 ========================================== */
 
 #comments{
-
     margin-bottom:20px;
 }
 
 .comment{
-
     background:#f8fafc;
 
     padding:15px;
@@ -1877,29 +1889,16 @@ button:focus-visible{
 
     border:1px solid #e2e8f0;
 
-    transition:
-        transform .25s ease,
-        border-color .25s ease,
-        box-shadow .25s ease;
-}
-
-.comment:hover{
-
-    transform:translateX(3px);
-
-    border-color:#bae6fd;
-
     box-shadow:
-        0 5px 15px rgba(14,165,233,.08);
+        0 4px 12px
+        rgba(15,23,42,.04);
 }
 
 .comment strong{
-
     color:#0284c7;
 }
 
 .comment-date{
-
     color:#94a3b8;
 
     font-size:11px;
@@ -1913,65 +1912,29 @@ button:focus-visible{
 ========================================== */
 
 #commentList{
-
     margin-top:15px;
 }
 
 #commentList:empty{
-
     display:none;
 }
 
 
 /* ==========================================
-   ANIMATIONS
+   COMMENT FORM
 ========================================== */
 
-@keyframes gradientMove{
+.comment-form,
+#commentForm{
+    background:#f8fafc;
 
-    0%{
-        background-position:0% 50%;
-    }
+    border:1px solid #e2e8f0;
 
-    100%{
-        background-position:200% 50%;
-    }
-}
+    border-radius:14px;
 
-@keyframes pulseText{
+    padding:18px;
 
-    0%,
-    100%{
-        opacity:.55;
-    }
-
-    50%{
-        opacity:1;
-    }
-}
-
-@keyframes modalFade{
-
-    from{
-        opacity:0;
-    }
-
-    to{
-        opacity:1;
-    }
-}
-
-@keyframes modalUp{
-
-    from{
-        opacity:0;
-        transform:translateY(20px) scale(.98);
-    }
-
-    to{
-        opacity:1;
-        transform:translateY(0) scale(1);
-    }
+    margin-top:15px;
 }
 
 
@@ -1982,31 +1945,31 @@ button:focus-visible{
 @media(max-width:700px){
 
     #timeline{
-
         grid-template-columns:1fr;
-
     }
 
     .timeline-post{
-
         padding:15px;
-
     }
 
     .timeline-post img{
-
         height:180px;
-
     }
 
     .timeline-modal-content,
     #timelineModal .modal-content,
     .modal-content{
-
         padding:18px;
 
         width:96%;
 
+        border-radius:16px;
+    }
+
+    .timeline-modal-content h2,
+    #timelineModal h2,
+    .modal-content h2{
+        font-size:22px;
     }
 
 }
@@ -2026,43 +1989,27 @@ button:focus-visible{
 @media(max-width:900px){
 
     header{
-
         padding-left:4%;
         padding-right:4%;
-
     }
 
     .box{
-
         width:94%;
 
-        padding:20px;
-
+        padding:22px;
     }
 
     #adminPanel{
-
         width:95%;
-
     }
 
     .admin-concern-table{
-
         min-width:950px;
-
     }
 
     .stats{
-
         grid-template-columns:
             repeat(2,1fr);
-
-    }
-
-    .hero{
-
-        padding:60px 20px;
-
     }
 
 }
@@ -2074,193 +2021,266 @@ button:focus-visible{
 
 @media(max-width:768px){
 
-    /* Header */
-
     header{
-
         flex-direction:column;
 
-        gap:12px;
+        gap:15px;
 
         padding:12px 4%;
-
     }
-
-    .logo{
-
-        font-size:20px;
-
-    }
-
-    .logo img{
-
-        width:42px;
-        height:42px;
-
-    }
-
-
-    /* Navigation */
 
     nav{
-
         justify-content:center;
 
         width:100%;
 
         gap:5px;
-
     }
 
     nav a{
-
         font-size:13px;
 
         padding:7px 9px;
-
     }
 
 
-    /* Hero */
+    /* ======================================
+       HERO
+    ====================================== */
 
     .hero{
-
         padding:45px 15px;
-
     }
 
     .hero h1{
-
         font-size:30px;
-
     }
 
     .hero h2{
-
         font-size:18px;
-
     }
 
 
-    /* Login */
+    /* ======================================
+       LOGIN
+    ====================================== */
 
     .login-section{
-
         padding:25px 15px;
-
     }
 
     #g_id_signin,
     #googleLoginButton,
     .google-signin{
-
         width:100%;
 
         margin:15px auto;
+    }
 
+    #googleLoginButton iframe,
+    #g_id_signin iframe{
+        max-width:100%;
     }
 
 
-    /* Main box */
+    /* ======================================
+       MAIN BOX
+    ====================================== */
 
     .box{
-
         width:95%;
 
         padding:18px;
 
         border-radius:16px;
-
     }
 
 
-    /* Dashboard */
+    /* ======================================
+       DASHBOARD
+    ====================================== */
 
     .dashboard-menu{
-
         flex-direction:column;
 
         padding:15px;
 
+        gap:10px;
     }
 
     .dashboard-menu button{
-
         width:100%;
 
+        min-height:44px;
     }
 
 
-    /* Buttons */
+    /* ======================================
+       BUTTONS
+    ====================================== */
 
     button{
-
         min-height:42px;
-
     }
 
 
-    /* Admin filters */
+    /* ======================================
+       ADMIN FILTERS
+    ====================================== */
 
     .admin-filters{
-
         grid-template-columns:1fr;
 
+        padding:15px;
+    }
+
+    .filter-buttons{
+        flex-direction:row;
+
+        gap:7px;
+    }
+
+    .filter-buttons button{
+        flex:1;
+
+        min-width:100px;
     }
 
 
-    /* Statistics */
+    /* ======================================
+       STATISTICS
+    ====================================== */
 
     .stats{
-
         grid-template-columns:
             repeat(2,1fr);
 
         gap:10px;
-
     }
 
     .stat-card{
-
         padding:15px 10px;
 
+        border-radius:14px;
     }
 
     .stat-card span{
-
         font-size:26px;
-
     }
 
 
-    /* Admin concern header */
+    /* ======================================
+       ADMIN HEADER
+    ====================================== */
 
     .admin-concerns-header{
-
-        align-items:flex-start;
-
         flex-direction:column;
 
+        align-items:stretch;
+    }
+
+    .admin-concerns-header button{
+        width:100%;
     }
 
 
-    /* Timeline */
+    /* ======================================
+       ADMIN ACTIONS
+    ====================================== */
+
+    .admin-action-buttons{
+        flex-direction:column;
+    }
+
+    .admin-action-buttons button{
+        width:100%;
+    }
+
+    .admin-request-actions{
+        flex-direction:column;
+    }
+
+    .admin-request-actions button{
+        width:100%;
+    }
+
+
+    /* ======================================
+       USER PROFILE
+    ====================================== */
+
+    #userProfile{
+        width:95%;
+
+        max-width:400px;
+
+        padding:18px;
+    }
+
+
+    /* ======================================
+       TIMELINE
+    ====================================== */
 
     #timeline{
-
         grid-template-columns:1fr;
+    }
 
+    .timeline-post{
+        padding:15px;
+    }
+
+    .timeline-post img{
+        height:180px;
     }
 
 
-    /* Footer */
+    /* ======================================
+       MODAL
+    ====================================== */
+
+    .timeline-modal,
+    #timelineModal,
+    .modal{
+        padding:12px;
+    }
+
+    .timeline-modal-content,
+    #timelineModal .modal-content,
+    .modal-content{
+        width:96%;
+
+        max-height:92vh;
+
+        padding:18px;
+
+        border-radius:16px;
+    }
+
+
+    /* ======================================
+       FORM
+    ====================================== */
+
+    input,
+    textarea,
+    select{
+        font-size:14px;
+    }
+
+    textarea{
+        min-height:120px;
+    }
+
+
+    /* ======================================
+       FOOTER
+    ====================================== */
 
     footer{
-
-        padding:22px 15px;
+        padding:20px 15px;
 
         font-size:13px;
-
     }
 
 }
@@ -2273,205 +2293,121 @@ button:focus-visible{
 @media(max-width:480px){
 
     .logo{
-
         font-size:18px;
-
     }
 
     .logo img{
-
-        width:38px;
-
-        height:38px;
-
+        width:40px;
+        height:40px;
     }
 
+    header b{
+        font-size:20px;
+    }
+
+
     nav{
-
         gap:3px;
-
     }
 
     nav a{
-
         font-size:12px;
 
         padding:6px 7px;
-
     }
 
 
     .hero{
-
         padding:40px 15px;
-
     }
 
     .hero h1{
-
         font-size:27px;
-
     }
 
     .hero h2{
-
         font-size:16px;
+    }
 
+
+    .login-section{
+        padding:20px 10px;
     }
 
 
     .box{
-
         width:94%;
 
         padding:15px;
 
+        margin:15px auto;
     }
 
 
-    .dashboard-menu{
-
-        padding:12px;
-
-        gap:10px;
-
-    }
-
-
-    .dashboard-menu button{
-
-        width:100%;
-
+    .box h2{
+        font-size:21px;
     }
 
 
     button{
-
         width:100%;
 
+        min-height:44px;
+    }
+
+
+    .dashboard-menu{
+        padding:12px;
     }
 
 
     .stats{
+        grid-template-columns:1fr 1fr;
 
-        grid-template-columns:1fr;
-
+        gap:8px;
     }
 
-
     .stat-card{
+        padding:13px 7px;
+    }
 
-        padding:18px;
-
+    .stat-card span{
+        font-size:23px;
     }
 
 
     .filter-buttons{
-
         flex-direction:column;
-
     }
 
     .filter-buttons button{
-
         width:100%;
-
     }
 
 
-    .admin-action-buttons{
-
-        flex-direction:column;
-
-    }
-
-    .admin-action-buttons button{
-
-        width:100%;
-
+    .admin-card{
+        padding:14px;
     }
 
 
-    .timeline-admin-actions{
-
-        flex-direction:column;
-
+    .timeline-post h3{
+        font-size:18px;
     }
 
-    .timeline-admin-actions button{
-
-        width:100%;
-
-    }
-
-
-    .timeline-post img{
-
-        height:170px;
-
-    }
-
-
-    .timeline-modal,
-    #timelineModal,
-    .modal{
-
-        padding:10px;
-
-    }
-
-
-    .timeline-modal-content,
-    #timelineModal .modal-content,
-    .modal-content{
-
-        width:100%;
-
-        max-height:94vh;
-
-        padding:16px;
-
-        border-radius:16px;
-
-    }
-
-
-    input,
-    textarea,
-    select{
-
+    .timeline-post p{
         font-size:14px;
+    }
 
+
+    .timeline-modal-content h2,
+    #timelineModal h2,
+    .modal-content h2{
+        font-size:20px;
     }
 
 
     footer{
-
         font-size:12px;
-
-    }
-
-}
-
-
-/* ==========================================
-   REDUCE MOTION ACCESSIBILITY
-========================================== */
-
-@media(prefers-reduced-motion:reduce){
-
-    *,
-    *::before,
-    *::after{
-
-        animation-duration:.01ms !important;
-
-        animation-iteration-count:1 !important;
-
-        scroll-behavior:auto !important;
-
-        transition-duration:.01ms !important;
-
     }
 
 }
