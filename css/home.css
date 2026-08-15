@@ -1003,7 +1003,7 @@ footer{
 .filter-buttons{
     display:flex;
 
-    gap:8px;
+    gap:6px;
 
     flex-wrap:wrap;
 
@@ -1011,9 +1011,9 @@ footer{
 }
 
 .filter-buttons button{
-    padding:9px 14px;
+    padding:6px 10px;
 
-    font-size:13px;
+    font-size:10px;
 
     background:#f1f5f9;
 
@@ -1375,17 +1375,17 @@ footer{
 .admin-action-buttons{
     display:flex;
 
-    gap:6px;
+    gap:4px;
 
     flex-wrap:wrap;
 }
 
 .admin-action-buttons button{
-    padding:5px 8px;
+    padding:4px 7px;
 
     font-size:9px;
 
-    border-radius:8px;
+    border-radius:6px;
 }
 
 .admin-action-buttons .pending-btn{
