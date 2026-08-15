@@ -333,6 +333,19 @@ nav a:hover::after{
     color:#0ea5e9;
 }
 
+@keyframes heroFloat{
+
+    0%,
+    100%{
+        transform:translateY(0);
+    }
+
+    50%{
+        transform:translateY(20px);
+    }
+
+}
+
 
 /* ==========================================
    GOOGLE LOGIN SECTION
