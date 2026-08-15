@@ -161,6 +161,35 @@ nav a::after{
 
     left:50%;
     bottom:4px;
+    flex-wrap:wrap;
+}
+
+nav a{
+    position:relative;
+
+    color:#334155;
+    text-decoration:none;
+
+    font-size:14px;
+    font-weight:500;
+
+    padding:9px 13px;
+
+    border-radius:10px;
+
+    transition:
+        color .25s ease,
+        background .25s ease,
+        transform .25s ease;
+}
+
+nav a::after{
+    content:"";
+
+    position:absolute;
+
+    left:50%;
+    bottom:4px;
 
     width:0;
     height:2px;
@@ -176,7 +205,6 @@ nav a::after{
 
 nav a:hover{
     color:#0284c7;
-
     background:#f0f9ff;
 
     transform:translateY(-2px);
@@ -196,46 +224,48 @@ nav a:hover::after{
 
     text-align:center;
 
-    padding:85px 20px;
+    padding:75px 20px;
 
     overflow:hidden;
 
     background:
-        radial-gradient(
-            circle at 20% 20%,
-            rgba(56,189,248,.18),
-            transparent 35%
-        ),
-        radial-gradient(
-            circle at 80% 70%,
-            rgba(14,165,233,.12),
-            transparent 35%
-        ),
         linear-gradient(
             135deg,
-            #ffffff,
-            #f0f9ff
+            #f8fcff 0%,
+            #eef8ff 45%,
+            #ffffff 100%
         );
+
+    border-bottom:1px solid #e2e8f0;
 }
+
+
+/* ==========================================
+   HERO DECORATIVE GLOW
+========================================== */
 
 .hero::before{
     content:"";
 
     position:absolute;
 
-    width:260px;
-    height:260px;
+    width:280px;
+    height:280px;
 
-    border-radius:50%;
+    top:-140px;
+    left:-100px;
 
     background:
-        rgba(56,189,248,.12);
-
-    top:-100px;
-    left:-80px;
+        radial-gradient(
+            circle,
+            rgba(56,189,248,.20),
+            transparent 70%
+        );
 
     animation:
-        heroFloat 7s ease-in-out infinite;
+        heroGlow 6s ease-in-out infinite alternate;
+
+    pointer-events:none;
 }
 
 .hero::after{
@@ -243,33 +273,43 @@ nav a:hover::after{
 
     position:absolute;
 
-    width:220px;
-    height:220px;
+    width:300px;
+    height:300px;
 
-    border-radius:50%;
+    right:-120px;
+    bottom:-160px;
 
     background:
-        rgba(14,165,233,.08);
-
-    right:-80px;
-    bottom:-100px;
+        radial-gradient(
+            circle,
+            rgba(14,165,233,.14),
+            transparent 70%
+        );
 
     animation:
-        heroFloat 8s ease-in-out infinite reverse;
+        heroGlow 7s ease-in-out infinite alternate-reverse;
+
+    pointer-events:none;
 }
+
+
+/* ==========================================
+   HERO TEXT
+========================================== */
 
 .hero h1{
     position:relative;
     z-index:2;
 
-    font-size:44px;
-
+    font-size:40px;
     line-height:1.2;
 
     color:#0f172a;
 
+    font-weight:700;
+
     animation:
-        fadeUp .8s ease both;
+        fadeUp .7s ease both;
 }
 
 .hero h2{
@@ -278,12 +318,18 @@ nav a:hover::after{
 
     font-size:22px;
 
-    margin-top:12px;
+    margin-top:10px;
 
-    color:#475569;
+    color:#0284c7;
+
+    font-weight:500;
 
     animation:
-        fadeUp 1s ease .1s both;
+        fadeUp .9s ease both;
+}
+
+.hero h1 span{
+    color:#0ea5e9;
 }
 
 
