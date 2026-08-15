@@ -1166,17 +1166,14 @@ footer{
     header b{
         font-size:20px;
     }
-    nav{
-
+        nav{
         gap:3px;
     }
 
     nav a{
-
         font-size:12px;
 
-        padding:
-            6px 8px;
+        padding:6px 7px;
     }
 
 
