@@ -1,0 +1,1246 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>LinkTech Customer Support Portal</title>
+
+<link rel="icon" href="images/LinkTech-logo.png">
+<link rel="stylesheet" href="css/home.css">
+
+<meta name="theme-color" content="#0ea5e9">
+<meta name="description" content="LinkTech Customer Support Portal - Freelance IT Specialist Zamboanga">
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+<!-- Google Identity -->
+<script src="https://accounts.google.com/gsi/client" async defer></script>
+
+<!-- Google AdSense -->
+<script async
+src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6474337076207412"
+crossorigin="anonymous"></script>
+
+</head>
+
+<body>
+
+<header>
+
+<div class="logo">
+<img src="images/LinkTech-logo.png" alt="LinkTech Logo">
+<b>LinkTech</b>
+</div>
+
+<nav>
+<a href="index.html">Customer Support</a>
+<a href="download.html">Download</a>
+<a href="services.html">Services</a>
+<a href="contact.html">Contact Us</a>
+<a href="privacy-policy.html">Privacy Policy</a>
+<a href="about.html">About</a>
+</nav>
+
+</header>
+
+<section class="hero">
+
+<h1>WELCOME TO <span>LINKTECH</span></h1>
+
+<h2>Zamboanga Freelance IT Specialist Group</h2>
+
+</section>
+
+<section class="login-section">
+
+<h2 class="login-title">Customer Support Portal</h2>
+
+<p class="login-subtitle">
+Do you have a computer, laptop, or hardware that needs repair? Sign in with your Google account to continue.
+</p>
+
+<div class="google-login-card">
+
+<div id="g_id_signin"></div>
+<div id="googleLoginButton"></div>
+
+<p class="login-note">
+Secure • Fast • Google Authentication
+</p>
+
+</div>
+
+</section>
+
+<div class="adsense-container">
+
+<ins class="adsbygoogle"
+style="display:block"
+data-ad-client="ca-pub-6474337076207412"
+data-ad-slot="6833864212"
+data-ad-format="auto"
+data-full-width-responsive="true"></ins>
+
+<script>
+(adsbygoogle=window.adsbygoogle||[]).push({});
+</script>
+
+</div>
+
+<div id="userProfile" style="display:none;">
+
+<img id="userImage" src="" alt="Profile">
+
+<h3 id="userName"></h3>
+
+<p id="userEmail"></p>
+
+<button onclick="logoutUser()">Logout</button>
+
+</div>
+
+<!-- ==========================================
+     MAIN DASHBOARD
+========================================== -->
+
+<section id="dashboard" style="display:none;">
+
+    <!-- ======================================
+         DASHBOARD MENU
+    ======================================= -->
+
+    <div class="dashboard-menu">
+
+        <button
+            type="button"
+            id="showConcernBtn"
+            onclick="showConcern()">
+
+            🛠 Submit Concern
+
+        </button>
+
+
+        <button
+            type="button"
+            id="showRequestsBtn"
+            onclick="showRequests()">
+
+            📋 My Requests
+
+        </button>
+
+
+        <button
+            type="button"
+            id="showTimelineBtn"
+            onclick="showTimeline()">
+
+            📰 Timeline
+
+        </button>
+
+    </div>
+
+
+    <!-- ======================================
+         CUSTOMER CONTENT
+    ======================================= -->
+
+    <div id="customerContent">
+
+
+        <!-- =====================================
+             SUBMIT CONCERN
+        ====================================== -->
+
+        <section
+            id="concernSection"
+            class="box"
+            style="display:none;">
+
+            <h2>
+                Submit IT Concern
+            </h2>
+
+
+            <!-- TERMS AND CONDITIONS -->
+
+            <div class="terms-box">
+
+                <h3>
+                    Terms & Conditions
+                </h3>
+
+                <p>
+                    By submitting this concern, you agree that:
+                </p>
+
+                <ul>
+
+                    <li>
+                        Your Google account will be used
+                        to identify your request.
+                    </li>
+
+                    <li>
+                        All information submitted must
+                        be accurate.
+                    </li>
+
+                    <li>
+                        False, abusive, spam, or duplicate
+                        reports may be removed.
+                    </li>
+
+                    <li>
+                        LinkTech may contact you using
+                        your provided email or contact number.
+                    </li>
+
+                    <li>
+                        Your information will only be used
+                        for customer support purposes.
+                    </li>
+
+                </ul>
+
+
+                <label class="checkbox">
+
+                    <input
+                        type="checkbox"
+                        id="agreeTerms">
+
+                    I have read and agree to the
+                    Terms & Conditions.
+
+                </label>
+
+            </div>
+
+
+            <hr>
+
+
+            <!-- =====================================
+                 CUSTOMER NAME
+            ====================================== -->
+
+            <label for="name">
+                Full Name
+            </label>
+
+            <input
+                id="name"
+                name="name"
+                type="text"
+                placeholder="Full Name"
+                minlength="3"
+                maxlength="100"
+                autocomplete="name"
+                readonly
+                required>
+
+
+            <!-- =====================================
+                 CUSTOMER EMAIL
+            ====================================== -->
+
+            <label for="email">
+                Google Email
+            </label>
+
+            <input
+                id="email"
+                name="email"
+                type="email"
+                placeholder="Google Email"
+                autocomplete="email"
+                readonly
+                required>
+
+
+            <!-- =====================================
+                 COMPLETE ADDRESS
+            ====================================== -->
+
+            <label for="address">
+                Complete Address
+            </label>
+
+            <input
+                id="address"
+                name="address"
+                type="text"
+                placeholder="House/Street, Barangay, City/Municipality, Province"
+                minlength="10"
+                maxlength="250"
+                autocomplete="street-address"
+                required>
+
+
+            <!-- =====================================
+                 CONTACT NUMBER
+            ====================================== -->
+
+            <label for="contact">
+                Contact Number
+            </label>
+
+            <input
+                id="contact"
+                name="contact"
+                type="tel"
+                placeholder="09XXXXXXXXX"
+                inputmode="numeric"
+                autocomplete="tel"
+                minlength="11"
+                maxlength="11"
+                pattern="09[0-9]{9}"
+                title="Enter a valid Philippine mobile number with exactly 11 digits, starting with 09."
+                required>
+
+
+            <!-- =====================================
+                 CONCERN CATEGORY
+            ====================================== -->
+
+            <label for="category">
+                Concern Category
+            </label>
+
+            <select
+                id="category"
+                name="category"
+                required>
+
+                <option value="">
+                    Select Concern Category
+                </option>
+
+                <option value="Computer Repair">
+                    Computer Repair
+                </option>
+
+                <option value="Laptop Repair">
+                    Laptop Repair
+                </option>
+
+                <option value="Networking">
+                    Networking
+                </option>
+
+                <option value="Printer">
+                    Printer
+                </option>
+
+                <option value="CCTV">
+                    CCTV
+                </option>
+
+                <option value="Software Installation">
+                    Software Installation
+                </option>
+
+                <option value="Internet Connection">
+                    Internet Connection
+                </option>
+
+                <option value="Others">
+                    Others
+                </option>
+
+            </select>
+
+
+            <!-- =====================================
+                 PROBLEM / CONCERN
+            ====================================== -->
+
+            <label for="problem">
+                Describe Your Concern
+            </label>
+
+            <textarea
+                id="problem"
+                name="problem"
+                rows="6"
+                minlength="10"
+                maxlength="2000"
+                placeholder="Please describe your concern in detail..."
+                required></textarea>
+
+
+            <!-- =====================================
+                 SUBMIT BUTTON
+            ====================================== -->
+
+            <button
+                type="button"
+                id="submitConcernBtn"
+                onclick="submitConcern()">
+
+                Submit Concern
+
+            </button>
+
+
+            <!-- =====================================
+                 MESSAGE
+            ====================================== -->
+
+            <p id="concernMessage"></p>
+
+        </section>
+
+
+        <!-- =====================================
+             COMMUNITY COMMENTS
+        ====================================== -->
+
+        <section
+            id="commentSection"
+            class="box"
+            style="display:none;">
+
+            <h2>
+                Community Comment
+            </h2>
+
+            <p>
+                Each Google account may post only
+                one comment every 24 hours.
+            </p>
+
+
+            <textarea
+                id="commentText"
+                rows="4"
+                maxlength="500"
+                placeholder="Write your comment..."></textarea>
+
+
+            <button
+                type="button"
+                onclick="submitComment()">
+
+                Post Comment
+
+            </button>
+
+
+            <p
+                id="commentLimitMessage"
+                style="color:red;font-weight:bold;">
+            </p>
+
+
+            <hr>
+
+
+            <div id="commentList">
+
+                <!-- Comments loaded by home.js -->
+
+            </div>
+
+        </section>
+
+
+        <!-- =====================================
+             MY REQUESTS
+        ====================================== -->
+
+        <section
+            id="requestSection"
+            class="box"
+            style="display:none;">
+
+            <h2>
+                My Submitted Concerns
+            </h2>
+
+
+            <button
+                type="button"
+                onclick="loadMyRequests()">
+
+                Refresh
+
+            </button>
+
+
+            <div id="myRequests">
+
+                <!-- User requests loaded here -->
+
+            </div>
+
+        </section>
+        
+                <!-- =====================================
+             TIMELINE
+        ====================================== -->
+
+        <section
+            id="timelineSection"
+            class="box"
+            style="display:none;">
+
+            <div class="timeline-header">
+
+                <div>
+
+                    <h2>
+                        LinkTech Timeline
+                    </h2>
+
+                    <p>
+                        Latest announcements, completed projects,
+                        and technology updates.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <!-- ==================================
+                 TIMELINE POSTS
+            =================================== -->
+
+            <div id="timelineList">
+
+                <!--
+                    Timeline posts are loaded by home.js.
+
+                    Each timeline image should be clickable.
+                    home.js will open the image viewer.
+                -->
+
+                <div
+                    class="timeline-loading"
+                    style="display:none;">
+
+                    Loading timeline...
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =====================================
+             TIMELINE IMAGE VIEWER / LIGHTBOX
+        ====================================== -->
+
+        <div
+            id="timelineImageModal"
+            class="timeline-image-modal"
+            aria-hidden="true">
+
+            <div
+                class="timeline-image-overlay"
+                onclick="closeTimelineImage()">
+            </div>
+
+
+            <div
+                class="timeline-image-viewer"
+                role="dialog"
+                aria-modal="true"
+                aria-label="Timeline image viewer">
+
+
+                <!-- ==================================
+                     CLOSE BUTTON
+                =================================== -->
+
+                <button
+                    type="button"
+                    class="timeline-image-close"
+                    onclick="closeTimelineImage()"
+                    aria-label="Close image">
+
+                    ×
+
+                </button>
+
+
+                <!-- ==================================
+                     PREVIOUS IMAGE
+                =================================== -->
+
+                <button
+                    type="button"
+                    id="timelinePrevBtn"
+                    class="timeline-image-nav timeline-image-prev"
+                    onclick="previousTimelineImage()"
+                    aria-label="Previous image">
+
+                    ❮
+
+                </button>
+
+
+                <!-- ==================================
+                     IMAGE CONTAINER
+                =================================== -->
+
+                <div class="timeline-image-container">
+
+                    <img
+                        id="timelineZoomImage"
+                        src=""
+                        alt="Timeline image"
+                        draggable="false">
+
+                </div>
+
+
+                <!-- ==================================
+                     NEXT IMAGE
+                =================================== -->
+
+                <button
+                    type="button"
+                    id="timelineNextBtn"
+                    class="timeline-image-nav timeline-image-next"
+                    onclick="nextTimelineImage()"
+                    aria-label="Next image">
+
+                    ❯
+
+                </button>
+
+
+                <!-- ==================================
+                     IMAGE INFORMATION
+                =================================== -->
+
+                <div class="timeline-image-info">
+
+                    <h3
+                        id="timelineZoomTitle">
+                    </h3>
+
+                    <p
+                        id="timelineZoomCounter">
+                    </p>
+
+                </div>
+
+
+                <!-- ==================================
+                     IMAGE ACTIONS
+                =================================== -->
+
+                <div class="timeline-image-actions">
+
+                    <button
+                        type="button"
+                        id="timelineShareBtn"
+                        onclick="shareTimelineImage()">
+
+                        🔗 Share
+
+                    </button>
+
+
+                    <button
+                        type="button"
+                        onclick="copyTimelineImageLink()">
+
+                        📋 Copy Link
+
+                    </button>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- =====================================
+             TIMELINE POST SHARE MODAL
+        ====================================== -->
+
+        <div
+            id="timelineShareModal"
+            class="timeline-share-modal"
+            aria-hidden="true">
+
+            <div
+                class="timeline-share-overlay"
+                onclick="closeTimelineShare()">
+            </div>
+
+
+            <div
+                class="timeline-share-content">
+
+                <button
+                    type="button"
+                    class="timeline-share-close"
+                    onclick="closeTimelineShare()"
+                    aria-label="Close share dialog">
+
+                    ×
+
+                </button>
+
+
+                <h3>
+                    Share Timeline Post
+                </h3>
+
+
+                <p>
+                    Copy and share this LinkTech timeline
+                    post with others.
+                </p>
+
+
+                <div class="timeline-share-link">
+
+                    <input
+                        type="text"
+                        id="timelineShareUrl"
+                        readonly>
+
+                    <button
+                        type="button"
+                        onclick="copyTimelinePostLink()">
+
+                        Copy
+
+                    </button>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- =====================================
+             ADMIN DASHBOARD
+        ====================================== -->
+
+        <section
+            id="adminPanel"
+            class="box"
+            style="display:none;">
+
+            <h2>
+                Admin Dashboard
+            </h2>
+
+
+            <!-- ==================================
+                 ADMIN STATISTICS
+            =================================== -->
+
+            <div class="stats">
+
+                <div class="stat-card">
+
+                    <h3>
+                        Total Concerns
+                    </h3>
+
+                    <span id="totalConcerns">
+                        0
+                    </span>
+
+                </div>
+
+
+                <div class="stat-card">
+
+                    <h3>
+                        Pending
+                    </h3>
+
+                    <span id="pending">
+                        0
+                    </span>
+
+                </div>
+
+
+                <div class="stat-card">
+
+                    <h3>
+                        Processing
+                    </h3>
+
+                    <span id="processing">
+                        0
+                    </span>
+
+                </div>
+
+
+                <div class="stat-card">
+
+                    <h3>
+                        Completed
+                    </h3>
+
+                    <span id="completed">
+                        0
+                    </span>
+
+                </div>
+
+
+                <div class="stat-card">
+
+                    <h3>
+                        Aborted
+                    </h3>
+
+                    <span id="aborted">
+                        0
+                    </span>
+
+                </div>
+
+            </div>
+
+
+            <hr>
+
+
+            <!-- ==================================
+                 CUSTOMER CONCERN REPORT
+            =================================== -->
+
+            <h3>
+                Customer Concern Reports
+            </h3>
+
+
+            <label for="reportType">
+                Filter Report
+            </label>
+
+
+            <select id="reportType">
+
+                <option value="new">
+                    New Concerns
+                </option>
+
+                <option value="week">
+                    This Week
+                </option>
+
+                <option value="month">
+                    This Month
+                </option>
+
+                <option value="year">
+                    This Year
+                </option>
+
+                <option value="all">
+                    All Records
+                </option>
+
+            </select>
+
+
+            <!-- STATUS FILTER -->
+
+            <label for="statusFilter">
+                Status
+            </label>
+
+
+            <select id="statusFilter">
+
+                <option value="all">
+                    All Status
+                </option>
+
+                <option value="Pending">
+                    Pending
+                </option>
+
+                <option value="Processing">
+                    Processing
+                </option>
+
+                <option value="Completed">
+                    Completed
+                </option>
+
+                <option value="Aborted">
+                    Aborted
+                </option>
+
+            </select>
+
+
+            <!-- CATEGORY FILTER -->
+
+            <label for="categoryFilter">
+                Concern Category
+            </label>
+
+
+            <select id="categoryFilter">
+
+                <option value="all">
+                    All Categories
+                </option>
+
+                <option value="Computer Repair">
+                    Computer Repair
+                </option>
+
+                <option value="Laptop Repair">
+                    Laptop Repair
+                </option>
+
+                <option value="Networking">
+                    Networking
+                </option>
+
+                <option value="Printer">
+                    Printer
+                </option>
+
+                <option value="CCTV">
+                    CCTV
+                </option>
+
+                <option value="Software Installation">
+                    Software Installation
+                </option>
+
+                <option value="Internet Connection">
+                    Internet Connection
+                </option>
+
+                <option value="Others">
+                    Others
+                </option>
+
+            </select>
+
+
+            <div class="admin-toolbar">
+
+                <button
+                    type="button"
+                    onclick="loadAdminData()">
+
+                    🔄 Refresh
+
+                </button>
+
+
+                <button
+                    type="button"
+                    onclick="printReport()">
+
+                    🖨 Print
+
+                </button>
+
+
+                <button
+                    type="button"
+                    onclick="downloadCSV()">
+
+                    📊 Download CSV
+
+                </button>
+
+            </div>
+
+
+            <hr>
+
+
+            <!-- ==================================
+                 CUSTOMER CONCERNS
+            =================================== -->
+
+            <div id="adminConcerns">
+
+                <!--
+                    Admin concern table/cards
+                    loaded by home.js
+                -->
+
+            </div>
+
+        </section>
+        
+                <!-- =====================================
+             TIMELINE ADMIN MANAGEMENT
+        ====================================== -->
+
+        <section
+            id="timelineAdmin"
+            class="box"
+            style="display:none;">
+
+            <div class="timeline-admin-header">
+
+                <h2>
+                    Timeline Management
+                </h2>
+
+                <p>
+                    Create and manage LinkTech timeline posts.
+                </p>
+
+            </div>
+
+
+            <!-- ==================================
+                 CREATE TIMELINE POST
+            =================================== -->
+
+            <div class="timeline-admin-card">
+
+                <h3>
+                    Create Timeline Post
+                </h3>
+
+
+                <!-- POST TITLE -->
+
+                <label for="postTitle">
+                    Post Title
+                </label>
+
+                <input
+                    id="postTitle"
+                    type="text"
+                    maxlength="150"
+                    placeholder="Enter post title">
+
+
+                <!-- POST CAPTION -->
+
+                <label for="postCaption">
+                    Caption
+                </label>
+
+                <textarea
+                    id="postCaption"
+                    rows="5"
+                    maxlength="3000"
+                    placeholder="Write your caption..."></textarea>
+
+
+                <!-- ==================================
+                     GOOGLE DRIVE IMAGE
+                =================================== -->
+
+                <div class="timeline-image-upload">
+
+                    <label>
+                        Timeline Image
+                    </label>
+
+                    <p class="timeline-upload-help">
+                        Select an image from the LinkTech
+                        Timeline Images folder in Google Drive.
+                    </p>
+
+
+                    <div class="timeline-image-upload-buttons">
+
+                        <button
+                            type="button"
+                            id="selectDriveImageBtn"
+                            onclick="openDriveImagePicker()">
+
+                            📁 Select Google Drive Image
+
+                        </button>
+
+
+                        <button
+                            type="button"
+                            id="clearPostImageBtn"
+                            onclick="clearPostImage()">
+
+                            ✕ Clear Image
+
+                        </button>
+
+                    </div>
+
+
+                    <!-- Selected Drive File -->
+
+                    <div
+                        id="selectedDriveImage"
+                        class="selected-drive-image"
+                        style="display:none;">
+
+                        <img
+                            id="selectedDriveImagePreview"
+                            src=""
+                            alt="Selected timeline image">
+
+
+                        <div class="selected-drive-image-info">
+
+                            <strong
+                                id="selectedDriveImageName">
+                            </strong>
+
+                            <span
+                                id="selectedDriveImageId">
+                            </span>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- Hidden value used by home.js -->
+
+                    <input
+                        type="hidden"
+                        id="postImage"
+                        value="">
+
+
+                    <input
+                        type="hidden"
+                        id="postImageFileId"
+                        value="">
+
+
+                    <input
+                        type="hidden"
+                        id="postImageFileName"
+                        value="">
+
+                </div>
+
+
+                <!-- ==================================
+                     IMAGE PREVIEW
+                =================================== -->
+
+                <div
+                    id="postImagePreview"
+                    class="timeline-post-preview"
+                    style="display:none;">
+
+                    <img
+                        id="postImagePreviewImg"
+                        src=""
+                        alt="Timeline image preview">
+
+                </div>
+
+
+                <!-- ==================================
+                     PUBLISH
+                =================================== -->
+
+                <button
+                    type="button"
+                    id="publishPostBtn"
+                    onclick="createPost()">
+
+                    🚀 Publish Post
+
+                </button>
+
+            </div>
+
+
+            <hr>
+
+
+            <!-- ==================================
+                 MANAGE TIMELINE
+            =================================== -->
+
+            <div class="timeline-admin-manage">
+
+                <div class="timeline-admin-manage-header">
+
+                    <div>
+
+                        <h3>
+                            Manage Timeline
+                        </h3>
+
+                        <p>
+                            Edit or remove published timeline posts.
+                        </p>
+
+                    </div>
+
+
+                    <button
+                        type="button"
+                        onclick="loadTimeline()">
+
+                        🔄 Refresh
+
+                    </button>
+
+                </div>
+
+
+                <div id="adminTimelineList">
+
+                    <!--
+                        Admin timeline posts
+                        loaded by home.js
+                    -->
+
+                </div>
+
+            </div>
+
+        </section>
+
+    </div>
+
+</section>
+
+
+<!-- ==========================================
+     FOOTER
+========================================== -->
+
+<footer>
+
+    <p>
+        © 2026 LinkTech Freelance IT Specialist Zamboanga |
+        All Rights Reserved
+    </p>
+
+</footer>
+
+
+<!-- ==========================================
+     JAVASCRIPT
+========================================== -->
+
+<script src="js/home.js"></script>
+
+
+</body>
+</html>
