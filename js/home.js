@@ -1,7 +1,6 @@
 const GOOGLE_SCRIPT_URL =
     "https://script.google.com/macros/s/AKfycbyHfhjtP1ziN6UrHpnk1c5E01DfhI_TB-mAf0lc5MfrJI1vO6Qm2apHdtekrEtJSvSf/exec";
 
-
 // ==========================================
 // GOOGLE CLIENT ID
 // ==========================================
