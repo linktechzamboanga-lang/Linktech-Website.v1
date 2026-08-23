@@ -1538,72 +1538,49 @@ footer{
     width:100%;
 }
 
-
-/* ==========================================
-   TIMELINE POST
-========================================== */
+/* ===== Timeline Image Card ===== */
 
 .timeline-post{
-    background:
-        linear-gradient(
-            145deg,
-            #ffffff,
-            #f8fafc
-        );
-
-    padding:20px;
-
+    background:#111827;
+    border:1px solid #263247;
     border-radius:18px;
-
     overflow:hidden;
-
-    border:1px solid #e2e8f0;
-
-    box-shadow:
-        0 8px 25px
-        rgba(15,23,42,.07);
-
-    transition:
-        transform .3s ease,
-        border-color .3s ease,
-        box-shadow .3s ease;
+    margin-bottom:22px;
 }
 
-.timeline-post:hover{
-    transform:translateY(-6px);
-
-    border-color:#7dd3fc;
-
-    box-shadow:
-        0 15px 35px
-        rgba(14,165,233,.12);
-}
-
-
-/* ==========================================
-   TIMELINE IMAGE
-========================================== */
-
-.timeline-post img{
+.timeline-image{
     width:100%;
-
-    height:200px;
-
-    object-fit:cover;
-
-    border-radius:14px;
-
-    display:block;
-
-    background:#f1f5f9;
-
-    transition:
-        transform .4s ease;
+    max-height:420px;
+    overflow:hidden;
+    background:#0b1220;
 }
 
-.timeline-post:hover img{
+.timeline-image img{
+    width:100%;
+    height:100%;
+    display:block;
+    object-fit:cover;
+    cursor:pointer;
+    transition:.25s ease;
+}
+
+.timeline-image img:hover{
     transform:scale(1.02);
 }
+
+.timeline-content{
+    padding:16px;
+}
+
+/* Landscape / Portrait support */
+.timeline-image.landscape{
+    aspect-ratio:16/9;
+}
+
+.timeline-image.portrait{
+    aspect-ratio:4/5;
+}
+
 
 
 /* ==========================================
@@ -2462,45 +2439,3 @@ footer{
 
 }
 
-/* ===== Timeline Image Card ===== */
-
-.timeline-post{
-    background:#111827;
-    border:1px solid #263247;
-    border-radius:18px;
-    overflow:hidden;
-    margin-bottom:22px;
-}
-
-.timeline-image{
-    width:100%;
-    max-height:420px;
-    overflow:hidden;
-    background:#0b1220;
-}
-
-.timeline-image img{
-    width:100%;
-    height:100%;
-    display:block;
-    object-fit:cover;
-    cursor:pointer;
-    transition:.25s ease;
-}
-
-.timeline-image img:hover{
-    transform:scale(1.02);
-}
-
-.timeline-content{
-    padding:16px;
-}
-
-/* Landscape / Portrait support */
-.timeline-image.landscape{
-    aspect-ratio:16/9;
-}
-
-.timeline-image.portrait{
-    aspect-ratio:4/5;
-}
