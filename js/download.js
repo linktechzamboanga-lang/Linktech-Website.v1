@@ -1,116 +1,178 @@
-function searchSoftware(){
+/* =========================
+   SOFTWARE SEARCH
+========================= */
 
-    let input = document
-    .getElementById("searchInput")
-    .value
-    .toLowerCase()
-    .trim();
+function searchSoftware() {
 
+    const input = document
+        .getElementById("searchInput")
+        .value
+        .toLowerCase()
+        .trim();
 
-    let cards = document.querySelectorAll(".card");
-
-
-    cards.forEach(card=>{
-
-
-        let title = card
-        .querySelector("h3")
-        .textContent
-        .toLowerCase();
+    const cards =
+        document.querySelectorAll(".card");
 
 
-        let description = card
-        .querySelector("p")
-        .textContent
-        .toLowerCase();
+    cards.forEach(card => {
+
+        const titleElement =
+            card.querySelector("h3");
+
+        const descriptionElement =
+            card.querySelector("p");
 
 
+        const title =
+            titleElement
+                ? titleElement.textContent.toLowerCase()
+                : "";
 
-        if(
+
+        const description =
+            descriptionElement
+                ? descriptionElement.textContent.toLowerCase()
+                : "";
+
+
+        if (
             title.includes(input) ||
             description.includes(input)
-        ){
+        ) {
 
-            card.style.display="";
+            card.style.display = "";
+
+        } else {
+
+            card.style.display = "none";
 
         }
-        else{
-
-            card.style.display="none";
-
-        }
-
 
     });
-
 
 }
 
 
-
 /* =========================
-   DOWNLOAD BUTTON SYSTEM
+   DOWNLOAD FILE DATABASE
 ========================= */
 
 const downloadFiles = {
 
     linktech2026:
         "https://drive.usercontent.google.com/download?id=1SsUikiB9N8Nw0qADAVar7rxqRYt_OG0K&export=download&authuser=0",
+
     Winrar:
-  "https://www.win-rar.com/fileadmin/winrar-versions/winrar/winrar-x64-722.exe",
-Chrome:
-"https://dl.google.com/chrome/install/latest/chrome_installer.exe",
+        "https://www.win-rar.com/fileadmin/winrar-versions/winrar/winrar-x64-722.exe",
 
-VLC:
-"https://get.videolan.org/vlc/3.0.23/win64/vlc-3.0.23-win64.exe",
+    Chrome:
+        "https://dl.google.com/chrome/install/latest/chrome_installer.exe",
 
-Epson L120 Resetter:
-"https://ozamiz.deped.gov.ph/resetter/l120-resetcracked.zip",
+    VLC:
+        "https://get.videolan.org/vlc/3.0.23/win64/vlc-3.0.23-win64.exe",
 
+    "Epson L120 Resetter":
+        "https://ozamiz.deped.gov.ph/resetter/l120-resetcracked.zip",
 
-Epson L3150 Resetter:
-"https://ozamiz.deped.gov.ph/resetter/Epson%20L3150%20Resetter.zip",
+    "Epson L3150 Resetter":
+        "https://ozamiz.deped.gov.ph/resetter/Epson%20L3150%20Resetter.zip",
 
-Epson L1210 / L3210 / L3250 Series Resetter:
-"https://ozamiz.deped.gov.ph/resetter/EPSON_L1210_L3210_L3250_L3251_L3260_L5290.zip",
+    "Epson L1210 / L3210 / L3250 Series Resetter":
+        "https://ozamiz.deped.gov.ph/resetter/EPSON_L1210_L3210_L3250_L3251_L3260_L5290.zip",
 
+    AnyDesk:
+        "https://download.anydesk.com/AnyDesk.exe"
 
-AnyDesk:
-"https://download.anydesk.com/AnyDesk.exe"
 };
 
+
+/* =========================
+   DOWNLOAD BUTTON SYSTEM
+========================= */
+
 const downloadButtons =
-document.querySelectorAll(".download-btn");
+    document.querySelectorAll(".download-btn");
 
 
 downloadButtons.forEach(button => {
 
     button.addEventListener("click", function () {
 
+        /* =========================
+           GET FILE KEY
+        ========================= */
+
         const fileKey =
             this.getAttribute("data-file");
+
+
+        /* =========================
+           FIND DOWNLOAD URL
+        ========================= */
 
         const file =
             downloadFiles[fileKey];
 
+
         if (!file) {
 
-            alert("Download file not found.");
+            console.error(
+                "Download file not found:",
+                fileKey
+            );
+
+            alert(
+                "Download file not found."
+            );
 
             return;
 
         }
 
 
+        /* =========================
+           BUTTON ELEMENT
+        ========================= */
+
         const text =
             this.querySelector(".btn-text");
 
 
-        this.classList.add("downloading");
+        /* =========================
+           PREVENT DOUBLE CLICK
+        ========================= */
 
-        text.innerText =
-            "Preparing Download...";
+        if (
+            this.classList.contains(
+                "downloading"
+            )
+        ) {
 
+            return;
+
+        }
+
+
+        /* =========================
+           START LOADING
+        ========================= */
+
+        this.classList.add(
+            "downloading"
+        );
+
+
+        if (text) {
+
+            text.innerText =
+                "Preparing Download...";
+
+        }
+
+
+        /* =========================
+           CREATE HIDDEN LINK
+        ========================= */
 
         const downloadLink =
             document.createElement("a");
@@ -128,17 +190,37 @@ downloadButtons.forEach(button => {
         );
 
 
+        /* =========================
+           START DOWNLOAD
+        ========================= */
+
         downloadLink.click();
 
 
+        /* =========================
+           REMOVE TEMPORARY LINK
+        ========================= */
+
         setTimeout(() => {
 
-            document.body.removeChild(
-                downloadLink
-            );
+            if (
+                document.body.contains(
+                    downloadLink
+                )
+            ) {
+
+                document.body.removeChild(
+                    downloadLink
+                );
+
+            }
 
         }, 1000);
 
+
+        /* =========================
+           DOWNLOAD STARTED
+        ========================= */
 
         setTimeout(() => {
 
@@ -146,15 +228,25 @@ downloadButtons.forEach(button => {
                 "downloading"
             );
 
+
             this.classList.add(
                 "success"
             );
 
-            text.innerText =
-                "Download Started";
+
+            if (text) {
+
+                text.innerText =
+                    "Download Started";
+
+            }
 
         }, 1500);
 
+
+        /* =========================
+           RESET BUTTON
+        ========================= */
 
         setTimeout(() => {
 
@@ -162,8 +254,13 @@ downloadButtons.forEach(button => {
                 "success"
             );
 
-            text.innerText =
-                "Download";
+
+            if (text) {
+
+                text.innerText =
+                    "Download";
+
+            }
 
         }, 5000);
 
