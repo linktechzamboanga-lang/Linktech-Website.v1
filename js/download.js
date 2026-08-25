@@ -79,11 +79,6 @@ AnyDesk:
 "https://download.anydesk.com/AnyDesk.exe"
 };
 
-
-/* =========================
-   DOWNLOAD BUTTON SYSTEM
-========================= */
-
 const downloadButtons =
 document.querySelectorAll(".download-btn");
 
@@ -92,16 +87,24 @@ downloadButtons.forEach(button => {
 
     button.addEventListener("click", function () {
 
-        const file =
+        const fileKey =
             this.getAttribute("data-file");
+
+        const file =
+            downloadFiles[fileKey];
+
+        if (!file) {
+
+            alert("Download file not found.");
+
+            return;
+
+        }
+
 
         const text =
             this.querySelector(".btn-text");
 
-
-        /* =========================
-           START LOADING
-        ========================= */
 
         this.classList.add("downloading");
 
@@ -109,21 +112,13 @@ downloadButtons.forEach(button => {
             "Preparing Download...";
 
 
-        /* =========================
-           CREATE HIDDEN DOWNLOAD LINK
-        ========================= */
-
         const downloadLink =
             document.createElement("a");
+
 
         downloadLink.href = file;
 
         downloadLink.download = "";
-
-
-        /*
-         * Hide the link completely
-         */
 
         downloadLink.style.display = "none";
 
@@ -133,16 +128,8 @@ downloadButtons.forEach(button => {
         );
 
 
-        /* =========================
-           START DOWNLOAD
-        ========================= */
-
         downloadLink.click();
 
-
-        /* =========================
-           REMOVE TEMPORARY LINK
-        ========================= */
 
         setTimeout(() => {
 
@@ -152,10 +139,6 @@ downloadButtons.forEach(button => {
 
         }, 1000);
 
-
-        /* =========================
-           SUCCESS
-        ========================= */
 
         setTimeout(() => {
 
@@ -172,10 +155,6 @@ downloadButtons.forEach(button => {
 
         }, 1500);
 
-
-        /* =========================
-           RESET BUTTON
-        ========================= */
 
         setTimeout(() => {
 
