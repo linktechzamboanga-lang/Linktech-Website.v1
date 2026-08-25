@@ -84,7 +84,7 @@ const downloadFiles = {
         "https://download.anydesk.com/AnyDesk.exe",
    
    "Computer Inventory System":
-   "https://drive.google.com/file/d/119p0k-lYEs9qANKXdwzrvvAArjvSpfW7/view?usp=drivesdk"
+   "https://drive.usercontent.google.com/download?id=119p0k-lYEs9qANKXdwzrvvAArjvSpfW7&export=download&authuser=0"
 
 };
 
