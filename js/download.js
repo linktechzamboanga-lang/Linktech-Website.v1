@@ -55,32 +55,28 @@ function searchSoftware(){
 const downloadFiles = {
 
     linktech2026:
-        "https://drive.usercontent.google.com/download?id=1SsUikiB9N8Nw0qADAVar7rxqRYt_OG0K&export=download&authuser=0"
-        
+        "https://drive.usercontent.google.com/download?id=1SsUikiB9N8Nw0qADAVar7rxqRYt_OG0K&export=download&authuser=0",
     Winrar:
-    "https://www.win-rar.com/fileadmin/winrar-versions/winrar/winrar-x64-722.exe"
-
+  "https://www.win-rar.com/fileadmin/winrar-versions/winrar/winrar-x64-722.exe",
 Chrome:
-"https://dl.google.com/chrome/install/latest/chrome_installer.exe"
+"https://dl.google.com/chrome/install/latest/chrome_installer.exe",
 
 VLC:
-"https://get.videolan.org/vlc/3.0.23/win64/vlc-3.0.23-win64.exe"
+"https://get.videolan.org/vlc/3.0.23/win64/vlc-3.0.23-win64.exe",
 
 Epson L120 Resetter:
-"https://ozamiz.deped.gov.ph/resetter/l120-resetcracked.zip"
+"https://ozamiz.deped.gov.ph/resetter/l120-resetcracked.zip",
 
 
 Epson L3150 Resetter:
-"https://ozamiz.deped.gov.ph/resetter/Epson%20L3150%20Resetter.zip"
+"https://ozamiz.deped.gov.ph/resetter/Epson%20L3150%20Resetter.zip",
 
 Epson L1210 / L3210 / L3250 Series Resetter:
-"https://ozamiz.deped.gov.ph/resetter/EPSON_L1210_L3210_L3250_L3251_L3260_L5290.zip"
+"https://ozamiz.deped.gov.ph/resetter/EPSON_L1210_L3210_L3250_L3251_L3260_L5290.zip",
 
 
 AnyDesk:
 "https://download.anydesk.com/AnyDesk.exe"
-
-
 };
 
 
