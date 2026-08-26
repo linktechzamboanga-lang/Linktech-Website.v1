@@ -84,7 +84,7 @@ const downloadFiles = {
         "https://download.anydesk.com/AnyDesk.exe",
    
    "Computer Inventory System":
-   "https://drive.usercontent.google.com/download?id=119p0k-lYEs9qANKXdwzrvvAArjvSpfW7&export=download&authuser=0",
+   "https://drive.usercontent.google.com/download?id=1plWIfqdrBW5bzl99uI-H3q27XNhmF00h&export=download&authuser=0",
    
    "Computer Inventory System pro":
    "https://drive.usercontent.google.com/download?id=1KkyHHNZPZSLTa0HMXSbfrlNvMo8G6OYE&export=download&authuser=0"
