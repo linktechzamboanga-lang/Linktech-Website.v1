@@ -57,84 +57,97 @@ function searchSoftware() {
    DOWNLOAD FILE DATABASE
 ========================= */
 
-const downloadFiles = {
-
-    linktech2026:
-        "https://drive.usercontent.google.com/download?id=1SsUikiB9N8Nw0qADAVar7rxqRYt_OG0K&export=download&authuser=0",
-
-    Winrar:
-        "https://www.win-rar.com/fileadmin/winrar-versions/winrar/winrar-x64-722.exe",
-
-    Chrome:
-        "https://dl.google.com/chrome/install/latest/chrome_installer.exe",
-
-    VLC:
-        "https://get.videolan.org/vlc/3.0.23/win64/vlc-3.0.23-win64.exe",
-
-    "Epson L120 Resetter":
-        "https://ozamiz.deped.gov.ph/resetter/l120-resetcracked.zip",
-
-    "Epson L3150 Resetter":
-        "https://ozamiz.deped.gov.ph/resetter/Epson%20L3150%20Resetter.zip",
-
-    "Epson L1210 / L3210 / L3250 Series Resetter":
-        "https://ozamiz.deped.gov.ph/resetter/EPSON_L1210_L3210_L3250_L3251_L3260_L5290.zip",
-
-    AnyDesk:
-        "https://download.anydesk.com/AnyDesk.exe",
-   
-   "Computer Inventory System":
-   "https://drive.usercontent.google.com/download?id=1plWIfqdrBW5bzl99uI-H3q27XNhmF00h&export=download&authuser=0",
-   
-   "Computer Inventory System pro":
-   "https://drive.google.com/file/d/1jF6Xyph9cTqrHfbA6iAOEBjSDH74FpkL/view"
-
-};
-
-/* =========================
-   DOWNLOAD BUTTON SYSTEM
-========================= */
-
 const downloadButtons =
-document.querySelectorAll(".download-btn");
+    document.querySelectorAll(".download-btn");
 
 
 downloadButtons.forEach(button => {
 
     button.addEventListener("click", function () {
 
-        const file =
+        /* =========================
+           GET FILE KEY
+        ========================= */
+
+        const fileKey =
             this.getAttribute("data-file");
+
+
+        /* =========================
+           FIND DOWNLOAD URL
+        ========================= */
+
+        const file =
+            downloadFiles[fileKey];
+
+
+        if (!file) {
+
+            console.error(
+                "Download file not found:",
+                fileKey
+            );
+
+            alert(
+                "Download file not found."
+            );
+
+            return;
+
+        }
+
+
+        /* =========================
+           BUTTON ELEMENT
+        ========================= */
 
         const text =
             this.querySelector(".btn-text");
 
 
         /* =========================
-           START LOADING
+           PREVENT DOUBLE CLICK
         ========================= */
 
-        this.classList.add("downloading");
+        if (
+            this.classList.contains(
+                "downloading"
+            )
+        ) {
 
-        text.innerText =
-            "Preparing Download...";
+            return;
+
+        }
 
 
         /* =========================
-           CREATE HIDDEN DOWNLOAD LINK
+           START LOADING
+        ========================= */
+
+        this.classList.add(
+            "downloading"
+        );
+
+
+        if (text) {
+
+            text.innerText =
+                "Preparing Download...";
+
+        }
+
+
+        /* =========================
+           CREATE HIDDEN LINK
         ========================= */
 
         const downloadLink =
             document.createElement("a");
 
+
         downloadLink.href = file;
 
         downloadLink.download = "";
-
-
-        /*
-         * Hide the link completely
-         */
 
         downloadLink.style.display = "none";
 
@@ -157,15 +170,23 @@ downloadButtons.forEach(button => {
 
         setTimeout(() => {
 
-            document.body.removeChild(
-                downloadLink
-            );
+            if (
+                document.body.contains(
+                    downloadLink
+                )
+            ) {
+
+                document.body.removeChild(
+                    downloadLink
+                );
+
+            }
 
         }, 1000);
 
 
         /* =========================
-           SUCCESS
+           DOWNLOAD STARTED
         ========================= */
 
         setTimeout(() => {
@@ -174,12 +195,18 @@ downloadButtons.forEach(button => {
                 "downloading"
             );
 
+
             this.classList.add(
                 "success"
             );
 
-            text.innerText =
-                "Download Started";
+
+            if (text) {
+
+                text.innerText =
+                    "Download Started";
+
+            }
 
         }, 1500);
 
@@ -194,11 +221,17 @@ downloadButtons.forEach(button => {
                 "success"
             );
 
-            text.innerText =
-                "Download";
+
+            if (text) {
+
+                text.innerText =
+                    "Download";
+
+            }
 
         }, 5000);
 
     });
 
 });
+        
