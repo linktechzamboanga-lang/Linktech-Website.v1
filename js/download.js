@@ -13,7 +13,6 @@ function searchSoftware() {
     const cards =
         document.querySelectorAll(".card");
 
-
     cards.forEach(card => {
 
         const titleElement =
@@ -22,30 +21,23 @@ function searchSoftware() {
         const descriptionElement =
             card.querySelector("p");
 
-
         const title =
             titleElement
                 ? titleElement.textContent.toLowerCase()
                 : "";
-
 
         const description =
             descriptionElement
                 ? descriptionElement.textContent.toLowerCase()
                 : "";
 
-
         if (
             title.includes(input) ||
             description.includes(input)
         ) {
-
             card.style.display = "";
-
         } else {
-
             card.style.display = "none";
-
         }
 
     });
@@ -82,124 +74,369 @@ const downloadFiles = {
 
     AnyDesk:
         "https://download.anydesk.com/AnyDesk.exe",
-   
-    "Computer Inventory System pro":
-   "https://drive.usercontent.google.com/download?id=1p4WuiaeAAk_loBjPOhlu01oYak2_g0uv&export=download&authuser=0",
 
+    /* =========================
+       COMPUTER INVENTORY PRO
+    ========================= */
+
+    "Computer Inventory System pro":
+        "https://drive.usercontent.google.com/download?id=1p4WuiaeAAk_loBjPOhlu01oYak2_g0uv&export=download&authuser=0",
+
+    /* =========================
+       COMPUTER INVENTORY FREE
+    ========================= */
 
     "Computer Inventory System":
-   "https://drive.usercontent.google.com/download?id=1plWIfqdrBW5bzl99uI-H3q27XNhmF00h&export=download&authuser=0"
+        "https://drive.usercontent.google.com/download?id=1plWIfqdrBW5bzl99uI-H3q27XNhmF00h&export=download&authuser=0"
 
 };
+
+
+/* =========================
+   PRO PRODUCT IDENTIFIER
+========================= */
+
+const PRO_PRODUCT_NAME =
+    "Computer Inventory System pro";
+
+const PRO_PRICE =
+    "₱150.00";
+
+
+/* =========================
+   OPEN PURCHASE WINDOW
+========================= */
+
+function openProPurchase() {
+
+    let modal =
+        document.getElementById("proPurchaseModal");
+
+    if (!modal) {
+
+        modal =
+            document.createElement("div");
+
+        modal.id =
+            "proPurchaseModal";
+
+        modal.innerHTML = `
+
+            <div class="pro-purchase-overlay">
+
+                <div class="pro-purchase-box">
+
+                    <button
+                        type="button"
+                        class="pro-close"
+                        id="closeProPurchase">
+                        ×
+                    </button>
+
+                    <div class="pro-icon">
+                        ⭐
+                    </div>
+
+                    <h2>
+                        Computer Inventory Pro
+                    </h2>
+
+                    <p class="pro-description">
+                        This is a paid version of
+                        Computer Inventory System.
+                    </p>
+
+                    <div class="pro-price">
+                        ${PRO_PRICE}
+                    </div>
+
+                    <p class="pro-notice">
+                        Purchase is required before
+                        downloading the Pro APK.
+                    </p>
+
+                    <button
+                        type="button"
+                        class="pro-pay-btn"
+                        id="proPayButton">
+
+                        Proceed to Purchase
+
+                    </button>
+
+                    <button
+                        type="button"
+                        class="pro-cancel-btn"
+                        id="proCancelButton">
+
+                        Cancel
+
+                    </button>
+
+                </div>
+
+            </div>
+
+        `;
+
+        document.body.appendChild(modal);
+
+        document
+            .getElementById("closeProPurchase")
+            .addEventListener(
+                "click",
+                closeProPurchase
+            );
+
+        document
+            .getElementById("proCancelButton")
+            .addEventListener(
+                "click",
+                closeProPurchase
+            );
+
+        document
+            .getElementById("proPayButton")
+            .addEventListener(
+                "click",
+                proceedToPurchase
+            );
+
+    }
+
+    modal.style.display =
+        "flex";
+
+}
+
+
+/* =========================
+   CLOSE PURCHASE WINDOW
+========================= */
+
+function closeProPurchase() {
+
+    const modal =
+        document.getElementById(
+            "proPurchaseModal"
+        );
+
+    if (modal) {
+
+        modal.style.display =
+            "none";
+
+    }
+
+}
+
+
+/* =========================
+   PROCEED TO PAYMENT
+========================= */
+
+function proceedToPurchase() {
+
+    /*
+     * IMPORTANT:
+     *
+     * Replace this URL with your
+     * actual payment page.
+     *
+     * Example:
+     *
+     * https://yourwebsite.com/
+     * computer-inventory-pro-payment
+     */
+
+    const paymentPage =
+        "https://linktechzamboanga.solutions/computer-inventory-pro-payment";
+
+    window.location.href =
+        paymentPage;
+
+}
+
+
+/* =========================
+   DOWNLOAD NORMAL FILE
+========================= */
+
+function startNormalDownload(
+    button,
+    file
+) {
+
+    const text =
+        button.querySelector(".btn-text");
+
+    if (!text) {
+        return;
+    }
+
+
+    /* =========================
+       START LOADING
+    ========================= */
+
+    button.classList.add(
+        "downloading"
+    );
+
+    text.innerText =
+        "Preparing Download...";
+
+
+    /* =========================
+       CREATE DOWNLOAD LINK
+    ========================= */
+
+    const downloadLink =
+        document.createElement("a");
+
+    downloadLink.href =
+        file;
+
+    downloadLink.download =
+        "";
+
+    downloadLink.style.display =
+        "none";
+
+    document.body.appendChild(
+        downloadLink
+    );
+
+
+    /* =========================
+       START DOWNLOAD
+    ========================= */
+
+    downloadLink.click();
+
+
+    /* =========================
+       REMOVE LINK
+    ========================= */
+
+    setTimeout(() => {
+
+        if (
+            document.body.contains(
+                downloadLink
+            )
+        ) {
+
+            document.body.removeChild(
+                downloadLink
+            );
+
+        }
+
+    }, 1000);
+
+
+    /* =========================
+       SUCCESS
+    ========================= */
+
+    setTimeout(() => {
+
+        button.classList.remove(
+            "downloading"
+        );
+
+        button.classList.add(
+            "success"
+        );
+
+        text.innerText =
+            "Download Started";
+
+    }, 1500);
+
+
+    /* =========================
+       RESET BUTTON
+    ========================= */
+
+    setTimeout(() => {
+
+        button.classList.remove(
+            "success"
+        );
+
+        text.innerText =
+            "Download";
+
+    }, 5000);
+
+}
+
 
 /* =========================
    DOWNLOAD BUTTON SYSTEM
 ========================= */
 
 const downloadButtons =
-document.querySelectorAll(".download-btn");
+    document.querySelectorAll(
+        ".download-btn"
+    );
 
 
 downloadButtons.forEach(button => {
 
-    button.addEventListener("click", function () {
+    button.addEventListener(
+        "click",
+        function (event) {
 
-        const file =
-            this.getAttribute("data-file");
+            event.preventDefault();
 
-        const text =
-            this.querySelector(".btn-text");
+            const file =
+                this.getAttribute(
+                    "data-file"
+                );
 
+            /* =========================
+               VALIDATE FILE
+            ========================= */
 
-        /* =========================
-           START LOADING
-        ========================= */
+            if (!file) {
 
-        this.classList.add("downloading");
+                alert(
+                    "Download file is not available."
+                );
 
-        text.innerText =
-            "Preparing Download...";
+                return;
 
-
-        /* =========================
-           CREATE HIDDEN DOWNLOAD LINK
-        ========================= */
-
-        const downloadLink =
-            document.createElement("a");
-
-        downloadLink.href = file;
-
-        downloadLink.download = "";
+            }
 
 
-        /*
-         * Hide the link completely
-         */
+            /* =========================
+               CHECK PRO DOWNLOAD
+            ========================= */
 
-        downloadLink.style.display = "none";
+            if (
+                file === PRO_PRODUCT_NAME
+            ) {
 
+                openProPurchase();
 
-        document.body.appendChild(
-            downloadLink
-        );
+                return;
 
-
-        /* =========================
-           START DOWNLOAD
-        ========================= */
-
-        downloadLink.click();
+            }
 
 
-        /* =========================
-           REMOVE TEMPORARY LINK
-        ========================= */
+            /* =========================
+               NORMAL DOWNLOAD
+            ========================= */
 
-        setTimeout(() => {
-
-            document.body.removeChild(
-                downloadLink
+            startNormalDownload(
+                this,
+                file
             );
 
-        }, 1000);
-
-
-        /* =========================
-           SUCCESS
-        ========================= */
-
-        setTimeout(() => {
-
-            this.classList.remove(
-                "downloading"
-            );
-
-            this.classList.add(
-                "success"
-            );
-
-            text.innerText =
-                "Download Started";
-
-        }, 1500);
-
-
-        /* =========================
-           RESET BUTTON
-        ========================= */
-
-        setTimeout(() => {
-
-            this.classList.remove(
-                "success"
-            );
-
-            text.innerText =
-                "Download";
-
-        }, 5000);
-
-    });
+        }
+    );
 
 });
