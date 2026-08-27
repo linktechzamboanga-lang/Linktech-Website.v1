@@ -84,7 +84,11 @@ const downloadFiles = {
         "https://download.anydesk.com/AnyDesk.exe",
    
     "computer inventory pro":
-   "https://drive.usercontent.google.com/download?id=1p4WuiaeAAk_loBjPOhlu01oYak2_g0uv&export=download&authuser=0"
+   "https://drive.usercontent.google.com/download?id=1p4WuiaeAAk_loBjPOhlu01oYak2_g0uv&export=download&authuser=0",
+
+
+    "computer inventory":
+   "https://drive.usercontent.google.com/download?id=1plWIfqdrBW5bzl99uI-H3q27XNhmF00h&export=download&authuser=0"
 
 };
 
