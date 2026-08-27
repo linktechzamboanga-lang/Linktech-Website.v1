@@ -11,6 +11,9 @@
 <meta name="theme-color"
       content="#0070e0">
 
+<meta name="description"
+      content="Computer Inventory Pro GCash Payment">
+
 <title>
 Computer Inventory Pro - Purchase
 </title>
@@ -37,11 +40,16 @@ Computer Inventory Pro - Purchase
 </header>
 
 
+
 <main class="container">
 
 
 <div class="card">
 
+
+<!-- =====================================================
+     PRODUCT
+===================================================== -->
 
 <section class="product">
 
@@ -58,11 +66,16 @@ Computer Inventory Pro - Purchase
     </p>
 
     <div class="price">
-        ₱150
+        ₱150.00
     </div>
 
 </section>
 
+
+
+<!-- =====================================================
+     FEATURES
+===================================================== -->
 
 <section class="features">
 
@@ -70,20 +83,37 @@ Computer Inventory Pro - Purchase
         Pro Features
     </h3>
 
-    <div>✓ Advanced inventory management</div>
+    <div>
+        ✓ Advanced inventory management
+    </div>
 
-    <div>✓ Computer QR code management</div>
+    <div>
+        ✓ Computer QR code management
+    </div>
 
-    <div>✓ Backup and restore</div>
+    <div>
+        ✓ Backup and restore
+    </div>
 
-    <div>✓ CSV export</div>
+    <div>
+        ✓ CSV export
+    </div>
 
-    <div>✓ Advanced inventory tools</div>
+    <div>
+        ✓ Advanced inventory tools
+    </div>
 
-    <div>✓ Pro features and improvements</div>
+    <div>
+        ✓ Pro features and improvements
+    </div>
 
 </section>
 
+
+
+<!-- =====================================================
+     GCASH PAYMENT
+===================================================== -->
 
 <section class="payment">
 
@@ -98,23 +128,22 @@ Computer Inventory Pro - Purchase
     </p>
 
 
-    <!-- =================================
-         REPLACE THIS IMAGE
-         WITH YOUR GCASH BUSINESS QR
-    ================================== -->
-
     <div class="qr-container">
 
         <img
             src="https://res.cloudinary.com/dgmlwzxqq/image/upload/v1787838093/IMG_20260827_213945_vp1fxy.jpg"
-            alt="GCash Payment QR">
+            alt="GCash Payment QR"
+            loading="lazy">
 
     </div>
 
 
+
     <div class="notice">
 
-        <strong>Payment instructions</strong>
+        <strong>
+            Payment instructions
+        </strong>
 
         <br><br>
 
@@ -142,13 +171,21 @@ Computer Inventory Pro - Purchase
 </section>
 
 
+
+<!-- =====================================================
+     PAYMENT FORM
+===================================================== -->
+
 <section>
 
     <h2>
         Submit Payment Details
     </h2>
 
-    <form id="paymentForm">
+
+    <form
+        id="paymentForm"
+        autocomplete="on">
 
 
         <div class="form-group">
@@ -160,10 +197,14 @@ Computer Inventory Pro - Purchase
             <input
                 type="text"
                 id="customerName"
+                name="customerName"
                 required
+                maxlength="100"
+                autocomplete="name"
                 placeholder="Enter your full name">
 
         </div>
+
 
 
         <div class="form-group">
@@ -175,10 +216,14 @@ Computer Inventory Pro - Purchase
             <input
                 type="email"
                 id="customerEmail"
+                name="customerEmail"
                 required
+                maxlength="150"
+                autocomplete="email"
                 placeholder="Enter your email">
 
         </div>
+
 
 
         <div class="form-group">
@@ -190,11 +235,15 @@ Computer Inventory Pro - Purchase
             <input
                 type="text"
                 id="gcashReference"
+                name="gcashReference"
                 required
                 minlength="6"
+                maxlength="100"
+                autocomplete="off"
                 placeholder="Enter transaction reference">
 
         </div>
+
 
 
         <button
@@ -209,9 +258,71 @@ Computer Inventory Pro - Purchase
     </form>
 
 
+
+    <!-- STATUS -->
+
     <div
         id="status"
         class="status">
+    </div>
+
+
+
+    <!-- =================================================
+         PURCHASE RESULT
+    ================================================== -->
+
+    <div
+        id="purchaseResult"
+        class="purchase-result"
+        style="display:none;">
+
+        <h3>
+            Payment Submitted
+        </h3>
+
+        <p>
+            Your payment information has been
+            submitted for verification.
+        </p>
+
+        <p>
+
+            <strong>
+                Purchase ID:
+            </strong>
+
+            <span id="purchaseId"></span>
+
+        </p>
+
+        <p>
+
+            <strong>
+                Status:
+            </strong>
+
+            <span id="purchaseStatus">
+                PENDING
+            </span>
+
+        </p>
+
+        <p>
+            Please save your Purchase ID.
+            You will need it to check your payment
+            and download the Pro APK after approval.
+        </p>
+
+
+        <button
+            type="button"
+            id="returnDownloadButton">
+
+            Return to Download Page
+
+        </button>
+
     </div>
 
 
@@ -219,6 +330,7 @@ Computer Inventory Pro - Purchase
 
 
 </div>
+
 
 
 <div class="footer">
@@ -234,6 +346,7 @@ Computer Inventory Pro - Purchase
 
 
 <script src="js/payment.js"></script>
+
 </body>
 
 </html>
