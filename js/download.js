@@ -331,7 +331,7 @@ function closeProPurchase() {
 function proceedToPurchase() {
 
     const paymentPage =
-        "https://linktechzamboanga.solutions/computer-inventory-pro-payment.html";
+        "https://lintechzamboanga.solutions/computer-inventory-pro-payment.html";
 
 
     window.location.href =
