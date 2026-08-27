@@ -2,6 +2,7 @@
     box-sizing: border-box;
 }
 
+
 body {
 
     margin: 0;
@@ -20,14 +21,15 @@ body {
 
     min-height: 100vh;
 
-    color: #1f2937;
+    color:
+        #1f2937;
 
 }
 
 
-/* =========================
+/* =========================================================
    HEADER
-========================= */
+========================================================= */
 
 .header {
 
@@ -38,11 +40,14 @@ body {
             #0099ff
         );
 
-    color: white;
+    color:
+        white;
 
-    padding: 22px;
+    padding:
+        22px;
 
-    text-align: center;
+    text-align:
+        center;
 
     box-shadow:
         0 4px 15px
@@ -50,27 +55,32 @@ body {
 
 }
 
+
 .header h1 {
 
-    margin: 0;
+    margin:
+        0;
 
-    font-size: 25px;
+    font-size:
+        25px;
 
 }
+
 
 .header p {
 
     margin:
         6px 0 0;
 
-    opacity: .9;
+    opacity:
+        .9;
 
 }
 
 
-/* =========================
+/* =========================================================
    CONTAINER
-========================= */
+========================================================= */
 
 .container {
 
@@ -83,17 +93,20 @@ body {
 }
 
 
-/* =========================
+/* =========================================================
    CARD
-========================= */
+========================================================= */
 
 .card {
 
-    background: white;
+    background:
+        white;
 
-    border-radius: 18px;
+    border-radius:
+        18px;
 
-    padding: 25px;
+    padding:
+        25px;
 
     box-shadow:
         0 10px 35px
@@ -102,39 +115,49 @@ body {
 }
 
 
-/* =========================
+/* =========================================================
    PRODUCT
-========================= */
+========================================================= */
 
 .product {
 
-    text-align: center;
+    text-align:
+        center;
 
 }
 
+
 .product-icon {
 
-    width: 90px;
+    width:
+        90px;
 
-    height: 90px;
+    height:
+        90px;
 
     margin:
         0 auto 15px;
 
-    border-radius: 50%;
+    border-radius:
+        50%;
 
-    display: flex;
+    display:
+        flex;
 
-    align-items: center;
+    align-items:
+        center;
 
-    justify-content: center;
+    justify-content:
+        center;
 
     background:
         #e7f2ff;
 
-    font-size: 45px;
+    font-size:
+        45px;
 
 }
+
 
 .product h2 {
 
@@ -146,11 +169,14 @@ body {
 
 }
 
+
 .price {
 
-    font-size: 38px;
+    font-size:
+        38px;
 
-    font-weight: bold;
+    font-weight:
+        bold;
 
     color:
         #087f3e;
@@ -161,9 +187,9 @@ body {
 }
 
 
-/* =========================
+/* =========================================================
    FEATURES
-========================= */
+========================================================= */
 
 .features {
 
@@ -181,11 +207,14 @@ body {
 
 }
 
+
 .features h3 {
 
-    margin-top: 0;
+    margin-top:
+        0;
 
 }
+
 
 .features div {
 
@@ -195,9 +224,9 @@ body {
 }
 
 
-/* =========================
+/* =========================================================
    PAYMENT
-========================= */
+========================================================= */
 
 .payment {
 
@@ -209,12 +238,18 @@ body {
 
 }
 
+
 .payment h2 {
 
     color:
         #0759a5;
 
 }
+
+
+/* =========================================================
+   GCASH QR
+========================================================= */
 
 .qr-container {
 
@@ -250,6 +285,7 @@ body {
 
 }
 
+
 .qr-container img {
 
     width:
@@ -267,9 +303,9 @@ body {
 }
 
 
-/* =========================
-   NOTICE
-========================= */
+/* =========================================================
+   PAYMENT NOTICE
+========================================================= */
 
 .notice {
 
@@ -297,9 +333,9 @@ body {
 }
 
 
-/* =========================
+/* =========================================================
    FORM
-========================= */
+========================================================= */
 
 .form-group {
 
@@ -307,6 +343,7 @@ body {
         16px;
 
 }
+
 
 .form-group label {
 
@@ -320,6 +357,7 @@ body {
         7px;
 
 }
+
 
 .form-group input {
 
@@ -341,7 +379,11 @@ body {
     outline:
         none;
 
+    background:
+        white;
+
 }
+
 
 .form-group input:focus {
 
@@ -355,9 +397,9 @@ body {
 }
 
 
-/* =========================
-   BUTTON
-========================= */
+/* =========================================================
+   SUBMIT BUTTON
+========================================================= */
 
 .submit-btn {
 
@@ -390,6 +432,7 @@ body {
 
 }
 
+
 .submit-btn:hover {
 
     background:
@@ -398,9 +441,20 @@ body {
 }
 
 
-/* =========================
+.submit-btn:disabled {
+
+    opacity:
+        .65;
+
+    cursor:
+        not-allowed;
+
+}
+
+
+/* =========================================================
    STATUS
-========================= */
+========================================================= */
 
 .status {
 
@@ -424,6 +478,7 @@ body {
 
 }
 
+
 .status.success {
 
     display:
@@ -439,6 +494,7 @@ body {
         #146c2e;
 
 }
+
 
 .status.error {
 
@@ -457,9 +513,93 @@ body {
 }
 
 
-/* =========================
+/* =========================================================
+   PURCHASE RESULT
+========================================================= */
+
+.purchase-result {
+
+    margin-top:
+        20px;
+
+    padding:
+        20px;
+
+    border-radius:
+        12px;
+
+    background:
+        #e9f9ef;
+
+    border:
+        1px solid #83d89d;
+
+    color:
+        #146c2e;
+
+    line-height:
+        1.6;
+
+}
+
+
+.purchase-result h3 {
+
+    margin-top:
+        0;
+
+    color:
+        #146c2e;
+
+}
+
+
+.purchase-result button {
+
+    width:
+        100%;
+
+    margin-top:
+        10px;
+
+    padding:
+        13px;
+
+    border:
+        none;
+
+    border-radius:
+        9px;
+
+    background:
+        #0070e0;
+
+    color:
+        white;
+
+    font-size:
+        15px;
+
+    font-weight:
+        bold;
+
+    cursor:
+        pointer;
+
+}
+
+
+.purchase-result button:hover {
+
+    background:
+        #005bb7;
+
+}
+
+
+/* =========================================================
    FOOTER
-========================= */
+========================================================= */
 
 .footer {
 
@@ -474,5 +614,56 @@ body {
 
     color:
         #64748b;
+
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (
+    max-width: 480px
+) {
+
+    .container {
+
+        width:
+            94%;
+
+        margin:
+            20px auto;
+
+    }
+
+
+    .card {
+
+        padding:
+            18px;
+
+        border-radius:
+            14px;
+
+    }
+
+
+    .price {
+
+        font-size:
+            34px;
+
+    }
+
+
+    .qr-container {
+
+        width:
+            240px;
+
+        min-height:
+            240px;
+
+    }
 
 }
