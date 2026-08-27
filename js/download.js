@@ -92,102 +92,50 @@ const downloadFiles = {
 
 };
 
-
 /* =========================
    DOWNLOAD BUTTON SYSTEM
 ========================= */
 
 const downloadButtons =
-    document.querySelectorAll(".download-btn");
+document.querySelectorAll(".download-btn");
 
 
 downloadButtons.forEach(button => {
 
     button.addEventListener("click", function () {
 
-        /* =========================
-           GET FILE KEY
-        ========================= */
-
-        const fileKey =
-            this.getAttribute("data-file");
-
-
-        /* =========================
-           FIND DOWNLOAD URL
-        ========================= */
-
         const file =
-            downloadFiles[fileKey];
-
-
-        if (!file) {
-
-            console.error(
-                "Download file not found:",
-                fileKey
-            );
-
-            alert(
-                "Download file not found."
-            );
-
-            return;
-
-        }
-
-
-        /* =========================
-           BUTTON ELEMENT
-        ========================= */
+            this.getAttribute("data-file");
 
         const text =
             this.querySelector(".btn-text");
 
 
         /* =========================
-           PREVENT DOUBLE CLICK
-        ========================= */
-
-        if (
-            this.classList.contains(
-                "downloading"
-            )
-        ) {
-
-            return;
-
-        }
-
-
-        /* =========================
            START LOADING
         ========================= */
 
-        this.classList.add(
-            "downloading"
-        );
+        this.classList.add("downloading");
 
-
-        if (text) {
-
-            text.innerText =
-                "Preparing Download...";
-
-        }
+        text.innerText =
+            "Preparing Download...";
 
 
         /* =========================
-           CREATE HIDDEN LINK
+           CREATE HIDDEN DOWNLOAD LINK
         ========================= */
 
         const downloadLink =
             document.createElement("a");
 
-
         downloadLink.href = file;
 
         downloadLink.download = "";
+
+
+        /*
+         * Hide the link completely
+         */
 
         downloadLink.style.display = "none";
 
@@ -210,23 +158,15 @@ downloadButtons.forEach(button => {
 
         setTimeout(() => {
 
-            if (
-                document.body.contains(
-                    downloadLink
-                )
-            ) {
-
-                document.body.removeChild(
-                    downloadLink
-                );
-
-            }
+            document.body.removeChild(
+                downloadLink
+            );
 
         }, 1000);
 
 
         /* =========================
-           DOWNLOAD STARTED
+           SUCCESS
         ========================= */
 
         setTimeout(() => {
@@ -235,18 +175,12 @@ downloadButtons.forEach(button => {
                 "downloading"
             );
 
-
             this.classList.add(
                 "success"
             );
 
-
-            if (text) {
-
-                text.innerText =
-                    "Download Started";
-
-            }
+            text.innerText =
+                "Download Started";
 
         }, 1500);
 
@@ -261,13 +195,8 @@ downloadButtons.forEach(button => {
                 "success"
             );
 
-
-            if (text) {
-
-                text.innerText =
-                    "Download";
-
-            }
+            text.innerText =
+                "Download";
 
         }, 5000);
 
