@@ -1,0 +1,478 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+
+    margin: 0;
+
+    font-family:
+        Arial,
+        Helvetica,
+        sans-serif;
+
+    background:
+        linear-gradient(
+            135deg,
+            #eef6ff,
+            #ffffff
+        );
+
+    min-height: 100vh;
+
+    color: #1f2937;
+
+}
+
+
+/* =========================
+   HEADER
+========================= */
+
+.header {
+
+    background:
+        linear-gradient(
+            135deg,
+            #0066cc,
+            #0099ff
+        );
+
+    color: white;
+
+    padding: 22px;
+
+    text-align: center;
+
+    box-shadow:
+        0 4px 15px
+        rgba(0,0,0,.15);
+
+}
+
+.header h1 {
+
+    margin: 0;
+
+    font-size: 25px;
+
+}
+
+.header p {
+
+    margin:
+        6px 0 0;
+
+    opacity: .9;
+
+}
+
+
+/* =========================
+   CONTAINER
+========================= */
+
+.container {
+
+    width:
+        min(94%, 650px);
+
+    margin:
+        30px auto;
+
+}
+
+
+/* =========================
+   CARD
+========================= */
+
+.card {
+
+    background: white;
+
+    border-radius: 18px;
+
+    padding: 25px;
+
+    box-shadow:
+        0 10px 35px
+        rgba(0,0,0,.10);
+
+}
+
+
+/* =========================
+   PRODUCT
+========================= */
+
+.product {
+
+    text-align: center;
+
+}
+
+.product-icon {
+
+    width: 90px;
+
+    height: 90px;
+
+    margin:
+        0 auto 15px;
+
+    border-radius: 50%;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    background:
+        #e7f2ff;
+
+    font-size: 45px;
+
+}
+
+.product h2 {
+
+    margin:
+        5px 0;
+
+    color:
+        #0759a5;
+
+}
+
+.price {
+
+    font-size: 38px;
+
+    font-weight: bold;
+
+    color:
+        #087f3e;
+
+    margin:
+        15px 0;
+
+}
+
+
+/* =========================
+   FEATURES
+========================= */
+
+.features {
+
+    margin:
+        20px 0;
+
+    padding:
+        15px;
+
+    background:
+        #f8fafc;
+
+    border-radius:
+        12px;
+
+}
+
+.features h3 {
+
+    margin-top: 0;
+
+}
+
+.features div {
+
+    padding:
+        6px 0;
+
+}
+
+
+/* =========================
+   PAYMENT
+========================= */
+
+.payment {
+
+    margin-top:
+        25px;
+
+    text-align:
+        center;
+
+}
+
+.payment h2 {
+
+    color:
+        #0759a5;
+
+}
+
+.qr-container {
+
+    margin:
+        20px auto;
+
+    width:
+        260px;
+
+    min-height:
+        260px;
+
+    border:
+        2px dashed #b8c7d9;
+
+    border-radius:
+        15px;
+
+    display:
+        flex;
+
+    align-items:
+        center;
+
+    justify-content:
+        center;
+
+    background:
+        #ffffff;
+
+    overflow:
+        hidden;
+
+}
+
+.qr-container img {
+
+    width:
+        100%;
+
+    max-width:
+        260px;
+
+    height:
+        auto;
+
+    display:
+        block;
+
+}
+
+
+/* =========================
+   NOTICE
+========================= */
+
+.notice {
+
+    background:
+        #fff7d6;
+
+    border:
+        1px solid #f1d46a;
+
+    padding:
+        13px;
+
+    border-radius:
+        10px;
+
+    font-size:
+        14px;
+
+    line-height:
+        1.5;
+
+    margin:
+        15px 0;
+
+}
+
+
+/* =========================
+   FORM
+========================= */
+
+.form-group {
+
+    margin-bottom:
+        16px;
+
+}
+
+.form-group label {
+
+    display:
+        block;
+
+    font-weight:
+        bold;
+
+    margin-bottom:
+        7px;
+
+}
+
+.form-group input {
+
+    width:
+        100%;
+
+    padding:
+        13px;
+
+    border:
+        1px solid #cbd5e1;
+
+    border-radius:
+        9px;
+
+    font-size:
+        15px;
+
+    outline:
+        none;
+
+}
+
+.form-group input:focus {
+
+    border-color:
+        #087fce;
+
+    box-shadow:
+        0 0 0 3px
+        rgba(0,112,224,.10);
+
+}
+
+
+/* =========================
+   BUTTON
+========================= */
+
+.submit-btn {
+
+    width:
+        100%;
+
+    border:
+        none;
+
+    border-radius:
+        10px;
+
+    padding:
+        15px;
+
+    font-size:
+        16px;
+
+    font-weight:
+        bold;
+
+    background:
+        #0070e0;
+
+    color:
+        white;
+
+    cursor:
+        pointer;
+
+}
+
+.submit-btn:hover {
+
+    background:
+        #005bb7;
+
+}
+
+
+/* =========================
+   STATUS
+========================= */
+
+.status {
+
+    display:
+        none;
+
+    margin-top:
+        15px;
+
+    padding:
+        14px;
+
+    border-radius:
+        10px;
+
+    text-align:
+        center;
+
+    line-height:
+        1.5;
+
+}
+
+.status.success {
+
+    display:
+        block;
+
+    background:
+        #e9f9ef;
+
+    border:
+        1px solid #83d89d;
+
+    color:
+        #146c2e;
+
+}
+
+.status.error {
+
+    display:
+        block;
+
+    background:
+        #fff0f0;
+
+    border:
+        1px solid #e4aaaa;
+
+    color:
+        #a30000;
+
+}
+
+
+/* =========================
+   FOOTER
+========================= */
+
+.footer {
+
+    text-align:
+        center;
+
+    margin:
+        25px 0;
+
+    font-size:
+        13px;
+
+    color:
+        #64748b;
+
+}
