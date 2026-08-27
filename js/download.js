@@ -87,7 +87,7 @@ const downloadFiles = {
    "https://drive.usercontent.google.com/download?id=1plWIfqdrBW5bzl99uI-H3q27XNhmF00h&export=download&authuser=0",
    
    "Computer Inventory System pro":
-   "https://drive.usercontent.google.com/download?id=1jF6Xyph9cTqrHfbA6iAOEBjSDH74FpkL&export=download&authuser=0"
+   "https://drive.google.com/file/d/1jF6Xyph9cTqrHfbA6iAOEBjSDH74FpkL/view"
 
 };
 
