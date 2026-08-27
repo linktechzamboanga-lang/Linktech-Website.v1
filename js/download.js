@@ -81,7 +81,10 @@ const downloadFiles = {
         "https://ozamiz.deped.gov.ph/resetter/EPSON_L1210_L3210_L3250_L3251_L3260_L5290.zip",
 
     AnyDesk:
-        "https://download.anydesk.com/AnyDesk.exe"
+        "https://download.anydesk.com/AnyDesk.exe",
+   
+    "computer inventory pro":
+   "https://drive.usercontent.google.com/download?id=1p4WuiaeAAk_loBjPOhlu01oYak2_g0uv&export=download&authuser=0"
 
 };
 
