@@ -1,69 +1,9 @@
-/* =========================================================
-   LINKTECH DOWNLOAD SYSTEM
-   Computer Inventory Pro - GCash Purchase Verification
-========================================================= */
+const API_URL =
+    "https://script.google.com/macros/s/AKfycbz0h8I56PglGhib3u9X6EjL84hEtPdpk33fuM3mFIJ3NtVAA6kj0iW-omKiv3k465iP/exec";
 
 
 /* =========================================================
-   SOFTWARE SEARCH
-========================================================= */
-
-function searchSoftware() {
-
-    const input =
-        document
-            .getElementById("searchInput")
-            .value
-            .toLowerCase()
-            .trim();
-
-
-    const cards =
-        document.querySelectorAll(".card");
-
-
-    cards.forEach(card => {
-
-        const titleElement =
-            card.querySelector("h3");
-
-
-        const descriptionElement =
-            card.querySelector("p");
-
-
-        const title =
-            titleElement
-                ? titleElement.textContent.toLowerCase()
-                : "";
-
-
-        const description =
-            descriptionElement
-                ? descriptionElement.textContent.toLowerCase()
-                : "";
-
-
-        if (
-            title.includes(input) ||
-            description.includes(input)
-        ) {
-
-            card.style.display = "";
-
-        } else {
-
-            card.style.display = "none";
-
-        }
-
-    });
-
-}
-
-
-/* =========================================================
-   DOWNLOAD FILE DATABASE
+   FREE DOWNLOAD FILES
 ========================================================= */
 
 const downloadFiles = {
@@ -100,18 +40,6 @@ const downloadFiles = {
         "https://download.anydesk.com/AnyDesk.exe",
 
 
-    /* =====================================================
-       COMPUTER INVENTORY PRO
-    ===================================================== */
-
-    "Computer Inventory System pro":
-        "https://drive.google.com/file/d/1huzliwTTa2LvyW3QxiViq24Oll8nUc2i/view?usp=drivesdk",
-
-
-    /* =====================================================
-       COMPUTER INVENTORY FREE
-    ===================================================== */
-
     "Computer Inventory System":
         "https://drive.usercontent.google.com/download?id=1plWIfqdrBW5bzl99uI-H3q27XNhmF00h&export=download&authuser=0"
 
@@ -119,476 +47,228 @@ const downloadFiles = {
 
 
 /* =========================================================
-   CONFIGURATION
+   DOM ELEMENTS
 ========================================================= */
 
-
-/*
- * Google Apps Script Web App URL.
- *
- * Replace this with the /exec URL of your
- * deployed Code.gs Web App.
- */
-
-const PURCHASE_API_URL =
-    "https://script.google.com/macros/s/AKfycbz0h8I56PglGhib3u9X6EjL84hEtPdpk33fuM3mFIJ3NtVAA6kj0iW-omKiv3k465iP/exec";
+const purchaseIdInput =
+    document.getElementById(
+        "purchaseIdInput"
+    );
 
 
-/*
- * Product name MUST MATCH Code.gs
- */
-
-const PRO_PRODUCT_NAME =
-    "Computer Inventory System pro";
+const purchaseEmailInput =
+    document.getElementById(
+        "purchaseEmailInput"
+    );
 
 
-/*
- * Product price
- */
+const checkPurchaseButton =
+    document.getElementById(
+        "checkPurchaseButton"
+    );
 
-const PRO_PRICE =
-    "₱150.00";
+
+const purchaseStatus =
+    document.getElementById(
+        "purchaseStatus"
+    );
+
+
+const downloadArea =
+    document.getElementById(
+        "downloadArea"
+    );
+
+
+const proDownloadButton =
+    document.getElementById(
+        "proDownloadButton"
+    );
+
+
+const approvedProduct =
+    document.getElementById(
+        "approvedProduct"
+    );
+
+
+const customerAccount =
+    document.getElementById(
+        "customerAccount"
+    );
+
+
+const customerEmailDisplay =
+    document.getElementById(
+        "customerEmailDisplay"
+    );
+
+
+const adminEmailInput =
+    document.getElementById(
+        "adminEmail"
+    );
+
+
+const loadPendingButton =
+    document.getElementById(
+        "loadPendingButton"
+    );
+
+
+const adminStatus =
+    document.getElementById(
+        "adminStatus"
+    );
+
+
+const pendingPurchases =
+    document.getElementById(
+        "pendingPurchases"
+    );
 
 
 /* =========================================================
-   PRO PURCHASE MODAL
+   DOWNLOAD FREE SOFTWARE
 ========================================================= */
 
-function openProPurchase() {
+function downloadSoftware(
+    softwareName
+) {
 
-    let modal =
-        document.getElementById(
-            "proPurchaseModal"
+    const url =
+        downloadFiles[
+            softwareName
+        ];
+
+
+    if (!url) {
+
+        alert(
+            "Download link is not available."
         );
 
-
-    if (!modal) {
-
-        modal =
-            document.createElement("div");
-
-
-        modal.id =
-            "proPurchaseModal";
-
-
-        modal.innerHTML = `
-
-            <div class="pro-purchase-overlay">
-
-                <div class="pro-purchase-box">
-
-                    <button
-                        type="button"
-                        class="pro-close"
-                        id="closeProPurchase">
-
-                        ×
-
-                    </button>
-
-
-                    <div class="pro-icon">
-
-                        ⭐
-
-                    </div>
-
-
-                    <h2>
-
-                        Computer Inventory Pro
-
-                    </h2>
-
-
-                    <p class="pro-description">
-
-                        Professional Computer Inventory
-                        Management System.
-
-                    </p>
-
-
-                    <div class="pro-price">
-
-                        ${PRO_PRICE}
-
-                    </div>
-
-
-                    <div class="pro-notice">
-
-                        <strong>
-                            Purchase required
-                        </strong>
-
-                        <br><br>
-
-                        Pay ₱150.00 through GCash.
-                        Your payment will be manually
-                        verified before the Pro APK
-                        download is unlocked.
-
-                    </div>
-
-
-                    <button
-                        type="button"
-                        class="pro-pay-btn"
-                        id="proPayButton">
-
-                        Proceed to GCash Purchase
-
-                    </button>
-
-
-                    <button
-                        type="button"
-                        class="pro-cancel-btn"
-                        id="proCancelButton">
-
-                        Cancel
-
-                    </button>
-
-                </div>
-
-            </div>
-
-        `;
-
-
-        document.body.appendChild(
-            modal
-        );
-
-
-        document
-            .getElementById(
-                "closeProPurchase"
-            )
-            .addEventListener(
-                "click",
-                closeProPurchase
-            );
-
-
-        document
-            .getElementById(
-                "proCancelButton"
-            )
-            .addEventListener(
-                "click",
-                closeProPurchase
-            );
-
-
-        document
-            .getElementById(
-                "proPayButton"
-            )
-            .addEventListener(
-                "click",
-                proceedToPurchase
-            );
+        return;
 
     }
 
 
-    modal.style.display =
-        "flex";
+    window.open(
+        url,
+        "_blank"
+    );
 
 }
 
 
 /* =========================================================
-   CLOSE PRO PURCHASE MODAL
+   API URL CHECK
 ========================================================= */
 
-function closeProPurchase() {
+function apiConfigured() {
 
-    const modal =
-        document.getElementById(
-            "proPurchaseModal"
-        );
+    return (
 
+        API_URL &&
 
-    if (modal) {
+        API_URL !==
+        "YOUR_GOOGLE_APPS_SCRIPT_WEB_APP_URL"
 
-        modal.style.display =
-            "none";
-
-    }
+    );
 
 }
 
 
 /* =========================================================
-   PROCEED TO PURCHASE PAGE
+   STATUS
 ========================================================= */
 
-function proceedToPurchase() {
+function showPurchaseStatus(
+    message,
+    type
+) {
 
-    const paymentPage =
-        "https://lintechzamboanga.solutions/computer-inventory-pro-payment.html";
+    if (!purchaseStatus) {
 
-
-    window.location.href =
-        paymentPage;
-
-}
-
-
-/* =========================================================
-   PRO DOWNLOAD VERIFICATION MODAL
-========================================================= */
-
-function openProVerification() {
-
-    let modal =
-        document.getElementById(
-            "proVerificationModal"
-        );
-
-
-    if (!modal) {
-
-        modal =
-            document.createElement("div");
-
-
-        modal.id =
-            "proVerificationModal";
-
-
-        modal.innerHTML = `
-
-            <div class="pro-purchase-overlay">
-
-                <div class="pro-purchase-box">
-
-                    <button
-                        type="button"
-                        class="pro-close"
-                        id="closeProVerification">
-
-                        ×
-
-                    </button>
-
-
-                    <div class="pro-icon">
-
-                        🔐
-
-                    </div>
-
-
-                    <h2>
-
-                        Download Pro APK
-
-                    </h2>
-
-
-                    <p>
-
-                        Enter the Purchase ID
-                        and email address you
-                        used when submitting
-                        your GCash payment.
-
-                    </p>
-
-
-                    <div
-                        class="form-group"
-                        style="text-align:left;">
-
-                        <label>
-
-                            Purchase ID
-
-                        </label>
-
-
-                        <input
-                            type="text"
-                            id="proPurchaseId"
-                            placeholder="Example: PRO-123456789-1234"
-                            autocomplete="off">
-
-                    </div>
-
-
-                    <div
-                        class="form-group"
-                        style="text-align:left;">
-
-                        <label>
-
-                            Email Address
-
-                        </label>
-
-
-                        <input
-                            type="email"
-                            id="proPurchaseEmail"
-                            placeholder="Enter your payment email"
-                            autocomplete="email">
-
-                    </div>
-
-
-                    <button
-                        type="button"
-                        class="pro-pay-btn"
-                        id="verifyProButton">
-
-                        Check Payment Status
-
-                    </button>
-
-
-                    <button
-                        type="button"
-                        class="pro-cancel-btn"
-                        id="cancelProVerification">
-
-                        Cancel
-
-                    </button>
-
-
-                    <div
-                        id="proVerificationStatus"
-                        style="
-                            margin-top:15px;
-                            padding:12px;
-                            border-radius:8px;
-                            display:none;
-                        ">
-
-                    </div>
-
-                </div>
-
-            </div>
-
-        `;
-
-
-        document.body.appendChild(
-            modal
-        );
-
-
-        document
-            .getElementById(
-                "closeProVerification"
-            )
-            .addEventListener(
-                "click",
-                closeProVerification
-            );
-
-
-        document
-            .getElementById(
-                "cancelProVerification"
-            )
-            .addEventListener(
-                "click",
-                closeProVerification
-            );
-
-
-        document
-            .getElementById(
-                "verifyProButton"
-            )
-            .addEventListener(
-                "click",
-                verifyProPurchase
-            );
+        return;
 
     }
 
 
-    modal.style.display =
-        "flex";
-
-}
-
-
-/* =========================================================
-   CLOSE VERIFICATION
-========================================================= */
-
-function closeProVerification() {
-
-    const modal =
-        document.getElementById(
-            "proVerificationModal"
+    purchaseStatus.innerHTML =
+        escapeHtml(
+            message
         );
 
 
-    if (modal) {
-
-        modal.style.display =
-            "none";
-
-    }
+    purchaseStatus.className =
+        "status " +
+        type;
 
 }
 
 
 /* =========================================================
-   VERIFY PRO PURCHASE
+   ADMIN STATUS
 ========================================================= */
 
-function verifyProPurchase() {
+function showAdminStatus(
+    message,
+    type
+) {
+
+    if (!adminStatus) {
+
+        return;
+
+    }
+
+
+    adminStatus.innerHTML =
+        escapeHtml(
+            message
+        );
+
+
+    adminStatus.className =
+        "status " +
+        type;
+
+}
+
+
+/* =========================================================
+   CHECK PURCHASE
+========================================================= */
+
+if (checkPurchaseButton) {
+
+    checkPurchaseButton.addEventListener(
+        "click",
+        checkPurchase
+    );
+
+}
+
+
+async function checkPurchase() {
 
     const purchaseId =
-        document
-            .getElementById(
-                "proPurchaseId"
-            )
+        purchaseIdInput
             .value
             .trim();
 
 
     const email =
-        document
-            .getElementById(
-                "proPurchaseEmail"
-            )
+        purchaseEmailInput
             .value
             .trim()
             .toLowerCase();
 
 
-    const statusBox =
-        document.getElementById(
-            "proVerificationStatus"
-        );
-
-
-    const verifyButton =
-        document.getElementById(
-            "verifyProButton"
-        );
-
-
-    /* =====================================================
-       VALIDATION
-    ===================================================== */
-
     if (!purchaseId) {
 
-        showVerificationStatus(
+        showPurchaseStatus(
             "Please enter your Purchase ID.",
             "error"
         );
@@ -598,10 +278,10 @@ function verifyProPurchase() {
     }
 
 
-    if (!email) {
+    if (!isValidEmail(email)) {
 
-        showVerificationStatus(
-            "Please enter your email address.",
+        showPurchaseStatus(
+            "Please enter a valid purchase email.",
             "error"
         );
 
@@ -610,13 +290,10 @@ function verifyProPurchase() {
     }
 
 
-    if (
-        !/^[^\s@]+@[^\s@]+\.[^\s@]+$/
-            .test(email)
-    ) {
+    if (!apiConfigured()) {
 
-        showVerificationStatus(
-            "Please enter a valid email address.",
+        showPurchaseStatus(
+            "The payment API is not configured.",
             "error"
         );
 
@@ -625,501 +302,987 @@ function verifyProPurchase() {
     }
 
 
-    /* =====================================================
-       LOADING
-    ===================================================== */
-
-    verifyButton.disabled =
+    checkPurchaseButton.disabled =
         true;
 
 
-    verifyButton.innerText =
-        "Checking Payment...";
+    checkPurchaseButton.innerText =
+        "Checking...";
 
 
-    showVerificationStatus(
-        "Checking your payment status...",
-        "loading"
+    downloadArea.style.display =
+        "none";
+
+
+    showPurchaseStatus(
+        "Checking your payment...",
+        "success"
     );
 
 
-    /* =====================================================
-       API URL
-    ===================================================== */
+    try {
 
-    const url =
-        PURCHASE_API_URL +
-        "?action=checkProPurchase" +
-        "&purchaseId=" +
-        encodeURIComponent(
+        const params =
+            new URLSearchParams();
+
+
+        params.append(
+            "action",
+            "checkProPurchase"
+        );
+
+
+        params.append(
+            "purchaseId",
             purchaseId
-        ) +
-        "&email=" +
-        encodeURIComponent(
+        );
+
+
+        params.append(
+            "email",
             email
         );
 
 
-    /* =====================================================
-       REQUEST
-    ===================================================== */
-
-    fetch(url)
-
-        .then(response => {
-
-            if (!response.ok) {
-
-                throw new Error(
-                    "Server returned an error."
-                );
-
-            }
-
-
-            return response.json();
-
-        })
-
-
-        .then(data => {
-
-
-            /* =================================================
-               PURCHASE NOT FOUND
-            ================================================= */
-
-            if (!data.success) {
-
-                showVerificationStatus(
-
-                    data.message ||
-                    "Purchase not found.",
-
-                    "error"
-
-                );
-
-
-                return;
-
-            }
-
-
-            const purchase =
-                data.data;
-
-
-            const status =
-                String(
-                    purchase.status ||
-                    ""
-                )
-                .toUpperCase();
-
-
-            /* =================================================
-               PAID
-            ================================================= */
-
-            if (
-                status === "PAID" &&
-                purchase.downloadAvailable === true
-            ) {
-
-                showVerificationStatus(
-
-                    "Payment verified successfully!<br><br>" +
-                    "<strong>Your Pro APK is ready.</strong>",
-
-                    "success"
-
-                );
-
-
-                setTimeout(() => {
-
-                    downloadProAPK();
-
-                }, 1200);
-
-
-                return;
-
-            }
-
-
-            /* =================================================
-               PENDING
-            ================================================= */
-
-            if (
-                status === "PENDING"
-            ) {
-
-                showVerificationStatus(
-
-                    "<strong>Payment is still pending.</strong><br><br>" +
-                    "Your GCash payment has not yet been approved. " +
-                    "Please wait for verification.",
-
-                    "loading"
-
-                );
-
-
-                return;
-
-            }
-
-
-            /* =================================================
-               REJECTED
-            ================================================= */
-
-            if (
-                status === "REJECTED"
-            ) {
-
-                showVerificationStatus(
-
-                    "<strong>Payment rejected.</strong><br><br>" +
-                    "Please contact LinkTech if you believe this is an error.",
-
-                    "error"
-
-                );
-
-
-                return;
-
-            }
-
-
-            /* =================================================
-               UNKNOWN
-            ================================================= */
-
-            showVerificationStatus(
-
-                "Current payment status: " +
-                status,
-
-                "error"
-
-            );
-
-        })
-
-
-        .catch(error => {
-
-            console.error(
-                error
+        const response =
+            await fetch(
+                API_URL +
+                "?" +
+                params.toString()
             );
 
 
-            showVerificationStatus(
-
-                "Unable to connect to the payment verification server.<br><br>" +
-                "Please check your internet connection and try again.",
-
-                "error"
-
-            );
-
-        })
-
-
-        .finally(() => {
-
-            verifyButton.disabled =
-                false;
-
-
-            verifyButton.innerText =
-                "Check Payment Status";
-
-        });
-
-}
-
-
-/* =========================================================
-   VERIFICATION STATUS DISPLAY
-========================================================= */
-
-function showVerificationStatus(
-    message,
-    type
-) {
-
-    const box =
-        document.getElementById(
-            "proVerificationStatus"
-        );
-
-
-    if (!box) {
-
-        return;
-
-    }
-
-
-    box.style.display =
-        "block";
-
-
-    box.innerHTML =
-        message;
-
-
-    if (
-        type === "success"
-    ) {
-
-        box.style.background =
-            "#e9f9ef";
-
-        box.style.border =
-            "1px solid #83d89d";
-
-        box.style.color =
-            "#146c2e";
-
-    }
-
-
-    else if (
-        type === "error"
-    ) {
-
-        box.style.background =
-            "#fff0f0";
-
-        box.style.border =
-            "1px solid #e4aaaa";
-
-        box.style.color =
-            "#a30000";
-
-    }
-
-
-    else {
-
-        box.style.background =
-            "#eef6ff";
-
-        box.style.border =
-            "1px solid #b8d8f5";
-
-        box.style.color =
-            "#0759a5";
-
-    }
-
-}
-
-
-/* =========================================================
-   DOWNLOAD PRO APK
-========================================================= */
-
-function downloadProAPK() {
-
-    const file =
-        downloadFiles[
-            PRO_PRODUCT_NAME
-        ];
-
-
-    if (!file) {
-
-        alert(
-            "Pro APK download link is not available."
-        );
-
-        return;
-
-    }
-
-
-    window.location.href =
-        file;
-
-}
-
-
-/* =========================================================
-   NORMAL DOWNLOAD
-========================================================= */
-
-function startNormalDownload(
-    button,
-    file
-) {
-
-    const text =
-        button.querySelector(
-            ".btn-text"
-        );
-
-
-    if (!text) {
-
-        return;
-
-    }
-
-
-    button.classList.add(
-        "downloading"
-    );
-
-
-    text.innerText =
-        "Preparing Download...";
-
-
-    const downloadLink =
-        document.createElement(
-            "a"
-        );
-
-
-    downloadLink.href =
-        file;
-
-
-    downloadLink.download =
-        "";
-
-
-    downloadLink.style.display =
-        "none";
-
-
-    document.body.appendChild(
-        downloadLink
-    );
-
-
-    downloadLink.click();
-
-
-    setTimeout(() => {
-
-        if (
-            document.body.contains(
-                downloadLink
-            )
-        ) {
-
-            document.body.removeChild(
-                downloadLink
+        if (!response.ok) {
+
+            throw new Error(
+                "HTTP " +
+                response.status
             );
 
         }
 
-    }, 1000);
+
+        const data =
+            await response.json();
 
 
-    setTimeout(() => {
-
-        button.classList.remove(
-            "downloading"
+        console.log(
+            "Purchase status:",
+            data
         );
 
 
-        button.classList.add(
-            "success"
+        if (
+            data.success !== true
+        ) {
+
+            showPurchaseStatus(
+                data.message ||
+                "Purchase not found.",
+                "error"
+            );
+
+            return;
+
+        }
+
+
+        const purchase =
+            data.data;
+
+
+        if (!purchase) {
+
+            showPurchaseStatus(
+                "Invalid purchase response.",
+                "error"
+            );
+
+            return;
+
+        }
+
+
+        savePurchase(
+            purchase
         );
 
 
-        text.innerText =
-            "Download Started";
-
-    }, 1500);
-
-
-    setTimeout(() => {
-
-        button.classList.remove(
-            "success"
+        updateCustomerEmail(
+            purchase.email
         );
 
 
-        text.innerText =
-            "Download";
+        const status =
+            String(
+                purchase.status ||
+                "PENDING"
+            )
+            .toUpperCase();
 
-    }, 5000);
+
+        if (
+            status ===
+            "PAID"
+        ) {
+
+            showPurchaseStatus(
+                "✓ Payment confirmed. Your Pro APK is ready.",
+                "success"
+            );
+
+
+            approvedProduct.textContent =
+                purchase.product;
+
+
+            proDownloadButton.href =
+                API_URL +
+                "?action=downloadPro" +
+                "&purchaseId=" +
+                encodeURIComponent(
+                    purchase.purchaseId
+                ) +
+                "&email=" +
+                encodeURIComponent(
+                    purchase.email
+                );
+
+
+            downloadArea.style.display =
+                "block";
+
+
+        }
+
+        else if (
+            status ===
+            "REJECTED"
+        ) {
+
+            showPurchaseStatus(
+                "Your payment was rejected. Please contact LinkTech if you believe this is an error.",
+                "error"
+            );
+
+        }
+
+        else {
+
+            showPurchaseStatus(
+                "Payment is still PENDING. Please wait until LinkTech verifies your GCash payment.",
+                "success"
+            );
+
+        }
+
+    }
+
+    catch (error) {
+
+        console.error(
+            "Purchase check error:",
+            error
+        );
+
+
+        showPurchaseStatus(
+            "Unable to connect to the payment server. Please try again.",
+            "error"
+        );
+
+    }
+
+    finally {
+
+        checkPurchaseButton.disabled =
+            false;
+
+        checkPurchaseButton.innerText =
+            "Check Payment Status";
+
+    }
 
 }
 
 
 /* =========================================================
-   DOWNLOAD BUTTON SYSTEM
+   SAVE PURCHASE
 ========================================================= */
 
-document
-    .querySelectorAll(
-        ".download-btn"
-    )
-    .forEach(button => {
+function savePurchase(
+    purchase
+) {
+
+    try {
+
+        if (
+            purchase.purchaseId
+        ) {
+
+            localStorage.setItem(
+                "linktech_purchase_id",
+                purchase.purchaseId
+            );
+
+        }
 
 
-        button.addEventListener(
-            "click",
-            function(event) {
+        if (
+            purchase.email
+        ) {
 
-                event.preventDefault();
+            localStorage.setItem(
+                "linktech_purchase_email",
+                purchase.email
+            );
 
+        }
 
-                const file =
-                    this.getAttribute(
-                        "data-file"
-                    );
+    }
 
+    catch (error) {
 
-                if (!file) {
+        console.warn(
+            "Unable to save purchase.",
+            error
+        );
 
-                    alert(
-                        "Download file is not available."
-                    );
+    }
 
-                    return;
-
-                }
-
-
-                /* =============================================
-                   PRO PRODUCT
-                ============================================= */
-
-                if (
-                    file ===
-                    PRO_PRODUCT_NAME
-                ) {
-
-                    openProVerification();
-
-                    return;
-
-                }
+}
 
 
-                /* =============================================
-                   NORMAL FREE DOWNLOAD
-                ============================================= */
+/* =========================================================
+   LOAD SAVED PURCHASE
+========================================================= */
 
-                startNormalDownload(
-                    this,
-                    downloadFiles[file]
+function loadSavedPurchase() {
+
+    try {
+
+        const savedId =
+            localStorage.getItem(
+                "linktech_purchase_id"
+            );
+
+
+        const savedEmail =
+            localStorage.getItem(
+                "linktech_purchase_email"
+            );
+
+
+        if (
+            savedId &&
+            purchaseIdInput
+        ) {
+
+            purchaseIdInput.value =
+                savedId;
+
+        }
+
+
+        if (
+            savedEmail &&
+            purchaseEmailInput
+        ) {
+
+            purchaseEmailInput.value =
+                savedEmail;
+
+            updateCustomerEmail(
+                savedEmail
+            );
+
+        }
+
+    }
+
+    catch (error) {
+
+        console.warn(
+            "Unable to load saved purchase.",
+            error
+        );
+
+    }
+
+}
+
+
+/* =========================================================
+   DISPLAY CUSTOMER EMAIL
+========================================================= */
+
+function updateCustomerEmail(
+    email
+) {
+
+    if (
+        !email ||
+        !customerEmailDisplay ||
+        !customerAccount
+    ) {
+
+        return;
+
+    }
+
+
+    customerEmailDisplay.textContent =
+        email;
+
+
+    customerAccount.style.display =
+        "block";
+
+}
+
+
+/* =========================================================
+   LOAD PENDING PURCHASES
+========================================================= */
+
+if (loadPendingButton) {
+
+    loadPendingButton.addEventListener(
+        "click",
+        loadPending
+    );
+
+}
+
+
+async function loadPending() {
+
+    const email =
+        adminEmailInput
+            .value
+            .trim()
+            .toLowerCase();
+
+
+    if (!isValidEmail(email)) {
+
+        showAdminStatus(
+            "Enter the administrator email.",
+            "error"
+        );
+
+        return;
+
+    }
+
+
+    if (!apiConfigured()) {
+
+        showAdminStatus(
+            "The payment API is not configured.",
+            "error"
+        );
+
+        return;
+
+    }
+
+
+    loadPendingButton.disabled =
+        true;
+
+
+    loadPendingButton.innerText =
+        "Loading...";
+
+
+    showAdminStatus(
+        "Loading pending purchases...",
+        "success"
+    );
+
+
+    try {
+
+        const params =
+            new URLSearchParams();
+
+
+        params.append(
+            "action",
+            "getPendingPurchases"
+        );
+
+
+        params.append(
+            "adminEmail",
+            email
+        );
+
+
+        const response =
+            await fetch(
+                API_URL +
+                "?" +
+                params.toString()
+            );
+
+
+        const data =
+            await response.json();
+
+
+        if (
+            data.success !== true
+        ) {
+
+            showAdminStatus(
+                data.message ||
+                "Unable to load purchases.",
+                "error"
+            );
+
+            return;
+
+        }
+
+
+        renderPendingPurchases(
+            data.data || [],
+            email
+        );
+
+
+        showAdminStatus(
+            "Pending purchases loaded.",
+            "success"
+        );
+
+    }
+
+    catch (error) {
+
+        console.error(
+            error
+        );
+
+
+        showAdminStatus(
+            "Unable to connect to the payment server.",
+            "error"
+        );
+
+    }
+
+    finally {
+
+        loadPendingButton.disabled =
+            false;
+
+        loadPendingButton.innerText =
+            "Load Pending Purchases";
+
+    }
+
+}
+
+
+/* =========================================================
+   DISPLAY PENDING PURCHASES
+========================================================= */
+
+function renderPendingPurchases(
+    purchases,
+    adminEmail
+) {
+
+    if (!pendingPurchases) {
+
+        return;
+
+    }
+
+
+    pendingPurchases.innerHTML =
+        "";
+
+
+    if (
+        !purchases.length
+    ) {
+
+        pendingPurchases.innerHTML = `
+
+            <div class="empty-purchases">
+
+                No pending purchases.
+
+            </div>
+
+        `;
+
+        return;
+
+    }
+
+
+    purchases.forEach(
+        function(purchase) {
+
+            const card =
+                document.createElement(
+                    "div"
+                );
+
+
+            card.className =
+                "pending-card";
+
+
+            card.innerHTML = `
+
+                <h3>
+                    ${escapeHtml(
+                        purchase.product
+                    )}
+                </h3>
+
+
+                <p>
+
+                    <strong>
+                        Purchase ID:
+                    </strong>
+
+                    ${escapeHtml(
+                        purchase.purchaseId
+                    )}
+
+                </p>
+
+
+                <p>
+
+                    <strong>
+                        Customer:
+                    </strong>
+
+                    ${escapeHtml(
+                        purchase.name
+                    )}
+
+                </p>
+
+
+                <p>
+
+                    <strong>
+                        Email:
+                    </strong>
+
+                    ${escapeHtml(
+                        purchase.email
+                    )}
+
+                </p>
+
+
+                <p>
+
+                    <strong>
+                        Amount:
+                    </strong>
+
+                    ₱${escapeHtml(
+                        purchase.amount
+                    )}
+
+                </p>
+
+
+                <p>
+
+                    <strong>
+                        GCash Reference:
+                    </strong>
+
+                    <span class="reference">
+                        ${escapeHtml(
+                            purchase.gcashReference
+                        )}
+                    </span>
+
+                </p>
+
+
+                <p>
+
+                    <strong>
+                        Status:
+                    </strong>
+
+                    <span class="pending-label">
+                        PENDING
+                    </span>
+
+                </p>
+
+
+                <div class="admin-actions">
+
+                    <button
+                        class="approve-btn"
+                        data-id="${escapeHtml(
+                            purchase.purchaseId
+                        )}">
+
+                        ✓ Confirm Payment
+
+                    </button>
+
+
+                    <button
+                        class="reject-btn"
+                        data-id="${escapeHtml(
+                            purchase.purchaseId
+                        )}">
+
+                        ✕ Reject
+
+                    </button>
+
+                </div>
+
+            `;
+
+
+            pendingPurchases.appendChild(
+                card
+            );
+
+        }
+    );
+
+
+    pendingPurchases
+        .querySelectorAll(
+            ".approve-btn"
+        )
+        .forEach(
+            button => {
+
+                button.addEventListener(
+                    "click",
+                    function() {
+
+                        approvePurchase(
+                            this.dataset.id,
+                            adminEmail
+                        );
+
+                    }
                 );
 
             }
         );
 
-    });
+
+    pendingPurchases
+        .querySelectorAll(
+            ".reject-btn"
+        )
+        .forEach(
+            button => {
+
+                button.addEventListener(
+                    "click",
+                    function() {
+
+                        rejectPurchase(
+                            this.dataset.id,
+                            adminEmail
+                        );
+
+                    }
+                );
+
+            }
+        );
+
+}
+
+
+/* =========================================================
+   APPROVE PURCHASE
+========================================================= */
+
+async function approvePurchase(
+    purchaseId,
+    adminEmail
+) {
+
+    if (
+        !confirm(
+            "Have you verified that this GCash payment was actually received?"
+        )
+    ) {
+
+        return;
+
+    }
+
+
+    try {
+
+        const params =
+            new URLSearchParams();
+
+
+        params.append(
+            "action",
+            "approveProPurchase"
+        );
+
+
+        params.append(
+            "purchaseId",
+            purchaseId
+        );
+
+
+        params.append(
+            "adminEmail",
+            adminEmail
+        );
+
+
+        showAdminStatus(
+            "Confirming payment...",
+            "success"
+        );
+
+
+        const response =
+            await fetch(
+                API_URL +
+                "?" +
+                params.toString()
+            );
+
+
+        const data =
+            await response.json();
+
+
+        if (
+            data.success !== true
+        ) {
+
+            showAdminStatus(
+                data.message ||
+                "Unable to approve payment.",
+                "error"
+            );
+
+            return;
+
+        }
+
+
+        showAdminStatus(
+            "✓ Payment approved. Customer can now download the Pro APK.",
+            "success"
+        );
+
+
+        loadPending();
+
+    }
+
+    catch (error) {
+
+        console.error(
+            error
+        );
+
+
+        showAdminStatus(
+            "Unable to approve payment.",
+            "error"
+        );
+
+    }
+
+}
+
+
+/* =========================================================
+   REJECT PURCHASE
+========================================================= */
+
+async function rejectPurchase(
+    purchaseId,
+    adminEmail
+) {
+
+    if (
+        !confirm(
+            "Are you sure you want to reject this purchase?"
+        )
+    ) {
+
+        return;
+
+    }
+
+
+    try {
+
+        const params =
+            new URLSearchParams();
+
+
+        params.append(
+            "action",
+            "rejectProPurchase"
+        );
+
+
+        params.append(
+            "purchaseId",
+            purchaseId
+        );
+
+
+        params.append(
+            "adminEmail",
+            adminEmail
+        );
+
+
+        showAdminStatus(
+            "Rejecting purchase...",
+            "success"
+        );
+
+
+        const response =
+            await fetch(
+                API_URL +
+                "?" +
+                params.toString()
+            );
+
+
+        const data =
+            await response.json();
+
+
+        if (
+            data.success !== true
+        ) {
+
+            showAdminStatus(
+                data.message ||
+                "Unable to reject purchase.",
+                "error"
+            );
+
+            return;
+
+        }
+
+
+        showAdminStatus(
+            "Purchase rejected.",
+            "success"
+        );
+
+
+        loadPending();
+
+    }
+
+    catch (error) {
+
+        console.error(
+            error
+        );
+
+
+        showAdminStatus(
+            "Unable to reject purchase.",
+            "error"
+        );
+
+    }
+
+}
+
+
+/* =========================================================
+   EMAIL VALIDATION
+========================================================= */
+
+function isValidEmail(
+    email
+) {
+
+    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+        .test(email);
+
+}
+
+
+/* =========================================================
+   HTML ESCAPE
+========================================================= */
+
+function escapeHtml(
+    value
+) {
+
+    return String(
+        value ?? ""
+    )
+
+        .replace(
+            /&/g,
+            "&amp;"
+        )
+
+        .replace(
+            /</g,
+            "&lt;"
+        )
+
+        .replace(
+            />/g,
+            "&gt;"
+        )
+
+        .replace(
+            /"/g,
+            "&quot;"
+        )
+
+        .replace(
+            /'/g,
+            "&#039;"
+        );
+
+}
+
+
+/* =========================================================
+   INITIALIZE
+========================================================= */
+
+document.addEventListener(
+    "DOMContentLoaded",
+    function() {
+
+        loadSavedPurchase();
+
+    }
+);
