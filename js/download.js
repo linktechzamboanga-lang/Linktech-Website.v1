@@ -105,7 +105,7 @@ const downloadFiles = {
     ===================================================== */
 
     "Computer Inventory System pro":
-        "https://drive.usercontent.google.com/download?id=1p4WuiaeAAk_loBjPOhlu01oYak2_g0uv&export=download&authuser=0",
+        "https://drive.google.com/file/d/1huzliwTTa2LvyW3QxiViq24Oll8nUc2i/view?usp=drivesdk",
 
 
     /* =====================================================
