@@ -2,12 +2,8 @@ const API_URL =
     "https://script.google.com/macros/s/AKfycbz0h8I56PglGhib3u9X6EjL84hEtPdpk33fuM3mFIJ3NtVAA6kj0iW-omKiv3k465iP/exec";
 
 
-/* =========================================================
-   PRODUCT CONFIGURATION
-========================================================= */
-
 const PRODUCT_NAME =
-    "Computer Inventory Pro";
+    "Computer Inventory System pro";
 
 
 const PRODUCT_AMOUNT =
@@ -52,464 +48,403 @@ const purchaseStatusBox =
     );
 
 
+const returnDownloadButton =
+    document.getElementById(
+        "returnDownloadButton"
+    );
+
+
 /* =========================================================
-   FORM CHECK
+   API CHECK
 ========================================================= */
 
-if (!paymentForm) {
+function apiConfigured() {
 
-    console.error(
-        "Payment form #paymentForm was not found."
+    return (
+
+        API_URL &&
+
+        API_URL !==
+        "YOUR_GOOGLE_APPS_SCRIPT_WEB_APP_URL"
+
     );
 
 }
 
 
 /* =========================================================
-   PAYMENT SUBMISSION
+   PAYMENT FORM
 ========================================================= */
 
 if (paymentForm) {
 
     paymentForm.addEventListener(
         "submit",
-        async function(event) {
+        submitPayment
+    );
 
-            event.preventDefault();
+}
 
 
-            /* =============================================
-               GET INPUTS
-            ============================================= */
+async function submitPayment(
+    event
+) {
 
-            const nameInput =
-                document.getElementById(
-                    "customerName"
-                );
+    event.preventDefault();
 
 
-            const emailInput =
-                document.getElementById(
-                    "customerEmail"
-                );
+    const name =
+        document
+            .getElementById(
+                "customerName"
+            )
+            .value
+            .trim();
 
 
-            const referenceInput =
-                document.getElementById(
-                    "gcashReference"
-                );
+    const email =
+        document
+            .getElementById(
+                "customerEmail"
+            )
+            .value
+            .trim()
+            .toLowerCase();
 
 
-            if (
-                !nameInput ||
-                !emailInput ||
-                !referenceInput
-            ) {
+    const reference =
+        document
+            .getElementById(
+                "gcashReference"
+            )
+            .value
+            .trim();
 
-                showStatus(
-                    "Payment form fields are missing.",
-                    "error"
-                );
 
-                return;
+    /* =====================================================
+       VALIDATION
+    ====================================================== */
 
-            }
+    if (!name) {
 
+        showStatus(
+            "Please enter your full name.",
+            "error"
+        );
 
-            const name =
-                nameInput.value
-                    .trim();
+        return;
 
+    }
 
-            const email =
-                emailInput.value
-                    .trim()
-                    .toLowerCase();
 
+    if (
+        !email ||
+        !isValidEmail(email)
+    ) {
 
-            const reference =
-                referenceInput.value
-                    .trim();
+        showStatus(
+            "Please enter a valid email address.",
+            "error"
+        );
 
+        return;
 
-            /* =============================================
-               VALIDATION
-            ============================================= */
+    }
 
-            if (!name) {
 
-                showStatus(
-                    "Please enter your full name.",
-                    "error"
-                );
+    if (
+        !reference ||
+        reference.length < 6
+    ) {
 
-                nameInput.focus();
+        showStatus(
+            "Please enter a valid GCash reference number.",
+            "error"
+        );
 
-                return;
+        return;
 
-            }
+    }
 
 
-            if (!email) {
+    if (!apiConfigured()) {
 
-                showStatus(
-                    "Please enter your email address.",
-                    "error"
-                );
+        showStatus(
+            "The payment system has not been configured yet.",
+            "error"
+        );
 
-                emailInput.focus();
+        return;
 
-                return;
+    }
 
-            }
 
+    const submitButton =
+        paymentForm.querySelector(
+            ".submit-btn"
+        );
 
-            if (
-                !isValidEmail(email)
-            ) {
 
-                showStatus(
-                    "Please enter a valid email address.",
-                    "error"
-                );
+    if (submitButton) {
 
-                emailInput.focus();
+        submitButton.disabled =
+            true;
 
-                return;
+        submitButton.innerText =
+            "Submitting Payment...";
 
-            }
+    }
 
 
-            if (!reference) {
+    showStatus(
+        "Submitting your payment details...",
+        "success"
+    );
 
-                showStatus(
-                    "Please enter your GCash reference number.",
-                    "error"
-                );
 
-                referenceInput.focus();
+    try {
 
-                return;
+        /* =================================================
+           IMPORTANT
 
-            }
+           Use URLSearchParams.
 
+           Code.gs reads:
+           e.parameter.action
+           e.parameter.name
+           e.parameter.email
+           etc.
 
-            if (
-                reference.length < 6
-            ) {
+        ================================================== */
 
-                showStatus(
-                    "GCash reference number must contain at least 6 characters.",
-                    "error"
-                );
+        const params =
+            new URLSearchParams();
 
-                referenceInput.focus();
 
-                return;
+        params.append(
+            "action",
+            "submitProPurchase"
+        );
 
-            }
 
+        params.append(
+            "product",
+            PRODUCT_NAME
+        );
 
-            /* =============================================
-               CHECK API
-            ============================================= */
 
-            if (
-                API_URL ===
-                "YOUR_GOOGLE_APPS_SCRIPT_WEB_APP_URL"
-            ) {
+        params.append(
+            "amount",
+            PRODUCT_AMOUNT
+        );
 
-                showStatus(
 
-                    "Payment system is not configured yet. " +
-                    "Please contact the administrator.",
+        params.append(
+            "currency",
+            PRODUCT_CURRENCY
+        );
 
-                    "error"
 
-                );
+        params.append(
+            "name",
+            name
+        );
 
-                console.error(
-                    "API_URL has not been configured."
-                );
 
-                return;
+        params.append(
+            "email",
+            email
+        );
 
-            }
 
+        params.append(
+            "gcashReference",
+            reference
+        );
 
-            /* =============================================
-               SUBMIT BUTTON
-            ============================================= */
 
-            const submitButton =
-                paymentForm.querySelector(
-                    ".submit-btn"
-                );
+        /* =================================================
+           SEND REQUEST
+        ================================================== */
 
+        const response =
+            await fetch(
+                API_URL,
+                {
 
-            if (submitButton) {
+                    method:
+                        "POST",
 
-                submitButton.disabled =
-                    true;
+                    headers: {
 
-                submitButton.innerText =
-                    "Submitting Payment...";
+                        "Content-Type":
+                            "application/x-www-form-urlencoded;charset=UTF-8"
 
-            }
+                    },
+
+                    body:
+                        params.toString()
+
+                }
+            );
+
+
+        if (!response.ok) {
+
+            throw new Error(
+                "HTTP " +
+                response.status
+            );
+
+        }
+
+
+        const data =
+            await response.json();
+
+
+        console.log(
+            "Payment response:",
+            data
+        );
+
+
+        /* =================================================
+           API SUCCESS
+        ================================================== */
+
+        if (
+            data.success === true
+        ) {
+
+            const purchase =
+                data.data || {};
+
+
+            const purchaseId =
+                purchase.purchaseId ||
+                "";
+
+
+            const status =
+                purchase.status ||
+                "PENDING";
 
 
             showStatus(
-
-                "Submitting your payment details..." +
-                "<br><br>" +
-                "Please wait.",
-
+                "✓ Payment details submitted successfully.",
                 "success"
-
             );
 
 
-            /* =============================================
-               URL ENCODED DATA
-            ============================================= */
-
-            const formData =
-                new URLSearchParams();
-
-
-            formData.append(
-                "action",
-                "submitProPurchase"
-            );
-
-
-            formData.append(
-                "product",
-                PRODUCT_NAME
-            );
-
-
-            formData.append(
-                "amount",
-                PRODUCT_AMOUNT
-            );
-
-
-            formData.append(
-                "currency",
-                PRODUCT_CURRENCY
-            );
-
-
-            formData.append(
-                "name",
-                name
-            );
-
-
-            formData.append(
-                "email",
+            showPurchaseResult(
+                purchaseId,
+                status,
                 email
             );
 
 
-            formData.append(
-                "gcashReference",
-                reference
-            );
-
-
             /* =============================================
-               SEND TO GOOGLE APPS SCRIPT
+               SAVE PURCHASE
             ============================================= */
 
             try {
 
-                const response =
-                    await fetch(
-                        API_URL,
-                        {
-
-                            method:
-                                "POST",
-
-                            /*
-                             * IMPORTANT:
-                             *
-                             * Do NOT use application/json.
-                             *
-                             * Google Apps Script reads
-                             * these values through e.parameter.
-                             */
-
-                            headers: {
-
-                                "Content-Type":
-                                    "application/x-www-form-urlencoded;charset=UTF-8"
-
-                            },
-
-                            body:
-                                formData.toString()
-
-                        }
-                    );
-
-
-                /* =========================================
-                   HTTP CHECK
-                ========================================= */
-
-                if (!response.ok) {
-
-                    throw new Error(
-                        "Server returned HTTP " +
-                        response.status
-                    );
-
-                }
-
-
-                /* =========================================
-                   READ RESPONSE
-                ========================================= */
-
-                const data =
-                    await response.json();
-
-
-                console.log(
-                    "Payment API response:",
-                    data
+                localStorage.setItem(
+                    "linktech_purchase_id",
+                    purchaseId
                 );
 
 
-                /* =========================================
-                   SUCCESS
-                ========================================= */
-
-                if (
-                    data.success === true
-                ) {
-
-                    const resultData =
-                        data.data ||
-                        {};
-
-
-                    const purchaseId =
-                        resultData.purchaseId ||
-                        data.purchaseId ||
-                        "";
-
-
-                    const status =
-                        resultData.status ||
-                        data.status ||
-                        "PENDING";
-
-
-                    showStatus(
-
-                        "Payment details submitted successfully.",
-
-                        "success"
-
-                    );
-
-
-                    showPurchaseResult(
-                        purchaseId,
-                        status
-                    );
-
-
-                    /*
-                     * Disable form after successful
-                     * submission.
-                     */
-
-                    paymentForm
-                        .querySelectorAll(
-                            "input, button"
-                        )
-                        .forEach(
-                            function(element) {
-
-                                element.disabled =
-                                    true;
-
-                            }
-                        );
-
-
-                    return;
-
-                }
-
-
-                /* =========================================
-                   SERVER ERROR
-                ========================================= */
-
-                showStatus(
-
-                    data.message ||
-                    "Unable to submit payment details.",
-
-                    "error"
-
+                localStorage.setItem(
+                    "linktech_purchase_email",
+                    email
                 );
 
             }
 
-            catch (error) {
+            catch (storageError) {
 
-                console.error(
-                    "Payment submission error:",
-                    error
-                );
-
-
-                showStatus(
-
-                    "Unable to connect to the payment server." +
-                    "<br><br>" +
-                    "Please check your internet connection " +
-                    "and try again.",
-
-                    "error"
-
+                console.warn(
+                    storageError
                 );
 
             }
 
-            finally {
 
-                /*
-                 * Restore button only if payment
-                 * was not successfully submitted.
-                 */
+            /* =============================================
+               LOCK FORM
+            ============================================= */
 
-                if (
-                    submitButton &&
-                    !paymentForm.querySelector(
-                        "input:disabled"
-                    )
-                ) {
+            paymentForm
+                .querySelectorAll(
+                    "input, button"
+                )
+                .forEach(
+                    element => {
 
-                    submitButton.disabled =
-                        false;
+                        element.disabled =
+                            true;
 
-                    submitButton.innerText =
-                        "Submit Payment for Verification";
+                    }
+                );
 
-                }
 
-            }
+            return;
 
         }
-    );
+
+
+        /* =================================================
+           API ERROR
+        ================================================== */
+
+        showStatus(
+
+            data.message ||
+            "Unable to submit payment.",
+
+            "error"
+
+        );
+
+    }
+
+    catch (error) {
+
+        console.error(
+            "Payment error:",
+            error
+        );
+
+
+        showStatus(
+
+            "Unable to connect to the payment server." +
+            "<br><br>" +
+            "Please check your internet connection and try again.",
+
+            "error"
+
+        );
+
+    }
+
+    finally {
+
+        if (
+            submitButton
+        ) {
+
+            submitButton.disabled =
+                false;
+
+            submitButton.innerText =
+                "Submit Payment for Verification";
+
+        }
+
+    }
 
 }
 
@@ -520,305 +455,67 @@ if (paymentForm) {
 
 function showPurchaseResult(
     purchaseId,
-    status
-) {
-
-    let result =
-        document.getElementById(
-            "purchaseResult"
-        );
-
-
-    /*
-     * Create result box if HTML doesn't
-     * contain one.
-     */
-
-    if (!result) {
-
-        result =
-            document.createElement(
-                "div"
-            );
-
-
-        result.id =
-            "purchaseResult";
-
-
-        result.style.marginTop =
-            "20px";
-
-
-        result.style.padding =
-            "18px";
-
-
-        result.style.borderRadius =
-            "12px";
-
-
-        result.style.background =
-            "#e9f9ef";
-
-
-        result.style.border =
-            "1px solid #83d89d";
-
-
-        result.style.color =
-            "#146c2e";
-
-
-        result.style.lineHeight =
-            "1.6";
-
-
-        paymentForm.parentNode.appendChild(
-            result
-        );
-
-    }
-
-
-    result.innerHTML = `
-
-        <h3 style="
-            margin-top:0;
-            color:#146c2e;
-        ">
-
-            ✓ Payment Submitted
-
-        </h3>
-
-
-        <p>
-
-            Your GCash payment details
-            have been submitted successfully.
-
-        </p>
-
-
-        <p>
-
-            <strong>
-                Purchase ID:
-            </strong>
-
-            <br>
-
-            <span style="
-                display:inline-block;
-                margin-top:5px;
-                padding:8px 10px;
-                background:#ffffff;
-                border:1px solid #b7d8c0;
-                border-radius:7px;
-                font-weight:bold;
-                word-break:break-all;
-            ">
-
-                ${
-                    escapeHtml(
-                        purchaseId ||
-                        "Not provided"
-                    )
-                }
-
-            </span>
-
-        </p>
-
-
-        <p>
-
-            <strong>
-                Status:
-            </strong>
-
-            <span>
-
-                ${
-                    escapeHtml(
-                        status ||
-                        "PENDING"
-                    )
-                }
-
-            </span>
-
-        </p>
-
-
-        <p>
-
-            Please save your
-            <strong>Purchase ID</strong>.
-
-            You will need it to check your
-            payment status.
-
-        </p>
-
-
-        <p>
-
-            Your Pro APK remains locked
-            until your GCash payment has
-            been verified by LinkTech.
-
-        </p>
-
-
-        <button
-            type="button"
-            id="returnDownloadButton"
-            style="
-                width:100%;
-                padding:13px;
-                border:0;
-                border-radius:9px;
-                background:#0070e0;
-                color:white;
-                font-size:15px;
-                font-weight:bold;
-                cursor:pointer;
-            ">
-
-            Return to Download Page
-
-        </button>
-
-    `;
-
-
-    result.style.display =
-        "block";
-
-
-    /* =====================================================
-       RETURN BUTTON
-    ===================================================== */
-
-    const returnButton =
-        document.getElementById(
-            "returnDownloadButton"
-        );
-
-
-    if (returnButton) {
-
-        returnButton.addEventListener(
-            "click",
-            function() {
-
-                window.location.href =
-                    "download.html";
-
-            }
-        );
-
-    }
-
-
-    /* =====================================================
-       SAVE PURCHASE INFORMATION
-    ===================================================== */
-
-    if (purchaseId) {
-
-        try {
-
-            localStorage.setItem(
-                "linktech_purchase_id",
-                purchaseId
-            );
-
-
-            localStorage.setItem(
-                "linktech_purchase_email",
-                document
-                    .getElementById(
-                        "customerEmail"
-                    )
-                    .value
-                    .trim()
-                    .toLowerCase()
-            );
-
-        }
-
-        catch (error) {
-
-            console.warn(
-                "Unable to save purchase information.",
-                error
-            );
-
-        }
-
-    }
-
-}
-
-
-/* =========================================================
-   EMAIL VALIDATION
-========================================================= */
-
-function isValidEmail(
+    status,
     email
 ) {
 
-    const pattern =
-        /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!purchaseResult) {
+
+        return;
+
+    }
 
 
-    return pattern.test(
-        email
-    );
+    purchaseIdBox.textContent =
+        purchaseId ||
+        "Not available";
+
+
+    purchaseStatusBox.textContent =
+        status ||
+        "PENDING";
+
+
+    purchaseResult.style.display =
+        "block";
+
+
+    if (email) {
+
+        purchaseResult.dataset.email =
+            email;
+
+    }
+
+
+    purchaseResult.scrollIntoView({
+
+        behavior:
+            "smooth",
+
+        block:
+            "center"
+
+    });
 
 }
 
 
 /* =========================================================
-   HTML ESCAPE
+   RETURN TO DOWNLOAD PAGE
 ========================================================= */
 
-function escapeHtml(
-    value
-) {
+if (returnDownloadButton) {
 
-    return String(
-        value || ""
-    )
+    returnDownloadButton.addEventListener(
+        "click",
+        function() {
 
-        .replace(
-            /&/g,
-            "&amp;"
-        )
+            window.location.href =
+                "download.html";
 
-        .replace(
-            /</g,
-            "&lt;"
-        )
-
-        .replace(
-            />/g,
-            "&gt;"
-        )
-
-        .replace(
-            /"/g,
-            "&quot;"
-        )
-
-        .replace(
-            /'/g,
-            "&#039;"
-        );
+        }
+    );
 
 }
 
@@ -844,34 +541,42 @@ function showStatus(
 
 
     statusBox.className =
-        "status " + type;
+        "status " +
+        type;
 
 
-    setTimeout(
-        function() {
+    statusBox.scrollIntoView({
 
-            statusBox.scrollIntoView({
+        behavior:
+            "smooth",
 
-                behavior:
-                    "smooth",
+        block:
+            "nearest"
 
-                block:
-                    "nearest"
-
-            });
-
-        },
-        100
-    );
+    });
 
 }
 
 
 /* =========================================================
-   LOAD SAVED PURCHASE
+   EMAIL VALIDATION
 ========================================================= */
 
-function loadSavedPurchase() {
+function isValidEmail(
+    email
+) {
+
+    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+        .test(email);
+
+}
+
+
+/* =========================================================
+   LOAD SAVED EMAIL
+========================================================= */
+
+function loadSavedInformation() {
 
     try {
 
@@ -881,7 +586,9 @@ function loadSavedPurchase() {
             );
 
 
-        if (savedEmail) {
+        if (
+            savedEmail
+        ) {
 
             const emailInput =
                 document.getElementById(
@@ -906,7 +613,7 @@ function loadSavedPurchase() {
     catch (error) {
 
         console.warn(
-            "Unable to load saved purchase.",
+            "Unable to load saved information.",
             error
         );
 
@@ -923,7 +630,7 @@ document.addEventListener(
     "DOMContentLoaded",
     function() {
 
-        loadSavedPurchase();
+        loadSavedInformation();
 
     }
 );
