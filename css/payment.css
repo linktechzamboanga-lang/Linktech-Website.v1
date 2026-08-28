@@ -1,3 +1,4 @@
+
 * {
     box-sizing: border-box;
 }
@@ -663,6 +664,134 @@ body {
 
         min-height:
             240px;
+
+    }
+
+}
+
+/* =========================================================
+   PURCHASE RESULT
+========================================================= */
+
+.purchase-result {
+
+    margin-top: 20px;
+
+    padding: 20px;
+
+    border-radius: 14px;
+
+    background: #e9f9ef;
+
+    border: 1px solid #83d89d;
+
+    color: #146c2e;
+
+    line-height: 1.6;
+
+}
+
+.purchase-result h3 {
+
+    margin-top: 0;
+
+}
+
+.purchase-result button {
+
+    width: 100%;
+
+    padding: 13px;
+
+    border: none;
+
+    border-radius: 9px;
+
+    background: #0070e0;
+
+    color: white;
+
+    font-size: 15px;
+
+    font-weight: bold;
+
+    cursor: pointer;
+
+}
+
+.purchase-result button:hover {
+
+    background: #005bb7;
+
+}
+
+
+/* =========================================================
+   FLOATING GMAIL MESSAGE
+========================================================= */
+
+.floating-message {
+
+    position: fixed;
+
+    right: 18px;
+
+    bottom: 18px;
+
+    z-index: 9999;
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 8px;
+
+    padding: 13px 16px;
+
+    border-radius: 50px;
+
+    background: #0070e0;
+
+    color: white;
+
+    text-decoration: none;
+
+    font-weight: bold;
+
+    box-shadow:
+        0 8px 25px
+        rgba(0,0,0,.20);
+
+}
+
+.floating-message:hover {
+
+    background: #005bb7;
+
+}
+
+
+@media (
+    max-width: 480px
+) {
+
+    .floating-message span {
+
+        display: none;
+
+    }
+
+    .floating-message {
+
+        width: 52px;
+
+        height: 52px;
+
+        padding: 0;
+
+        justify-content: center;
+
+        font-size: 22px;
 
     }
 
