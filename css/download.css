@@ -1,1476 +1,1238 @@
-/* =========================================================
-   LINKTECH DOWNLOAD SYSTEM
-   COMPUTER INVENTORY / SOFTWARE DOWNLOAD
-   SYNCHRONIZED WITH GOOGLE APPS SCRIPT PURCHASE SYSTEM
-========================================================= */
+/* ==========================================
+   GLOBAL RESET
+========================================== */
+
+*{
+    box-sizing:border-box;
+    margin:0;
+    padding:0;
+    font-family:'Poppins',sans-serif;
+}
+
+html{
+    scroll-behavior:smooth;
+}
+
+body{
+    background:#f5f9ff;
+    color:#0f172a;
+    min-height:100vh;
+    overflow-x:hidden;
+}
+
+img{
+    max-width:100%;
+}
+
+button,
+input,
+textarea,
+select{
+    font-family:'Poppins',sans-serif;
+}
 
 
-/* =========================================================
-   GOOGLE APPS SCRIPT WEB APP URL
-========================================================= */
+/* ==========================================
+   HEADER
+========================================== */
 
-/*
- * IMPORTANT:
- *
- * Replace this with your deployed Code.gs Web App /exec URL.
- *
- * Example:
- *
- * https://script.google.com/macros/s/XXXXXXXXXXXX/exec
- */
+header{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
 
-const API_URL =
-    "YOUR_GOOGLE_APPS_SCRIPT_WEB_APP_URL";
+    padding:14px 5%;
 
+    background:rgba(255,255,255,.92);
 
-/* =========================================================
-   PAYMENT PAGE
-========================================================= */
+    position:sticky;
+    top:0;
 
-/*
- * Paid applications are sent to the payment page.
- *
- * Do NOT put the Pro APK Google Drive URL here.
- */
+    z-index:1000;
 
-const PAYMENT_PAGE =
-    "computer-inventory-pro-payment.html";
+    border-bottom:1px solid rgba(15,23,42,.08);
 
+    box-shadow:
+        0 5px 25px rgba(15,23,42,.08);
 
-/* =========================================================
-   FREE DOWNLOAD FILES
-========================================================= */
+    backdrop-filter:blur(14px);
 
-/*
- * ONLY FREE APPLICATIONS belong here.
- *
- * Paid APK URLs MUST NOT be placed here.
- */
-
-const downloadFiles = {
-
-    linktech2026:
-        "https://drive.usercontent.google.com/download?id=1SsUikiB9N8Nw0qADAVar7rxqRYt_OG0K&export=download&authuser=0",
+    transition:
+        background .3s ease,
+        box-shadow .3s ease;
+}
 
 
-    Winrar:
-        "https://www.win-rar.com/fileadmin/winrar-versions/winrar/winrar-x64-722.exe",
+/* ==========================================
+   LOGO
+========================================== */
+
+header b{
+    font-size:24px;
+    color:#0284c7;
+    font-weight:700;
+}
+
+.logo{
+    display:flex;
+    align-items:center;
+    gap:10px;
+
+    font-size:22px;
+    white-space:nowrap;
+
+    color:#0f172a;
+}
+
+.logo img{
+    width:45px;
+    height:45px;
+
+    object-fit:contain;
+
+    transition:
+        transform .4s ease,
+        filter .4s ease;
+}
+
+.logo:hover img{
+    transform:
+        rotate(-5deg)
+        scale(1.08);
+
+    filter:
+        drop-shadow(
+            0 5px 10px
+            rgba(14,165,233,.35)
+        );
+}
+
+/* ==========================================
+   NAVIGATION
+========================================== */
+nav{
+    display:flex;
+
+    gap:8px;
+
+    align-items:center;
+
+    flex-wrap:wrap;
+
+    justify-content:center;
+}
+
+nav a{
+    position:relative;
+
+    color:#334155;
+
+    text-decoration:none;
+
+    font-size:14px;
+
+    font-weight:500;
+
+    padding:9px 13px;
+
+    border-radius:10px;
+
+    transition:
+        color .25s ease,
+        background .25s ease,
+        transform .25s ease,
+        box-shadow .25s ease;
+}
+
+nav a::after{
+    content:"";
+
+    position:absolute;
+
+    left:50%;
+    bottom:4px;
+
+    width:0;
+    height:2px;
+
+    background:#0ea5e9;
+
+    border-radius:10px;
+
+    transform:translateX(-50%);
+
+    transition:width .3s ease;
+}
+
+nav a:hover{
+    background:#e0f2fe;
+
+    color:#0284c7;
+
+    transform:translateY(-2px);
+
+    box-shadow:
+        0 5px 15px
+        rgba(14,165,233,.12);
+}
+
+nav a:hover::after{
+    width:55%;
+}
+/* ==========================================
+   HERO
+========================================== */
+
+.hero{
+    position:relative;
+
+    text-align:center;
+
+    padding:70px 20px;
+
+    overflow:hidden;
+
+    background:
+        linear-gradient(
+            135deg,
+            #e0f7ff,
+            #dbeafe,
+            #f8fbff
+        );
+
+    border-bottom:
+        1px solid
+        rgba(14,165,233,.12);
+}
+
+.hero::before{
+    content:"";
+
+    position:absolute;
+
+    width:260px;
+    height:260px;
+
+    border-radius:50%;
+
+    background:
+        rgba(56,189,248,.15);
+
+    top:-120px;
+    left:-80px;
+
+    animation:
+        heroFloat 7s ease-in-out infinite;
+}
+
+.hero::after{
+    content:"";
+
+    position:absolute;
+
+    width:220px;
+    height:220px;
+
+    border-radius:50%;
+
+    background:
+        rgba(59,130,246,.10);
+
+    right:-70px;
+    bottom:-100px;
+
+    animation:
+        heroFloat 9s ease-in-out infinite reverse;
+}
+
+.hero h1{
+    position:relative;
+
+    z-index:2;
+
+    font-size:42px;
+
+    line-height:1.2;
+
+    color:#0f172a;
+
+    font-weight:700;
+
+    animation:
+        fadeUp .7s ease both;
+}
+
+.hero h2{
+    position:relative;
+
+    z-index:2;
+
+    font-size:21px;
+
+    margin-top:12px;
+
+    color:#0369a1;
+
+    font-weight:500;
+
+    animation:
+        fadeUp .9s ease both;
+}
+
+@keyframes heroFloat{
+
+    0%,
+    100%{
+        transform:translateY(0);
+    }
+
+    50%{
+        transform:translateY(20px);
+    }
+
+}
+   
 
 
-    Chrome:
-        "https://dl.google.com/chrome/install/latest/chrome_installer.exe",
+/* ==========================================
+   SEARCH BOX
+========================================== */
+
+.search-box{
+    width:90%;
+
+    max-width:650px;
+
+    margin:30px auto;
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    background:#ffffff;
+
+    border:1px solid #dbeafe;
+
+    border-radius:50px;
+
+    overflow:hidden;
+
+    box-shadow:
+        0 8px 25px rgba(15,23,42,.10);
+
+    position:relative;
+
+    z-index:5;
+
+    transition:
+        transform .25s ease,
+        box-shadow .25s ease,
+        border-color .25s ease;
+}
+
+.search-box:focus-within{
+
+    transform:translateY(-3px);
+
+    border-color:#38bdf8;
+
+    box-shadow:
+        0 12px 30px rgba(14,165,233,.18);
+}
+
+.search-box input{
+
+    flex:1;
+
+    padding:17px 22px;
+
+    border:none;
+
+    outline:none;
+
+    background:transparent;
+
+    color:#0f172a;
+
+    font-size:16px;
+
+    margin:0;
+}
+
+.search-box input::placeholder{
+    color:#94a3b8;
+}
 
 
-    VLC:
-        "https://get.videolan.org/vlc/3.0.23/win64/vlc-3.0.23-win64.exe",
+/* ==========================================
+   SECTION
+========================================== */
+
+.section{
+
+    padding:70px 8%;
+
+    background:#f8fafc;
+}
+
+.section-title{
+
+    text-align:center;
+
+    font-size:35px;
+
+    color:#0284c7;
+
+    margin-bottom:40px;
+
+    font-weight:700;
+
+    position:relative;
+}
+
+.section-title::after{
+
+    content:"";
+
+    display:block;
+
+    width:60px;
+
+    height:4px;
+
+    margin:12px auto 0;
+
+    background:
+        linear-gradient(
+            90deg,
+            #0ea5e9,
+            #38bdf8
+        );
+
+    border-radius:20px;
+
+    animation:
+        titleLine 2s ease-in-out infinite;
+}
+
+@keyframes titleLine{
+
+    0%,
+    100%{
+        width:60px;
+    }
+
+    50%{
+        width:100px;
+    }
+
+}
 
 
-    "Epson L120 Resetter":
-        "https://ozamiz.deped.gov.ph/resetter/l120-resetcracked.zip",
+/* ==========================================
+   SOFTWARE GRID
+========================================== */
+
+.software-grid{
+
+    display:grid;
+
+    grid-template-columns:
+        repeat(
+            auto-fit,
+            minmax(280px,1fr)
+        );
+
+    gap:25px;
+
+    max-width:1300px;
+
+    margin:auto;
+}
 
 
-    "Epson L3150 Resetter":
-        "https://ozamiz.deped.gov.ph/resetter/Epson%20L3150%20Resetter.zip",
+/* ==========================================
+   SOFTWARE CARD
+========================================== */
+
+.card{
+
+    background:#ffffff;
+
+    border:1px solid #e2e8f0;
+
+    border-radius:20px;
+
+    overflow:hidden;
+
+    box-shadow:
+        0 8px 25px rgba(15,23,42,.07);
+
+    position:relative;
+
+    transition:
+        transform .35s ease,
+        box-shadow .35s ease,
+        border-color .35s ease;
+}
+
+.card::before{
+
+    content:"";
+
+    position:absolute;
+
+    top:0;
+    left:-100%;
+
+    width:100%;
+    height:3px;
+
+    background:
+        linear-gradient(
+            90deg,
+            #0284c7,
+            #38bdf8,
+            #0284c7
+        );
+
+    transition:left .5s ease;
+}
+
+.card:hover::before{
+    left:100%;
+}
+
+.card:hover{
+
+    transform:
+        translateY(-8px);
+
+    border-color:#bae6fd;
+
+    box-shadow:
+        0 18px 40px rgba(14,165,233,.15);
+}
 
 
-    "Epson L1210 / L3210 / L3250 Series Resetter":
-        "https://ozamiz.deped.gov.ph/resetter/EPSON_L1210_L3210_L3250_L3251_L3260_L5290.zip",
+/* ==========================================
+   CARD IMAGE
+========================================== */
+
+.card img{
+
+    width:100%;
+
+    height:180px;
+
+    object-fit:cover;
+
+    background:#f8fafc;
+
+    display:block;
+
+    transition:
+        transform .5s ease;
+}
+
+.card:hover img{
+
+    transform:
+        scale(1.04);
+}
 
 
-    AnyDesk:
-        "https://download.anydesk.com/AnyDesk.exe",
+/* ==========================================
+   CARD CONTENT
+========================================== */
+
+.card-content{
+
+    padding:22px;
+
+}
+
+.card-content h3{
+
+    font-size:22px;
+
+    margin-bottom:10px;
+
+    color:#0f172a;
+
+}
+
+.card-content p{
+
+    color:#64748b;
+
+    line-height:1.6;
+
+    margin-bottom:20px;
+
+}
 
 
-    /*
-     * IMPORTANT:
-     *
-     * Computer Inventory System pro
-     * is intentionally NOT included here.
-     *
-     * It is a PAID application.
-     *
-     * The APK URL remains protected
-     * inside Code.gs.
-     */
+/* ==========================================
+   DOWNLOAD BUTTON
+========================================== */
 
-    "Computer Inventory System":
-        "https://drive.usercontent.google.com/download?id=1plWIfqdrBW5bzl99uI-H3q27XNhmF00h&export=download&authuser=0"
+.download-btn{
 
-};
+    position:relative;
+
+    width:100%;
+
+    padding:14px;
+
+    border:none;
+
+    border-radius:12px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #0284c7,
+            #0ea5e9
+        );
+
+    color:white;
+
+    cursor:pointer;
+
+    font-size:16px;
+
+    font-weight:600;
+
+    overflow:hidden;
+
+    transition:
+        transform .25s ease,
+        box-shadow .25s ease,
+        background .25s ease;
+}
+
+.download-btn::before{
+
+    content:"";
+
+    position:absolute;
+
+    top:0;
+    left:-120%;
+
+    width:80%;
+    height:100%;
+
+    background:
+        linear-gradient(
+            90deg,
+            transparent,
+            rgba(255,255,255,.35),
+            transparent
+        );
+
+    transform:skewX(-20deg);
+
+    transition:left .6s ease;
+}
+
+.download-btn:hover::before{
+    left:140%;
+}
+
+.download-btn:hover{
+
+    background:
+        linear-gradient(
+            135deg,
+            #0369a1,
+            #0284c7
+        );
+
+    transform:
+        translateY(-3px);
+
+    box-shadow:
+        0 10px 25px rgba(14,165,233,.28);
+}
+
+.download-btn:active{
+
+    transform:
+        translateY(0)
+        scale(.98);
+}
 
 
-/* =========================================================
-   PRODUCT TYPE CONFIGURATION
-========================================================= */
+/* ==========================================
+   DOWNLOAD STATES
+========================================== */
 
-/*
- * Free applications can download immediately.
- *
- * Paid applications redirect to PAYMENT_PAGE.
- *
- * This structure allows you to add more paid APK
- * applications later without exposing their APK URLs.
- */
+.download-btn.downloading{
 
-const paidProducts = {
+    background:#0284c7;
 
-    "Computer Inventory System pro": {
+    pointer-events:none;
 
-        paymentPage:
-            PAYMENT_PAGE,
+    box-shadow:
+        0 8px 20px rgba(2,132,199,.20);
+}
 
-        amount:
-            150,
+.download-btn.success{
 
-        currency:
-            "PHP"
+    background:
+        linear-gradient(
+            135deg,
+            #16a34a,
+            #22c55e
+        );
+
+    box-shadow:
+        0 8px 20px rgba(22,163,74,.20);
+}
+
+
+/* ==========================================
+   BUTTON TEXT
+========================================== */
+
+.btn-text{
+
+    position:relative;
+
+    z-index:2;
+
+    transition:
+        opacity .2s ease;
+}
+
+
+/* ==========================================
+   LOADER
+========================================== */
+
+.loader{
+
+    position:absolute;
+
+    width:22px;
+    height:22px;
+
+    border:3px solid
+        rgba(255,255,255,.3);
+
+    border-top:
+        3px solid white;
+
+    border-radius:50%;
+
+    top:50%;
+    left:50%;
+
+    transform:
+        translate(-50%,-50%);
+
+    animation:
+        spin 1s linear infinite;
+
+    opacity:0;
+}
+
+.download-btn.downloading .loader{
+
+    opacity:1;
+}
+
+.download-btn.downloading .btn-text{
+
+    opacity:0;
+}
+
+@keyframes spin{
+
+    100%{
+
+        transform:
+            translate(-50%,-50%)
+            rotate(360deg);
 
     }
 
-};
+}
 
 
-/* =========================================================
-   PAGE ELEMENTS
-========================================================= */
+/* ==========================================
+   BADGE
+========================================== */
 
-const searchInput =
-    document.getElementById(
-        "searchInput"
-    );
+.badge{
 
+    display:inline-flex;
 
-const softwareList =
-    document.getElementById(
-        "softwareList"
-    );
+    align-items:center;
 
+    padding:6px 12px;
 
-/* =========================================================
-   CUSTOMER ACCOUNT ELEMENTS
-========================================================= */
+    border-radius:30px;
 
-const accountArea =
-    document.getElementById(
-        "accountArea"
-    );
+    background:#ecfdf5;
 
+    color:#15803d;
 
-const accountEmail =
-    document.getElementById(
-        "accountEmail"
-    );
+    border:1px solid #bbf7d0;
 
+    font-size:12px;
 
-/* =========================================================
-   GOOGLE ACCOUNT STORAGE KEY
-========================================================= */
+    font-weight:600;
 
-const GOOGLE_EMAIL_KEY =
-    "linktech_google_email";
+    margin-bottom:15px;
 
+    animation:
+        badgePulse 2.5s ease-in-out infinite;
+}
 
-/* =========================================================
-   PURCHASE STORAGE KEYS
-========================================================= */
+@keyframes badgePulse{
 
-const PURCHASE_ID_KEY =
-    "linktech_purchase_id";
+    0%,
+    100%{
+        box-shadow:
+            0 0 0 0 rgba(34,197,94,.15);
+    }
+
+    50%{
+        box-shadow:
+            0 0 0 6px rgba(34,197,94,0);
+    }
+
+}
 
 
-const PURCHASE_EMAIL_KEY =
-    "linktech_purchase_email";
+/* ==========================================
+   FORM ELEMENTS
+========================================== */
+
+input,
+textarea,
+select{
+
+    width:100%;
+
+    padding:12px;
+
+    margin:8px 0;
+
+    background:#ffffff;
+
+    border:1px solid #cbd5e1;
+
+    color:#0f172a;
+
+    border-radius:10px;
+
+    outline:none;
+
+    transition:
+        border-color .25s ease,
+        box-shadow .25s ease,
+        transform .2s ease;
+}
+
+input::placeholder,
+textarea::placeholder{
+    color:#94a3b8;
+}
+
+input:focus,
+textarea:focus,
+select:focus{
+
+    border-color:#38bdf8;
+
+    box-shadow:
+        0 0 0 4px
+        rgba(56,189,248,.12);
+
+    transform:
+        translateY(-1px);
+}
+
+textarea{
+
+    height:120px;
+
+    resize:vertical;
+}
+
+select{
+
+    cursor:pointer;
+}
+
+select option{
+
+    background:#ffffff;
+
+    color:#0f172a;
+}
 
 
-/* =========================================================
-   SEARCH SOFTWARE
-========================================================= */
+/* ==========================================
+   GENERAL BUTTONS
+========================================== */
 
-function searchSoftware() {
+button{
 
-    const input =
-        document
-            .getElementById(
-                "searchInput"
+    display:inline-flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    background:
+        linear-gradient(
+            135deg,
+            #0284c7,
+            #0ea5e9
+        );
+
+    border:none;
+
+    color:white;
+
+    padding:12px 20px;
+
+    border-radius:10px;
+
+    cursor:pointer;
+
+    font-weight:600;
+
+    transition:
+        transform .25s ease,
+        box-shadow .25s ease,
+        background .25s ease;
+}
+
+button:hover{
+
+    transform:
+        translateY(-2px);
+
+    box-shadow:
+        0 8px 20px
+        rgba(14,165,233,.22);
+}
+
+button:active{
+
+    transform:
+        translateY(0)
+        scale(.98);
+}
+
+
+/* ==========================================
+   FOOTER
+========================================== */
+
+footer{
+
+    text-align:center;
+
+    padding:30px 20px;
+
+    background:#ffffff;
+
+    border-top:1px solid #e2e8f0;
+
+    margin-top:0;
+
+    color:#64748b;
+}
+
+/* ==========================================
+   FADE ANIMATION
+========================================== */
+
+@keyframes fadeUp{
+
+    from{
+        opacity:0;
+
+        transform:
+            translateY(15px);
+    }
+
+    to{
+        opacity:1;
+
+        transform:
+            translateY(0);
+    }
+
+}
+
+/* ==========================================
+   SCROLLBAR
+========================================== */
+
+::-webkit-scrollbar{
+
+    width:8px;
+
+    height:8px;
+}
+
+::-webkit-scrollbar-track{
+
+    background:#f1f5f9;
+}
+
+::-webkit-scrollbar-thumb{
+
+    background:#bae6fd;
+
+    border-radius:10px;
+}
+
+::-webkit-scrollbar-thumb:hover{
+
+    background:#38bdf8;
+}
+
+
+/* ==========================================
+   SELECTION
+========================================== */
+
+::selection{
+
+    background:#38bdf8;
+
+    color:white;
+}
+
+
+/* ==========================================
+   TABLET
+========================================== */
+
+@media(max-width:900px){
+
+    .section{
+
+        padding:
+            55px 5%;
+    }
+
+    .hero h1{
+
+        font-size:35px;
+    }
+
+    .software-grid{
+
+        grid-template-columns:
+            repeat(
+                2,
+                minmax(250px,1fr)
             );
-
-
-    if (!input) {
-
-        return;
-
-    }
-
-
-    const searchText =
-        input.value
-            .toLowerCase()
-            .trim();
-
-
-    const cards =
-        document.querySelectorAll(
-            ".software-grid .card"
-        );
-
-
-    cards.forEach(
-        function(card) {
-
-            const text =
-                card.innerText
-                    .toLowerCase();
-
-
-            if (
-                !searchText ||
-                text.includes(
-                    searchText
-                )
-            ) {
-
-                card.style.display =
-                    "";
-
-            }
-
-            else {
-
-                card.style.display =
-                    "none";
-
-            }
-
-        }
-    );
-
-}
-
-
-/* =========================================================
-   FREE DOWNLOAD
-========================================================= */
-
-function downloadFreeSoftware(
-    fileKey,
-    button
-) {
-
-    const url =
-        downloadFiles[fileKey];
-
-
-    if (!url) {
-
-        showDownloadMessage(
-            "Download file is not configured for this application.",
-            "error"
-        );
-
-        console.error(
-            "Missing download URL:",
-            fileKey
-        );
-
-        restoreDownloadButton(
-            button
-        );
-
-        return;
-
-    }
-
-
-    /*
-     * Show loading state.
-     */
-
-    setDownloadLoading(
-        button,
-        "Preparing Download..."
-    );
-
-
-    /*
-     * Give the browser a short moment
-     * to display the loading state.
-     */
-
-    setTimeout(
-        function() {
-
-            try {
-
-                /*
-                 * Open the free download.
-                 *
-                 * The actual download behavior
-                 * is controlled by the target server.
-                 */
-
-                window.location.href =
-                    url;
-
-
-            }
-
-            catch (error) {
-
-                console.error(
-                    "Download error:",
-                    error
-                );
-
-
-                showDownloadMessage(
-                    "Unable to start the download. Please try again.",
-                    "error"
-                );
-
-
-                restoreDownloadButton(
-                    button
-                );
-
-            }
-
-        },
-        300
-    );
-
-}
-
-
-/* =========================================================
-   PAID APPLICATION
-========================================================= */
-
-function purchaseSoftware(
-    fileKey,
-    button
-) {
-
-    const product =
-        paidProducts[fileKey];
-
-
-    if (!product) {
-
-        console.error(
-            "Paid product configuration not found:",
-            fileKey
-        );
-
-
-        showDownloadMessage(
-            "Purchase information is not configured for this application.",
-            "error"
-        );
-
-
-        restoreDownloadButton(
-            button
-        );
-
-
-        return;
-
-    }
-
-
-    /*
-     * Show loading.
-     */
-
-    setDownloadLoading(
-        button,
-        "Opening Purchase..."
-    );
-
-
-    /*
-     * Save the selected product locally.
-     *
-     * This is useful when the customer
-     * returns from the payment page.
-     */
-
-    try {
-
-        localStorage.setItem(
-            "linktech_selected_product",
-            fileKey
-        );
-
-        localStorage.setItem(
-            "linktech_selected_amount",
-            String(
-                product.amount
-            )
-        );
-
-    }
-
-    catch (error) {
-
-        console.warn(
-            "Unable to save selected product.",
-            error
-        );
-
-    }
-
-
-    /*
-     * Open payment page.
-     */
-
-    setTimeout(
-        function() {
-
-            window.location.href =
-                product.paymentPage;
-
-        },
-        250
-    );
-
-}
-
-
-/* =========================================================
-   DOWNLOAD BUTTON HANDLER
-========================================================= */
-
-function handleDownloadButton(
-    button
-) {
-
-    if (!button) {
-
-        return;
-
-    }
-
-
-    const fileKey =
-        button.getAttribute(
-            "data-file"
-        );
-
-
-    const type =
-        (
-            button.getAttribute(
-                "data-type"
-            ) ||
-            ""
-        )
-        .toLowerCase()
-        .trim();
-
-
-    const isPro =
-        button.getAttribute(
-            "data-pro"
-        ) === "true";
-
-
-    if (!fileKey) {
-
-        console.error(
-            "Download button has no data-file attribute."
-        );
-
-        return;
-
-    }
-
-
-    /*
-     * =====================================================
-     * SECURITY CHECK
-     * =====================================================
-     *
-     * Any button marked as PRO is always treated
-     * as a paid product.
-     *
-     * It can NEVER use downloadFiles.
-     */
-
-    if (isPro) {
-
-        purchaseSoftware(
-            fileKey,
-            button
-        );
-
-        return;
-
-    }
-
-
-    /*
-     * =====================================================
-     * PURCHASE TYPE
-     * =====================================================
-     */
-
-    if (
-        type === "purchase"
-    ) {
-
-        purchaseSoftware(
-            fileKey,
-            button
-        );
-
-        return;
-
-    }
-
-
-    /*
-     * =====================================================
-     * FREE TYPE
-     * =====================================================
-     */
-
-    if (
-        type === "free"
-    ) {
-
-        downloadFreeSoftware(
-            fileKey,
-            button
-        );
-
-        return;
-
-    }
-
-
-    /*
-     * =====================================================
-     * FALLBACK
-     * =====================================================
-     *
-     * If data-type is missing, only allow
-     * the download if the file exists in
-     * downloadFiles.
-     */
-
-    if (
-        Object.prototype.hasOwnProperty.call(
-            downloadFiles,
-            fileKey
-        )
-    ) {
-
-        downloadFreeSoftware(
-            fileKey,
-            button
-        );
-
-        return;
-
-    }
-
-
-    /*
-     * Unknown application.
-     */
-
-    showDownloadMessage(
-        "This application is not configured for download.",
-        "error"
-    );
-
-
-    console.error(
-        "Unknown download type:",
-        fileKey
-    );
-
-}
-
-
-/* =========================================================
-   INITIALIZE DOWNLOAD BUTTONS
-========================================================= */
-
-function initializeDownloadButtons() {
-
-    const buttons =
-        document.querySelectorAll(
-            ".download-btn"
-        );
-
-
-    buttons.forEach(
-        function(button) {
-
-            /*
-             * Remove inline handlers if any future
-             * version accidentally contains one.
-             */
-
-            button.addEventListener(
-                "click",
-                function(event) {
-
-                    event.preventDefault();
-
-                    handleDownloadButton(
-                        button
-                    );
-
-                }
-            );
-
-        }
-    );
-
-}
-
-
-/* =========================================================
-   BUTTON LOADING STATE
-========================================================= */
-
-function setDownloadLoading(
-    button,
-    text
-) {
-
-    if (!button) {
-
-        return;
-
-    }
-
-
-    button.disabled =
-        true;
-
-
-    const textElement =
-        button.querySelector(
-            ".btn-text"
-        );
-
-
-    if (textElement) {
-
-        textElement.innerText =
-            text;
-
-    }
-
-
-    const loader =
-        button.querySelector(
-            ".loader"
-        );
-
-
-    if (loader) {
-
-        loader.style.display =
-            "inline-block";
-
     }
 
 }
 
 
-/* =========================================================
-   RESTORE DOWNLOAD BUTTON
-========================================================= */
+/* ==========================================
+   MOBILE
+========================================== */
 
-function restoreDownloadButton(
-    button
-) {
+@media(max-width:768px){
 
-    if (!button) {
+    header{
 
-        return;
+        flex-direction:column;
 
+        gap:15px;
+
+        padding:
+            12px 4%;
+    }
+
+    nav{
+
+        justify-content:center;
+
+        width:100%;
+
+        gap:5px;
+    }
+
+    nav a{
+
+        font-size:13px;
+
+        padding:
+            7px 9px;
     }
 
 
-    button.disabled =
-        false;
+    .hero{
 
+        padding:
+            50px 15px;
+    }
 
-    const textElement =
-        button.querySelector(
-            ".btn-text"
-        );
+    .hero h1{
 
+        font-size:30px;
+    }
 
-    if (textElement) {
+    .hero h2{
 
-        const type =
-            (
-                button.getAttribute(
-                    "data-type"
-                ) ||
-                ""
-            )
-            .toLowerCase();
-
-
-        if (
-            type === "purchase" ||
-            button.getAttribute(
-                "data-pro"
-            ) === "true"
-        ) {
-
-            textElement.innerText =
-                "Purchase";
-
-        }
-
-        else {
-
-            textElement.innerText =
-                "Free Download";
-
-        }
-
+        font-size:18px;
     }
 
 
-    const loader =
-        button.querySelector(
-            ".loader"
-        );
+    .section{
 
-
-    if (loader) {
-
-        loader.style.display =
-            "none";
-
+        padding:
+            45px 5%;
     }
 
-}
+    .section-title{
 
+        font-size:28px;
 
-/* =========================================================
-   DOWNLOAD MESSAGE
-========================================================= */
-
-function showDownloadMessage(
-    message,
-    type
-) {
-
-    /*
-     * Use existing status/message element
-     * if one exists.
-     */
-
-    let box =
-        document.getElementById(
-            "downloadStatus"
-        );
-
-
-    /*
-     * Create one only when necessary.
-     */
-
-    if (!box) {
-
-        box =
-            document.createElement(
-                "div"
-            );
-
-
-        box.id =
-            "downloadStatus";
-
-
-        box.style.position =
-            "fixed";
-
-        box.style.left =
-            "50%";
-
-        box.style.bottom =
-            "25px";
-
-        box.style.transform =
-            "translateX(-50%)";
-
-        box.style.zIndex =
-            "9999";
-
-        box.style.maxWidth =
-            "90%";
-
-        box.style.padding =
-            "14px 18px";
-
-        box.style.borderRadius =
-            "10px";
-
-        box.style.fontFamily =
-            "Poppins, Arial, sans-serif";
-
-        box.style.fontSize =
-            "14px";
-
-        box.style.textAlign =
-            "center";
-
-        box.style.boxShadow =
-            "0 8px 25px rgba(0,0,0,.18)";
-
-
-        document.body.appendChild(
-            box
-        );
-
+        margin-bottom:30px;
     }
 
 
-    box.innerText =
-        message;
+    .software-grid{
 
+        grid-template-columns:1fr;
 
-    if (
-        type === "error"
-    ) {
-
-        box.style.background =
-            "#fff0f0";
-
-        box.style.color =
-            "#a30000";
-
-        box.style.border =
-            "1px solid #e4aaaa";
-
-    }
-
-    else {
-
-        box.style.background =
-            "#e9f9ef";
-
-        box.style.color =
-            "#146c2e";
-
-        box.style.border =
-            "1px solid #83d89d";
-
+        gap:18px;
     }
 
 
-    box.style.display =
-        "block";
+    .card{
 
-
-    setTimeout(
-        function() {
-
-            if (box) {
-
-                box.style.display =
-                    "none";
-
-            }
-
-        },
-        5000
-    );
-
-}
-
-
-/* =========================================================
-   SAVE GOOGLE EMAIL
-========================================================= */
-
-function saveGoogleEmail(
-    email
-) {
-
-    if (!email) {
-
-        return;
-
+        border-radius:16px;
     }
 
 
-    const cleanEmail =
-        String(email)
-            .trim()
-            .toLowerCase();
+    .card img{
 
-
-    if (!isValidEmail(cleanEmail)) {
-
-        return;
-
+        height:190px;
     }
 
 
-    try {
+    .search-box{
 
-        localStorage.setItem(
-            GOOGLE_EMAIL_KEY,
-            cleanEmail
-        );
-
-        localStorage.setItem(
-            PURCHASE_EMAIL_KEY,
-            cleanEmail
-        );
-
-    }
-
-    catch (error) {
-
-        console.warn(
-            "Unable to save Google account email.",
-            error
-        );
-
+        width:95%;
     }
 
 
-    displayAccountEmail(
-        cleanEmail
-    );
+    button{
 
-}
-
-
-/* =========================================================
-   DISPLAY ACCOUNT EMAIL
-========================================================= */
-
-function displayAccountEmail(
-    email
-) {
-
-    if (
-        !accountArea ||
-        !accountEmail
-    ) {
-
-        return;
-
+        min-height:42px;
     }
 
+    .download-btn{
 
-    if (!email) {
-
-        accountArea.style.display =
-            "none";
-
-        accountEmail.innerText =
-            "";
-
-        return;
-
-    }
-
-
-    accountEmail.innerText =
-        "Signed in: " + email;
-
-
-    accountArea.style.display =
-        "block";
-
-}
-
-
-/* =========================================================
-   LOAD SAVED ACCOUNT
-========================================================= */
-
-function loadSavedAccount() {
-
-    try {
-
-        const savedEmail =
-            localStorage.getItem(
-                GOOGLE_EMAIL_KEY
-            );
-
-
-        if (
-            savedEmail &&
-            isValidEmail(savedEmail)
-        ) {
-
-            displayAccountEmail(
-                savedEmail
-            );
-
-        }
-
-    }
-
-    catch (error) {
-
-        console.warn(
-            "Unable to load saved account.",
-            error
-        );
-
+        min-height:48px;
     }
 
 }
 
 
-/* =========================================================
-   GOOGLE IDENTITY RESPONSE
-========================================================= */
+/* ==========================================
+   SMALL PHONE
+========================================== */
 
-/*
- * This function can be used by Google Identity Services
- * if you later add a Google Sign-In button.
- *
- * It does NOT automatically trust the Google email
- * for payment authorization.
- *
- * Payment authorization remains controlled by Code.gs.
- */
+@media(max-width:480px){
 
-function handleGoogleCredentialResponse(
-    response
-) {
+        .logo{
+        font-size:18px;
+    }
 
-    if (
-        !response ||
-        !response.credential
-    ) {
+    .logo img{
+        width:40px;
+        height:40px;
+    }
 
-        return;
+    header b{
+        font-size:20px;
+    }
+        nav{
+        gap:3px;
+    }
 
+    nav a{
+        font-size:12px;
+
+        padding:6px 7px;
+    }
+   
+
+
+    .hero{
+
+        padding:
+            40px 15px;
+    }
+
+    .hero h1{
+
+        font-size:26px;
+    }
+
+    .hero h2{
+
+        font-size:16px;
     }
 
 
-    /*
-     * Decode the JWT payload.
-     *
-     * This is only for displaying the account email.
-     *
-     * Do NOT use this client-side decoded email
-     * as proof of authentication.
-     */
+    .section{
 
-    try {
-
-        const parts =
-            response.credential.split(".");
-
-
-        if (
-            parts.length !== 3
-        ) {
-
-            return;
-
-        }
-
-
-        const payload =
-            JSON.parse(
-                atob(
-                    parts[1]
-                        .replace(/-/g, "+")
-                        .replace(/_/g, "/")
-                )
-            );
-
-
-        const email =
-            payload.email ||
-            "";
-
-
-        if (email) {
-
-            saveGoogleEmail(
-                email
-            );
-
-        }
-
-    }
-
-    catch (error) {
-
-        console.warn(
-            "Unable to read Google account information.",
-            error
-        );
-
-    }
-
-}
-
-
-/* =========================================================
-   EMAIL VALIDATION
-========================================================= */
-
-function isValidEmail(
-    email
-) {
-
-    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/
-        .test(
-            String(email)
-        );
-
-}
-
-
-/* =========================================================
-   PURCHASE INFORMATION
-========================================================= */
-
-function getSavedPurchaseInformation() {
-
-    let purchaseId =
-        "";
-
-
-    let email =
-        "";
-
-
-    try {
-
-        purchaseId =
-            localStorage.getItem(
-                PURCHASE_ID_KEY
-            ) ||
-            "";
-
-
-        email =
-            localStorage.getItem(
-                PURCHASE_EMAIL_KEY
-            ) ||
-            "";
-
-    }
-
-    catch (error) {
-
-        console.warn(
-            "Unable to read purchase information.",
-            error
-        );
-
+        padding:
+            40px 4%;
     }
 
 
-    return {
+    .section-title{
 
-        purchaseId:
-            purchaseId,
-
-        email:
-            email
-
-    };
-
-}
-
-
-/* =========================================================
-   CHECK PURCHASE STATUS
-========================================================= */
-
-/*
- * This function does NOT automatically download the APK.
- *
- * It only asks Code.gs for the current status.
- *
- * Code.gs remains responsible for determining whether
- * the purchase is PAID.
- */
-
-async function checkPurchaseStatus(
-    purchaseId,
-    email
-) {
-
-    if (
-        !purchaseId ||
-        !email
-    ) {
-
-        return null;
-
+        font-size:25px;
     }
 
 
-    if (
-        API_URL ===
-        "YOUR_GOOGLE_APPS_SCRIPT_WEB_APP_URL"
-    ) {
+    .card-content{
 
-        console.warn(
-            "API_URL is not configured."
-        );
-
-        return null;
-
+        padding:18px;
     }
 
 
-    try {
+    .card-content h3{
 
-        const url =
-            API_URL +
-            "?action=checkProPurchase" +
-            "&purchaseId=" +
-            encodeURIComponent(
-                purchaseId
-            ) +
-            "&email=" +
-            encodeURIComponent(
-                email
-            );
-
-
-        const response =
-            await fetch(
-                url,
-                {
-
-                    method:
-                        "GET",
-
-                    cache:
-                        "no-store"
-
-                }
-            );
-
-
-        if (!response.ok) {
-
-            throw new Error(
-                "HTTP " +
-                response.status
-            );
-
-        }
-
-
-        const data =
-            await response.json();
-
-
-        return data;
-
+        font-size:20px;
     }
 
-    catch (error) {
 
-        console.error(
-            "Purchase status check failed:",
-            error
-        );
+    .search-box input{
+
+        padding:
+            15px 17px;
+
+        font-size:14px;
+    }
 
 
-        return null;
+    .download-btn{
 
+        font-size:15px;
     }
 
 }
-
-
-/* =========================================================
-   CHECK SAVED PURCHASE
-========================================================= */
-
-/*
- * Used when the customer returns to the
- * download page after submitting payment.
- *
- * It DOES NOT expose the APK URL.
- */
-
-async function checkSavedPurchase() {
-
-    const purchase =
-        getSavedPurchaseInformation();
-
-
-    if (
-        !purchase.purchaseId ||
-        !purchase.email
-    ) {
-
-        return;
-
-    }
-
-
-    const result =
-        await checkPurchaseStatus(
-            purchase.purchaseId,
-            purchase.email
-        );
-
-
-    if (!result) {
-
-        return;
-
-    }
-
-
-    if (
-        result.success &&
-        result.data
-    ) {
-
-        const status =
-            String(
-                result.data.status ||
-                ""
-            )
-            .toUpperCase();
-
-
-        /*
-         * Payment has been approved.
-         *
-         * The actual download must still be
-         * requested through the protected
-         * Code.gs endpoint.
-         */
-
-        if (
-            status === "PAID"
-        ) {
-
-            showDownloadMessage(
-
-                "Payment approved. Your Pro application is ready to download.",
-
-                "success"
-
-            );
-
-        }
-
-        else if (
-            status === "PENDING"
-        ) {
-
-            showDownloadMessage(
-
-                "Your payment is still pending verification.",
-
-                "success"
-
-            );
-
-        }
-
-        else if (
-            status === "REJECTED"
-        ) {
-
-            showDownloadMessage(
-
-                "Your payment was not approved. Please contact LinkTech.",
-
-                "error"
-
-            );
-
-        }
-
-    }
-
-}
-
-
-/* =========================================================
-   START
-========================================================= */
-
-function initializeDownloadPage() {
-
-    /*
-     * Load remembered Google email.
-     */
-
-    loadSavedAccount();
-
-
-    /*
-     * Initialize buttons.
-     */
-
-    initializeDownloadButtons();
-
-
-    /*
-     * Check previous purchase status.
-     */
-
-    checkSavedPurchase();
-
-}
-
-
-/* =========================================================
-   DOM READY
-========================================================= */
-
-document.addEventListener(
-    "DOMContentLoaded",
-    function() {
-
-        initializeDownloadPage();
-
-    }
-);
-
-
-/* =========================================================
-   GLOBAL FUNCTIONS
-========================================================= */
-
-/*
- * Keep searchSoftware globally available because
- * your HTML currently uses:
- *
- * onkeyup="searchSoftware()"
- *
- * and:
- *
- * onclick="searchSoftware()"
- */
-
-window.searchSoftware =
-    searchSoftware;
-
-
-/*
- * Make Google credential callback globally available
- * if Google Identity Services uses it.
- */
-
-window.handleGoogleCredentialResponse =
-    handleGoogleCredentialResponse;
