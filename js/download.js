@@ -34,7 +34,7 @@ const API_URL =
  */
 
 const PAYMENT_PAGE =
-    "ProAppPurchase/computer-inventory-pro-payment.html";
+    "lintechzamboanga.solutions/ProAppPurchase/computer-inventory-pro-payment.html";
 
 
 /* =========================================================
