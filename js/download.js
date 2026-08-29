@@ -34,7 +34,7 @@ const API_URL =
  */
 
 const PAYMENT_PAGE =
-    "computer-inventory-pro-payment.html";
+    "ProAppPurchase/computer-inventory-pro-payment.html";
 
 
 /* =========================================================
