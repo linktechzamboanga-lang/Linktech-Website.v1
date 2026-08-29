@@ -1,265 +1,112 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-
-<meta charset="UTF-8">
-
-<meta name="viewport"
-      content="width=device-width, initial-scale=1.0">
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport"
+content="width=device-width, initial-scale=1.0">
 
 <meta name="theme-color"
-      content="#0070e0">
+content="#050a19">
+
+<meta name="description"
+content="LinkTech Purchase Administration">
 
 <title>
-Computer Inventory Pro - Purchase
-</title>
+    LinkTech Purchase Administration
+</title><link rel="icon"
+      href="images/LinkTech-logo.png"><link rel="stylesheet"
+      href="css/purchase-admin.css"><link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"></head><body><!-- =====================================================
+     PAGE HEADER
+===================================================== --><header class="admin-header"><div class="header-brand">
 
-<link rel="stylesheet"
-      href="css/payment.css">
-
-</head>
-
-
-<body>
-
-
-<header class="header">
-
-    <h1>
-        Computer Inventory
-    </h1>
-
-    <p>
-        Professional Inventory Management
-    </p>
-
-</header>
-
-
-
-<main class="container">
-
-
-<div class="card">
-
-
-<!-- =====================================================
-     PRODUCT
-====================================================== -->
-
-<section class="product">
-
-    <div class="product-icon">
-        💻
-    </div>
-
-    <h2>
-        Computer Inventory System Pro
-    </h2>
-
-    <p>
-        Upgrade to the professional version.
-    </p>
-
-    <div class="price">
-        ₱150
-    </div>
-
-</section>
-
-
-
-<!-- =====================================================
-     FEATURES
-====================================================== -->
-
-<section class="features">
-
-    <h3>
-        Pro Features
-    </h3>
+    <img
+        src="images/LinkTech-logo.png"
+        alt="LinkTech Logo">
 
     <div>
-        ✓ Advanced inventory management
-    </div>
-
-    <div>
-        ✓ Computer QR code management
-    </div>
-
-    <div>
-        ✓ Backup and restore
-    </div>
-
-    <div>
-        ✓ CSV export
-    </div>
-
-    <div>
-        ✓ Advanced inventory tools
-    </div>
-
-    <div>
-        ✓ Pro features and improvements
-    </div>
-
-</section>
-
-
-
-<!-- =====================================================
-     GCASH PAYMENT
-====================================================== -->
-
-<section class="payment">
-
-    <h2>
-        Pay with GCash
-    </h2>
-
-    <p>
-
-        Scan the GCash QR code below
-        and pay exactly
-        <strong>₱150.00</strong>.
-
-    </p>
-
-
-    <div class="qr-container">
-
-        <img
-            src="https://res.cloudinary.com/dgmlwzxqq/image/upload/v1787838093/IMG_20260827_213945_vp1fxy.jpg"
-            alt="GCash Payment QR">
-
-    </div>
-
-
-    <div class="notice">
 
         <strong>
-            Payment instructions
+            LinkTech
         </strong>
 
-        <br><br>
-
-        1. Open your GCash app.
-
-        <br>
-
-        2. Scan the QR code.
-
-        <br>
-
-        3. Pay exactly ₱150.00.
-
-        <br>
-
-        4. Keep your GCash transaction
-        reference number.
-
-        <br>
-
-        5. Complete the form below.
-
-        <br>
-
-        6. Wait for LinkTech to verify
-        your payment.
+        <span>
+            Purchase Administration
+        </span>
 
     </div>
 
-</section>
+</div>
 
 
+<div class="header-admin">
 
-<!-- =====================================================
-     PAYMENT FORM
-====================================================== -->
+    <span id="loggedAdminEmail">
+        Administrator
+    </span>
 
-<section>
+    <button
+        type="button"
+        id="logoutButton"
+        class="logout-btn">
 
-    <h2>
-        Submit Payment Details
-    </h2>
+        Logout
 
+    </button>
 
-    <form id="paymentForm">
+</div>
 
-
-        <div class="form-group">
-
-            <label
-                for="customerName">
-
-                Full Name
-
-            </label>
-
-
-            <input
-                type="text"
-                id="customerName"
-                required
-                maxlength="100"
-                autocomplete="name"
-                placeholder="Enter your full name">
-
-        </div>
+</header><!-- =====================================================
+     MAIN
+===================================================== --><main class="admin-main"><!-- =====================================================
+     LOGIN SECTION
+===================================================== --><section
+    id="loginSection"
+    class="login-section"><div class="login-card">
 
 
+    <div class="login-logo">
 
-        <div class="form-group">
+        <img
+            src="images/LinkTech-logo.png"
+            alt="LinkTech">
 
-            <label
-                for="customerEmail">
-
-                Email Address
-
-            </label>
+    </div>
 
 
-            <input
-                type="email"
-                id="customerEmail"
-                required
-                maxlength="150"
-                autocomplete="email"
-                placeholder="Enter your email">
-
-        </div>
+    <h1>
+        Purchase Administration
+    </h1>
 
 
+    <p class="login-description">
 
-        <div class="form-group">
+        Administrator access for reviewing
+        customer GCash purchases.
 
-            <label
-                for="gcashReference">
-
-                GCash Reference Number
-
-            </label>
+    </p>
 
 
-            <input
-                type="text"
-                id="gcashReference"
-                required
-                minlength="6"
-                maxlength="100"
-                autocomplete="off"
-                placeholder="Enter transaction reference">
+    <form
+        id="adminLoginForm"
+        autocomplete="off">
 
-        </div>
 
+        <label for="adminEmail">
+            Administrator Email
+        </label>
+
+
+        <input
+            type="email"
+            id="adminEmail"
+            name="adminEmail"
+            placeholder="Enter administrator email"
+            autocomplete="email"
+            required>
 
 
         <button
             type="submit"
-            class="submit-btn">
+            class="login-btn">
 
-            Submit Payment for Verification
+            Administrator Login
 
         </button>
 
@@ -267,128 +114,198 @@ Computer Inventory Pro - Purchase
     </form>
 
 
-
     <div
-        id="status"
-        class="status">
-    </div>
-
-
-
-    <!-- =================================================
-         PURCHASE RESULT
-    ================================================== -->
-
-    <div
-        id="purchaseResult"
-        class="purchase-result"
-        style="display:none;">
-
-        <h3>
-            ✓ Payment Submitted
-        </h3>
-
-
-        <p>
-            Your payment information has been submitted
-            for verification.
-        </p>
-
-
-        <p>
-
-            <strong>
-                Purchase ID:
-            </strong>
-
-            <span id="purchaseId">
-            </span>
-
-        </p>
-
-
-        <p>
-
-            <strong>
-                Status:
-            </strong>
-
-            <span id="purchaseStatus">
-                PENDING
-            </span>
-
-        </p>
-
-
-        <p>
-
-            Please save your
-            <strong>
-                Purchase ID
-            </strong>.
-
-            You will need it to check your
-            payment status.
-
-        </p>
-
-
-        <p>
-
-            LinkTech will verify your GCash
-            transaction before the Pro APK
-            becomes available.
-
-        </p>
-
-
-        <button
-            type="button"
-            id="returnDownloadButton">
-
-            Return to Download Page
-
-        </button>
+        id="loginStatus"
+        class="status"
+        role="status"
+        aria-live="polite">
 
     </div>
 
 
-</section>
+    <div class="security-note">
+
+        <strong>
+            Administrator Verification
+        </strong>
+
+        <p>
+            Only the configured LinkTech administrator
+            email can access purchase administration.
+        </p>
+
+    </div>
+
+
+</div>
+
+</section><!-- =====================================================
+     ADMIN SECTION
+===================================================== --><section
+    id="adminSection"
+    class="admin-section"
+    style="display:none;"><!-- =================================================
+     ADMIN TITLE
+================================================= -->
+
+<div class="page-title">
+
+    <div>
+
+        <h1>
+            Purchase Management
+        </h1>
+
+        <p>
+            Review and verify customer payments
+            before approving application downloads.
+        </p>
+
+    </div>
+
+
+    <button
+        type="button"
+        id="refreshButton"
+        class="refresh-btn">
+
+        🔄 Refresh Purchases
+
+    </button>
+
+</div>
+
+
+
+<!-- =================================================
+     STATUS
+================================================= -->
+
+<div
+    id="adminStatus"
+    class="status"
+    role="status"
+    aria-live="polite">
+
+</div>
+
+
+
+<!-- =================================================
+     STATISTICS
+================================================= -->
+
+<div class="stats-grid">
+
+
+    <div class="stat-card">
+
+        <div class="stat-icon">
+            ⏳
+        </div>
+
+        <div>
+
+            <span>
+                Pending Purchases
+            </span>
+
+            <strong id="pendingCount">
+                0
+            </strong>
+
+        </div>
+
+    </div>
+
+
+    <div class="stat-card">
+
+        <div class="stat-icon">
+            📋
+        </div>
+
+        <div>
+
+            <span>
+                Displayed
+            </span>
+
+            <strong id="displayedCount">
+                0
+            </strong>
+
+        </div>
+
+    </div>
 
 
 </div>
 
 
 
-<footer class="footer">
+<!-- =================================================
+     PURCHASE LIST HEADER
+================================================= -->
 
-    © 2026 LinkTech
-    • Computer Inventory
+<div class="list-header">
 
-</footer>
+    <div>
+
+        <h2>
+            Pending Purchases
+        </h2>
+
+        <p>
+            Verify the customer's GCash transaction
+            in your actual GCash account.
+        </p>
+
+    </div>
 
 
-
-<!-- =====================================================
-     FLOATING GMAIL
-====================================================== -->
-
-<a
-    class="floating-message"
-    href="mailto:linktechzamboanga@gmail.com?subject=Computer%20Inventory%20Pro%20Purchase">
-
-    💬
-
-    <span>
-        Contact LinkTech
+    <span id="lastUpdated">
+        Last updated: —
     </span>
 
-</a>
+</div>
 
 
 
-<script src="js/payment.js"></script>
+<!-- =================================================
+     PURCHASE LIST
+================================================= -->
 
-</body>
+<div
+    id="purchaseList"
+    class="purchase-list">
 
-</html>
+
+    <div class="empty-state">
+
+        <div class="empty-icon">
+            ✓
+        </div>
+
+        <h3>
+            No Pending Purchases
+        </h3>
+
+        <p>
+            There are currently no pending
+            customer payments.
+        </p>
+
+    </div>
+
+
+</div>
+
+</section></main><!-- =====================================================
+     FOOTER
+===================================================== --><footer class="admin-footer"><p>
+    © 2026 LinkTech Freelance IT Specialist Zamboanga
+    | All Rights Reserved
+</p>
+
+</footer><script src="js/purchase-admin.js"></script></body></html>
