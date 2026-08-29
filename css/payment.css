@@ -1,6 +1,21 @@
+/* =========================================================
+   LINKTECH - COMPUTER INVENTORY PRO PAYMENT
+   PAYMENT PAGE STYLES
+   Part 4 - payment.css
+========================================================= */
+
+
+/* =========================================================
+   GLOBAL
+========================================================= */
 
 * {
     box-sizing: border-box;
+}
+
+
+html {
+    scroll-behavior: smooth;
 }
 
 
@@ -22,8 +37,7 @@ body {
 
     min-height: 100vh;
 
-    color:
-        #1f2937;
+    color: #1f2937;
 
 }
 
@@ -41,14 +55,11 @@ body {
             #0099ff
         );
 
-    color:
-        white;
+    color: white;
 
-    padding:
-        22px;
+    padding: 22px;
 
-    text-align:
-        center;
+    text-align: center;
 
     box-shadow:
         0 4px 15px
@@ -59,11 +70,9 @@ body {
 
 .header h1 {
 
-    margin:
-        0;
+    margin: 0;
 
-    font-size:
-        25px;
+    font-size: 25px;
 
 }
 
@@ -73,14 +82,13 @@ body {
     margin:
         6px 0 0;
 
-    opacity:
-        .9;
+    opacity: .9;
 
 }
 
 
 /* =========================================================
-   CONTAINER
+   MAIN CONTAINER
 ========================================================= */
 
 .container {
@@ -95,19 +103,16 @@ body {
 
 
 /* =========================================================
-   CARD
+   MAIN CARD
 ========================================================= */
 
 .card {
 
-    background:
-        white;
+    background: white;
 
-    border-radius:
-        18px;
+    border-radius: 18px;
 
-    padding:
-        25px;
+    padding: 25px;
 
     box-shadow:
         0 10px 35px
@@ -122,40 +127,32 @@ body {
 
 .product {
 
-    text-align:
-        center;
+    text-align: center;
 
 }
 
 
 .product-icon {
 
-    width:
-        90px;
+    width: 90px;
 
-    height:
-        90px;
+    height: 90px;
 
     margin:
         0 auto 15px;
 
-    border-radius:
-        50%;
+    border-radius: 50%;
 
-    display:
-        flex;
+    display: flex;
 
-    align-items:
-        center;
+    align-items: center;
 
-    justify-content:
-        center;
+    justify-content: center;
 
     background:
         #e7f2ff;
 
-    font-size:
-        45px;
+    font-size: 45px;
 
 }
 
@@ -173,11 +170,9 @@ body {
 
 .price {
 
-    font-size:
-        38px;
+    font-size: 38px;
 
-    font-weight:
-        bold;
+    font-weight: bold;
 
     color:
         #087f3e;
@@ -211,8 +206,7 @@ body {
 
 .features h3 {
 
-    margin-top:
-        0;
+    margin-top: 0;
 
 }
 
@@ -226,7 +220,7 @@ body {
 
 
 /* =========================================================
-   PAYMENT
+   PAYMENT SECTION
 ========================================================= */
 
 .payment {
@@ -248,8 +242,16 @@ body {
 }
 
 
+.payment p {
+
+    line-height:
+        1.5;
+
+}
+
+
 /* =========================================================
-   GCASH QR
+   GCASH QR CONTAINER
 ========================================================= */
 
 .qr-container {
@@ -331,6 +333,9 @@ body {
     margin:
         15px 0;
 
+    text-align:
+        left;
+
 }
 
 
@@ -381,7 +386,14 @@ body {
         none;
 
     background:
-        white;
+        #ffffff;
+
+    color:
+        #1f2937;
+
+    transition:
+        border-color .2s ease,
+        box-shadow .2s ease;
 
 }
 
@@ -394,6 +406,20 @@ body {
     box-shadow:
         0 0 0 3px
         rgba(0,112,224,.10);
+
+}
+
+
+.form-group input:disabled {
+
+    background:
+        #f1f5f9;
+
+    color:
+        #64748b;
+
+    cursor:
+        not-allowed;
 
 }
 
@@ -431,6 +457,11 @@ body {
     cursor:
         pointer;
 
+    transition:
+        background .2s ease,
+        opacity .2s ease,
+        transform .1s ease;
+
 }
 
 
@@ -442,19 +473,33 @@ body {
 }
 
 
+.submit-btn:active {
+
+    transform:
+        scale(.99);
+
+}
+
+
 .submit-btn:disabled {
 
-    opacity:
-        .65;
+    background:
+        #94a3b8;
+
+    color:
+        #e2e8f0;
 
     cursor:
         not-allowed;
+
+    opacity:
+        .9;
 
 }
 
 
 /* =========================================================
-   STATUS
+   STATUS MESSAGE
 ========================================================= */
 
 .status {
@@ -476,6 +521,9 @@ body {
 
     line-height:
         1.5;
+
+    word-break:
+        break-word;
 
 }
 
@@ -520,11 +568,14 @@ body {
 
 .purchase-result {
 
+    display:
+        none;
+
     margin-top:
         20px;
 
     padding:
-        20px;
+        18px;
 
     border-radius:
         12px;
@@ -549,25 +600,102 @@ body {
     margin-top:
         0;
 
+    margin-bottom:
+        12px;
+
     color:
         #146c2e;
 
 }
 
 
-.purchase-result button {
+.purchase-result p {
+
+    margin:
+        10px 0;
+
+}
+
+
+.purchase-result strong {
+
+    font-weight:
+        bold;
+
+}
+
+
+/* =========================================================
+   PURCHASE ID
+========================================================= */
+
+#purchaseId {
+
+    display:
+        inline-block;
+
+    margin-top:
+        5px;
+
+    padding:
+        8px 10px;
+
+    background:
+        #ffffff;
+
+    border:
+        1px solid #b7d8c0;
+
+    border-radius:
+        7px;
+
+    font-weight:
+        bold;
+
+    word-break:
+        break-all;
+
+    color:
+        #146c2e;
+
+}
+
+
+/* =========================================================
+   PURCHASE STATUS
+========================================================= */
+
+#purchaseStatus {
+
+    display:
+        inline-block;
+
+    margin-left:
+        4px;
+
+    font-weight:
+        bold;
+
+}
+
+
+/* =========================================================
+   RETURN / ACTION BUTTON
+========================================================= */
+
+#returnDownloadButton {
 
     width:
         100%;
 
-    margin-top:
-        10px;
-
     padding:
         13px;
 
+    margin-top:
+        10px;
+
     border:
-        none;
+        0;
 
     border-radius:
         9px;
@@ -587,13 +715,126 @@ body {
     cursor:
         pointer;
 
+    transition:
+        background .2s ease;
+
 }
 
 
-.purchase-result button:hover {
+#returnDownloadButton:hover {
 
     background:
         #005bb7;
+
+}
+
+
+/* =========================================================
+   OPTIONAL PAYMENT STATUS BUTTON
+========================================================= */
+
+.payment-status-btn {
+
+    width:
+        100%;
+
+    padding:
+        13px;
+
+    margin-top:
+        10px;
+
+    border:
+        1px solid #0070e0;
+
+    border-radius:
+        9px;
+
+    background:
+        white;
+
+    color:
+        #0070e0;
+
+    font-size:
+        15px;
+
+    font-weight:
+        bold;
+
+    cursor:
+        pointer;
+
+}
+
+
+.payment-status-btn:hover {
+
+    background:
+        #eef6ff;
+
+}
+
+
+/* =========================================================
+   PENDING STATE
+========================================================= */
+
+.status.pending {
+
+    display:
+        block;
+
+    background:
+        #fff7d6;
+
+    border:
+        1px solid #f1d46a;
+
+    color:
+        #765900;
+
+}
+
+
+/* =========================================================
+   APPROVED STATE
+========================================================= */
+
+.status.approved {
+
+    display:
+        block;
+
+    background:
+        #e9f9ef;
+
+    border:
+        1px solid #83d89d;
+
+    color:
+        #146c2e;
+
+}
+
+
+/* =========================================================
+   REJECTED STATE
+========================================================= */
+
+.status.rejected {
+
+    display:
+        block;
+
+    background:
+        #fff0f0;
+
+    border:
+        1px solid #e4aaaa;
+
+    color:
+        #a30000;
 
 }
 
@@ -620,11 +861,11 @@ body {
 
 
 /* =========================================================
-   MOBILE
+   MOBILE RESPONSIVE
 ========================================================= */
 
 @media (
-    max-width: 480px
+    max-width: 600px
 ) {
 
     .container {
@@ -644,7 +885,53 @@ body {
             18px;
 
         border-radius:
+            15px;
+
+    }
+
+
+    .header {
+
+        padding:
+            18px 15px;
+
+    }
+
+
+    .header h1 {
+
+        font-size:
+            22px;
+
+    }
+
+
+    .header p {
+
+        font-size:
             14px;
+
+    }
+
+
+    .product-icon {
+
+        width:
+            80px;
+
+        height:
+            80px;
+
+        font-size:
+            40px;
+
+    }
+
+
+    .product h2 {
+
+        font-size:
+            21px;
 
     }
 
@@ -667,131 +954,91 @@ body {
 
     }
 
-}
 
-/* =========================================================
-   PURCHASE RESULT
-========================================================= */
+    .qr-container img {
 
-.purchase-result {
-
-    margin-top: 20px;
-
-    padding: 20px;
-
-    border-radius: 14px;
-
-    background: #e9f9ef;
-
-    border: 1px solid #83d89d;
-
-    color: #146c2e;
-
-    line-height: 1.6;
-
-}
-
-.purchase-result h3 {
-
-    margin-top: 0;
-
-}
-
-.purchase-result button {
-
-    width: 100%;
-
-    padding: 13px;
-
-    border: none;
-
-    border-radius: 9px;
-
-    background: #0070e0;
-
-    color: white;
-
-    font-size: 15px;
-
-    font-weight: bold;
-
-    cursor: pointer;
-
-}
-
-.purchase-result button:hover {
-
-    background: #005bb7;
-
-}
-
-
-/* =========================================================
-   FLOATING GMAIL MESSAGE
-========================================================= */
-
-.floating-message {
-
-    position: fixed;
-
-    right: 18px;
-
-    bottom: 18px;
-
-    z-index: 9999;
-
-    display: flex;
-
-    align-items: center;
-
-    gap: 8px;
-
-    padding: 13px 16px;
-
-    border-radius: 50px;
-
-    background: #0070e0;
-
-    color: white;
-
-    text-decoration: none;
-
-    font-weight: bold;
-
-    box-shadow:
-        0 8px 25px
-        rgba(0,0,0,.20);
-
-}
-
-.floating-message:hover {
-
-    background: #005bb7;
-
-}
-
-
-@media (
-    max-width: 480px
-) {
-
-    .floating-message span {
-
-        display: none;
+        max-width:
+            240px;
 
     }
 
-    .floating-message {
 
-        width: 52px;
+    .features {
 
-        height: 52px;
+        padding:
+            13px;
 
-        padding: 0;
+    }
 
-        justify-content: center;
 
-        font-size: 22px;
+    .notice {
+
+        font-size:
+            13px;
+
+    }
+
+
+    .form-group input {
+
+        font-size:
+            16px;
+
+        padding:
+            13px;
+
+    }
+
+
+    .submit-btn {
+
+        font-size:
+            15px;
+
+    }
+
+}
+
+
+/* =========================================================
+   VERY SMALL DEVICES
+========================================================= */
+
+@media (
+    max-width: 360px
+) {
+
+    .card {
+
+        padding:
+            15px;
+
+    }
+
+
+    .qr-container {
+
+        width:
+            210px;
+
+        min-height:
+            210px;
+
+    }
+
+
+    .qr-container img {
+
+        max-width:
+            210px;
+
+    }
+
+
+    .price {
+
+        font-size:
+            30px;
 
     }
 
