@@ -1,0 +1,1357 @@
+/* =========================================================
+LINKTECH
+PURCHASE ADMINISTRATION
+purchase-admin.css
+========================================================= */
+
+/* =========================================================
+GLOBAL
+========================================================= */
+
+* {
+  box-sizing: border-box;
+  }
+
+html {
+scroll-behavior: smooth;
+}
+
+body {
+
+margin: 0;
+
+min-height: 100vh;
+
+font-family:
+    "Poppins",
+    Arial,
+    Helvetica,
+    sans-serif;
+
+background:
+    #050a19;
+
+color:
+    #ffffff;
+
+}
+
+/* =========================================================
+HEADER
+========================================================= */
+
+.admin-header {
+
+width: 100%;
+
+min-height: 72px;
+
+padding:
+    12px 5%;
+
+display: flex;
+
+align-items: center;
+
+justify-content: space-between;
+
+gap: 20px;
+
+background:
+    rgba(5, 10, 25, 0.96);
+
+border-bottom:
+    1px solid rgba(255,255,255,0.10);
+
+position: sticky;
+
+top: 0;
+
+z-index: 1000;
+
+backdrop-filter:
+    blur(10px);
+
+}
+
+/* =========================================================
+BRAND
+========================================================= */
+
+.header-brand {
+
+display: flex;
+
+align-items: center;
+
+gap: 12px;
+
+}
+
+.header-brand img {
+
+width: 46px;
+
+height: 46px;
+
+object-fit: contain;
+
+}
+
+.header-brand div {
+
+display: flex;
+
+flex-direction: column;
+
+}
+
+.header-brand strong {
+
+font-size: 18px;
+
+color: #ffffff;
+
+}
+
+.header-brand span {
+
+font-size: 11px;
+
+color: #9ca3af;
+
+}
+
+/* =========================================================
+ADMIN HEADER
+========================================================= */
+
+.header-admin {
+
+display: flex;
+
+align-items: center;
+
+gap: 14px;
+
+font-size: 13px;
+
+color: #cbd5e1;
+
+}
+
+.logout-btn {
+
+border: 0;
+
+border-radius: 8px;
+
+padding:
+    9px 15px;
+
+background:
+    #dc2626;
+
+color: #ffffff;
+
+font-family: inherit;
+
+font-weight: 600;
+
+cursor: pointer;
+
+transition:
+    0.2s ease;
+
+}
+
+.logout-btn:hover {
+
+opacity: 0.88;
+
+transform:
+    translateY(-1px);
+
+}
+
+.logout-btn:active {
+
+transform:
+    translateY(0);
+
+}
+
+/* =========================================================
+MAIN
+========================================================= */
+
+.admin-main {
+
+width: 100%;
+
+max-width: 1200px;
+
+margin:
+    0 auto;
+
+padding:
+    45px 20px 70px;
+
+}
+
+/* =========================================================
+LOGIN
+========================================================= */
+
+.login-section {
+
+width: 100%;
+
+min-height:
+    calc(100vh - 150px);
+
+display: flex;
+
+align-items: center;
+
+justify-content: center;
+
+}
+
+.login-card {
+
+width: 100%;
+
+max-width: 470px;
+
+padding:
+    35px;
+
+background:
+    rgba(255,255,255,0.06);
+
+border:
+    1px solid rgba(255,255,255,0.12);
+
+border-radius:
+    18px;
+
+box-shadow:
+    0 20px 50px rgba(0,0,0,0.35);
+
+}
+
+.login-logo {
+
+text-align: center;
+
+margin-bottom: 15px;
+
+}
+
+.login-logo img {
+
+width: 85px;
+
+height: 85px;
+
+object-fit: contain;
+
+}
+
+.login-card h1 {
+
+margin:
+    5px 0 10px;
+
+text-align: center;
+
+font-size: 25px;
+
+}
+
+.login-description {
+
+margin:
+    0 0 25px;
+
+text-align: center;
+
+color:
+    #9ca3af;
+
+font-size: 13px;
+
+line-height: 1.7;
+
+}
+
+.login-card label {
+
+display: block;
+
+margin-bottom: 7px;
+
+font-size: 13px;
+
+font-weight: 600;
+
+color:
+    #dbeafe;
+
+}
+
+.login-card input {
+
+width: 100%;
+
+height: 48px;
+
+padding:
+    0 14px;
+
+border:
+    1px solid rgba(255,255,255,0.15);
+
+border-radius:
+    9px;
+
+outline: none;
+
+background:
+    rgba(0,0,0,0.25);
+
+color:
+    #ffffff;
+
+font-family: inherit;
+
+font-size: 14px;
+
+}
+
+.login-card input:focus {
+
+border-color:
+    #2563eb;
+
+box-shadow:
+    0 0 0 3px rgba(37,99,235,0.15);
+
+}
+
+.login-card input::placeholder {
+
+color:
+    #64748b;
+
+}
+
+.login-btn {
+
+width: 100%;
+
+margin-top: 18px;
+
+min-height: 48px;
+
+border: 0;
+
+border-radius: 9px;
+
+background:
+    #2563eb;
+
+color: #ffffff;
+
+font-family: inherit;
+
+font-size: 14px;
+
+font-weight: 600;
+
+cursor: pointer;
+
+transition:
+    0.2s ease;
+
+}
+
+.login-btn:hover {
+
+background:
+    #1d4ed8;
+
+}
+
+.login-btn:disabled {
+
+opacity: 0.6;
+
+cursor: not-allowed;
+
+}
+
+/* =========================================================
+SECURITY NOTE
+========================================================= */
+
+.security-note {
+
+margin-top: 22px;
+
+padding: 15px;
+
+border-radius: 10px;
+
+background:
+    rgba(37,99,235,0.08);
+
+border:
+    1px solid rgba(37,99,235,0.20);
+
+}
+
+.security-note strong {
+
+display: block;
+
+margin-bottom: 5px;
+
+color:
+    #93c5fd;
+
+font-size: 13px;
+
+}
+
+.security-note p {
+
+margin: 0;
+
+color:
+    #9ca3af;
+
+font-size: 11px;
+
+line-height: 1.6;
+
+}
+
+/* =========================================================
+ADMIN SECTION
+========================================================= */
+
+.admin-section {
+
+width: 100%;
+
+}
+
+/* =========================================================
+PAGE TITLE
+========================================================= */
+
+.page-title {
+
+display: flex;
+
+align-items: center;
+
+justify-content: space-between;
+
+gap: 20px;
+
+margin-bottom: 20px;
+
+}
+
+.page-title h1 {
+
+margin:
+    0 0 5px;
+
+font-size: 29px;
+
+}
+
+.page-title p {
+
+margin: 0;
+
+color:
+    #94a3b8;
+
+font-size: 13px;
+
+line-height: 1.6;
+
+}
+
+.refresh-btn {
+
+flex-shrink: 0;
+
+min-height: 44px;
+
+padding:
+    0 17px;
+
+border: 0;
+
+border-radius: 9px;
+
+background:
+    #2563eb;
+
+color: #ffffff;
+
+font-family: inherit;
+
+font-weight: 600;
+
+cursor: pointer;
+
+transition:
+    0.2s ease;
+
+}
+
+.refresh-btn:hover {
+
+background:
+    #1d4ed8;
+
+}
+
+.refresh-btn:disabled {
+
+opacity: 0.6;
+
+cursor: not-allowed;
+
+}
+
+/* =========================================================
+STATUS
+========================================================= */
+
+.status {
+
+width: 100%;
+
+min-height: 0;
+
+margin:
+    0 0 18px;
+
+padding:
+    0;
+
+border-radius: 9px;
+
+font-size: 13px;
+
+line-height: 1.5;
+
+}
+
+.status:not(:empty) {
+
+padding:
+    12px 15px;
+
+}
+
+.status.success {
+
+color:
+    #bbf7d0;
+
+background:
+    rgba(22,163,74,0.12);
+
+border:
+    1px solid rgba(22,163,74,0.25);
+
+}
+
+.status.error {
+
+color:
+    #fecaca;
+
+background:
+    rgba(220,38,38,0.12);
+
+border:
+    1px solid rgba(220,38,38,0.25);
+
+}
+
+/* =========================================================
+STATISTICS
+========================================================= */
+
+.stats-grid {
+
+display: grid;
+
+grid-template-columns:
+    repeat(2, minmax(0, 1fr));
+
+gap: 15px;
+
+margin-bottom: 30px;
+
+}
+
+.stat-card {
+
+display: flex;
+
+align-items: center;
+
+gap: 14px;
+
+padding:
+    18px;
+
+border-radius:
+    14px;
+
+background:
+    rgba(255,255,255,0.05);
+
+border:
+    1px solid rgba(255,255,255,0.10);
+
+}
+
+.stat-icon {
+
+width: 46px;
+
+height: 46px;
+
+display: flex;
+
+align-items: center;
+
+justify-content: center;
+
+border-radius: 10px;
+
+background:
+    rgba(37,99,235,0.15);
+
+font-size: 21px;
+
+}
+
+.stat-card div:last-child {
+
+display: flex;
+
+flex-direction: column;
+
+}
+
+.stat-card span {
+
+font-size: 11px;
+
+color:
+    #94a3b8;
+
+}
+
+.stat-card strong {
+
+margin-top: 2px;
+
+font-size: 24px;
+
+color:
+    #ffffff;
+
+}
+
+/* =========================================================
+LIST HEADER
+========================================================= */
+
+.list-header {
+
+display: flex;
+
+align-items: flex-end;
+
+justify-content: space-between;
+
+gap: 20px;
+
+margin-bottom: 15px;
+
+}
+
+.list-header h2 {
+
+margin:
+    0 0 5px;
+
+font-size: 21px;
+
+}
+
+.list-header p {
+
+margin: 0;
+
+color:
+    #94a3b8;
+
+font-size: 12px;
+
+}
+
+#lastUpdated {
+
+color:
+    #64748b;
+
+font-size: 11px;
+
+text-align: right;
+
+}
+
+/* =========================================================
+PURCHASE LIST
+========================================================= */
+
+.purchase-list {
+
+display: flex;
+
+flex-direction: column;
+
+gap: 16px;
+
+}
+
+/* =========================================================
+PURCHASE CARD
+========================================================= */
+
+.purchase-card {
+
+padding:
+    20px;
+
+border-radius:
+    15px;
+
+background:
+    rgba(255,255,255,0.055);
+
+border:
+    1px solid rgba(255,255,255,0.11);
+
+box-shadow:
+    0 10px 30px rgba(0,0,0,0.18);
+
+}
+
+.purchase-card-header {
+
+display: flex;
+
+align-items: center;
+
+justify-content: space-between;
+
+gap: 15px;
+
+padding-bottom:
+    15px;
+
+margin-bottom:
+    15px;
+
+border-bottom:
+    1px solid rgba(255,255,255,0.08);
+
+}
+
+.purchase-label {
+
+display: block;
+
+margin-bottom: 3px;
+
+color:
+    #64748b;
+
+font-size: 10px;
+
+text-transform:
+    uppercase;
+
+letter-spacing:
+    0.7px;
+
+}
+
+.purchase-id {
+
+color:
+    #ffffff;
+
+font-size: 15px;
+
+word-break:
+    break-word;
+
+}
+
+/* =========================================================
+STATUS BADGE
+========================================================= */
+
+.status-badge {
+
+display: inline-flex;
+
+align-items: center;
+
+justify-content: center;
+
+padding:
+    5px 10px;
+
+border-radius:
+    20px;
+
+font-size: 10px;
+
+font-weight: 700;
+
+white-space:
+    nowrap;
+
+}
+
+.status-badge.pending {
+
+color:
+    #fde68a;
+
+background:
+    rgba(234,179,8,0.15);
+
+border:
+    1px solid rgba(234,179,8,0.25);
+
+}
+
+.status-badge.paid {
+
+color:
+    #bbf7d0;
+
+background:
+    rgba(22,163,74,0.15);
+
+border:
+    1px solid rgba(22,163,74,0.25);
+
+}
+
+.status-badge.rejected {
+
+color:
+    #fecaca;
+
+background:
+    rgba(220,38,38,0.15);
+
+border:
+    1px solid rgba(220,38,38,0.25);
+
+}
+
+/* =========================================================
+PURCHASE DETAILS
+========================================================= */
+
+.purchase-details {
+
+display: flex;
+
+flex-direction: column;
+
+gap: 10px;
+
+}
+
+.detail-row {
+
+display: grid;
+
+grid-template-columns:
+    150px minmax(0, 1fr);
+
+gap: 15px;
+
+align-items: center;
+
+}
+
+.detail-label {
+
+color:
+    #64748b;
+
+font-size: 11px;
+
+}
+
+.detail-value {
+
+color:
+    #e5e7eb;
+
+font-size: 13px;
+
+word-break:
+    break-word;
+
+}
+
+.amount-row .detail-value {
+
+color:
+    #86efac;
+
+font-size: 17px;
+
+}
+
+.reference-row {
+
+margin-top: 5px;
+
+padding:
+    12px;
+
+border-radius:
+    9px;
+
+background:
+    rgba(234,179,8,0.06);
+
+border:
+    1px solid rgba(234,179,8,0.15);
+
+}
+
+.reference-number {
+
+color:
+    #fde68a;
+
+font-size: 16px;
+
+letter-spacing:
+    0.7px;
+
+word-break:
+    break-all;
+
+}
+
+/* =========================================================
+VERIFICATION BOX
+========================================================= */
+
+.verification-box {
+
+margin-top: 18px;
+
+padding:
+    15px;
+
+border-radius:
+    10px;
+
+background:
+    rgba(245,158,11,0.08);
+
+border:
+    1px solid rgba(245,158,11,0.20);
+
+}
+
+.verification-box strong {
+
+color:
+    #fcd34d;
+
+font-size: 13px;
+
+}
+
+.verification-box p {
+
+margin:
+    6px 0 0;
+
+color:
+    #cbd5e1;
+
+font-size: 11px;
+
+line-height:
+    1.6;
+
+}
+
+/* =========================================================
+ACTIONS
+========================================================= */
+
+.purchase-actions {
+
+display: flex;
+
+gap: 10px;
+
+margin-top: 18px;
+
+}
+
+.purchase-actions button {
+
+min-height: 44px;
+
+padding:
+    0 17px;
+
+border: 0;
+
+border-radius: 8px;
+
+font-family: inherit;
+
+font-size: 13px;
+
+font-weight: 600;
+
+cursor: pointer;
+
+transition:
+    0.2s ease;
+
+}
+
+.approve-btn {
+
+flex: 1;
+
+background:
+    #16a34a;
+
+color:
+    #ffffff;
+
+}
+
+.approve-btn:hover {
+
+background:
+    #15803d;
+
+}
+
+.reject-btn {
+
+min-width: 110px;
+
+background:
+    #dc2626;
+
+color:
+    #ffffff;
+
+}
+
+.reject-btn:hover {
+
+background:
+    #b91c1c;
+
+}
+
+.purchase-actions button:disabled {
+
+opacity: 0.55;
+
+cursor: not-allowed;
+
+}
+
+/* =========================================================
+EMPTY STATE
+========================================================= */
+
+.empty-state {
+
+text-align: center;
+
+padding:
+    55px 20px;
+
+border-radius:
+    15px;
+
+background:
+    rgba(255,255,255,0.04);
+
+border:
+    1px dashed rgba(255,255,255,0.12);
+
+}
+
+.empty-icon {
+
+width: 55px;
+
+height: 55px;
+
+margin:
+    0 auto 15px;
+
+display: flex;
+
+align-items: center;
+
+justify-content: center;
+
+border-radius:
+    50%;
+
+background:
+    rgba(22,163,74,0.14);
+
+color:
+    #4ade80;
+
+font-size: 25px;
+
+}
+
+.empty-state h3 {
+
+margin:
+    0 0 7px;
+
+font-size: 18px;
+
+}
+
+.empty-state p {
+
+margin: 0;
+
+color:
+    #64748b;
+
+font-size: 12px;
+
+}
+
+/* =========================================================
+FOOTER
+========================================================= */
+
+.admin-footer {
+
+padding:
+    25px 20px;
+
+text-align: center;
+
+border-top:
+    1px solid rgba(255,255,255,0.08);
+
+color:
+    #64748b;
+
+font-size: 11px;
+
+}
+
+.admin-footer p {
+
+margin: 0;
+
+}
+
+/* =========================================================
+RESPONSIVE
+========================================================= */
+
+@media (max-width: 700px) {
+
+.admin-header {
+
+    padding:
+        10px 15px;
+
+}
+
+
+.header-admin {
+
+    gap: 8px;
+
+}
+
+
+.header-admin > span {
+
+    max-width: 130px;
+
+    overflow: hidden;
+
+    text-overflow: ellipsis;
+
+    white-space: nowrap;
+
+}
+
+
+.admin-main {
+
+    padding:
+        30px 14px 55px;
+
+}
+
+
+.page-title {
+
+    align-items:
+        flex-start;
+
+    flex-direction:
+        column;
+
+}
+
+
+.refresh-btn {
+
+    width: 100%;
+
+}
+
+
+.stats-grid {
+
+    grid-template-columns:
+        1fr;
+
+}
+
+
+.list-header {
+
+    align-items:
+        flex-start;
+
+    flex-direction:
+        column;
+
+}
+
+
+#lastUpdated {
+
+    text-align:
+        left;
+
+}
+
+
+.detail-row {
+
+    grid-template-columns:
+        1fr;
+
+    gap: 3px;
+
+}
+
+
+.purchase-actions {
+
+    flex-direction:
+        column;
+
+}
+
+
+.approve-btn,
+.reject-btn {
+
+    width: 100%;
+
+}
+
+
+.purchase-card {
+
+    padding:
+        16px;
+
+}
+
+}
+
+@media (max-width: 450px) {
+
+.header-brand span {
+
+    display: none;
+
+}
+
+
+.header-brand strong {
+
+    font-size: 16px;
+
+}
+
+
+.login-card {
+
+    padding:
+        25px 18px;
+
+}
+
+
+.purchase-card-header {
+
+    align-items:
+        flex-start;
+
+    flex-direction:
+        column;
+
+}
+
+}
