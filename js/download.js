@@ -1,51 +1,9 @@
-/* =========================================================
-   LINKTECH DOWNLOAD SYSTEM
-   COMPUTER INVENTORY / SOFTWARE DOWNLOAD
-   SYNCHRONIZED WITH GOOGLE APPS SCRIPT PURCHASE SYSTEM
-========================================================= */
-
-
-/* =========================================================
-   GOOGLE APPS SCRIPT WEB APP URL
-========================================================= */
-
-/*
- * IMPORTANT:
- *
- * Replace this with your deployed Code.gs Web App /exec URL.
- *
- * Example:
- *
- * https://script.google.com/macros/s/XXXXXXXXXXXX/exec
- */
-
 const API_URL =
     "https://script.google.com/macros/s/AKfycbz0h8I56PglGhib3u9X6EjL84hEtPdpk33fuM3mFIJ3NtVAA6kj0iW-omKiv3k465iP/exec";
-
-
-/* =========================================================
-   PAYMENT PAGE
-========================================================= */
-
-/*
- * Paid applications are sent to the payment page.
- *
- * Do NOT put the Pro APK Google Drive URL here.
- */
 
 const PAYMENT_PAGE =
     "computer-inventory-pro-payment.html";
 
-
-/* =========================================================
-   FREE DOWNLOAD FILES
-========================================================= */
-
-/*
- * ONLY FREE APPLICATIONS belong here.
- *
- * Paid APK URLs MUST NOT be placed here.
- */
 
 const downloadFiles = {
 
