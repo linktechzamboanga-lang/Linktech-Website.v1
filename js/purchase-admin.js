@@ -1,5 +1,5 @@
 const API_URL =
-"YOUR_GOOGLE_APPS_SCRIPT_WEB_APP_URL";
+"https://script.google.com/macros/s/AKfycbz0h8I56PglGhib3u9X6EjL84hEtPdpk33fuM3mFIJ3NtVAA6kj0iW-omKiv3k465iP/exec";
 
 /* =========================================================
 ADMIN CONFIGURATION
