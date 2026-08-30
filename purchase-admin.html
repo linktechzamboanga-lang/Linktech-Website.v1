@@ -1,0 +1,309 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport"
+content="width=device-width, initial-scale=1.0">
+
+<meta name="theme-color"
+content="#050a19">
+
+<meta name="description"
+content="LinkTech Purchase Administration">
+
+<title>
+    LinkTech Purchase Administration
+</title><link rel="icon"
+      href="images/LinkTech-logo.png"><link rel="stylesheet"
+      href="css/purchase-admin.css"><link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"></head><body><!-- =====================================================
+     PAGE HEADER
+===================================================== --><header class="admin-header"><div class="header-brand">
+
+    <img
+        src="images/LinkTech-logo.png"
+        alt="LinkTech Logo">
+
+    <div>
+
+        <strong>
+            LinkTech
+        </strong>
+
+        <span>
+            Purchase Administration
+        </span>
+
+    </div>
+
+</div>
+
+
+<div class="header-admin">
+
+    <span id="loggedAdminEmail">
+        Administrator
+    </span>
+
+<button
+    type="button"
+    id="logoutButton"
+    class="logout-btn">
+    🚪 Logout
+</button>
+
+</div>
+
+</header><!-- =====================================================
+     MAIN
+===================================================== --><main class="admin-main"><!-- =====================================================
+     LOGIN SECTION
+===================================================== --><section
+    id="loginSection"
+    class="login-section"><div class="login-card">
+
+
+    <div class="login-logo">
+
+        <img
+            src="images/LinkTech-logo.png"
+            alt="LinkTech">
+
+    </div>
+
+
+    <h1>
+        Purchase Administration
+    </h1>
+
+
+    <p class="login-description">
+
+        Administrator access for reviewing
+        customer GCash purchases.
+
+    </p>
+
+
+    <form
+        id="adminLoginForm"
+        autocomplete="off">
+
+
+        <label for="adminEmail">
+            Administrator Email
+        </label>
+
+
+        <input
+            type="email"
+            id="adminEmail"
+            name="adminEmail"
+            placeholder="Enter administrator email"
+            autocomplete="email"
+            required>
+
+
+        <button
+            type="submit"
+            class="login-btn">
+
+            Administrator Login
+
+        </button>
+
+
+    </form>
+
+
+    <div
+        id="loginStatus"
+        class="status"
+        role="status"
+        aria-live="polite">
+
+    </div>
+
+
+    <div class="security-note">
+
+        <strong>
+            Administrator Verification
+        </strong>
+
+        <p>
+            Only the configured LinkTech administrator
+            email can access purchase administration.
+        </p>
+
+    </div>
+
+
+</div>
+
+</section><!-- =====================================================
+     ADMIN SECTION
+===================================================== --><section
+    id="adminSection"
+    class="admin-section"
+    style="display:none;"><!-- =================================================
+     ADMIN TITLE
+================================================= -->
+
+<div class="page-title">
+
+    <div>
+
+        <h1>
+            Purchase Management
+        </h1>
+
+        <p>
+            Review and verify customer payments
+            before approving application downloads.
+        </p>
+
+    </div>
+
+
+    <button
+        type="button"
+        id="refreshButton"
+        class="refresh-btn">
+
+        🔄 Refresh Purchases
+
+    </button>
+
+</div>
+
+
+
+<!-- =================================================
+     STATUS
+================================================= -->
+
+<div
+    id="adminStatus"
+    class="status"
+    role="status"
+    aria-live="polite">
+
+</div>
+
+
+
+<!-- =================================================
+     STATISTICS
+================================================= -->
+
+<div class="stats-grid">
+
+
+    <div class="stat-card">
+
+        <div class="stat-icon">
+            ⏳
+        </div>
+
+        <div>
+
+            <span>
+                Pending Purchases
+            </span>
+
+            <strong id="pendingCount">
+                0
+            </strong>
+
+        </div>
+
+    </div>
+
+
+    <div class="stat-card">
+
+        <div class="stat-icon">
+            📋
+        </div>
+
+        <div>
+
+            <span>
+                Displayed
+            </span>
+
+            <strong id="displayedCount">
+                0
+            </strong>
+
+        </div>
+
+    </div>
+
+
+</div>
+
+
+
+<!-- =================================================
+     PURCHASE LIST HEADER
+================================================= -->
+
+<div class="list-header">
+
+    <div>
+
+        <h2>
+            Pending Purchases
+        </h2>
+
+        <p>
+            Verify the customer's GCash transaction
+            in your actual GCash account.
+        </p>
+
+    </div>
+
+
+    <span id="lastUpdated">
+        Last updated: —
+    </span>
+
+</div>
+
+
+
+<!-- =================================================
+     PURCHASE LIST
+================================================= -->
+
+<div
+    id="purchaseList"
+    class="purchase-list">
+
+
+    <div class="empty-state">
+
+        <div class="empty-icon">
+            ✓
+        </div>
+
+        <h3>
+            No Pending Purchases
+        </h3>
+
+        <p>
+            There are currently no pending
+            customer payments.
+        </p>
+
+    </div>
+
+
+</div>
+
+</section></main><!-- =====================================================
+     FOOTER
+===================================================== --><footer class="admin-footer"><p>
+    © 2026 LinkTech Freelance IT Specialist Zamboanga
+    | All Rights Reserved
+</p>
+
+</footer><script src="js/purchase-admin.js"></script></body></html>
