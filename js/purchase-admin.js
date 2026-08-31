@@ -1,578 +1,994 @@
-const API_URL =
-"https://script.google.com/macros/s/AKfycbz0h8I56PglGhib3u9X6EjL84hEtPdpk33fuM3mFIJ3NtVAA6kj0iW-omKiv3k465iP/exec";
-
-/* =========================================================
-ADMIN CONFIGURATION
-========================================================= */
+const PURCHASE_API_URL =
+    "YOUR_GOOGLE_APPS_SCRIPT_WEB_APP_URL";
 
 const ADMIN_EMAIL =
-"linktechzamboanga@gmail.com";
+    "linktechzamboanga@gmail.com";
+
+
+const ADMIN_PASSWORD =
+    "CHANGE_THIS_PASSWORD";
+
+
+const DOWNLOAD_PAGE =
+    "download.html";
+
+
+const SESSION_KEY =
+    "linktech_purchase_admin_session";
+
+
+const state = {
+
+    loggedIn: false,
+
+    adminEmail: "",
+
+    pendingPurchases: [],
+
+    selectedPurchase: null,
+
+    verificationPurchase: null,
+
+    loading: false
+
+};
+
+
+/*
+ * Confirmation callback.
+ */
+
+let confirmCallback = null;
+
+
+/*
+ * Toast timer.
+ */
+
+let toastTimer = null;
+
 
 /* =========================================================
-STORAGE
+   DOM HELPER
 ========================================================= */
 
-const ADMIN_EMAIL_STORAGE =
-"linktech_purchase_admin_email";
+function $(id) {
 
-const ADMIN_LOGIN_STORAGE =
-"linktech_purchase_admin_logged_in";
+    return document.getElementById(id);
 
-/* =========================================================
-STATUS VALUES
-========================================================= */
+}
 
-const STATUS_PENDING =
-"PENDING";
-
-const STATUS_PAID =
-"PAID";
-
-const STATUS_REJECTED =
-"REJECTED";
 
 /* =========================================================
-ELEMENTS
-========================================================= */
-
-let loginSection;
-
-let adminSection;
-
-let adminLoginForm;
-
-let adminEmailInput;
-
-let loginStatus;
-
-let adminStatus;
-
-let loggedAdminEmail;
-
-let refreshButton;
-
-let logoutButton;
-
-let purchaseList;
-
-let pendingCount;
-
-let displayedCount;
-
-let lastUpdated;
-
-/* =========================================================
-INITIALIZATION
+   INITIALIZATION
 ========================================================= */
 
 document.addEventListener(
-"DOMContentLoaded",
-function () {
-
-    initializeElements();
-
-    initializeAdmin();
-
-}
-
+    "DOMContentLoaded",
+    initialize
 );
 
-/* =========================================================
-INITIALIZE ELEMENTS
-========================================================= */
 
-function initializeElements() {
+function initialize() {
 
-loginSection =
-    document.getElementById(
-        "loginSection"
-    );
+    bindEvents();
 
-
-adminSection =
-    document.getElementById(
-        "adminSection"
-    );
-
-
-adminLoginForm =
-    document.getElementById(
-        "adminLoginForm"
-    );
-
-
-adminEmailInput =
-    document.getElementById(
-        "adminEmail"
-    );
-
-
-loginStatus =
-    document.getElementById(
-        "loginStatus"
-    );
-
-
-adminStatus =
-    document.getElementById(
-        "adminStatus"
-    );
-
-
-loggedAdminEmail =
-    document.getElementById(
-        "loggedAdminEmail"
-    );
-
-
-refreshButton =
-    document.getElementById(
-        "refreshButton"
-    );
-
-
-logoutButton =
-    document.getElementById(
-        "logoutButton"
-    );
-
-
-purchaseList =
-    document.getElementById(
-        "purchaseList"
-    );
-
-
-pendingCount =
-    document.getElementById(
-        "pendingCount"
-    );
-
-
-displayedCount =
-    document.getElementById(
-        "displayedCount"
-    );
-
-
-lastUpdated =
-    document.getElementById(
-        "lastUpdated"
-    );
-
-}
-
-/* =========================================================
-INITIALIZE ADMIN
-========================================================= */
-
-function initializeAdmin() {
-
-/*
- * Check API URL.
- */
-
-if (
-    API_URL ===
-    "YOUR_GOOGLE_APPS_SCRIPT_WEB_APP_URL"
-) {
-
-    console.warn(
-        "API_URL has not been configured."
-    );
+    restoreSession();
 
 }
 
 
-/*
- * Check local administrator session.
- */
+/* =========================================================
+   EVENT BINDING
+========================================================= */
 
-try {
+function bindEvents() {
 
-    const savedLoggedIn =
-        localStorage.getItem(
-            ADMIN_LOGIN_STORAGE
+
+    /* ================================================
+       LOGIN
+    ================================================= */
+
+    $("loginForm")
+        .addEventListener(
+            "submit",
+            handleLogin
         );
 
 
-    const savedEmail =
-        localStorage.getItem(
-            ADMIN_EMAIL_STORAGE
+    $("togglePassword")
+        .addEventListener(
+            "click",
+            togglePassword
         );
 
 
-    if (
-        savedLoggedIn === "true" &&
-        savedEmail
-    ) {
+    $("loginBackButton")
+        .addEventListener(
+            "click",
+            returnToDownload
+        );
 
-        if (
-            savedEmail
-                .toLowerCase() ===
-            ADMIN_EMAIL
-                .toLowerCase()
-        ) {
 
-            showAdminDashboard(
-                savedEmail
+    /* ================================================
+       LOGOUT
+    ================================================= */
+
+    $("logoutButton")
+        .addEventListener(
+            "click",
+            logout
+        );
+
+
+    $("sidebarDownloadButton")
+        .addEventListener(
+            "click",
+            returnToDownload
+        );
+
+
+    /* ================================================
+       MOBILE MENU
+    ================================================= */
+
+    $("mobileMenuButton")
+        .addEventListener(
+            "click",
+            toggleSidebar
+        );
+
+
+    /* ================================================
+       NAVIGATION
+    ================================================= */
+
+    document
+        .querySelectorAll(".nav-item")
+        .forEach(
+            function(button) {
+
+                button.addEventListener(
+                    "click",
+                    function() {
+
+                        showSection(
+                            button.dataset.section
+                        );
+
+                    }
+                );
+
+            }
+        );
+
+
+    /* ================================================
+       REFRESH
+    ================================================= */
+
+    $("dashboardRefreshButton")
+        .addEventListener(
+            "click",
+            loadPendingPurchases
+        );
+
+
+    $("pendingRefreshButton")
+        .addEventListener(
+            "click",
+            loadPendingPurchases
+        );
+
+
+    $("viewPendingButton")
+        .addEventListener(
+            "click",
+            function() {
+
+                showSection(
+                    "pendingSection"
+                );
+
+            }
+        );
+
+
+    /* ================================================
+       SEARCH
+    ================================================= */
+
+    $("purchaseSearch")
+        .addEventListener(
+            "input",
+            renderPendingPurchases
+        );
+
+
+    $("productFilter")
+        .addEventListener(
+            "change",
+            renderPendingPurchases
+        );
+
+
+    /* ================================================
+       VERIFICATION
+    ================================================= */
+
+    $("verificationForm")
+        .addEventListener(
+            "submit",
+            handleVerification
+        );
+
+
+    $("verificationApproveButton")
+        .addEventListener(
+            "click",
+            function() {
+
+                if (
+                    state.verificationPurchase
+                ) {
+
+                    requestApproval(
+                        state.verificationPurchase
+                    );
+
+                }
+
+            }
+        );
+
+
+    $("verificationRejectButton")
+        .addEventListener(
+            "click",
+            function() {
+
+                if (
+                    state.verificationPurchase
+                ) {
+
+                    requestRejection(
+                        state.verificationPurchase
+                    );
+
+                }
+
+            }
+        );
+
+
+    /* ================================================
+       PURCHASE MODAL
+    ================================================= */
+
+    $("closeModalButton")
+        .addEventListener(
+            "click",
+            closePurchaseModal
+        );
+
+
+    $("modalOverlay")
+        .addEventListener(
+            "click",
+            closePurchaseModal
+        );
+
+
+    $("modalApproveButton")
+        .addEventListener(
+            "click",
+            function() {
+
+                if (
+                    state.selectedPurchase
+                ) {
+
+                    requestApproval(
+                        state.selectedPurchase
+                    );
+
+                }
+
+            }
+        );
+
+
+    $("modalRejectButton")
+        .addEventListener(
+            "click",
+            function() {
+
+                if (
+                    state.selectedPurchase
+                ) {
+
+                    requestRejection(
+                        state.selectedPurchase
+                    );
+
+                }
+
+            }
+        );
+
+
+    /* ================================================
+       CONFIRM MODAL
+    ================================================= */
+
+    $("cancelConfirmButton")
+        .addEventListener(
+            "click",
+            closeConfirmModal
+        );
+
+
+    $("confirmActionButton")
+        .addEventListener(
+            "click",
+            executeConfirmation
+        );
+
+
+    /* ================================================
+       ESC KEY
+    ================================================= */
+
+    document.addEventListener(
+        "keydown",
+        function(event) {
+
+            if (
+                event.key === "Escape"
+            ) {
+
+                closePurchaseModal();
+
+                closeConfirmModal();
+
+                closeSidebar();
+
+            }
+
+        }
+    );
+
+}
+
+
+/* =========================================================
+   SESSION
+========================================================= */
+
+function createSession(email) {
+
+    const session = {
+
+        email: email,
+
+        loggedAt:
+            Date.now()
+
+    };
+
+
+    sessionStorage.setItem(
+        SESSION_KEY,
+        JSON.stringify(session)
+    );
+
+}
+
+
+function restoreSession() {
+
+    try {
+
+        const saved =
+            sessionStorage.getItem(
+                SESSION_KEY
             );
 
 
-            loadPendingPurchases();
+        if (!saved) {
+
+            showLogin();
 
             return;
 
         }
 
 
-        clearAdminSession();
+        const session =
+            JSON.parse(saved);
+
+
+        if (
+            !session ||
+            session.email !== ADMIN_EMAIL
+        ) {
+
+            clearSession();
+
+            showLogin();
+
+            return;
+
+        }
+
+
+        state.loggedIn = true;
+
+        state.adminEmail =
+            session.email;
+
+
+        showAdmin();
+
+        loadPendingPurchases();
+
+        testAPI();
+
+    }
+
+    catch (error) {
+
+        clearSession();
+
+        showLogin();
 
     }
 
 }
 
-catch (error) {
-
-    console.warn(
-        "Unable to read administrator session.",
-        error
-    );
-
-}
-
-
-showLogin();
-
-}
 
 /* =========================================================
-LOGIN
+   LOGIN
 ========================================================= */
 
-if (adminLoginForm) {
+async function handleLogin(event) {
 
-adminLoginForm.addEventListener(
-    "submit",
-    function (event) {
-
-        event.preventDefault();
+    event.preventDefault();
 
 
-        const email =
-            adminEmailInput
-                ? adminEmailInput.value
-                    .trim()
-                    .toLowerCase()
-                : "";
+    const email =
+        $("adminEmail")
+            .value
+            .trim()
+            .toLowerCase();
 
 
-        if (!email) {
+    const password =
+        $("adminPassword")
+            .value;
 
-            showLoginStatus(
-                "Please enter the administrator email.",
-                "error"
+
+    clearMessage(
+        $("loginMessage")
+    );
+
+
+    if (!email) {
+
+        showMessage(
+            $("loginMessage"),
+            "Please enter the administrator email.",
+            "error"
+        );
+
+        return;
+
+    }
+
+
+    if (
+        email !==
+        ADMIN_EMAIL.toLowerCase()
+    ) {
+
+        showMessage(
+            $("loginMessage"),
+            "Unauthorized administrator email.",
+            "error"
+        );
+
+        return;
+
+    }
+
+
+    if (!password) {
+
+        showMessage(
+            $("loginMessage"),
+            "Please enter the administrator password.",
+            "error"
+        );
+
+        return;
+
+    }
+
+
+    /*
+     * CLIENT-SIDE PASSWORD CHECK
+     *
+     * This works only against ADMIN_PASSWORD above.
+     */
+
+    if (
+        password !==
+        ADMIN_PASSWORD
+    ) {
+
+        showMessage(
+            $("loginMessage"),
+            "Incorrect administrator password.",
+            "error"
+        );
+
+        $("adminPassword").value = "";
+
+        return;
+
+    }
+
+
+    setLoginLoading(true);
+
+
+    /*
+     * Verify that the existing Code.gs deployment
+     * is reachable before allowing the admin interface
+     * to open.
+     */
+
+    try {
+
+        const result =
+            await apiRequest(
+                "test"
             );
-
-            return;
-
-        }
 
 
         if (
-            !isValidEmail(email)
+            !result ||
+            result.success !== true
         ) {
 
-            showLoginStatus(
-                "Please enter a valid email address.",
-                "error"
-            );
-
-            return;
-
-        }
-
-
-        /*
-         * First client-side administrator check.
-         */
-
-        if (
-            email !==
-            ADMIN_EMAIL.toLowerCase()
-        ) {
-
-            showLoginStatus(
-                "Unauthorized administrator email.",
-                "error"
-            );
-
-            return;
-
-        }
-
-
-        /*
-         * Save local session.
-         */
-
-        try {
-
-            localStorage.setItem(
-                ADMIN_EMAIL_STORAGE,
-                email
-            );
-
-
-            localStorage.setItem(
-                ADMIN_LOGIN_STORAGE,
-                "true"
-            );
-
-        }
-
-        catch (error) {
-
-            console.warn(
-                "Unable to save administrator session.",
-                error
+            throw new Error(
+                result &&
+                result.message
+                    ? result.message
+                    : "Purchase API verification failed."
             );
 
         }
 
 
-        showLoginStatus(
-            "Administrator verified. Loading purchases...",
-            "success"
+        state.loggedIn = true;
+
+        state.adminEmail =
+            ADMIN_EMAIL;
+
+
+        createSession(
+            ADMIN_EMAIL
         );
 
 
-        showAdminDashboard(
-            email
+        $("adminPassword").value = "";
+
+
+        showAdmin();
+
+
+        showToast(
+            "Administrator login successful.",
+            "success"
         );
 
 
         loadPendingPurchases();
 
     }
-);
+
+    catch (error) {
+
+        showMessage(
+            $("loginMessage"),
+            "Unable to connect to Purchase API. " +
+            getErrorMessage(error),
+            "error"
+        );
+
+    }
+
+    finally {
+
+        setLoginLoading(false);
+
+    }
 
 }
 
+
 /* =========================================================
-SHOW LOGIN
+   LOGOUT
+========================================================= */
+
+function logout() {
+
+    state.loggedIn = false;
+
+    state.adminEmail = "";
+
+    state.pendingPurchases = [];
+
+    state.selectedPurchase = null;
+
+    state.verificationPurchase = null;
+
+
+    clearSession();
+
+
+    showToast(
+        "Administrator logged out.",
+        "success"
+    );
+
+
+    /*
+     * Small delay lets the user see the logout message.
+     */
+
+    setTimeout(
+        returnToDownload,
+        350
+    );
+
+}
+
+
+/* =========================================================
+   CLEAR SESSION
+========================================================= */
+
+function clearSession() {
+
+    try {
+
+        sessionStorage.removeItem(
+            SESSION_KEY
+        );
+
+    }
+
+    catch (error) {
+
+        console.warn(
+            "Session cleanup failed.",
+            error
+        );
+
+    }
+
+}
+
+
+/* =========================================================
+   RETURN TO DOWNLOAD PAGE
+========================================================= */
+
+function returnToDownload() {
+
+    window.location.href =
+        DOWNLOAD_PAGE;
+
+}
+
+
+/* =========================================================
+   SHOW LOGIN
 ========================================================= */
 
 function showLogin() {
 
-if (loginSection) {
-
-    loginSection.style.display =
-        "block";
-
-}
+    $("loginScreen")
+        .classList
+        .remove("hidden");
 
 
-if (adminSection) {
-
-    adminSection.style.display =
-        "none";
+    $("adminScreen")
+        .classList
+        .add("hidden");
 
 }
 
-}
 
 /* =========================================================
-SHOW ADMIN DASHBOARD
+   SHOW ADMIN
 ========================================================= */
 
-function showAdminDashboard(
-email
-) {
+function showAdmin() {
 
-if (loginSection) {
-
-    loginSection.style.display =
-        "none";
-
-}
+    $("loginScreen")
+        .classList
+        .add("hidden");
 
 
-if (adminSection) {
-
-    adminSection.style.display =
-        "block";
-
-}
+    $("adminScreen")
+        .classList
+        .remove("hidden");
 
 
-if (loggedAdminEmail) {
-
-    loggedAdminEmail.textContent =
-        email;
+    $("loggedAdminEmail")
+        .textContent =
+        state.adminEmail;
 
 }
 
-}
 
 /* =========================================================
-LOGOUT
+   PASSWORD TOGGLE
 ========================================================= */
 
-if (logoutButton) {
+function togglePassword() {
 
-logoutButton.addEventListener(
-    "click",
-    function () {
-
-        clearAdminSession();
-
-        showLogin();
+    const input =
+        $("adminPassword");
 
 
-        if (adminEmailInput) {
-
-            adminEmailInput.value =
-                "";
-
-        }
+    const button =
+        $("togglePassword");
 
 
-        showLoginStatus(
-            "You have been logged out.",
-            "success"
+    if (
+        input.type ===
+        "password"
+    ) {
+
+        input.type =
+            "text";
+
+        button.textContent =
+            "Hide";
+
+        button.setAttribute(
+            "aria-label",
+            "Hide password"
         );
 
     }
-);
 
-}
+    else {
 
-/* =========================================================
-CLEAR ADMIN SESSION
-========================================================= */
+        input.type =
+            "password";
 
-function clearAdminSession() {
+        button.textContent =
+            "Show";
 
-try {
-
-    localStorage.removeItem(
-        ADMIN_EMAIL_STORAGE
-    );
-
-
-    localStorage.removeItem(
-        ADMIN_LOGIN_STORAGE
-    );
-
-}
-
-catch (error) {
-
-    console.warn(
-        "Unable to clear administrator session.",
-        error
-    );
-
-}
-
-}
-
-/* =========================================================
-REFRESH
-========================================================= */
-
-if (refreshButton) {
-
-refreshButton.addEventListener(
-    "click",
-    function () {
-
-        loadPendingPurchases();
+        button.setAttribute(
+            "aria-label",
+            "Show password"
+        );
 
     }
-);
 
 }
+
 
 /* =========================================================
-LOAD PENDING PURCHASES
+   LOGIN LOADING
 ========================================================= */
 
-async function loadPendingPurchases() {
+function setLoginLoading(loading) {
 
-const adminEmail =
-    getLoggedAdminEmail();
+    $("loginButton")
+        .disabled =
+        loading;
 
 
-if (!adminEmail) {
+    $("loginButtonText")
+        .textContent =
+        loading
+            ? "Verifying..."
+            : "Sign In";
 
-    showLogin();
 
-    showLoginStatus(
-        "Please sign in as administrator.",
-        "error"
-    );
-
-    return;
+    $("loginSpinner")
+        .classList
+        .toggle(
+            "hidden",
+            !loading
+        );
 
 }
 
 
-if (
-    API_URL ===
-    "YOUR_GOOGLE_APPS_SCRIPT_WEB_APP_URL"
+/* =========================================================
+   NAVIGATION
+========================================================= */
+
+function showSection(sectionId) {
+
+    if (!state.loggedIn) {
+
+        showLogin();
+
+        return;
+
+    }
+
+
+    document
+        .querySelectorAll(".content-section")
+        .forEach(
+            function(section) {
+
+                section.classList.remove(
+                    "active"
+                );
+
+            }
+        );
+
+
+    const section =
+        $(sectionId);
+
+
+    if (section) {
+
+        section.classList.add(
+            "active"
+        );
+
+    }
+
+
+    document
+        .querySelectorAll(".nav-item")
+        .forEach(
+            function(button) {
+
+                button.classList.toggle(
+                    "active",
+                    button.dataset.section ===
+                    sectionId
+                );
+
+            }
+        );
+
+
+    closeSidebar();
+
+}
+
+
+/* =========================================================
+   SIDEBAR
+========================================================= */
+
+function toggleSidebar() {
+
+    $("sidebar")
+        .classList
+        .toggle("open");
+
+}
+
+
+function closeSidebar() {
+
+    $("sidebar")
+        .classList
+        .remove("open");
+
+}
+
+
+/* =========================================================
+   API REQUEST
+========================================================= */
+
+async function apiRequest(
+    action,
+    parameters = {}
 ) {
 
-    showAdminStatus(
-        "Google Apps Script API URL is not configured.",
-        "error"
+    if (
+        !PURCHASE_API_URL ||
+        PURCHASE_API_URL.includes(
+            "YOUR_GOOGLE_APPS_SCRIPT"
+        )
+    ) {
+
+        throw new Error(
+            "Google Apps Script Web App URL has not been configured."
+        );
+
+    }
+
+
+    const query =
+        new URLSearchParams();
+
+
+    query.append(
+        "action",
+        action
     );
-
-    return;
-
-}
-
-
-setRefreshLoading(
-    true
-);
-
-
-showAdminStatus(
-    "Loading pending purchases...",
-    "success"
-);
-
-
-try {
 
 
     /*
-     * Code.gs:
-     *
-     * case "getPendingPurchases":
-     *     return getPendingPurchases(e);
+     * Existing Code.gs expects adminEmail
+     * for administrator actions.
      */
 
-    const url =
-        API_URL +
-        "?action=getPendingPurchases" +
-        "&adminEmail=" +
-        encodeURIComponent(
-            adminEmail
+    if (
+        action ===
+            "getPendingPurchases" ||
+        action ===
+            "approveProPurchase" ||
+        action ===
+            "rejectProPurchase"
+    ) {
+
+        query.append(
+            "adminEmail",
+            state.adminEmail ||
+            ADMIN_EMAIL
+        );
+
+    }
+
+
+    Object.keys(parameters)
+        .forEach(
+            function(key) {
+
+                const value =
+                    parameters[key];
+
+
+                if (
+                    value !== undefined &&
+                    value !== null
+                ) {
+
+                    query.append(
+                        key,
+                        String(value)
+                    );
+
+                }
+
+            }
         );
 
 
     const response =
         await fetch(
-            url,
+            PURCHASE_API_URL +
+            "?" +
+            query.toString(),
             {
-                method:
-                    "GET",
 
-                cache:
-                    "no-store"
+                method: "GET",
+
+                cache: "no-store",
+
+                redirect: "follow"
+
             }
         );
 
@@ -580,77 +996,496 @@ try {
     if (!response.ok) {
 
         throw new Error(
-            "Server returned HTTP " +
+            "HTTP error " +
             response.status
         );
 
     }
 
 
-    const data =
-        await response.json();
+    const text =
+        await response.text();
 
 
-    console.log(
-        "Pending purchases:",
-        data
-    );
+    let data;
+
+
+    try {
+
+        data =
+            JSON.parse(text);
+
+    }
+
+    catch (error) {
+
+        throw new Error(
+            "The Purchase API returned an invalid response."
+        );
+
+    }
 
 
     if (
-        data.success === true
+        data &&
+        data.success === false
     ) {
 
-        const purchases =
-            Array.isArray(
-                data.data
-            )
-                ? data.data
-                : [];
-
-
-        renderPurchases(
-            purchases
+        throw new Error(
+            data.message ||
+            "Purchase API request failed."
         );
 
-
-        updateStatistics(
-            purchases
-        );
+    }
 
 
-        updateLastUpdated();
+    return data;
+
+}
+
+
+/* =========================================================
+   TEST API
+========================================================= */
+
+async function testAPI() {
+
+    $("apiStat")
+        .textContent =
+        "Checking";
+
+
+    try {
+
+        const result =
+            await apiRequest(
+                "test"
+            );
 
 
         if (
-            purchases.length === 0
+            result &&
+            result.success === true
         ) {
 
-            showAdminStatus(
-                "No pending purchases found.",
-                "success"
-            );
+            $("apiStat")
+                .textContent =
+                "Online";
 
         }
 
         else {
 
-            showAdminStatus(
+            $("apiStat")
+                .textContent =
+                "Error";
 
-                purchases.length +
-                " pending purchase" +
-                (
-                    purchases.length === 1
-                        ? ""
-                        : "s"
-                ) +
-                " found.",
+        }
 
-                "success"
+    }
 
+    catch (error) {
+
+        console.error(
+            "API test failed:",
+            error
+        );
+
+
+        $("apiStat")
+            .textContent =
+            "Offline";
+
+    }
+
+}
+
+
+/* =========================================================
+   LOAD PENDING PURCHASES
+========================================================= */
+
+async function loadPendingPurchases() {
+
+    if (!state.loggedIn) {
+
+        return;
+
+    }
+
+
+    setRefreshLoading(
+        true
+    );
+
+
+    renderLoading(
+        $("pendingPurchaseList"),
+        "Loading pending purchases..."
+    );
+
+
+    renderLoading(
+        $("dashboardPendingList"),
+        "Loading purchases..."
+    );
+
+
+    try {
+
+        const result =
+            await apiRequest(
+                "getPendingPurchases"
+            );
+
+
+        if (
+            !result ||
+            result.success !== true
+        ) {
+
+            throw new Error(
+                result &&
+                result.message
+                    ? result.message
+                    : "Unable to load purchases."
             );
 
         }
+
+
+        state.pendingPurchases =
+            Array.isArray(result.data)
+                ? result.data
+                : [];
+
+
+        updateStatistics();
+
+        populateProductFilter();
+
+        renderPendingPurchases();
+
+        renderDashboardPending();
+
+
+    }
+
+    catch (error) {
+
+        console.error(
+            "Pending purchase error:",
+            error
+        );
+
+
+        renderError(
+            $("pendingPurchaseList"),
+            getErrorMessage(error)
+        );
+
+
+        renderError(
+            $("dashboardPendingList"),
+            getErrorMessage(error)
+        );
+
+
+        $("pendingSummary")
+            .textContent =
+            "Unable to load purchases.";
+
+    }
+
+    finally {
+
+        setRefreshLoading(
+            false
+        );
+
+    }
+
+}
+
+
+/* =========================================================
+   REFRESH BUTTON STATE
+========================================================= */
+
+function setRefreshLoading(
+    loading
+) {
+
+    $("dashboardRefreshButton")
+        .disabled =
+        loading;
+
+
+    $("pendingRefreshButton")
+        .disabled =
+        loading;
+
+
+    $("dashboardRefreshButton")
+        .textContent =
+        loading
+            ? "↻ Loading..."
+            : "↻ Refresh";
+
+
+    $("pendingRefreshButton")
+        .textContent =
+        loading
+            ? "↻ Loading..."
+            : "↻ Refresh";
+
+}
+
+
+/* =========================================================
+   UPDATE STATISTICS
+========================================================= */
+
+function updateStatistics() {
+
+    const pendingCount =
+        state.pendingPurchases.length;
+
+
+    $("pendingStat")
+        .textContent =
+        pendingCount;
+
+
+    $("sidebarPendingCount")
+        .textContent =
+        pendingCount;
+
+
+    /*
+     * Existing getPendingPurchases only returns PENDING.
+     *
+     * Therefore PAID and REJECTED totals cannot be
+     * accurately calculated from this endpoint.
+     *
+     * Do not invent those values.
+     */
+
+    $("paidStat")
+        .textContent =
+        "—";
+
+
+    $("rejectedStat")
+        .textContent =
+        "—";
+
+
+    $("pendingSummary")
+        .textContent =
+        pendingCount === 1
+            ? "1 purchase waiting for verification."
+            : pendingCount +
+              " purchases waiting for verification.";
+
+}
+
+
+/* =========================================================
+   PRODUCT FILTER
+========================================================= */
+
+function populateProductFilter() {
+
+    const select =
+        $("productFilter");
+
+
+    const currentValue =
+        select.value;
+
+
+    const products =
+        [];
+
+
+    state.pendingPurchases
+        .forEach(
+            function(purchase) {
+
+                const product =
+                    cleanText(
+                        purchase.product
+                    );
+
+
+                if (
+                    product &&
+                    !products.includes(product)
+                ) {
+
+                    products.push(
+                        product
+                    );
+
+                }
+
+            }
+        );
+
+
+    products.sort();
+
+
+    select.innerHTML =
+        '<option value="">All Products</option>';
+
+
+    products.forEach(
+        function(product) {
+
+            const option =
+                document.createElement(
+                    "option"
+                );
+
+
+            option.value =
+                product;
+
+
+            option.textContent =
+                product;
+
+
+            select.appendChild(
+                option
+            );
+
+        }
+    );
+
+
+    if (
+        products.includes(
+            currentValue
+        )
+    ) {
+
+        select.value =
+            currentValue;
+
+    }
+
+}
+
+
+/* =========================================================
+   FILTER PURCHASES
+========================================================= */
+
+function getFilteredPurchases() {
+
+    const search =
+        $("purchaseSearch")
+            .value
+            .trim()
+            .toLowerCase();
+
+
+    const product =
+        $("productFilter")
+            .value;
+
+
+    return state.pendingPurchases
+        .filter(
+            function(purchase) {
+
+                const matchesProduct =
+                    !product ||
+                    cleanText(
+                        purchase.product
+                    ) === product;
+
+
+                if (!matchesProduct) {
+
+                    return false;
+
+                }
+
+
+                if (!search) {
+
+                    return true;
+
+                }
+
+
+                const combined =
+                    [
+
+                        purchase.purchaseId,
+
+                        purchase.name,
+
+                        purchase.email,
+
+                        purchase.product,
+
+                        purchase.gcashReference
+
+                    ]
+                    .join(" ")
+                    .toLowerCase();
+
+
+                return combined.includes(
+                    search
+                );
+
+            }
+        );
+
+}
+
+
+/* =========================================================
+   RENDER PENDING PURCHASES
+========================================================= */
+
+function renderPendingPurchases() {
+
+    const container =
+        $("pendingPurchaseList");
+
+
+    const purchases =
+        getFilteredPurchases();
+
+
+    if (!purchases.length) {
+
+        container.innerHTML = `
+
+            <div class="empty-state">
+
+                <div class="empty-icon">
+                    ✓
+                </div>
+
+                <strong>
+                    No pending purchases found
+                </strong>
+
+                <span>
+                    There are no purchases matching your search.
+                </span>
+
+            </div>
+
+        `;
 
 
         return;
@@ -658,1017 +1493,1305 @@ try {
     }
 
 
-    showAdminStatus(
-        data.message ||
-        "Unable to load purchases.",
-        "error"
-    );
+    container.innerHTML =
+        purchases
+            .map(
+                createPurchaseCard
+            )
+            .join("");
 
 }
 
-catch (error) {
-
-    console.error(
-        "Load purchases error:",
-        error
-    );
-
-
-    showAdminStatus(
-
-        "Unable to connect to Google Apps Script. " +
-        "Please check the Web App URL and deployment.",
-
-        "error"
-
-    );
-
-}
-
-finally {
-
-    setRefreshLoading(
-        false
-    );
-
-}
-
-}
 
 /* =========================================================
-RENDER PURCHASES
+   CREATE PURCHASE CARD
 ========================================================= */
 
-function renderPurchases(
-purchases
+function createPurchaseCard(
+    purchase
 ) {
 
-if (!purchaseList) {
+    const id =
+        escapeHtml(
+            purchase.purchaseId
+        );
 
-    return;
+
+    const name =
+        escapeHtml(
+            purchase.name
+        );
+
+
+    const email =
+        escapeHtml(
+            purchase.email
+        );
+
+
+    const product =
+        escapeHtml(
+            purchase.product
+        );
+
+
+    const reference =
+        escapeHtml(
+            purchase.gcashReference
+        );
+
+
+    const amount =
+        formatMoney(
+            purchase.amount,
+            purchase.currency
+        );
+
+
+    const date =
+        formatDate(
+            purchase.date
+        );
+
+
+    return `
+
+        <article class="purchase-card">
+
+            <div class="purchase-main">
+
+                <strong>
+                    ${id}
+                </strong>
+
+                <span>
+                    ${date}
+                </span>
+
+            </div>
+
+
+            <div class="purchase-info">
+
+                <strong>
+                    ${name}
+                </strong>
+
+                <span>
+                    ${email}
+                </span>
+
+            </div>
+
+
+            <div class="purchase-info">
+
+                <strong>
+                    ${product}
+                </strong>
+
+                <span>
+                    ${amount}
+                    · Ref: ${reference}
+                </span>
+
+            </div>
+
+
+            <div class="purchase-actions">
+
+                <button
+                    type="button"
+                    class="small-button small-view"
+                    data-action="view"
+                    data-id="${id}">
+
+                    View
+
+                </button>
+
+
+                <button
+                    type="button"
+                    class="small-button small-approve"
+                    data-action="approve"
+                    data-id="${id}">
+
+                    Approve
+
+                </button>
+
+
+                <button
+                    type="button"
+                    class="small-button small-reject"
+                    data-action="reject"
+                    data-id="${id}">
+
+                    Reject
+
+                </button>
+
+            </div>
+
+        </article>
+
+    `;
 
 }
 
 
-if (
-    !Array.isArray(purchases) ||
-    purchases.length === 0
-) {
+/* =========================================================
+   CARD EVENT DELEGATION
+========================================================= */
 
-    purchaseList.innerHTML = `
+document.addEventListener(
+    "click",
+    function(event) {
 
-        <div class="empty-state">
+        const button =
+            event.target.closest(
+                "[data-action]"
+            );
 
-            <div class="empty-icon">
-                ✓
+
+        if (!button) {
+
+            return;
+
+        }
+
+
+        const action =
+            button.dataset.action;
+
+
+        const id =
+            button.dataset.id;
+
+
+        const purchase =
+            state.pendingPurchases
+                .find(
+                    function(item) {
+
+                        return String(
+                            item.purchaseId
+                        ) === String(id);
+
+                    }
+                );
+
+
+        if (!purchase) {
+
+            showToast(
+                "Purchase record is no longer available.",
+                "error"
+            );
+
+            return;
+
+        }
+
+
+        if (
+            action ===
+            "view"
+        ) {
+
+            openPurchaseModal(
+                purchase
+            );
+
+        }
+
+
+        else if (
+            action ===
+            "approve"
+        ) {
+
+            requestApproval(
+                purchase
+            );
+
+        }
+
+
+        else if (
+            action ===
+            "reject"
+        ) {
+
+            requestRejection(
+                purchase
+            );
+
+        }
+
+    }
+);
+
+
+/* =========================================================
+   DASHBOARD LIST
+========================================================= */
+
+function renderDashboardPending() {
+
+    const container =
+        $("dashboardPendingList");
+
+
+    const purchases =
+        state.pendingPurchases
+            .slice(
+                0,
+                5
+            );
+
+
+    if (!purchases.length) {
+
+        container.innerHTML = `
+
+            <div class="empty-state">
+
+                <div class="empty-icon">
+                    ✓
+                </div>
+
+                <strong>
+                    No pending purchases
+                </strong>
+
+                <span>
+                    Your verification queue is clear.
+                </span>
+
             </div>
 
-            <h3>
-                No Pending Purchases
-            </h3>
+        `;
 
-            <p>
-                There are currently no pending
-                customer payments.
-            </p>
+
+        return;
+
+    }
+
+
+    container.innerHTML =
+        purchases
+            .map(
+                createPurchaseCard
+            )
+            .join("");
+
+}
+
+
+/* =========================================================
+   PURCHASE MODAL
+========================================================= */
+
+function openPurchaseModal(
+    purchase
+) {
+
+    state.selectedPurchase =
+        purchase;
+
+
+    const modalBody =
+        $("modalBody");
+
+
+    modalBody.innerHTML = `
+
+        <div class="modal-purchase-grid">
+
+
+            <div class="modal-detail">
+
+                <span>
+                    Purchase ID
+                </span>
+
+                <strong>
+                    ${escapeHtml(purchase.purchaseId)}
+                </strong>
+
+            </div>
+
+
+            <div class="modal-detail">
+
+                <span>
+                    Status
+                </span>
+
+                <strong>
+                    ${escapeHtml(purchase.status)}
+                </strong>
+
+            </div>
+
+
+            <div class="modal-detail">
+
+                <span>
+                    Customer Name
+                </span>
+
+                <strong>
+                    ${escapeHtml(purchase.name)}
+                </strong>
+
+            </div>
+
+
+            <div class="modal-detail">
+
+                <span>
+                    Customer Email
+                </span>
+
+                <strong>
+                    ${escapeHtml(purchase.email)}
+                </strong>
+
+            </div>
+
+
+            <div class="modal-detail full">
+
+                <span>
+                    Product
+                </span>
+
+                <strong>
+                    ${escapeHtml(purchase.product)}
+                </strong>
+
+            </div>
+
+
+            <div class="modal-detail">
+
+                <span>
+                    Amount
+                </span>
+
+                <strong>
+                    ${escapeHtml(
+                        formatMoney(
+                            purchase.amount,
+                            purchase.currency
+                        )
+                    )}
+                </strong>
+
+            </div>
+
+
+            <div class="modal-detail">
+
+                <span>
+                    Date
+                </span>
+
+                <strong>
+                    ${escapeHtml(
+                        formatDate(
+                            purchase.date
+                        )
+                    )}
+                </strong>
+
+            </div>
+
+
+            <div class="modal-detail full">
+
+                <span>
+                    GCash Reference Number
+                </span>
+
+                <strong>
+                    ${escapeHtml(
+                        purchase.gcashReference
+                    )}
+                </strong>
+
+            </div>
 
         </div>
 
     `;
 
-    return;
 
-}
-
-
-purchaseList.innerHTML =
-    "";
+    $("purchaseModal")
+        .classList
+        .remove("hidden");
 
 
-purchases.forEach(
-    function (purchase) {
-
-        const card =
-            createPurchaseCard(
-                purchase
-            );
-
-
-        purchaseList.appendChild(
-            card
+    $("purchaseModal")
+        .setAttribute(
+            "aria-hidden",
+            "false"
         );
 
-    }
-);
+}
+
+
+function closePurchaseModal() {
+
+    $("purchaseModal")
+        .classList
+        .add("hidden");
+
+
+    $("purchaseModal")
+        .setAttribute(
+            "aria-hidden",
+            "true"
+        );
+
+
+    state.selectedPurchase =
+        null;
 
 }
+
 
 /* =========================================================
-CREATE PURCHASE CARD
+   APPROVAL
 ========================================================= */
 
-function createPurchaseCard(
-purchase
+function requestApproval(
+    purchase
 ) {
 
-const card =
-    document.createElement(
-        "article"
-    );
-
-
-card.className =
-    "purchase-card";
-
-
-const purchaseId =
-    clean(
-        purchase.purchaseId
-    );
-
-
-const date =
-    formatDate(
-        purchase.date
-    );
-
-
-const name =
-    clean(
-        purchase.name
-    );
-
-
-const email =
-    clean(
-        purchase.email
-    );
-
-
-const product =
-    clean(
-        purchase.product
-    );
-
-
-const amount =
-    formatAmount(
-        purchase.amount,
-        purchase.currency
-    );
-
-
-const reference =
-    clean(
-        purchase.gcashReference
-    );
-
-
-const status =
-    clean(
-        purchase.status
-    )
-    .toUpperCase();
-
-
-card.innerHTML = `
-
-    <div class="purchase-card-header">
-
-        <div>
-
-            <span class="purchase-label">
-                Purchase ID
-            </span>
-
-            <strong class="purchase-id">
-                ${escapeHtml(purchaseId)}
-            </strong>
-
-        </div>
-
-
-        <span class="
-            status-badge
-            ${getStatusClass(status)}
-        ">
-
-            ${escapeHtml(
-                status ||
-                STATUS_PENDING
-            )}
-
-        </span>
-
-    </div>
-
-
-
-    <div class="purchase-details">
-
-
-        <div class="detail-row">
-
-            <span class="detail-label">
-                Date
-            </span>
-
-            <span class="detail-value">
-                ${escapeHtml(date)}
-            </span>
-
-        </div>
-
-
-        <div class="detail-row">
-
-            <span class="detail-label">
-                Customer
-            </span>
-
-            <span class="detail-value">
-                ${escapeHtml(name)}
-            </span>
-
-        </div>
-
-
-        <div class="detail-row">
-
-            <span class="detail-label">
-                Email
-            </span>
-
-            <span class="detail-value">
-                ${escapeHtml(email)}
-            </span>
-
-        </div>
-
-
-        <div class="detail-row">
-
-            <span class="detail-label">
-                Product
-            </span>
-
-            <span class="detail-value">
-                ${escapeHtml(product)}
-            </span>
-
-        </div>
-
-
-        <div class="detail-row amount-row">
-
-            <span class="detail-label">
-                Amount
-            </span>
-
-            <strong class="detail-value">
-                ${escapeHtml(amount)}
-            </strong>
-
-        </div>
-
-
-        <div class="detail-row reference-row">
-
-            <span class="detail-label">
-                GCash Reference
-            </span>
-
-            <strong class="reference-number">
-                ${escapeHtml(reference)}
-            </strong>
-
-        </div>
-
-
-    </div>
-
-
-
-    <div class="verification-box">
-
-        <strong>
-            ⚠ Verify GCash payment
-        </strong>
-
-        <p>
-
-            Check your actual GCash account
-            and confirm that the payment was
-            really received before approving.
-
-        </p>
-
-    </div>
-
-
-
-    <div class="purchase-actions">
-
-        <button
-            type="button"
-            class="approve-btn">
-
-            ✓ Approve Payment
-
-        </button>
-
-
-        <button
-            type="button"
-            class="reject-btn">
-
-            ✕ Reject
-
-        </button>
-
-    </div>
-
-`;
-
-
-/*
- * APPROVE
- */
-
-const approveButton =
-    card.querySelector(
-        ".approve-btn"
-    );
-
-
-if (approveButton) {
-
-    approveButton.addEventListener(
-        "click",
-        function () {
-
-            approvePurchase(
-                purchaseId,
-                approveButton,
-                card
-            );
-
-        }
-    );
-
-}
-
-
-/*
- * REJECT
- */
-
-const rejectButton =
-    card.querySelector(
-        ".reject-btn"
-    );
-
-
-if (rejectButton) {
-
-    rejectButton.addEventListener(
-        "click",
-        function () {
-
-            rejectPurchase(
-                purchaseId,
-                rejectButton,
-                card
-            );
-
-        }
-    );
-
-}
-
-
-return card;
-
-}
-
-/* =========================================================
-APPROVE PURCHASE
-========================================================= */
-
-async function approvePurchase(
-purchaseId,
-button,
-card
-) {
-
-if (!purchaseId) {
-
-    showAdminStatus(
-        "Purchase ID is missing.",
-        "error"
-    );
-
-    return;
-
-}
-
-
-const confirmed =
-    window.confirm(
-
-        "Confirm payment approval?\n\n" +
-
-        "Purchase ID:\n" +
-        purchaseId +
-
-        "\n\n" +
-
-        "Only approve this purchase if you " +
-        "have confirmed that the payment was " +
-        "actually received in your GCash account."
-
-    );
-
-
-if (!confirmed) {
-
-    return;
-
-}
-
-
-const adminEmail =
-    getLoggedAdminEmail();
-
-
-if (!adminEmail) {
-
-    showLogin();
-
-    return;
-
-}
-
-
-if (
-    API_URL ===
-    "YOUR_GOOGLE_APPS_SCRIPT_WEB_APP_URL"
-) {
-
-    showAdminStatus(
-        "Google Apps Script API URL is not configured.",
-        "error"
-    );
-
-    return;
-
-}
-
-
-setCardButtonsDisabled(
-    card,
-    true
-);
-
-
-if (button) {
-
-    button.innerText =
-        "Approving...";
-
-}
-
-
-showAdminStatus(
-    "Approving purchase...",
-    "success"
-);
-
-
-try {
-
-
-    /*
-     * Code.gs:
-     *
-     * case "approveProPurchase":
-     *     return approveProPurchase(e);
-     */
-
-    const url =
-        API_URL +
-        "?action=approveProPurchase" +
-        "&purchaseId=" +
-        encodeURIComponent(
-            purchaseId
-        ) +
-        "&adminEmail=" +
-        encodeURIComponent(
-            adminEmail
-        );
-
-
-    const response =
-        await fetch(
-            url,
-            {
-                method:
-                    "GET",
-
-                cache:
-                    "no-store"
-            }
-        );
-
-
-    if (!response.ok) {
-
-        throw new Error(
-            "Server returned HTTP " +
-            response.status
-        );
-
-    }
-
-
-    const data =
-        await response.json();
-
-
-    console.log(
-        "Approve response:",
-        data
-    );
-
-
-    if (
-        data.success === true
-    ) {
-
-        showAdminStatus(
-
-            "Purchase approved successfully. " +
-            "The customer approval email has been processed.",
-
-            "success"
-
-        );
-
-
-        if (card) {
-
-            card.remove();
-
-        }
-
-
-        refreshStatisticsAfterRemoval();
-
-        showEmptyIfNecessary();
-
+    if (!purchase) {
 
         return;
 
     }
 
 
-    showAdminStatus(
-        data.message ||
-        "Unable to approve purchase.",
-        "error"
-    );
+    openConfirmModal({
 
+        type: "approve",
 
-    setCardButtonsDisabled(
-        card,
-        false
-    );
+        title:
+            "Approve Payment?",
 
+        message:
+            "You are about to mark Purchase ID " +
+            purchase.purchaseId +
+            " as PAID. The customer will receive the approval email and the Pro download will become available.",
 
-    if (button) {
+        buttonText:
+            "Approve Payment",
 
-        button.innerText =
-            "✓ Approve Payment";
+        callback:
+            function() {
 
-    }
+                approvePurchase(
+                    purchase
+                );
 
-}
+            }
 
-catch (error) {
-
-    console.error(
-        "Approve purchase error:",
-        error
-    );
-
-
-    showAdminStatus(
-
-        "Unable to approve the purchase. " +
-        "Please check your connection and try again.",
-
-        "error"
-
-    );
-
-
-    setCardButtonsDisabled(
-        card,
-        false
-    );
-
-
-    if (button) {
-
-        button.innerText =
-            "✓ Approve Payment";
-
-    }
+    });
 
 }
 
-}
 
 /* =========================================================
-REJECT PURCHASE
+   APPROVE PURCHASE
+========================================================= */
+
+async function approvePurchase(
+    purchase
+) {
+
+    closeConfirmModal();
+
+    closePurchaseModal();
+
+
+    showToast(
+        "Approving payment...",
+        "warning"
+    );
+
+
+    try {
+
+        const result =
+            await apiRequest(
+                "approveProPurchase",
+                {
+
+                    purchaseId:
+                        purchase.purchaseId,
+
+                    adminEmail:
+                        state.adminEmail
+
+                }
+            );
+
+
+        if (
+            !result ||
+            result.success !== true
+        ) {
+
+            throw new Error(
+                result &&
+                result.message
+                    ? result.message
+                    : "Approval failed."
+            );
+
+        }
+
+
+        showToast(
+            "Payment approved successfully.",
+            "success"
+        );
+
+
+        await loadPendingPurchases();
+
+
+        /*
+         * If verification page contains the same
+         * purchase, refresh its status.
+         */
+
+        if (
+            state.verificationPurchase &&
+            state.verificationPurchase.purchaseId ===
+            purchase.purchaseId
+        ) {
+
+            state.verificationPurchase =
+                null;
+
+
+            $("verificationResult")
+                .classList
+                .add("hidden");
+
+        }
+
+    }
+
+    catch (error) {
+
+        console.error(
+            "Approval error:",
+            error
+        );
+
+
+        showToast(
+            "Approval failed: " +
+            getErrorMessage(error),
+            "error"
+        );
+
+    }
+
+}
+
+
+/* =========================================================
+   REJECTION
+========================================================= */
+
+function requestRejection(
+    purchase
+) {
+
+    if (!purchase) {
+
+        return;
+
+    }
+
+
+    openConfirmModal({
+
+        type: "reject",
+
+        title:
+            "Reject Payment?",
+
+        message:
+            "You are about to mark Purchase ID " +
+            purchase.purchaseId +
+            " as REJECTED. The customer will receive a rejection notification.",
+
+        buttonText:
+            "Reject Payment",
+
+        callback:
+            function() {
+
+                rejectPurchase(
+                    purchase
+                );
+
+            }
+
+    });
+
+}
+
+
+/* =========================================================
+   REJECT PURCHASE
 ========================================================= */
 
 async function rejectPurchase(
-purchaseId,
-button,
-card
+    purchase
 ) {
 
-if (!purchaseId) {
+    closeConfirmModal();
 
-    showAdminStatus(
-        "Purchase ID is missing.",
-        "error"
-    );
-
-    return;
-
-}
+    closePurchaseModal();
 
 
-const confirmed =
-    window.confirm(
-
-        "Reject this purchase?\n\n" +
-
-        "Purchase ID:\n" +
-        purchaseId +
-
-        "\n\n" +
-
-        "The customer will NOT receive " +
-        "Pro download authorization."
-
+    showToast(
+        "Rejecting payment...",
+        "warning"
     );
 
 
-if (!confirmed) {
+    try {
 
-    return;
+        const result =
+            await apiRequest(
+                "rejectProPurchase",
+                {
 
-}
+                    purchaseId:
+                        purchase.purchaseId,
 
+                    adminEmail:
+                        state.adminEmail
 
-const adminEmail =
-    getLoggedAdminEmail();
-
-
-if (!adminEmail) {
-
-    showLogin();
-
-    return;
-
-}
+                }
+            );
 
 
-if (
-    API_URL ===
-    "YOUR_GOOGLE_APPS_SCRIPT_WEB_APP_URL"
-) {
+        if (
+            !result ||
+            result.success !== true
+        ) {
 
-    showAdminStatus(
-        "Google Apps Script API URL is not configured.",
-        "error"
-    );
+            throw new Error(
+                result &&
+                result.message
+                    ? result.message
+                    : "Rejection failed."
+            );
 
-    return;
-
-}
-
-
-setCardButtonsDisabled(
-    card,
-    true
-);
+        }
 
 
-if (button) {
-
-    button.innerText =
-        "Rejecting...";
-
-}
-
-
-showAdminStatus(
-    "Rejecting purchase...",
-    "success"
-);
-
-
-try {
-
-
-    /*
-     * Code.gs:
-     *
-     * case "rejectProPurchase":
-     *     return rejectProPurchase(e);
-     */
-
-    const url =
-        API_URL +
-        "?action=rejectProPurchase" +
-        "&purchaseId=" +
-        encodeURIComponent(
-            purchaseId
-        ) +
-        "&adminEmail=" +
-        encodeURIComponent(
-            adminEmail
-        );
-
-
-    const response =
-        await fetch(
-            url,
-            {
-                method:
-                    "GET",
-
-                cache:
-                    "no-store"
-            }
-        );
-
-
-    if (!response.ok) {
-
-        throw new Error(
-            "Server returned HTTP " +
-            response.status
-        );
-
-    }
-
-
-    const data =
-        await response.json();
-
-
-    console.log(
-        "Reject response:",
-        data
-    );
-
-
-    if (
-        data.success === true
-    ) {
-
-        showAdminStatus(
+        showToast(
             "Purchase rejected successfully.",
             "success"
         );
 
 
-        if (card) {
+        await loadPendingPurchases();
 
-            card.remove();
+
+        if (
+            state.verificationPurchase &&
+            state.verificationPurchase.purchaseId ===
+            purchase.purchaseId
+        ) {
+
+            state.verificationPurchase =
+                null;
+
+
+            $("verificationResult")
+                .classList
+                .add("hidden");
 
         }
 
+    }
 
-        refreshStatisticsAfterRemoval();
+    catch (error) {
 
-        showEmptyIfNecessary();
+        console.error(
+            "Rejection error:",
+            error
+        );
 
+
+        showToast(
+            "Rejection failed: " +
+            getErrorMessage(error),
+            "error"
+        );
+
+    }
+
+}
+
+
+/* =========================================================
+   VERIFICATION FORM
+========================================================= */
+
+async function handleVerification(
+    event
+) {
+
+    event.preventDefault();
+
+
+    const purchaseId =
+        $("verificationPurchaseId")
+            .value
+            .trim();
+
+
+    const email =
+        $("verificationEmail")
+            .value
+            .trim()
+            .toLowerCase();
+
+
+    clearMessage(
+        $("verificationMessage")
+    );
+
+
+    $("verificationResult")
+        .classList
+        .add("hidden");
+
+
+    if (!purchaseId) {
+
+        showMessage(
+            $("verificationMessage"),
+            "Purchase ID is required.",
+            "error"
+        );
 
         return;
 
     }
 
 
-    showAdminStatus(
-        data.message ||
-        "Unable to reject purchase.",
-        "error"
-    );
+    if (!email) {
 
+        showMessage(
+            $("verificationMessage"),
+            "Customer email is required.",
+            "error"
+        );
 
-    setCardButtonsDisabled(
-        card,
-        false
-    );
-
-
-    if (button) {
-
-        button.innerText =
-            "✕ Reject";
+        return;
 
     }
 
-}
 
-catch (error) {
-
-    console.error(
-        "Reject purchase error:",
-        error
+    setVerificationLoading(
+        true
     );
 
 
-    showAdminStatus(
+    try {
 
-        "Unable to reject the purchase. " +
-        "Please check your connection and try again.",
+        const result =
+            await apiRequest(
+                "checkProPurchase",
+                {
 
-        "error"
+                    purchaseId:
+                        purchaseId,
 
-    );
+                    email:
+                        email
+
+                }
+            );
 
 
-    setCardButtonsDisabled(
-        card,
-        false
-    );
+        if (
+            !result ||
+            result.success !== true ||
+            !result.data
+        ) {
+
+            throw new Error(
+                result &&
+                result.message
+                    ? result.message
+                    : "Purchase could not be verified."
+            );
+
+        }
 
 
-    if (button) {
+        state.verificationPurchase =
+            result.data;
 
-        button.innerText =
-            "✕ Reject";
 
-    }
-
-}
-
-}
-
-/* =========================================================
-GET LOGGED ADMIN EMAIL
-========================================================= */
-
-function getLoggedAdminEmail() {
-
-try {
-
-    const email =
-        localStorage.getItem(
-            ADMIN_EMAIL_STORAGE
+        renderVerificationResult(
+            result.data
         );
 
 
-    if (
-        email &&
-        email.toLowerCase() ===
-        ADMIN_EMAIL.toLowerCase()
-    ) {
+        showToast(
+            "Purchase record found.",
+            "success"
+        );
 
-        return email
-            .trim()
-            .toLowerCase();
+    }
+
+    catch (error) {
+
+        console.error(
+            "Verification error:",
+            error
+        );
+
+
+        showMessage(
+            $("verificationMessage"),
+            getErrorMessage(error),
+            "error"
+        );
+
+    }
+
+    finally {
+
+        setVerificationLoading(
+            false
+        );
 
     }
 
 }
 
-catch (error) {
-
-    console.warn(
-        "Unable to read admin email.",
-        error
-    );
-
-}
-
-
-return "";
-
-}
 
 /* =========================================================
-UPDATE STATISTICS
+   VERIFICATION RESULT
 ========================================================= */
 
-function updateStatistics(
-purchases
+function renderVerificationResult(
+    purchase
 ) {
 
-const count =
-    Array.isArray(purchases)
-        ? purchases.length
-        : 0;
+    $("verificationResult")
+        .classList
+        .remove("hidden");
 
 
-if (pendingCount) {
-
-    pendingCount.textContent =
-        count;
-
-}
+    $("detailPurchaseId")
+        .textContent =
+        purchase.purchaseId ||
+        "—";
 
 
-if (displayedCount) {
+    $("detailDate")
+        .textContent =
+        formatDate(
+            purchase.date
+        );
 
-    displayedCount.textContent =
-        count;
 
-}
+    $("detailName")
+        .textContent =
+        purchase.name ||
+        "—";
 
-}
 
-/* =========================================================
-STATISTICS AFTER REMOVAL
-========================================================= */
+    $("detailEmail")
+        .textContent =
+        purchase.email ||
+        "—";
 
-function refreshStatisticsAfterRemoval() {
 
-const cards =
-    purchaseList
-        ? purchaseList.querySelectorAll(
-            ".purchase-card"
+    $("detailProduct")
+        .textContent =
+        purchase.product ||
+        "—";
+
+
+    $("detailAmount")
+        .textContent =
+        formatMoney(
+            purchase.amount,
+            purchase.currency
+        );
+
+
+    $("detailCurrency")
+        .textContent =
+        purchase.currency ||
+        "—";
+
+
+    $("detailDownload")
+        .textContent =
+        purchase.downloadAvailable
+            ? "AVAILABLE"
+            : "NOT AVAILABLE";
+
+
+    setStatusBadge(
+        $("verificationStatus"),
+        purchase.status
+    );
+
+
+    const paid =
+        String(
+            purchase.status || ""
         )
-        : [];
+        .toUpperCase() ===
+        "PAID";
 
 
-const count =
-    cards.length;
+    $("verificationApproveButton")
+        .disabled =
+        paid;
 
 
-if (pendingCount) {
-
-    pendingCount.textContent =
-        count;
-
-}
-
-
-if (displayedCount) {
-
-    displayedCount.textContent =
-        count;
+    $("verificationRejectButton")
+        .disabled =
+        paid;
 
 }
 
-}
 
 /* =========================================================
-EMPTY STATE
+   VERIFICATION LOADING
 ========================================================= */
 
-function showEmptyIfNecessary() {
+function setVerificationLoading(
+    loading
+) {
 
-if (!purchaseList) {
+    $("verificationButton")
+        .disabled =
+        loading;
 
-    return;
+
+    $("verificationButton")
+        .textContent =
+        loading
+            ? "Checking..."
+            : "Check Purchase";
 
 }
 
 
-const cards =
-    purchaseList.querySelectorAll(
-        ".purchase-card"
+/* =========================================================
+   CONFIRMATION MODAL
+========================================================= */
+
+function openConfirmModal(
+    options
+) {
+
+    confirmCallback =
+        options.callback;
+
+
+    $("confirmTitle")
+        .textContent =
+        options.title;
+
+
+    $("confirmMessage")
+        .textContent =
+        options.message;
+
+
+    $("confirmActionButton")
+        .textContent =
+        options.buttonText;
+
+
+    if (
+        options.type ===
+        "reject"
+    ) {
+
+        $("confirmActionButton")
+            .className =
+            "reject-button";
+
+
+        $("confirmIcon")
+            .textContent =
+            "×";
+
+    }
+
+    else {
+
+        $("confirmActionButton")
+            .className =
+            "approve-button";
+
+
+        $("confirmIcon")
+            .textContent =
+            "✓";
+
+    }
+
+
+    $("confirmModal")
+        .classList
+        .remove("hidden");
+
+
+    $("confirmModal")
+        .setAttribute(
+            "aria-hidden",
+            "false"
+        );
+
+}
+
+
+function executeConfirmation() {
+
+    if (
+        typeof confirmCallback ===
+        "function"
+    ) {
+
+        const callback =
+            confirmCallback;
+
+
+        confirmCallback =
+            null;
+
+
+        callback();
+
+    }
+
+}
+
+
+function closeConfirmModal() {
+
+    $("confirmModal")
+        .classList
+        .add("hidden");
+
+
+    $("confirmModal")
+        .setAttribute(
+            "aria-hidden",
+            "true"
+        );
+
+
+    confirmCallback =
+        null;
+
+}
+
+
+/* =========================================================
+   STATUS BADGE
+========================================================= */
+
+function setStatusBadge(
+    element,
+    status
+) {
+
+    const normalized =
+        String(
+            status || ""
+        )
+        .toUpperCase();
+
+
+    element.className =
+        "status-badge";
+
+
+    if (
+        normalized ===
+        "PENDING"
+    ) {
+
+        element.classList.add(
+            "status-pending"
+        );
+
+    }
+
+    else if (
+        normalized ===
+        "PAID"
+    ) {
+
+        element.classList.add(
+            "status-paid"
+        );
+
+    }
+
+    else if (
+        normalized ===
+        "REJECTED"
+    ) {
+
+        element.classList.add(
+            "status-rejected"
+        );
+
+    }
+
+    else {
+
+        element.classList.add(
+            "status-unknown"
+        );
+
+    }
+
+
+    element.textContent =
+        normalized ||
+        "UNKNOWN";
+
+}
+
+
+/* =========================================================
+   MESSAGE
+========================================================= */
+
+function showMessage(
+    element,
+    message,
+    type
+) {
+
+    element.textContent =
+        message;
+
+
+    element.className =
+        "message " +
+        type;
+
+
+}
+
+
+function clearMessage(
+    element
+) {
+
+    element.textContent =
+        "";
+
+
+    element.className =
+        "message hidden";
+
+}
+
+
+/* =========================================================
+   TOAST
+========================================================= */
+
+function showToast(
+    message,
+    type = "success"
+) {
+
+    const toast =
+        $("toast");
+
+
+    $("toastMessage")
+        .textContent =
+        message;
+
+
+    $("toastIcon")
+        .textContent =
+        type === "error"
+            ? "!"
+            : type === "warning"
+                ? "!"
+                : "✓";
+
+
+    toast.className =
+        "toast show " +
+        type;
+
+
+    clearTimeout(
+        toastTimer
     );
 
 
-if (
-    cards.length === 0
+    toastTimer =
+        setTimeout(
+            function() {
+
+                toast.classList.remove(
+                    "show"
+                );
+
+            },
+            3500
+        );
+
+}
+
+
+/* =========================================================
+   LOADING
+========================================================= */
+
+function renderLoading(
+    container,
+    message
 ) {
 
-    purchaseList.innerHTML = `
+    container.innerHTML = `
 
-        <div class="empty-state">
+        <div class="loading-state">
 
-            <div class="empty-icon">
-                ✓
-            </div>
+            <span class="spinner">
+            </span>
 
-            <h3>
-                No Pending Purchases
-            </h3>
-
-            <p>
-                All pending purchases have
-                been processed.
-            </p>
+            ${escapeHtml(message)}
 
         </div>
 
@@ -1676,347 +2799,316 @@ if (
 
 }
 
-}
 
 /* =========================================================
-DISABLE / ENABLE CARD BUTTONS
+   ERROR
 ========================================================= */
 
-function setCardButtonsDisabled(
-card,
-disabled
+function renderError(
+    container,
+    message
 ) {
 
-if (!card) {
+    container.innerHTML = `
 
-    return;
+        <div class="error-state">
+
+            <div class="empty-icon">
+                !
+            </div>
+
+            <strong>
+                Unable to load data
+            </strong>
+
+            <span>
+                ${escapeHtml(message)}
+            </span>
+
+        </div>
+
+    `;
 
 }
 
 
-card
-    .querySelectorAll(
-        "button"
-    )
-    .forEach(
-        function (button) {
+/* =========================================================
+   DATE FORMAT
+========================================================= */
 
-            button.disabled =
-                disabled;
+function formatDate(
+    value
+) {
+
+    if (
+        !value
+    ) {
+
+        return "—";
+
+    }
+
+
+    const date =
+        new Date(value);
+
+
+    if (
+        Number.isNaN(
+            date.getTime()
+        )
+    ) {
+
+        return String(value);
+
+    }
+
+
+    return date.toLocaleString(
+        undefined,
+        {
+
+            year: "numeric",
+
+            month: "short",
+
+            day: "numeric",
+
+            hour: "numeric",
+
+            minute: "2-digit"
 
         }
     );
 
 }
 
-/* =========================================================
-REFRESH LOADING
-========================================================= */
-
-function setRefreshLoading(
-loading
-) {
-
-if (!refreshButton) {
-
-    return;
-
-}
-
-
-if (loading) {
-
-    refreshButton.disabled =
-        true;
-
-    refreshButton.innerText =
-        "⏳ Loading...";
-
-}
-
-else {
-
-    refreshButton.disabled =
-        false;
-
-    refreshButton.innerText =
-        "🔄 Refresh Purchases";
-
-}
-
-}
 
 /* =========================================================
-LAST UPDATED
+   MONEY FORMAT
 ========================================================= */
 
-function updateLastUpdated() {
-
-if (!lastUpdated) {
-
-    return;
-
-}
-
-
-const now =
-    new Date();
-
-
-lastUpdated.textContent =
-    "Last updated: " +
-    now.toLocaleString();
-
-}
-
-/* =========================================================
-ADMIN STATUS
-========================================================= */
-
-function showAdminStatus(
-message,
-type
-) {
-
-if (!adminStatus) {
-
-    return;
-
-}
-
-
-adminStatus.textContent =
-    message;
-
-
-adminStatus.className =
-    "status " +
-    type;
-
-}
-
-/* =========================================================
-LOGIN STATUS
-========================================================= */
-
-function showLoginStatus(
-message,
-type
-) {
-
-if (!loginStatus) {
-
-    return;
-
-}
-
-
-loginStatus.textContent =
-    message;
-
-
-loginStatus.className =
-    "status " +
-    type;
-
-}
-
-/* =========================================================
-EMAIL VALIDATION
-========================================================= */
-
-function isValidEmail(
-email
-) {
-
-return /^[^\s@]+@[^\s@]+\.[^\s@]+$/
-    .test(email);
-
-}
-
-/* =========================================================
-CLEAN
-========================================================= */
-
-function clean(
-value
-) {
-
-if (
-    value === null ||
-    value === undefined
-) {
-
-    return "";
-
-}
-
-
-return String(
-    value
-)
-.trim();
-
-}
-
-/* =========================================================
-FORMAT AMOUNT
-========================================================= */
-
-function formatAmount(
-amount,
-currency
-) {
-
-const numericAmount =
-    Number(amount);
-
-
-if (
-    !Number.isNaN(
-        numericAmount
-    )
+function formatMoney(
+    amount,
+    currency
 ) {
 
     if (
-        String(currency)
-            .toUpperCase() ===
+        amount === null ||
+        amount === undefined ||
+        amount === ""
+    ) {
+
+        return "—";
+
+    }
+
+
+    const numeric =
+        Number(amount);
+
+
+    if (
+        Number.isNaN(
+            numeric
+        )
+    ) {
+
+        return (
+            String(currency || "") +
+            " " +
+            String(amount)
+        );
+
+    }
+
+
+    const normalizedCurrency =
+        String(
+            currency || "PHP"
+        )
+        .toUpperCase();
+
+
+    if (
+        normalizedCurrency ===
         "PHP"
     ) {
 
         return (
             "₱" +
-            numericAmount.toFixed(2)
+            numeric.toFixed(2)
         );
 
     }
 
 
     return (
-
-        String(
-            currency || ""
-        ) +
+        normalizedCurrency +
         " " +
-        numericAmount.toFixed(2)
-
+        numeric.toFixed(2)
     );
 
 }
 
-
-return clean(
-    amount
-);
-
-}
 
 /* =========================================================
-FORMAT DATE
+   CLEAN TEXT
 ========================================================= */
 
-function formatDate(
-value
-) {
-
-if (!value) {
-
-    return "";
-
-}
-
-
-const date =
-    new Date(
-        value
-    );
-
-
-if (
-    !Number.isNaN(
-        date.getTime()
-    )
-) {
-
-    return date.toLocaleString();
-
-}
-
-
-return String(
+function cleanText(
     value
-);
-
-}
-
-/* =========================================================
-STATUS CLASS
-========================================================= */
-
-function getStatusClass(
-status
 ) {
 
-switch (
-    String(status)
-        .toUpperCase()
-) {
+    if (
+        value === null ||
+        value === undefined
+    ) {
 
-    case STATUS_PAID:
+        return "";
 
-        return "paid";
-
-
-    case STATUS_REJECTED:
-
-        return "rejected";
+    }
 
 
-    case STATUS_PENDING:
-
-    default:
-
-        return "pending";
+    return String(value)
+        .trim();
 
 }
 
-}
 
 /* =========================================================
-SAFE HTML ESCAPE
+   HTML ESCAPE
 ========================================================= */
 
 function escapeHtml(
-value
+    value
 ) {
 
-return String(
-    value || ""
-)
-
-    .replace(
-        /&/g,
-        "&amp;"
+    return String(
+        value === null ||
+        value === undefined
+            ? ""
+            : value
     )
 
-    .replace(
-        /</g,
-        "&lt;"
-    )
+        .replace(
+            /&/g,
+            "&amp;"
+        )
 
-    .replace(
-        />/g,
-        "&gt;"
-    )
+        .replace(
+            /</g,
+            "&lt;"
+        )
 
-    .replace(
-        /"/g,
-        "&quot;"
-    )
+        .replace(
+            />/g,
+            "&gt;"
+        )
 
-    .replace(
-        /'/g,
-        "&#039;"
-    );
+        .replace(
+            /"/g,
+            "&quot;"
+        )
+
+        .replace(
+            /'/g,
+            "&#039;"
+        );
 
 }
+
+
+/* =========================================================
+   ERROR MESSAGE
+========================================================= */
+
+function getErrorMessage(
+    error
+) {
+
+    if (
+        !error
+    ) {
+
+        return "Unknown error.";
+
+    }
+
+
+    if (
+        error.message
+    ) {
+
+        return error.message;
+
+    }
+
+
+    return String(error);
+
+}
+
+
+/* =========================================================
+   PAGE-CLOSE / NAVIGATION PROTECTION
+========================================================= */
+
+
+/*
+ * We intentionally DO NOT use beforeunload to redirect.
+ *
+ * Browsers do not reliably permit JavaScript to force a
+ * redirect when a tab/window is closed.
+ *
+ * Instead:
+ *
+ * 1. sessionStorage disappears when the tab is closed.
+ * 2. Opening purchase-admin.html again requires login.
+ * 3. The explicit Logout button returns to download.html.
+ *
+ * This is the reliable browser behavior.
+ */
+
+
+/* =========================================================
+   PAGE VISIBILITY
+========================================================= */
+
+document.addEventListener(
+    "visibilitychange",
+    function() {
+
+        /*
+         * No automatic logout is performed here.
+         *
+         * Switching apps or tabs on Android can trigger
+         * visibilitychange and should NOT unexpectedly
+         * destroy the administrator session.
+         */
+
+    }
+);
+
+
+/* =========================================================
+   PREVENT ACCIDENTAL FORM SUBMISSION
+========================================================= */
+
+document.addEventListener(
+    "keydown",
+    function(event) {
+
+        if (
+            event.key === "Enter" &&
+            event.target.tagName === "INPUT"
+        ) {
+
+            /*
+             * Normal form submission is allowed.
+             */
+
+        }
+
+    }
+);
