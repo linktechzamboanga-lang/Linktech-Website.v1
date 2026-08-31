@@ -1,309 +1,1135 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport"
-content="width=device-width, initial-scale=1.0">
+<!DOCTYPE html>
+<html lang="en">
 
-<meta name="theme-color"
-content="#050a19">
+<head>
 
-<meta name="description"
-content="LinkTech Purchase Administration">
+    <meta charset="UTF-8">
 
-<title>
-    LinkTech Purchase Administration
-</title><link rel="icon"
-      href="images/LinkTech-logo.png"><link rel="stylesheet"
-      href="css/purchase-admin.css"><link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
-      rel="stylesheet"></head><body><!-- =====================================================
-     PAGE HEADER
-===================================================== --><header class="admin-header"><div class="header-brand">
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 
-    <img
-        src="images/LinkTech-logo.png"
-        alt="LinkTech Logo">
+    <meta
+        name="theme-color"
+        content="#0b5ed7">
 
-    <div>
+    <meta
+        name="robots"
+        content="noindex, nofollow">
 
-        <strong>
-            LinkTech
-        </strong>
+    <title>LinkTech Purchase Administration</title>
 
-        <span>
-            Purchase Administration
+    <link
+        rel="stylesheet"
+        href="css/purchase-admin.css">
+
+</head>
+
+
+<body>
+
+    <!-- =====================================================
+         APPLICATION
+    ====================================================== -->
+
+    <div
+        id="app"
+        class="app">
+
+
+        <!-- =================================================
+             LOGIN SCREEN
+        ================================================== -->
+
+        <section
+            id="loginScreen"
+            class="screen login-screen">
+
+            <div class="login-card">
+
+                <div class="brand">
+
+<div class="logo">
+
+<img src="images/LinkTech-logo.png">
+
+                    </div>
+                    
+                    <div>
+
+                        <h1>
+                            LinkTech
+                        </h1>
+
+                        <p>
+                            Purchase Administration
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <div class="login-heading">
+
+                    <h2>
+                        Administrator Login
+                    </h2>
+
+                    <p>
+                        Authorized personnel only.
+                    </p>
+
+                </div>
+
+
+                <form
+                    id="loginForm"
+                    autocomplete="off">
+
+
+                    <!-- EMAIL -->
+
+                    <div class="form-group">
+
+                        <label
+                            for="adminEmail">
+
+                            Email / Username
+
+                        </label>
+
+                        <input
+                            type="email"
+                            id="adminEmail"
+                            name="adminEmail"
+                            placeholder="Administrator email"
+                            autocomplete="username"
+                            inputmode="email"
+                            required>
+
+                    </div>
+
+
+                    <!-- PASSWORD -->
+
+                    <div class="form-group">
+
+                        <label
+                            for="adminPassword">
+
+                            Password
+
+                        </label>
+
+                        <div class="password-wrapper">
+
+                            <input
+                                type="password"
+                                id="adminPassword"
+                                name="adminPassword"
+                                placeholder="Enter administrator password"
+                                autocomplete="current-password"
+                                required>
+
+                            <button
+                                type="button"
+                                id="togglePassword"
+                                class="password-toggle"
+                                aria-label="Show password">
+
+                                Show
+
+                            </button>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- LOGIN ERROR -->
+
+                    <div
+                        id="loginMessage"
+                        class="message hidden"
+                        role="alert">
+                    </div>
+
+
+                    <!-- LOGIN -->
+
+                    <button
+                        type="submit"
+                        id="loginButton"
+                        class="primary-button">
+
+                        <span id="loginButtonText">
+                            Sign In
+                        </span>
+
+                        <span
+                            id="loginSpinner"
+                            class="spinner hidden">
+                        </span>
+
+                    </button>
+
+                </form>
+
+
+                <div class="security-notice">
+
+                    <span class="notice-icon">
+                        🔒
+                    </span>
+
+                    <span>
+                        Administrator access is restricted.
+                    </span>
+
+                </div>
+
+
+                <button
+                    type="button"
+                    id="loginBackButton"
+                    class="text-button">
+
+                    Return to Download Page
+
+                </button>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- =================================================
+             ADMIN APPLICATION
+        ================================================== -->
+
+        <section
+            id="adminScreen"
+            class="screen admin-screen hidden">
+
+
+            <!-- =================================================
+                 HEADER
+            ================================================== -->
+
+            <header class="admin-header">
+
+                <div class="header-left">
+
+                    <button
+                        type="button"
+                        id="mobileMenuButton"
+                        class="icon-button"
+                        aria-label="Open menu">
+
+                        ☰
+
+                    </button>
+
+
+                    <div class="header-brand">
+
+                        <div class="small-logo">
+                            LT
+                        </div>
+
+                        <div>
+
+                            <strong>
+                                LinkTech
+                            </strong>
+
+                            <span>
+                                Purchase Admin
+                            </span>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <div class="header-right">
+
+                    <div class="admin-identity">
+
+                        <span class="online-dot">
+                        </span>
+
+                        <span id="loggedAdminEmail">
+                            Administrator
+                        </span>
+
+                    </div>
+
+
+                    <button
+                        type="button"
+                        id="logoutButton"
+                        class="logout-button">
+
+                        Logout
+
+                    </button>
+
+                </div>
+
+            </header>
+
+
+
+            <!-- =================================================
+                 SIDEBAR
+            ================================================== -->
+
+            <aside
+                id="sidebar"
+                class="sidebar">
+
+                <div class="sidebar-title">
+
+                    PURCHASE MANAGEMENT
+
+                </div>
+
+
+                <button
+                    type="button"
+                    class="nav-item active"
+                    data-section="dashboardSection">
+
+                    <span>
+                        📊
+                    </span>
+
+                    Dashboard
+
+                </button>
+
+
+                <button
+                    type="button"
+                    class="nav-item"
+                    data-section="pendingSection">
+
+                    <span>
+                        🧾
+                    </span>
+
+                    Pending Purchases
+
+                    <span
+                        id="sidebarPendingCount"
+                        class="nav-count">
+
+                        0
+
+                    </span>
+
+                </button>
+
+
+                <button
+                    type="button"
+                    class="nav-item"
+                    data-section="verificationSection">
+
+                    <span>
+                        ✓
+                    </span>
+
+                    Verification
+
+                </button>
+
+
+                <div class="sidebar-bottom">
+
+                    <button
+                        type="button"
+                        id="sidebarDownloadButton"
+                        class="sidebar-link">
+
+                        ← Download Page
+
+                    </button>
+
+                </div>
+
+            </aside>
+
+
+
+            <!-- =================================================
+                 MAIN CONTENT
+            ================================================== -->
+
+            <main class="main-content">
+
+
+                <!-- =============================================
+                     DASHBOARD
+                ============================================== -->
+
+                <section
+                    id="dashboardSection"
+                    class="content-section active">
+
+                    <div class="page-heading">
+
+                        <div>
+
+                            <span class="eyebrow">
+                                ADMINISTRATION
+                            </span>
+
+                            <h1>
+                                Purchase Dashboard
+                            </h1>
+
+                            <p>
+                                Review and verify customer Pro application purchases.
+                            </p>
+
+                        </div>
+
+
+                        <button
+                            type="button"
+                            id="dashboardRefreshButton"
+                            class="secondary-button">
+
+                            ↻ Refresh
+
+                        </button>
+
+                    </div>
+
+
+                    <!-- STATISTICS -->
+
+                    <div class="stats-grid">
+
+
+                        <div class="stat-card">
+
+                            <div class="stat-icon pending-icon">
+                                ⏳
+                            </div>
+
+                            <div>
+
+                                <span>
+                                    Pending
+                                </span>
+
+                                <strong id="pendingStat">
+                                    0
+                                </strong>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="stat-card">
+
+                            <div class="stat-icon paid-icon">
+                                ✓
+                            </div>
+
+                            <div>
+
+                                <span>
+                                    Paid
+                                </span>
+
+                                <strong id="paidStat">
+                                    —
+                                </strong>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="stat-card">
+
+                            <div class="stat-icon rejected-icon">
+                                ×
+                            </div>
+
+                            <div>
+
+                                <span>
+                                    Rejected
+                                </span>
+
+                                <strong id="rejectedStat">
+                                    —
+                                </strong>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="stat-card">
+
+                            <div class="stat-icon api-icon">
+                                ●
+                            </div>
+
+                            <div>
+
+                                <span>
+                                    API Status
+                                </span>
+
+                                <strong id="apiStat">
+                                    Checking
+                                </strong>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- RECENT PENDING -->
+
+                    <div class="panel">
+
+                        <div class="panel-header">
+
+                            <div>
+
+                                <h2>
+                                    Pending Purchases
+                                </h2>
+
+                                <p>
+                                    Purchases waiting for verification.
+                                </p>
+
+                            </div>
+
+
+                            <button
+                                type="button"
+                                id="viewPendingButton"
+                                class="secondary-button">
+
+                                View All
+
+                            </button>
+
+                        </div>
+
+
+                        <div
+                            id="dashboardPendingList"
+                            class="purchase-list">
+
+                            <div class="loading-state">
+
+                                <span class="spinner">
+                                </span>
+
+                                Loading purchases...
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </section>
+
+
+
+                <!-- =============================================
+                     PENDING PURCHASES
+                ============================================== -->
+
+                <section
+                    id="pendingSection"
+                    class="content-section">
+
+                    <div class="page-heading">
+
+                        <div>
+
+                            <span class="eyebrow">
+                                VERIFICATION QUEUE
+                            </span>
+
+                            <h1>
+                                Pending Purchases
+                            </h1>
+
+                            <p>
+                                Verify GCash payment references before approving downloads.
+                            </p>
+
+                        </div>
+
+
+                        <button
+                            type="button"
+                            id="pendingRefreshButton"
+                            class="secondary-button">
+
+                            ↻ Refresh
+
+                        </button>
+
+                    </div>
+
+
+                    <!-- SEARCH -->
+
+                    <div class="toolbar">
+
+                        <div class="search-box">
+
+                            <span>
+                                🔎
+                            </span>
+
+                            <input
+                                type="search"
+                                id="purchaseSearch"
+                                placeholder="Search Purchase ID, name, email, product or GCash reference">
+
+                        </div>
+
+
+                        <select
+                            id="productFilter"
+                            class="filter-select">
+
+                            <option value="">
+                                All Products
+                            </option>
+
+                        </select>
+
+                    </div>
+
+
+                    <!-- PURCHASES -->
+
+                    <div class="panel">
+
+                        <div class="panel-header">
+
+                            <div>
+
+                                <h2>
+                                    Verification Queue
+                                </h2>
+
+                                <p id="pendingSummary">
+                                    Loading...
+
+                                </p>
+
+                            </div>
+
+                        </div>
+
+
+                        <div
+                            id="pendingPurchaseList"
+                            class="purchase-list">
+
+                            <div class="loading-state">
+
+                                <span class="spinner">
+                                </span>
+
+                                Loading pending purchases...
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </section>
+
+
+
+                <!-- =============================================
+                     VERIFICATION
+                ============================================== -->
+
+                <section
+                    id="verificationSection"
+                    class="content-section">
+
+                    <div class="page-heading">
+
+                        <div>
+
+                            <span class="eyebrow">
+                                PURCHASE VERIFICATION
+                            </span>
+
+                            <h1>
+                                Verify Purchase
+                            </h1>
+
+                            <p>
+                                Open a purchase using its Purchase ID.
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="verification-layout">
+
+
+                        <div class="panel verification-search-panel">
+
+                            <div class="panel-header">
+
+                                <div>
+
+                                    <h2>
+                                        Search Purchase
+                                    </h2>
+
+                                    <p>
+                                        Enter the Purchase ID and customer email.
+                                    </p>
+
+                                </div>
+
+                            </div>
+
+
+                            <form
+                                id="verificationForm">
+
+                                <div class="form-group">
+
+                                    <label
+                                        for="verificationPurchaseId">
+
+                                        Purchase ID
+
+                                    </label>
+
+                                    <input
+                                        type="text"
+                                        id="verificationPurchaseId"
+                                        placeholder="Example: PRO-1234567890-1234"
+                                        required>
+
+                                </div>
+
+
+                                <div class="form-group">
+
+                                    <label
+                                        for="verificationEmail">
+
+                                        Customer Email
+
+                                    </label>
+
+                                    <input
+                                        type="email"
+                                        id="verificationEmail"
+                                        placeholder="customer@example.com"
+                                        required>
+
+                                </div>
+
+
+                                <div
+                                    id="verificationMessage"
+                                    class="message hidden">
+                                </div>
+
+
+                                <button
+                                    type="submit"
+                                    id="verificationButton"
+                                    class="primary-button">
+
+                                    Check Purchase
+
+                                </button>
+
+                            </form>
+
+                        </div>
+
+
+
+                        <!-- RESULT -->
+
+                        <div
+                            id="verificationResult"
+                            class="panel verification-result hidden">
+
+                            <div class="panel-header">
+
+                                <div>
+
+                                    <span class="eyebrow">
+                                        PURCHASE RECORD
+                                    </span>
+
+                                    <h2>
+                                        Purchase Details
+                                    </h2>
+
+                                </div>
+
+                                <span
+                                    id="verificationStatus"
+                                    class="status-badge">
+
+                                </span>
+
+                            </div>
+
+
+                            <div class="details-grid">
+
+                                <div class="detail-item">
+
+                                    <span>
+                                        Purchase ID
+                                    </span>
+
+                                    <strong id="detailPurchaseId">
+                                        —
+                                    </strong>
+
+                                </div>
+
+
+                                <div class="detail-item">
+
+                                    <span>
+                                        Date
+                                    </span>
+
+                                    <strong id="detailDate">
+                                        —
+                                    </strong>
+
+                                </div>
+
+
+                                <div class="detail-item">
+
+                                    <span>
+                                        Customer
+                                    </span>
+
+                                    <strong id="detailName">
+                                        —
+                                    </strong>
+
+                                </div>
+
+
+                                <div class="detail-item">
+
+                                    <span>
+                                        Email
+                                    </span>
+
+                                    <strong id="detailEmail">
+                                        —
+                                    </strong>
+
+                                </div>
+
+
+                                <div class="detail-item">
+
+                                    <span>
+                                        Product
+                                    </span>
+
+                                    <strong id="detailProduct">
+                                        —
+                                    </strong>
+
+                                </div>
+
+
+                                <div class="detail-item">
+
+                                    <span>
+                                        Amount
+                                    </span>
+
+                                    <strong id="detailAmount">
+                                        —
+                                    </strong>
+
+                                </div>
+
+
+                                <div class="detail-item">
+
+                                    <span>
+                                        Currency
+                                    </span>
+
+                                    <strong id="detailCurrency">
+                                        —
+                                    </strong>
+
+                                </div>
+
+
+                                <div class="detail-item">
+
+                                    <span>
+                                        Download
+                                    </span>
+
+                                    <strong id="detailDownload">
+                                        —
+                                    </strong>
+
+                                </div>
+
+                            </div>
+
+
+                            <div class="verification-actions">
+
+                                <button
+                                    type="button"
+                                    id="verificationApproveButton"
+                                    class="approve-button">
+
+                                    ✓ Approve Payment
+
+                                </button>
+
+
+                                <button
+                                    type="button"
+                                    id="verificationRejectButton"
+                                    class="reject-button">
+
+                                    × Reject Payment
+
+                                </button>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </section>
+
+            </main>
+
+        </section>
+
+    </div>
+
+
+
+    <!-- =====================================================
+         PURCHASE DETAILS MODAL
+    ====================================================== -->
+
+    <div
+        id="purchaseModal"
+        class="modal hidden"
+        aria-hidden="true">
+
+        <div
+            class="modal-overlay"
+            id="modalOverlay">
+        </div>
+
+
+        <div
+            class="modal-card"
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="modalTitle">
+
+            <div class="modal-header">
+
+                <div>
+
+                    <span class="eyebrow">
+                        PAYMENT REVIEW
+                    </span>
+
+                    <h2 id="modalTitle">
+                        Purchase Details
+                    </h2>
+
+                </div>
+
+
+                <button
+                    type="button"
+                    id="closeModalButton"
+                    class="modal-close"
+                    aria-label="Close">
+
+                    ×
+
+                </button>
+
+            </div>
+
+
+            <div
+                id="modalBody"
+                class="modal-body">
+            </div>
+
+
+            <div class="modal-actions">
+
+                <button
+                    type="button"
+                    id="modalRejectButton"
+                    class="reject-button">
+
+                    × Reject
+
+                </button>
+
+
+                <button
+                    type="button"
+                    id="modalApproveButton"
+                    class="approve-button">
+
+                    ✓ Approve
+
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+
+    <!-- =====================================================
+         CONFIRMATION MODAL
+    ====================================================== -->
+
+    <div
+        id="confirmModal"
+        class="modal hidden"
+        aria-hidden="true">
+
+        <div
+            class="modal-overlay">
+        </div>
+
+
+        <div class="confirm-card">
+
+            <div
+                id="confirmIcon"
+                class="confirm-icon">
+
+                ?
+
+            </div>
+
+
+            <h2 id="confirmTitle">
+                Confirm Action
+            </h2>
+
+
+            <p id="confirmMessage">
+                Are you sure?
+            </p>
+
+
+            <div class="confirm-actions">
+
+                <button
+                    type="button"
+                    id="cancelConfirmButton"
+                    class="secondary-button">
+
+                    Cancel
+
+                </button>
+
+
+                <button
+                    type="button"
+                    id="confirmActionButton"
+                    class="approve-button">
+
+                    Confirm
+
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+
+    <!-- =====================================================
+         TOAST
+    ====================================================== -->
+
+    <div
+        id="toast"
+        class="toast"
+        role="status"
+        aria-live="polite">
+
+        <span id="toastIcon">
+            ✓
+        </span>
+
+        <span id="toastMessage">
+            Done.
         </span>
 
     </div>
 
-</div>
 
 
-<div class="header-admin">
+    <!-- =====================================================
+         JAVASCRIPT
+    ====================================================== -->
 
-    <span id="loggedAdminEmail">
-        Administrator
-    </span>
+    <script src="js/purchase-admin.js"></script>
 
-<button
-    type="button"
-    id="logoutButton"
-    class="logout-btn">
-    🚪 Logout
-</button>
+</body>
 
-</div>
-
-</header><!-- =====================================================
-     MAIN
-===================================================== --><main class="admin-main"><!-- =====================================================
-     LOGIN SECTION
-===================================================== --><section
-    id="loginSection"
-    class="login-section"><div class="login-card">
-
-
-    <div class="login-logo">
-
-        <img
-            src="images/LinkTech-logo.png"
-            alt="LinkTech">
-
-    </div>
-
-
-    <h1>
-        Purchase Administration
-    </h1>
-
-
-    <p class="login-description">
-
-        Administrator access for reviewing
-        customer GCash purchases.
-
-    </p>
-
-
-    <form
-        id="adminLoginForm"
-        autocomplete="off">
-
-
-        <label for="adminEmail">
-            Administrator Email
-        </label>
-
-
-        <input
-            type="email"
-            id="adminEmail"
-            name="adminEmail"
-            placeholder="Enter administrator email"
-            autocomplete="email"
-            required>
-
-
-        <button
-            type="submit"
-            class="login-btn">
-
-            Administrator Login
-
-        </button>
-
-
-    </form>
-
-
-    <div
-        id="loginStatus"
-        class="status"
-        role="status"
-        aria-live="polite">
-
-    </div>
-
-
-    <div class="security-note">
-
-        <strong>
-            Administrator Verification
-        </strong>
-
-        <p>
-            Only the configured LinkTech administrator
-            email can access purchase administration.
-        </p>
-
-    </div>
-
-
-</div>
-
-</section><!-- =====================================================
-     ADMIN SECTION
-===================================================== --><section
-    id="adminSection"
-    class="admin-section"
-    style="display:none;"><!-- =================================================
-     ADMIN TITLE
-================================================= -->
-
-<div class="page-title">
-
-    <div>
-
-        <h1>
-            Purchase Management
-        </h1>
-
-        <p>
-            Review and verify customer payments
-            before approving application downloads.
-        </p>
-
-    </div>
-
-
-    <button
-        type="button"
-        id="refreshButton"
-        class="refresh-btn">
-
-        🔄 Refresh Purchases
-
-    </button>
-
-</div>
-
-
-
-<!-- =================================================
-     STATUS
-================================================= -->
-
-<div
-    id="adminStatus"
-    class="status"
-    role="status"
-    aria-live="polite">
-
-</div>
-
-
-
-<!-- =================================================
-     STATISTICS
-================================================= -->
-
-<div class="stats-grid">
-
-
-    <div class="stat-card">
-
-        <div class="stat-icon">
-            ⏳
-        </div>
-
-        <div>
-
-            <span>
-                Pending Purchases
-            </span>
-
-            <strong id="pendingCount">
-                0
-            </strong>
-
-        </div>
-
-    </div>
-
-
-    <div class="stat-card">
-
-        <div class="stat-icon">
-            📋
-        </div>
-
-        <div>
-
-            <span>
-                Displayed
-            </span>
-
-            <strong id="displayedCount">
-                0
-            </strong>
-
-        </div>
-
-    </div>
-
-
-</div>
-
-
-
-<!-- =================================================
-     PURCHASE LIST HEADER
-================================================= -->
-
-<div class="list-header">
-
-    <div>
-
-        <h2>
-            Pending Purchases
-        </h2>
-
-        <p>
-            Verify the customer's GCash transaction
-            in your actual GCash account.
-        </p>
-
-    </div>
-
-
-    <span id="lastUpdated">
-        Last updated: —
-    </span>
-
-</div>
-
-
-
-<!-- =================================================
-     PURCHASE LIST
-================================================= -->
-
-<div
-    id="purchaseList"
-    class="purchase-list">
-
-
-    <div class="empty-state">
-
-        <div class="empty-icon">
-            ✓
-        </div>
-
-        <h3>
-            No Pending Purchases
-        </h3>
-
-        <p>
-            There are currently no pending
-            customer payments.
-        </p>
-
-    </div>
-
-
-</div>
-
-</section></main><!-- =====================================================
-     FOOTER
-===================================================== --><footer class="admin-footer"><p>
-    © 2026 LinkTech Freelance IT Specialist Zamboanga
-    | All Rights Reserved
-</p>
-
-</footer><script src="js/purchase-admin.js"></script></body></html>
+</html>
