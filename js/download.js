@@ -36,7 +36,7 @@ const downloadFiles = {
 
 
     AnyDesk:
-        "https://download.anydesk.com/AnyDesk.exe"
+        "https://download.anydesk.com/AnyDesk.exe",
         
     Moviebox:
         "https://www.mediafire.com/file/14kayxhxr1xqgsd/com.community.mbox.tv-release-1.1.10.0901-of-50040016.apk/file?dkey=9easz4hwowd&r=179",
