@@ -39,7 +39,7 @@ const downloadFiles = {
         "https://download.anydesk.com/AnyDesk.exe",
         
     PersonalFinance:
-        "https://www.webintoapp.com/store/1679066",
+        "https://drive.usercontent.google.com/download?id=1YAwwgPa4xszV73xnsYmzuprL13jWnC1V&export=download&authuser=3",
 
 
     /*
