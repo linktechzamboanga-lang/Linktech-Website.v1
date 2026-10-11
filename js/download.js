@@ -39,7 +39,7 @@ const downloadFiles = {
         "https://download.anydesk.com/AnyDesk.exe",
         
     PersonalFinance:
-        "https://drive.usercontent.google.com/download?id=1Vu7XClsbZiptKSG0b9oMQonxQscX7kQK&export=download&authuser=0",
+        "https://github.com/linktechzamboanga-lang/Linktech-Website/releases/latest/download/Personal-Finance-v1.0.0.apk",
 
 
     /*
