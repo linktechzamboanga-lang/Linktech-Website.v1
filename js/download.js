@@ -39,7 +39,7 @@ const downloadFiles = {
         "https://download.anydesk.com/AnyDesk.exe",
         
     PersonalFinance:
-        "https://drive.usercontent.google.com/download?id=1YAwwgPa4xszV73xnsYmzuprL13jWnC1V&export=download&authuser=3",
+        "https://drive.usercontent.google.com/download?id=1Vu7XClsbZiptKSG0b9oMQonxQscX7kQK&export=download&authuser=0",
 
 
     /*
