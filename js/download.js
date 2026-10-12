@@ -8,7 +8,7 @@ const PAYMENT_PAGE =
 const downloadFiles = {
 
     linktech2026:
-        "https://drive.usercontent.google.com/download?id=1SsUikiB9N8Nw0qADAVar7rxqRYt_OG0K&export=download&authuser=0",
+        "https://github.com/linktechzamboanga-lang/Linktech-Website.v1/releases/download/v1.0.0.0/LinkTech2026.apk",
 
 
     Winrar:
