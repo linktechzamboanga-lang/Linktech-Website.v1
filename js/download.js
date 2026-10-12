@@ -2,7 +2,7 @@ const API_URL =
     "https://script.google.com/macros/s/AKfycbz0h8I56PglGhib3u9X6EjL84hEtPdpk33fuM3mFIJ3NtVAA6kj0iW-omKiv3k465iP/exec";
 
 const PAYMENT_PAGE =
-    "computer-inventory-pro-payment.html";
+    "computer-inventory-plus-payment.html";
 
 
 const downloadFiles = {
