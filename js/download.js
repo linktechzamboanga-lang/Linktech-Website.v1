@@ -57,8 +57,8 @@ const downloadFiles = {
      * inside Code.gs.
      */
 
-    "Computer Inventory System":
-        "https://drive.usercontent.google.com/download?id=1plWIfqdrBW5bzl99uI-H3q27XNhmF00h&export=download&authuser=0"
+    "Computer Inventory System pro":
+        "https://github.com/linktechzamboanga-lang/Linktech-Website.v1/releases/download/v1.0/Computer-Inventory-System-Pro-1.0.apk"
 
 };
 
@@ -78,7 +78,7 @@ const downloadFiles = {
 
 const paidProducts = {
 
-    "Computer Inventory System pro": {
+    "Computer Inventory System plus": {
 
         paymentPage:
             PAYMENT_PAGE,
