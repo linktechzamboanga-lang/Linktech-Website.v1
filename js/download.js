@@ -10,34 +10,6 @@ const downloadFiles = {
     linktech2026:
         "https://github.com/linktechzamboanga-lang/Linktech-Website.v1/releases/download/v1.0.0.0/LinkTech2026.apk",
 
-
-    Winrar:
-        "https://www.win-rar.com/fileadmin/winrar-versions/winrar/winrar-x64-722.exe",
-
-
-    Chrome:
-        "https://dl.google.com/chrome/install/latest/chrome_installer.exe",
-
-
-    VLC:
-        "https://get.videolan.org/vlc/3.0.23/win64/vlc-3.0.23-win64.exe",
-
-
-    "Epson L120 Resetter":
-        "https://ozamiz.deped.gov.ph/resetter/l120-resetcracked.zip",
-
-
-    "Epson L3150 Resetter":
-        "https://ozamiz.deped.gov.ph/resetter/Epson%20L3150%20Resetter.zip",
-
-
-    "Epson L1210 / L3210 / L3250 Series Resetter":
-        "https://ozamiz.deped.gov.ph/resetter/EPSON_L1210_L3210_L3250_L3251_L3260_L5290.zip",
-
-
-    AnyDesk:
-        "https://download.anydesk.com/AnyDesk.exe",
-    
     AssistantNote:
           "https://github.com/linktechzamboanga-lang/Linktech-Website.v1/releases/download/v1/Assistant-Note-1.0.apk",
         
