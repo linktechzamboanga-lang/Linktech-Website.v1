@@ -14,7 +14,17 @@ LinkTech Customer Support Portal
 
 <link rel="icon"
       href="images/LinkTech-logo.png">
-
+      
+<script src="https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.page.js" defer></script>
+<script>
+  window.OneSignalDeferred = window.OneSignalDeferred || [];
+  OneSignalDeferred.push(async function(OneSignal) {
+    await OneSignal.init({
+      appId: "9b1ef283-0e64-48ca-9a33-679538cb1596",
+    });
+  });
+</script>
+      
 <link rel="stylesheet"
       href="css/home.css">
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6474337076207412"
