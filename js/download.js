@@ -10,6 +10,12 @@ const downloadFiles = {
     linktech2026:
         "https://github.com/linktechzamboanga-lang/Linktech-Website.v1/releases/download/v1.0.0.0/LinkTech2026.apk",
 
+    TextToolHub:
+        "https://github.com/linktechzamboanga-lang/Linktech-Website.v1/releases/download/v1.0.0.0/LinkTech2026.apk",
+
+    ImageToolHub:
+        "https://github.com/linktechzamboanga-lang/Linktech-Website.v1/releases/download/v1.0.0.0/LinkTech2026.apk",
+    
     AssistantNote:
           "https://github.com/linktechzamboanga-lang/Linktech-Website.v1/releases/download/v1/Assistant-Note-1.0.apk",
         
