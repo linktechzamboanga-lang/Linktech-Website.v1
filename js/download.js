@@ -14,7 +14,7 @@ const downloadFiles = {
         "sha256:dc1c66674db14c1835c09d2a947059c63322032a06abb35b1c843fec00c34975",
 
     ImageToolHub:
-        "https://github.com/linktechzamboanga-lang/Linktech-Website.v1/releases/download/v1.0.0.0/LinkTech2026.apk",
+        "sha256:dc1c66674db14c1835c09d2a947059c63322032a06abb35b1c843fec00c34975",
     
     AssistantNote:
           "https://github.com/linktechzamboanga-lang/Linktech-Website.v1/releases/download/v1/Assistant-Note-1.0.apk",
