@@ -1,0 +1,322 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Join LinkTech Freelance IT Specialist Zamboanga.">
+  <title>LinkTech Membership</title>
+
+  <!-- Keep your existing navigation and footer styles -->
+  <link rel="stylesheet" href="css/download.css">
+
+  <!-- Membership page styles -->
+  <link rel="stylesheet" href="css/member.css">
+
+  <!-- Google Identity Services -->
+  <script src="https://accounts.google.com/gsi/client"
+          async defer></script>
+</head>
+<body>
+
+<header class="site-header">
+  <a class="logo" href="index.html">
+    <img src="images/LinkTech-logo.png" alt="LinkTech logo">
+    <span>
+      <b>LinkTech</b>
+      <small>Freelance IT Specialist Zamboanga</small>
+    </span>
+  </a>
+
+  <nav aria-label="Main navigation">
+    <a href="index.html">Home</a>
+    <a href="download.html">Download</a>
+    <a href="services.html">Services</a>
+    <a href="it-portal.html">IT Portal</a>
+    <a href="about.html">About</a>
+    <a href="contact.html">Contact</a>
+    <a href="member.html" class="nav-current">Membership</a>
+  </nav>
+</header>
+
+<main>
+  <section class="member-hero">
+    <div class="hero-inner">
+      <span class="eyebrow">ZAMBOANGA CITY COMMUNITY</span>
+
+      <h1>Build better IT solutions <span>together.</span></h1>
+
+      <p>
+        Join LinkTech Freelance IT Specialist Zamboanga to
+        collaborate on applications, digital tools, hardware
+        repair solutions, and practical technology projects.
+      </p>
+
+      <button class="primary" id="openJoin">
+        Join Membership →
+      </button>
+
+      <p class="small-note">
+        Membership requires administrator approval. Income,
+        employment, and publication are not guaranteed.
+      </p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-title">
+      <span class="kicker">OUR COMMUNITY</span>
+      <h2>Contribute your skills. Create useful solutions.</h2>
+      <p>
+        Work together on technology projects based on your
+        skills, availability, and agreed responsibilities.
+      </p>
+    </div>
+
+    <div class="benefits">
+      <article>
+        <div class="benefit-icon">⌘</div>
+        <h3>Apps and digital tools</h3>
+        <p>
+          Help develop, test, document, and improve applications,
+          websites, and productivity tools.
+        </p>
+      </article>
+
+      <article>
+        <div class="benefit-icon">⚙</div>
+        <h3>Hardware and IT solutions</h3>
+        <p>
+          Share knowledge about computer repairs, networking,
+          CCTV, maintenance, and technical support.
+        </p>
+      </article>
+
+      <article>
+        <div class="benefit-icon">✦</div>
+        <h3>Community collaboration</h3>
+        <p>
+          Contribute ideas and skills to LinkTech technology
+          projects and services.
+        </p>
+      </article>
+    </div>
+  </section>
+
+  <!-- Advertising placement -->
+  <section class="ad-area">
+    <div class="ad-label">ADVERTISEMENT</div>
+    <div class="ad-placeholder">
+      <strong>Advertising space</strong>
+      <p>
+        Your approved advertising provider's ad unit will
+        appear here.
+      </p>
+    </div>
+  </section>
+
+  <!-- Public directory -->
+  <section class="section directory" id="memberDirectory">
+    <div class="directory-head">
+      <div>
+        <span class="kicker">COMMUNITY DIRECTORY</span>
+        <h2>LinkTech Members</h2>
+        <p>Only approved members appear in this directory.</p>
+      </div>
+
+      <button class="secondary" id="refreshMembers">
+        Refresh list
+      </button>
+    </div>
+
+    <div id="directoryStatus" class="status" role="status">
+      Loading approved members...
+    </div>
+
+    <div id="membersGrid" class="members-grid"></div>
+  </section>
+
+  <section class="terms-summary">
+    <span class="kicker">MEMBERSHIP REQUIREMENTS</span>
+    <h2>Responsible collaboration matters.</h2>
+
+    <ul>
+      <li>Applicants must currently live in Zamboanga City.</li>
+      <li>
+        Submit only original or properly licensed videos,
+        images, code, software, and other creations.
+      </li>
+      <li>
+        Contributions may be reviewed, tested, revised, or
+        declined before publication.
+      </li>
+      <li>
+        Revenue sharing depends on actual website or project
+        profit and a separate written agreement. Earnings
+        are not guaranteed.
+      </li>
+    </ul>
+
+    <button class="primary" id="openJoinBottom">
+      Read Terms and Apply →
+    </button>
+  </section>
+
+  <!-- Displayed only when an authorized admin signs in -->
+  <section class="section admin" id="adminReview" hidden>
+    <div class="directory-head">
+      <div>
+        <span class="kicker">ADMINISTRATION</span>
+        <h2>Membership Applications</h2>
+      </div>
+      <button class="secondary" id="refreshAdmin">
+        Refresh applications
+      </button>
+    </div>
+
+    <div id="adminStatus" class="status"></div>
+    <div id="adminApplications"></div>
+  </section>
+</main>
+
+<footer>
+  <p>© 2026 LinkTech Freelance IT Specialist Zamboanga.</p>
+  <p>Membership applications are subject to review and approval.</p>
+</footer>
+
+<!-- Membership application dialog -->
+<dialog id="joinDialog" class="join-dialog">
+  <div class="dialog-head">
+    <div>
+      <span class="kicker">MEMBERSHIP APPLICATION</span>
+      <h2>Join LinkTech</h2>
+    </div>
+    <button class="close" id="closeJoin" aria-label="Close">×</button>
+  </div>
+
+  <div class="dialog-body">
+    <div class="signin-intro">
+      <strong>Sign in with Google</strong>
+      <p>
+        Your Google name, email, and profile photo will be
+        used to manage your membership application.
+      </p>
+    </div>
+
+    <div id="googleButtonContainer"></div>
+    <div id="signedInProfile" class="signed-profile" hidden></div>
+
+    <form id="membershipForm">
+      <label for="city">City of residence</label>
+      <input id="city" value="Zamboanga City" readonly>
+
+      <label for="position">Position you are applying for *</label>
+      <select id="position" required>
+        <option value="">Choose a position</option>
+        <option>IT Support Technician</option>
+        <option>Computer Hardware Repair</option>
+        <option>Web Developer</option>
+        <option>Software / App Developer</option>
+        <option>UI/UX or Graphic Designer</option>
+        <option>Video Editor / Content Creator</option>
+        <option>Network / CCTV Technician</option>
+        <option>Technical Writer / Documentation</option>
+        <option>Project Tester / QA</option>
+        <option>Other Contributor</option>
+      </select>
+
+      <label for="skills">Skills and experience *</label>
+      <textarea id="skills" maxlength="1500" required
+        placeholder="Describe your relevant skills and experience..."></textarea>
+
+      <label for="motivation">Why do you want to join? *</label>
+      <textarea id="motivation" maxlength="1500" required
+        placeholder="Explain how you would like to contribute..."></textarea>
+
+      <div class="terms-box">
+        <h3>Terms and Conditions</h3>
+        <ol>
+          <li>
+            <b>Eligibility:</b> Applicants must live in
+            Zamboanga City. LinkTech may request reasonable
+            verification.
+          </li>
+          <li>
+            <b>Approval:</b> Submitting an application does not
+            automatically make you a member. An administrator
+            decides whether to approve or reject it.
+          </li>
+          <li>
+            <b>Participation:</b> Approved members may be invited
+            to participate in app development, digital tools,
+            websites, hardware repairs, IT support, and related
+            projects. Responsibilities must be agreed upon.
+          </li>
+          <li>
+            <b>Copyright:</b> You must own or have permission to
+            use all submitted videos, images, software, code,
+            designs, and other creations. Do not submit pirated,
+            copied, or infringing material.
+          </li>
+          <li>
+            <b>Review and publication:</b> LinkTech may test,
+            review, request revisions to, or decline contributions
+            before publication.
+          </li>
+          <li>
+            <b>Revenue sharing:</b> Membership does not guarantee
+            payment or income. Any revenue share depends on actual
+            website or project profit and a separate written
+            agreement defining costs, contributions, and shares.
+          </li>
+          <li>
+            <b>Privacy:</b> Your application details are used to
+            administer membership. If approved, your name, profile
+            photo, and position may appear in the public directory.
+            Your email and application answers remain private.
+          </li>
+          <li>
+            <b>Conduct:</b> Members must act respectfully, protect
+            confidential information, and comply with applicable
+            laws and project rules.
+          </li>
+        </ol>
+      </div>
+
+      <label class="check">
+        <input type="checkbox" id="cityConfirm" required>
+        <span>I confirm that I currently live in Zamboanga City.</span>
+      </label>
+
+      <label class="check">
+        <input type="checkbox" id="termsConfirm" required>
+        <span>I have read and agree to the membership terms.</span>
+      </label>
+
+      <label class="check">
+        <input type="checkbox" id="copyrightConfirm" required>
+        <span>
+          I will submit only original or properly licensed
+          creations and understand that contributions are
+          reviewed before publication.
+        </span>
+      </label>
+
+      <p id="formMessage" class="form-message" role="status"></p>
+
+      <button class="primary submit" id="submitApplication"
+              type="submit" disabled>
+        Submit Membership Application
+      </button>
+
+      <p class="help">
+        Sign in with Google first. Never enter your Google
+        password into this form.
+      </p>
+    </form>
+  </div>
+</dialog>
+
+<script src="js/member.js"></script>
+</body>
+</html>
