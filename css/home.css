@@ -424,6 +424,88 @@ nav a:hover::after{
 }
 
 
+/* LinkTech Facebook Integration */
+.lt-social {
+  max-width: 1000px;
+  margin: 32px auto;
+  padding: 28px 20px;
+  text-align: center;
+  color: #f8fafc;
+  background: linear-gradient(135deg, #050a19, #111b35);
+  border: 1px solid rgba(34, 211, 238, .25);
+  border-radius: 18px;
+  box-sizing: border-box;
+}
+
+.lt-social h2 {
+  margin: 0 0 12px;
+  font-size: clamp(22px, 4vw, 30px);
+}
+
+.lt-social p {
+  max-width: 650px;
+  margin: 0 auto 22px;
+  color: #cbd5e1;
+  line-height: 1.7;
+}
+
+.lt-social-actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 12px;
+}
+
+.lt-social-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 46px;
+  padding: 12px 18px;
+  border-radius: 10px;
+  color: #fff !important;
+  font-weight: 600;
+  text-decoration: none !important;
+  box-sizing: border-box;
+  transition: transform .2s, opacity .2s;
+}
+
+.lt-social-btn:hover {
+  transform: translateY(-2px);
+  opacity: .9;
+}
+
+.lt-facebook {
+  background: #1877f2;
+}
+
+.lt-messenger {
+  background: #0084ff;
+}
+
+.lt-share {
+  background: #475569;
+}
+
+.lt-social-btn:focus-visible {
+  outline: 3px solid #22d3ee;
+  outline-offset: 3px;
+}
+
+@media (max-width: 520px) {
+  .lt-social {
+    margin: 24px 12px;
+    padding: 24px 16px;
+  }
+
+  .lt-social-actions {
+    flex-direction: column;
+  }
+
+  .lt-social-btn {
+    width: 100%;
+  }
+
 
 
 /* ==========================================
@@ -2435,83 +2517,5 @@ footer{
         font-size:12px;
     }
 
-}
-
-
-
-
-/* LinkTech Facebook integration */
-.linktech-social {
-  margin: 32px auto;
-  padding: 28px 18px;
-  max-width: 1000px;
-  text-align: center;
-  color: #f8fafc;
-  background: linear-gradient(135deg, #0b1226, #111b35);
-  border: 1px solid rgba(34, 211, 238, 0.25);
-  border-radius: 18px;
-}
-
-.linktech-social h2 {
-  margin: 0 0 10px;
-  font-size: clamp(22px, 4vw, 30px);
-}
-
-.linktech-social p {
-  color: #cbd5e1;
-  line-height: 1.6;
-}
-
-.linktech-social-buttons {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 12px;
-  margin-top: 20px;
-}
-
-.linktech-social-btn {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  min-height: 44px;
-  padding: 12px 18px;
-  border-radius: 10px;
-  color: #fff;
-  font-weight: 600;
-  text-decoration: none;
-  transition: transform 0.2s, opacity 0.2s;
-}
-
-.linktech-social-btn:hover {
-  transform: translateY(-2px);
-  opacity: 0.9;
-}
-
-.facebook-btn {
-  background: #1877f2;
-}
-
-.messenger-btn {
-  background: #0084ff;
-}
-
-.website-share-btn {
-  background: #475569;
-}
-
-.linktech-social-btn:focus-visible {
-  outline: 3px solid #22d3ee;
-  outline-offset: 3px;
-}
-
-@media (max-width: 480px) {
-  .linktech-social-buttons {
-    flex-direction: column;
-  }
-
-  .linktech-social-btn {
-    width: auto;
-  }
 }
 
