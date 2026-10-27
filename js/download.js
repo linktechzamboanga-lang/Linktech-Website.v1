@@ -22,7 +22,11 @@ const downloadFiles = {
     PersonalFinance:
         "https://github.com/linktechzamboanga-lang/Linktech-Website.v1/releases/download/v1.0.0/Personal-Finance-1.0.apk",
 
+   ResetterL120:
+        "sha256:a71736385942c90f51d287c9ffb6b84b137b7195eb2bac3d54004b79cdf8adc1",
 
+
+    
     /*
      * IMPORTANT:
      *
