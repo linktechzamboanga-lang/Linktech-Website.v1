@@ -1,0 +1,124 @@
+# WEBSITE INTEGRATION AND COLLABORATION AGREEMENT
+
+**Agreement No.:** LT-COLLAB-2026-001
+
+**Effective Date:** __________________
+
+## 1. PARTIES
+
+**Party A — Website Integrator**
+
+Name: Russel Villaflores  
+Business / Brand: LinkTech Freelance IT Specialist Zamboanga  
+Website: https://lintechzamboanga.solutions
+
+**Party B — Web Application Owner / Developer**
+
+Full Name: __________________________________
+
+Web Application Name: ________________________
+
+Application URL: ______________________________
+
+## 2. PURPOSE OF AGREEMENT
+
+Both parties voluntarily agree to collaborate by integrating, connecting, linking, embedding, or promoting Party B's web application through Party A's LinkTech website, subject to the permissions and limitations in this agreement.
+
+The purpose is to provide users with access to the application through the LinkTech platform.
+
+## 3. OWNERSHIP AND INTELLECTUAL PROPERTY
+
+**3.1 Party A's rights**
+
+Party A retains ownership of the LinkTech website and the original materials that Party A owns, including its branding, logo, website design, original source code, and other original content.
+
+Party B receives no ownership of the LinkTech domain, website, source code, or administrative accounts through this agreement.
+
+**3.2 Party B's rights**
+
+Party B retains ownership of the web application and its original source code, branding, designs, and other materials that Party B owns, subject to any third-party rights or licenses.
+
+Party A receives no ownership of Party B's application or source code merely by integrating or linking to it.
+
+**3.3 Limited permission**
+
+Each party grants the other only the permissions expressly stated in this agreement. Party B authorizes Party A to display the application name, approved logo, description, and application link on LinkTech.
+
+Embedding, modifying, hosting, distributing, or accessing the application's source code requires separate permission where applicable.
+
+## 4. COLLABORATION AND RESPONSIBILITIES
+
+Party A agrees to:
+- Integrate or link the approved application on the LinkTech website.
+- Preserve Party B's agreed developer attribution.
+- Avoid claiming ownership of Party B's application.
+
+Party B agrees to:
+- Confirm that they have the authority to authorize the integration.
+- Provide accurate application details and approved promotional materials.
+- Avoid claiming ownership of LinkTech or its original materials.
+- Notify Party A of material application changes, security concerns, or discontinuation.
+
+Both parties agree not to misuse the other party's branding, confidential information, or accounts.
+
+## 5. REVENUE AND PAYMENT
+
+This agreement does not automatically establish a salary, commission, revenue share, or payment obligation.
+
+Any advertising income, subscription revenue, referral commissions, sales proceeds, or other shared income must be governed by a separate written agreement specifying the payment calculation, expenses, reporting, and payment schedule.
+
+## 6. LIABILITY AND THIRD-PARTY SERVICES
+
+Each party remains responsible for the materials, services, and activities under their control.
+
+Neither party guarantees uninterrupted availability, security, or performance of the other's application or website. Each party must handle applicable legal obligations and third-party licenses relevant to their own work.
+
+Neither party may make unauthorized promises, warranties, or endorsements on behalf of the other.
+
+## 7. TERMINATION
+
+Either party may terminate this collaboration by providing written notice to the other party.
+
+Upon termination, Party A will remove or disable the integration within a mutually agreed reasonable period, subject to any applicable legal obligations. Each party must stop using the other's branding or materials beyond any continuing permission expressly granted.
+
+Termination does not transfer ownership of either party's intellectual property.
+
+## 8. VOLUNTARY CONSENT
+
+Both parties confirm that they have read and understood this agreement, voluntarily consent to the collaboration, and have had the opportunity to request clarification before signing.
+
+This agreement records their consent to the specific integration described above. It does not establish a partnership, joint ownership, or transfer of intellectual property unless expressly agreed in a separate signed document.
+
+## 9. SIGNATURES
+
+**PARTY A — LINKTECH WEBSITE INTEGRATOR**
+
+Full Name: Russel Villaflores
+
+Signature: ______________________________
+
+Date: ___________________________________
+
+**PARTY B — WEB APPLICATION OWNER / DEVELOPER**
+
+Full Name: ______________________________
+
+Signature: ______________________________
+
+Date: ___________________________________
+
+**WITNESS 1 (OPTIONAL)**
+
+Full Name: ______________________________
+
+Signature: ______________________________
+
+Date: ___________________________________
+
+**WITNESS 2 (OPTIONAL)**
+
+Full Name: ______________________________
+
+Signature: ______________________________
+
+Date: ___________________________________
