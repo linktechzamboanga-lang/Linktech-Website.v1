@@ -1596,234 +1596,38 @@ footer{
     margin-top:15px;
 }
 
-/* ==========================================
-   LINKTECH CUSTOMER SUPPORT PORTAL
-   HOME.CSS
-   PART 3/4
-   TIMELINE + COMMENTS + MODAL
-========================================== */
 
 
 /* ==========================================
-   TIMELINE SECTION
-========================================== */
-
-#timeline{
-    display:grid;
-
-    grid-template-columns:
-        repeat(auto-fit,minmax(300px,1fr));
-
-    gap:22px;
-
-    width:100%;
-}
-
-/* ===== Timeline Image Card ===== */
-
-.timeline-post{
-    background:#111827;
-    border:1px solid #263247;
-    border-radius:18px;
-    overflow:hidden;
-    margin-bottom:22px;
-}
-
-.timeline-image{
-    width:100%;
-    max-height:420px;
-    overflow:hidden;
-    background:#0b1220;
-}
-
-.timeline-image img{
-    width:100%;
-    height:100%;
-    display:block;
-    object-fit:cover;
-    cursor:pointer;
-    transition:.25s ease;
-}
-
-.timeline-image img:hover{
-    transform:scale(1.02);
-}
-
-.timeline-content{
-    padding:16px;
-}
-
-/* Landscape / Portrait support */
-.timeline-image.landscape{
-    aspect-ratio:16/9;
-}
-
-.timeline-image.portrait{
-    aspect-ratio:4/5;
-}
-
-
-
-/* ==========================================
-   TIMELINE TITLE
-========================================== */
-
-.timeline-post h3{
-    margin-top:15px;
-
-    color:#0284c7;
-
-    font-size:20px;
-
-    font-weight:700;
-}
-
-
-/* ==========================================
-   TIMELINE TEXT
-========================================== */
-
-.timeline-post p{
-    margin:10px 0;
-
-    color:#475569;
-
-    line-height:1.7;
-}
-
-
-/* ==========================================
-   TIMELINE DATE
-========================================== */
-
-.timeline-date{
-    font-size:12px;
-
-    color:#94a3b8;
-}
-
-
-/* ==========================================
-   TIMELINE ADMIN CONTROLS
-========================================== */
-
-.timeline-admin-actions{
-    display:flex;
-
-    gap:8px;
-
-    flex-wrap:wrap;
-
-    margin-top:15px;
-
-    padding-top:12px;
-
-    border-top:1px solid #e2e8f0;
-}
-
-.timeline-admin-actions button{
-    padding:8px 12px;
-
-    font-size:12px;
-}
-
-
-/* ==========================================
-   TIMELINE VIEW BUTTON
-========================================== */
-
-.timeline-view-btn{
-    width:auto;
-
-    margin-top:10px;
-
-    background:
-        linear-gradient(
-            135deg,
-            #0284c7,
-            #0369a1
-        );
-}
-
-.timeline-view-btn:hover{
-    background:
-        linear-gradient(
-            135deg,
-            #38bdf8,
-            #0284c7
-        );
-}
-
-
-/* ==========================================
-   TIMELINE EMPTY STATE
-========================================== */
-
-.timeline-empty{
-    grid-column:1/-1;
-
-    text-align:center;
-
-    padding:40px 20px;
-
-    color:#64748b;
-
-    background:#f8fafc;
-
-    border:1px dashed #cbd5e1;
-
-    border-radius:16px;
-}
-
-
-/* ==========================================
-   TIMELINE LOADING
-========================================== */
-
-.timeline-loading{
-    grid-column:1/-1;
-
-    text-align:center;
-
-    padding:30px;
-
-    color:#0284c7;
-
-    background:#f8fafc;
-
-    border-radius:16px;
-}
-
-
-/* ==========================================
-   TIMELINE MODAL OVERLAY
+   LINKTECH TIMELINE MODAL OVERLAY
 ========================================== */
 
 .timeline-modal,
 #timelineModal,
-.modal{
-    position:fixed;
+.modal {
+    position: fixed;
+    inset: 0;
 
-    inset:0;
+    width: 100%;
+    height: 100%;
+    height: 100dvh;
 
-    width:100%;
-    height:100%;
+    background: rgba(5, 10, 25, 0.82);
 
-    background:rgba(15,23,42,.65);
+    display: none;
+    align-items: center;
+    justify-content: center;
 
-    display:none;
+    padding: 16px;
 
-    align-items:center;
+    z-index: 9999;
 
-    justify-content:center;
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
 
-    padding:20px;
-
-    z-index:9999;
-
-    backdrop-filter:blur(5px);
+    overflow: hidden;
+    box-sizing: border-box;
 }
-
 
 /* ==========================================
    SHOW MODAL
@@ -1831,10 +1635,9 @@ footer{
 
 .timeline-modal.show,
 #timelineModal.show,
-.modal.show{
-    display:flex;
+.modal.show {
+    display: flex;
 }
-
 
 /* ==========================================
    MODAL CONTENT
@@ -1842,131 +1645,477 @@ footer{
 
 .timeline-modal-content,
 #timelineModal .modal-content,
-.modal-content{
-    width:min(95%,750px);
+.modal-content {
+    position: relative;
 
-    max-height:90vh;
+    width: 100%;
+    max-width: 850px;
 
-    overflow-y:auto;
+    max-height: 92vh;
+    max-height: 92dvh;
 
-    background:#ffffff;
+    overflow-x: hidden;
+    overflow-y: auto;
 
-    border:1px solid #bae6fd;
+    background: #ffffff;
 
-    border-radius:20px;
+    border: 1px solid #bae6fd;
+    border-radius: 22px;
 
-    padding:25px;
+    padding: 28px;
 
-    position:relative;
+    box-sizing: border-box;
 
     box-shadow:
-        0 20px 60px
-        rgba(15,23,42,.25);
+        0 24px 70px rgba(0, 0, 0, 0.35),
+        0 0 25px rgba(14, 165, 233, 0.12);
 
-    animation:
-        fadeUp .3s ease both;
+    animation: timelineFadeUp 0.3s ease both;
+
+    -webkit-overflow-scrolling: touch;
+    overscroll-behavior: contain;
+
+    scrollbar-width: thin;
+    scrollbar-color: #7dd3fc #f1f5f9;
 }
 
+/* Custom scrollbar */
+
+.timeline-modal-content::-webkit-scrollbar,
+#timelineModal .modal-content::-webkit-scrollbar,
+.modal-content::-webkit-scrollbar {
+    width: 7px;
+}
+
+.timeline-modal-content::-webkit-scrollbar-thumb,
+#timelineModal .modal-content::-webkit-scrollbar-thumb,
+.modal-content::-webkit-scrollbar-thumb {
+    background: #7dd3fc;
+    border-radius: 10px;
+}
 
 /* ==========================================
-   MODAL CLOSE
+   MODAL CLOSE BUTTON
 ========================================== */
 
 .modal-close,
 .timeline-modal-close,
-#timelineModal .close{
-    position:absolute;
+#timelineModal .close {
+    position: sticky;
 
-    top:12px;
-    right:15px;
+    top: 0;
+    float: right;
+    z-index: 20;
 
-    width:38px;
-    height:38px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 
-    border-radius:50%;
+    width: 42px;
+    height: 42px;
+    min-width: 42px;
 
-    padding:0;
+    margin: -10px -10px 10px 12px;
+    padding: 0;
 
-    background:#f1f5f9;
+    border: 1px solid #e2e8f0;
+    border-radius: 50%;
 
-    color:#334155;
+    background: #f1f5f9;
+    color: #334155;
 
-    font-size:22px;
+    font-size: 25px;
+    font-weight: 600;
+    line-height: 1;
 
-    line-height:1;
+    cursor: pointer;
 
-    box-shadow:none;
+    box-shadow: none;
+    transition:
+        background 0.2s ease,
+        color 0.2s ease;
 }
 
 .modal-close::before,
 .timeline-modal-close::before,
-#timelineModal .close::before{
-    display:none;
+#timelineModal .close::before {
+    display: none;
 }
 
 .modal-close:hover,
 .timeline-modal-close:hover,
-#timelineModal .close:hover{
-    background:#fee2e2;
+#timelineModal .close:hover {
+    background: #fee2e2;
+    color: #dc2626;
 
-    color:#dc2626;
-
-    transform:none;
-
-    box-shadow:none;
+    transform: none;
+    box-shadow: none;
 }
 
-
 /* ==========================================
-   MODAL IMAGE
+   TIMELINE IMAGE
+   PORTRAIT + LANDSCAPE SUPPORT
 ========================================== */
 
 .timeline-modal-content img,
 #timelineModal img,
-.modal-content img{
-    width:100%;
+.modal-content img {
+    display: block;
 
-    max-height:400px;
+    width: 100%;
+    height: auto;
 
-    object-fit:contain;
+    max-height: 72vh;
+    max-height: 72dvh;
 
-    border-radius:14px;
+    object-fit: contain;
+    object-position: center;
 
-    margin-bottom:15px;
+    margin: 0 auto 22px;
 
-    background:#f8fafc;
+    background: #f1f5f9;
+
+    border: 1px solid #e2e8f0;
+    border-radius: 16px;
+
+    box-sizing: border-box;
 }
 
+/* Preserve the original image proportions.
+   Portrait images remain portrait.
+   Landscape images remain landscape. */
+
+.timeline-modal-content img,
+#timelineModal img,
+.modal-content img {
+    aspect-ratio: auto;
+}
 
 /* ==========================================
-   MODAL TITLE
+   TIMELINE TITLE
 ========================================== */
 
 .timeline-modal-content h2,
 #timelineModal h2,
-.modal-content h2{
-    color:#0284c7;
+.modal-content h2 {
+    color: #0284c7;
 
-    margin-bottom:10px;
+    font-size: clamp(22px, 4vw, 30px);
+    font-weight: 750;
 
-    font-size:26px;
+    line-height: 1.35;
+    letter-spacing: -0.4px;
+
+    margin: 0 0 16px;
+
+    overflow-wrap: anywhere;
 }
 
-
 /* ==========================================
-   MODAL DESCRIPTION
+   TIMELINE CAPTION / DESCRIPTION
 ========================================== */
 
 .timeline-modal-content p,
 #timelineModal p,
-.modal-content p{
-    color:#475569;
+.modal-content p {
+    color: #334155;
 
-    line-height:1.7;
+    font-size: 16px;
+    line-height: 1.85;
 
-    margin:10px 0;
+    margin: 12px 0 18px;
+
+    white-space: pre-wrap;
+    overflow-wrap: anywhere;
+    word-break: normal;
 }
 
+/* ==========================================
+   CAPTION READABILITY
+========================================== */
+
+.timeline-modal-content .caption,
+#timelineModal .caption,
+.modal-content .caption,
+.timeline-caption {
+    color: #1e293b;
+
+    font-size: 16px;
+    line-height: 1.9;
+
+    padding: 16px 18px;
+
+    margin: 16px 0;
+
+    background: #f8fafc;
+
+    border-left: 4px solid #0ea5e9;
+    border-radius: 8px;
+
+    overflow-wrap: anywhere;
+    white-space: pre-wrap;
+}
+
+/* ==========================================
+   COMMENTS READABILITY
+========================================== */
+
+.timeline-modal-content .comment,
+#timelineModal .comment,
+.modal-content .comment,
+.timeline-comment {
+    color: #334155;
+
+    font-size: 15px;
+    line-height: 1.8;
+
+    padding: 14px 16px;
+
+    margin: 12px 0;
+
+    background: #f8fafc;
+
+    border: 1px solid #e2e8f0;
+    border-radius: 12px;
+
+    overflow-wrap: anywhere;
+    white-space: pre-wrap;
+}
+
+/* Comment author */
+
+.timeline-modal-content .comment strong,
+#timelineModal .comment strong,
+.modal-content .comment strong,
+.timeline-comment strong {
+    display: inline-block;
+
+    color: #0369a1;
+
+    font-size: 14px;
+    font-weight: 700;
+
+    margin-bottom: 5px;
+}
+
+/* ==========================================
+   TIMELINE INPUTS
+========================================== */
+
+.timeline-modal-content input,
+.timeline-modal-content textarea,
+#timelineModal input,
+#timelineModal textarea,
+.modal-content input,
+.modal-content textarea {
+    width: 100%;
+
+    padding: 13px 15px;
+
+    border: 1px solid #cbd5e1;
+    border-radius: 12px;
+
+    background: #ffffff;
+    color: #0f172a;
+
+    font-size: 16px;
+    line-height: 1.6;
+
+    box-sizing: border-box;
+
+    outline: none;
+    transition:
+        border-color 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+.timeline-modal-content textarea,
+#timelineModal textarea,
+.modal-content textarea {
+    min-height: 110px;
+
+    resize: vertical;
+
+    white-space: pre-wrap;
+    overflow-wrap: anywhere;
+}
+
+.timeline-modal-content input:focus,
+.timeline-modal-content textarea:focus,
+#timelineModal input:focus,
+#timelineModal textarea:focus,
+.modal-content input:focus,
+.modal-content textarea:focus {
+    border-color: #0ea5e9;
+
+    box-shadow: 0 0 0 4px rgba(14, 165, 233, 0.12);
+}
+
+/* ==========================================
+   TIMELINE BUTTONS
+========================================== */
+
+.timeline-modal-content button,
+#timelineModal button,
+.modal-content button {
+    max-width: 100%;
+
+    font-family: inherit;
+
+    overflow-wrap: anywhere;
+}
+
+/* ==========================================
+   MODAL ANIMATION
+========================================== */
+
+@keyframes timelineFadeUp {
+    from {
+        opacity: 0;
+        transform: translateY(18px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* ==========================================
+   TABLET RESPONSIVE
+========================================== */
+
+@media (max-width: 768px) {
+    .timeline-modal,
+    #timelineModal,
+    .modal {
+        padding: 12px;
+    }
+
+    .timeline-modal-content,
+    #timelineModal .modal-content,
+    .modal-content {
+        width: 100%;
+
+        max-width: 650px;
+        max-height: 94vh;
+        max-height: 94dvh;
+
+        padding: 22px 18px;
+
+        border-radius: 18px;
+    }
+
+    .timeline-modal-content img,
+    #timelineModal img,
+    .modal-content img {
+        max-height: 65vh;
+        max-height: 65dvh;
+
+        border-radius: 13px;
+
+        margin-bottom: 18px;
+    }
+
+    .timeline-modal-content p,
+    #timelineModal p,
+    .modal-content p {
+        font-size: 15px;
+        line-height: 1.8;
+    }
+}
+
+/* ==========================================
+   ANDROID / SMALL PHONE RESPONSIVE
+========================================== */
+
+@media (max-width: 480px) {
+    .timeline-modal,
+    #timelineModal,
+    .modal {
+        padding: 8px;
+    }
+
+    .timeline-modal-content,
+    #timelineModal .modal-content,
+    .modal-content {
+        width: 100%;
+
+        max-height: 96vh;
+        max-height: 96dvh;
+
+        padding: 18px 14px;
+
+        border-radius: 16px;
+    }
+
+    .modal-close,
+    .timeline-modal-close,
+    #timelineModal .close {
+        width: 38px;
+        height: 38px;
+        min-width: 38px;
+
+        font-size: 23px;
+    }
+
+    .timeline-modal-content img,
+    #timelineModal img,
+    .modal-content img {
+        width: 100%;
+        max-height: 60vh;
+        max-height: 60dvh;
+
+        border-radius: 12px;
+    }
+
+    .timeline-modal-content h2,
+    #timelineModal h2,
+    .modal-content h2 {
+        font-size: 22px;
+        line-height: 1.4;
+    }
+
+    .timeline-modal-content p,
+    #timelineModal p,
+    .modal-content p {
+        font-size: 15px;
+        line-height: 1.85;
+    }
+
+    .timeline-modal-content .caption,
+    #timelineModal .caption,
+    .modal-content .caption,
+    .timeline-caption {
+        padding: 13px;
+
+        font-size: 15px;
+        line-height: 1.85;
+    }
+
+    .timeline-modal-content .comment,
+    #timelineModal .comment,
+    .modal-content .comment,
+    .timeline-comment {
+        padding: 12px;
+
+        font-size: 14px;
+        line-height: 1.8;
+    }
+}
+
+/* ==========================================
+   ACCESSIBILITY
+========================================== */
+
+@media (prefers-reduced-motion: reduce) {
+    .timeline-modal-content,
+    #timelineModal .modal-content,
+    .modal-content {
+        animation: none;
+        transition: none;
+    }
+}
 
 /* ==========================================
    COMMENTS
