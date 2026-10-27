@@ -11,10 +11,10 @@ const downloadFiles = {
         "https://github.com/linktechzamboanga-lang/Linktech-Website.v1/releases/download/v1.0.0.0/LinkTech2026.apk",
 
     TxtToolHub:
-        "sha256:613a5e74aca86b94386bde853a507e16a6e9f4b8e52ee00d481459d1605edffa",
+        "https://texttools-hub-opal.vercel.app/?fbclid=IwY2xjawVM_ulleHRuA2FlbQIxMABwZG9mBWJyaWQRMUFUSXdJejBIQUt3cXd6SnVzcnRjBmFwcF9pZBAyMjIwMzkxNzg4MjAwODkyAAEe4bPDj0aqP4SGYENa37fuYLH9-esXL-jGLLMo8uNrsKVfXNSgVhLg3gyYWbg_aem_dmPNU7arATRPrTpY2onrrQ",
 
     ImageToolHub:
-        "sha256:dc1c66674db14c1835c09d2a947059c63322032a06abb35b1c843fec00c34975",
+        "https://imagestools-hub.vercel.app/?fbclid=IwY2xjawVM_ydleHRuA2FlbQIxMABwZG9mBWJyaWQRMUFUSXdJejBIQUt3cXd6SnVzcnRjBmFwcF9pZBAyMjIwMzkxNzg4MjAwODkyAAEef7ErLIpyqTOZHorQFfOiolGhU4o_u8Fptp7sO4eobRoN58C8F93dd4x7UiM_aem_1ezL2a-Pt_GM5iOqgbfggA",
     
     AssistantNote:
           "https://github.com/linktechzamboanga-lang/Linktech-Website.v1/releases/download/v1/Assistant-Note-1.0.apk",
