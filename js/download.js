@@ -9,7 +9,7 @@ const downloadFiles = {
         "https://github.com/linktechzamboanga-lang/Linktech-Website.v1/releases/download/v1.0.0.0/LinkTech2026.apk",
 
     TxtToolHub:
-        "https://texttools-hub-opal.vercel.app/",
+        "https://github.com/linktechzamboanga-lang/Linktech-Website.v1/releases/download/v1.1/TextToolHub.apk",
 
     ImageToolHub:
         "https://imagestools-hub.vercel.app/",
