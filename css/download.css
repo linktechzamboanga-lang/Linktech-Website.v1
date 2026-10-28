@@ -1436,7 +1436,15 @@ footer{
   margin: 30px auto;
   padding: 30px 20px;
   max-width: 650px;
-  text-align: center;
+  justify-content:center;
+
+    align-items:center;
+
+    background:#ffffff;
+
+    border:1px solid #dbeafe;
+
+    border-radius:50px;
   color: #ffffff;
 }
 
