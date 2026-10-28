@@ -1327,3 +1327,77 @@ button:active{
 ::-webkit-scrollbar-thumb:hover{
     background:#0284c7;
 }
+
+
+
+/* Equal Percent Tool Card */
+.tool-card {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+
+    width: 100%;
+    box-sizing: border-box;
+    padding: 20px;
+
+    text-align: left;
+    text-decoration: none;
+
+    background: #ffffff;
+    border: 1px solid #dbeafe;
+    border-radius: 14px;
+
+    transition: transform 0.25s ease,
+                box-shadow 0.25s ease;
+}
+
+/* Title */
+.tool-card h3 {
+    width: 100%;
+    margin: 0 0 10px;
+
+    text-align: left;
+    color: #0f172a;
+    font-size: 18px;
+    font-weight: 700;
+}
+
+/* Description */
+.tool-card p {
+    width: 100%;
+    margin: 0 0 16px;
+
+    text-align: left;
+    color: #475569;
+    font-size: 14px;
+    line-height: 1.7;
+}
+
+/* Open Tool Link */
+.tool-card .tool-link {
+    display: inline-block;
+    align-self: flex-start;
+
+    padding: 9px 15px;
+    border-radius: 8px;
+
+    background: #dbeafe;
+    color: #1d4ed8;
+
+    font-size: 14px;
+    font-weight: 600;
+    text-align: left;
+}
+
+/* Hover Effect */
+.tool-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 24px rgba(15, 23, 42, 0.10);
+    border-color: #93c5fd;
+}
+
+.tool-card:hover .tool-link {
+    background: #2563eb;
+    color: #ffffff;
+}
