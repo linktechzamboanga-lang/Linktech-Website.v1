@@ -1,6 +1,3 @@
-
-/* LINKTECH DONATION MODAL */
-
 document.addEventListener("DOMContentLoaded", function () {
   const modal = document.getElementById("donateModal");
   const openButton = document.getElementById("openDonateModal");
