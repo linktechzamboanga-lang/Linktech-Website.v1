@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#087cf0">
+  <title>Professional Photo Resize | LinkTech</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="#" aria-label="LinkTech Professional Photo Resize">
+      <span class="brand-mark">LT</span>
+      <span><strong>LinkTech</strong><small>Professional Photo Resize</small></span>
+    </a>
+    <div class="top-actions">
+      <button class="btn btn-light" id="exportProjectBtn">Export Project</button>
+      <label class="btn btn-light file-label">Import Project<input type="file" id="importProjectInput" accept=".json,application/json" hidden></label>
+      <button class="btn btn-primary" id="printBtn">Print / Save PDF</button>
+    </div>
+  </header>
+
+  <main class="container">
+    <section class="hero">
+      <div>
+        <span class="eyebrow">PHOTO STUDIO • PRINT READY</span>
+        <h1>Professional Photo Resize</h1>
+        <p>Crop, resize, enhance, arrange multiple copies, and prepare photos for printing.</p>
+      </div>
+      <div class="hero-icon" aria-hidden="true">▧</div>
+    </section>
+
+    <div class="notice"><strong>Print tip:</strong> In the print dialog, choose <b>Actual size / 100%</b> and disable “Fit to page” to preserve the selected dimensions.</div>
+
+    <section class="workspace">
+      <aside class="panel controls-panel">
+        <div class="section-heading"><div><span class="step">01</span><h2>Photo editor</h2></div><span class="muted">Local processing</span></div>
+        <label class="upload-box" for="photoInput">
+          <span class="upload-symbol">＋</span><strong>Choose photo(s)</strong>
+          <span>JPG, PNG, WebP · multiple files supported</span>
+          <input type="file" id="photoInput" accept="image/*" multiple>
+        </label>
+
+        <div class="field">
+          <label for="photoSelect">Current photo</label>
+          <select id="photoSelect"><option value="">Upload a photo first</option></select>
+        </div>
+
+        <div class="two-col">
+          <div class="field"><label for="presetSize">Photo size</label>
+            <select id="presetSize">
+              <option value="2x2">2 × 2 inch</option>
+              <option value="1x1">1 × 1 inch</option>
+              <option value="3x3">3 × 3 inch</option>
+              <option value="passport">Passport 35 × 45 mm</option>
+              <option value="custom">Custom size</option>
+            </select>
+          </div>
+          <div class="field"><label for="dpi">Print resolution</label>
+            <select id="dpi"><option>300</option><option>240</option><option>200</option><option>150</option><option>96</option></select>
+          </div>
+        </div>
+        <div class="two-col custom-size hidden" id="customSizeFields">
+          <div class="field"><label for="customW">Width (in)</label><input type="number" id="customW" min=".1" max="12" step=".05" value="2"></div>
+          <div class="field"><label for="customH">Height (in)</label><input type="number" id="customH" min=".1" max="16" step=".05" value="2"></div>
+        </div>
+
+        <details class="editor-group" open>
+          <summary>Crop & transform</summary>
+          <p class="help">Drag inside the crop frame to move it. Drag any blue handle to resize it. Works with mouse, touch, and stylus.</p>
+          <div class="cropper-wrap" id="cropperWrap">
+            <div class="cropper-stage" id="cropperStage">
+              <img id="cropperImage" alt="Interactive crop preview" draggable="false">
+              <div class="crop-frame" id="cropFrame" aria-label="Drag to move crop area">
+                <span class="crop-dim crop-dim-top"></span><span class="crop-dim crop-dim-left"></span>
+                <span class="crop-dim crop-dim-right"></span><span class="crop-dim crop-dim-bottom"></span>
+                <button class="crop-handle nw" data-handle="nw" aria-label="Resize crop top left"></button>
+                <button class="crop-handle n" data-handle="n" aria-label="Resize crop top"></button>
+                <button class="crop-handle ne" data-handle="ne" aria-label="Resize crop top right"></button>
+                <button class="crop-handle e" data-handle="e" aria-label="Resize crop right"></button>
+                <button class="crop-handle se" data-handle="se" aria-label="Resize crop bottom right"></button>
+                <button class="crop-handle s" data-handle="s" aria-label="Resize crop bottom"></button>
+                <button class="crop-handle sw" data-handle="sw" aria-label="Resize crop bottom left"></button>
+                <button class="crop-handle w" data-handle="w" aria-label="Resize crop left"></button>
+              </div>
+            </div>
+          </div>
+          <div class="crop-grid">
+            <div class="field"><label for="cropX">X %</label><input id="cropX" type="number" min="0" max="99" value="0"></div>
+            <div class="field"><label for="cropY">Y %</label><input id="cropY" type="number" min="0" max="99" value="0"></div>
+            <div class="field"><label for="cropW">Width %</label><input id="cropW" type="number" min="1" max="100" value="100"></div>
+            <div class="field"><label for="cropH">Height %</label><input id="cropH" type="number" min="1" max="100" value="100"></div>
+          </div>
+          <div class="button-row">
+            <button class="btn btn-light" id="rotateBtn">↻ Rotate 90°</button>
+            <button class="btn btn-light" id="resetCropBtn">Reset crop</button>
+          </div>
+        </details>
+
+        <details class="editor-group" open>
+          <summary>Image adjustments</summary>
+          <div class="range-field"><label for="brightness">Brightness <output id="brightnessOut">100%</output></label><input type="range" id="brightness" min="0" max="200" value="100"></div>
+          <div class="range-field"><label for="contrast">Contrast <output id="contrastOut">100%</output></label><input type="range" id="contrast" min="0" max="200" value="100"></div>
+          <div class="range-field"><label for="saturation">Saturation <output id="saturationOut">100%</output></label><input type="range" id="saturation" min="0" max="200" value="100"></div>
+          <div class="range-field"><label for="opacity">Transparency <output id="opacityOut">100%</output></label><input type="range" id="opacity" min="0" max="100" value="100"></div>
+          <button class="btn btn-light full-width" id="resetAdjustBtn">Reset adjustments</button>
+        </details>
+
+        <details class="editor-group">
+          <summary>Simple background removal</summary>
+          <p class="help">Best for plain, evenly colored backgrounds. This is color removal, not AI hair/edge segmentation.</p>
+          <div class="two-col">
+            <div class="field"><label for="bgColor">Color to remove</label><input type="color" id="bgColor" value="#ffffff"></div>
+            <div class="field"><label for="bgTolerance">Tolerance <output id="toleranceOut">35</output></label><input type="range" id="bgTolerance" min="0" max="150" value="35"></div>
+          </div>
+          <label class="check-row"><input type="checkbox" id="removeBg"> Make matching color transparent</label>
+          <button class="btn btn-light full-width" id="sampleBgBtn">Use center pixel as color</button>
+        </details>
+
+        <div class="button-row action-row">
+          <button class="btn btn-primary" id="applyBtn">Apply edits</button>
+          <button class="btn btn-light" id="downloadImageBtn">Export photo</button>
+        </div>
+        <p class="help">Apply edits creates the print-ready version. PNG preserves transparency; JPEG uses a white background.</p>
+      </aside>
+
+      <section class="panel preview-panel">
+        <div class="section-heading"><div><span class="step">02</span><h2>Photo preview</h2></div><span class="live-label"><i></i> Live preview</span></div>
+        <div class="preview-stage" id="previewStage">
+          <div class="empty-state" id="emptyState"><div class="empty-picture">▧</div><strong>Your photo preview appears here</strong><span>Upload a photo to start editing.</span></div>
+          <canvas id="editorCanvas" class="hidden"></canvas>
+        </div>
+        <div class="preview-meta">
+          <div><span class="muted">Output size</span><strong id="outputDimensions">—</strong></div>
+          <div><span class="muted">Pixel target</span><strong id="pixelDimensions">—</strong></div>
+          <div><span class="muted">Print size</span><strong id="printDimensions">2 × 2 in</strong></div>
+        </div>
+        <div class="section-heading layout-heading"><div><span class="step">03</span><h2>Print layout</h2></div><span class="muted">Arrange multiple copies</span></div>
+        <div class="layout-settings">
+          <div class="field"><label for="paperSize">Paper size</label><select id="paperSize">
+            <option value="a4">A4 · 210 × 297 mm</option><option value="letter">Letter · 8.5 × 11 in</option>
+            <option value="legal">Legal · 8.5 × 14 in</option><option value="a3">A3 · 297 × 420 mm</option>
+            <option value="photo4x6">Photo paper · 4 × 6 in</option><option value="photo5x7">Photo paper · 5 × 7 in</option>
+            <option value="photo8x10">Photo paper · 8 × 10 in</option><option value="custom">Custom paper</option>
+          </select></div>
+          <div class="field"><label for="copies">Copies of selected photo</label><input type="number" id="copies" min="1" max="200" value="12"></div>
+          <div class="field"><label for="columns">Columns</label><input type="number" id="columns" min="1" max="12" value="3"></div>
+          <div class="field"><label for="gap">Gap (mm)</label><input type="number" id="gap" min="0" max="30" step=".5" value="3"></div>
+          <div class="field"><label for="margin">Page margin (mm)</label><input type="number" id="margin" min="0" max="30" step=".5" value="8"></div>
+          <div class="field"><label for="fitMode">Overflow handling</label><select id="fitMode"><option value="pages">Continue on extra pages</option><option value="fit">Fit on one page (may shrink)</option></select></div>
+        </div>
+        <div class="custom-size hidden" id="customPaperFields">
+          <div class="two-col">
+            <div class="field"><label for="paperW">Paper width (in)</label><input type="number" id="paperW" min="2" max="24" step=".1" value="8.27"></div>
+            <div class="field"><label for="paperH">Paper height (in)</label><input type="number" id="paperH" min="2" max="36" step=".1" value="11.69"></div>
+          </div>
+        </div>
+        <div class="button-row layout-buttons">
+          <button class="btn btn-primary" id="buildLayoutBtn">Build print preview</button>
+          <button class="btn btn-light" id="addAllBtn">Print all photos once</button>
+        </div>
+        <div class="layout-summary" id="layoutSummary">Upload a photo, choose its size and build a print layout.</div>
+        <div id="printPreview" class="print-preview"><div class="empty-state compact"><div class="empty-picture">▤</div><strong>Print sheet preview</strong><span>Your paper layout will appear here.</span></div></div>
+      </section>
+    </section>
+
+    <section class="panel queue-panel">
+      <div class="section-heading"><div><span class="step">04</span><h2>Photos in project</h2></div><button class="btn btn-danger-soft" id="clearAllBtn">Clear project</button></div>
+      <div id="photoQueue" class="photo-queue"><p class="muted">No photos uploaded yet.</p></div>
+    </section>
+    <footer>© 2026 LinkTech Freelance IT Specialist Zamboanga <span>Professional Photo Resize</span></footer>
+  </main>
+
+  <section id="printRoot" aria-hidden="true"></section>
+  <script src="js/app.js"></script>
+</body>
+</html>
