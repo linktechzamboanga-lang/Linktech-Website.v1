@@ -1,0 +1,117 @@
+
+/* =================================
+   LINKTECH SIMPLE TOOLS LIST
+================================= */
+
+.tools-grid {
+    display: grid !important;
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    gap: 12px !important;
+    width: 100% !important;
+}
+
+/* TOOL CARD */
+
+.tools-grid a.tool-card {
+    display: block !important;
+    box-sizing: border-box !important;
+    min-width: 0 !important;
+    min-height: auto !important;
+
+    padding: 15px !important;
+    margin: 0 !important;
+
+    background: #ffffff !important;
+    color: #183653 !important;
+
+    border: 1px solid #dbe7f5 !important;
+    border-radius: 10px !important;
+    box-shadow: none !important;
+
+    text-decoration: none !important;
+    transform: none !important;
+    overflow: visible !important;
+}
+
+/* REMOVE DECORATIVE EFFECTS */
+
+.tools-grid a.tool-card::before,
+.tools-grid a.tool-card::after {
+    display: none !important;
+    content: none !important;
+    animation: none !important;
+}
+
+/* TITLE */
+
+.tools-grid a.tool-card h3 {
+    display: block !important;
+    margin: 0 0 8px !important;
+    padding: 0 !important;
+
+    color: #12345a !important;
+    font-family: Arial, sans-serif !important;
+    font-size: 15px !important;
+    font-weight: 700 !important;
+    line-height: 1.5 !important;
+}
+
+/* DESCRIPTION */
+
+.tools-grid a.tool-card p {
+    display: block !important;
+    margin: 0 0 10px !important;
+    padding: 0 !important;
+
+    color: #64748b !important;
+    font-family: Arial, sans-serif !important;
+    font-size: 12px !important;
+    font-weight: 400 !important;
+    line-height: 1.6 !important;
+}
+
+/* OPEN TOOL */
+
+.tools-grid a.tool-card .tool-link {
+    display: inline-block !important;
+    margin: 0 !important;
+    padding: 0 !important;
+
+    color: #087bea !important;
+    font-family: Arial, sans-serif !important;
+    font-size: 12px !important;
+    font-weight: 700 !important;
+}
+
+/* HOVER */
+
+.tools-grid a.tool-card:hover {
+    background: #f5f9ff !important;
+    border-color: #1684ef !important;
+    box-shadow: none !important;
+}
+
+/* MOBILE */
+
+@media screen and (max-width: 480px) {
+    .tools-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+        gap: 8px !important;
+    }
+
+    .tools-grid a.tool-card {
+        padding: 11px !important;
+    }
+
+    .tools-grid a.tool-card h3 {
+        font-size: 13px !important;
+    }
+
+    .tools-grid a.tool-card p {
+        font-size: 11px !important;
+    }
+
+    .tools-grid a.tool-card .tool-link {
+        font-size: 11px !important;
+    }
+}
