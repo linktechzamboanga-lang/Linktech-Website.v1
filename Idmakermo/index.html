@@ -1,0 +1,248 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#eaf5ff">
+  <title>ID Maker Mo | LinkTech</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<header class="topbar">
+  <a class="brand" href="https://lintechzamboanga.solutions">
+    <span class="brand-icon">ID</span>
+    <span><strong>ID Maker Mo</strong><small>LinkTech ID Studio</small></span>
+  </a>
+  <div class="top-actions">
+    <button id="newBtn" class="btn">New ID</button>
+    <button id="saveBtn" class="btn primary">Save Project</button>
+  </div>
+</header>
+
+<main class="app">
+  <section class="intro">
+    <div>
+      <span class="eyebrow">ONLINE ID DESIGN STUDIO</span>
+      <h1>Create your own ID card</h1>
+      <p>Design, customize, save and print your ID cards. Your projects are stored in this browser.</p>
+    </div>
+    <div class="status-pill"><span></span> Local storage enabled</div>
+  </section>
+
+  <section class="workspace">
+    <aside class="sidebar">
+      <div class="panel">
+        <h2>1. Card setup</h2>
+        <div class="field">
+          <label for="projectName">Project name</label>
+          <input id="projectName" value="My ID Design" maxlength="100">
+        </div>
+        <div class="field">
+          <label>Orientation</label>
+          <div class="segmented">
+            <button class="active" data-orientation="landscape">Landscape</button>
+            <button data-orientation="portrait">Portrait</button>
+          </div>
+        </div>
+        <div class="field">
+          <label>Editing side</label>
+          <div class="segmented">
+            <button class="active" data-side="front">Front</button>
+            <button data-side="back">Back</button>
+          </div>
+        </div>
+        <p class="hint" id="dimensionLabel">Landscape · 856 × 540 design units</p>
+      </div>
+
+      <div class="panel">
+        <h2>2. Add elements</h2>
+        <div class="tool-grid">
+          <button id="addTextBtn" class="tool-btn"><span> T </span>Add text</button>
+          <button id="addRectBtn" class="tool-btn"><span>▰</span>Rectangle</button>
+          <button id="addCircleBtn" class="tool-btn"><span>●</span>Circle</button>
+          <button id="addLineBtn" class="tool-btn"><span>／</span>Line</button>
+          <button id="addPhotoBtn" class="tool-btn"><span>▧</span>Add photo</button>
+          <button id="addLogoBtn" class="tool-btn"><span>✦</span>Add logo</button>
+        </div>
+        <div class="field">
+          <label for="photoInput">Upload photo or logo</label>
+          <input id="photoInput" type="file" accept="image/*">
+        </div>
+        <div class="field">
+          <label for="backgroundInput">Upload background image</label>
+          <input id="backgroundInput" type="file" accept="image/*">
+        </div>
+        <div class="field">
+          <label for="backgroundColor">Background color</label>
+          <input id="backgroundColor" type="color" value="#ffffff">
+        </div>
+        <div class="button-row">
+          <button id="fitBackgroundBtn" class="btn">Fit background</button>
+          <button id="removeBackgroundBtn" class="btn">Remove image</button>
+        </div>
+      </div>
+
+      <div class="panel">
+        <h2>3. Background templates</h2>
+        <p class="hint">Templates change the background only. Your text and objects stay editable.</p>
+        <div class="template-grid">
+          <button class="template-card" data-template="blue"><span class="swatch sw-blue"></span>Blue wave</button>
+          <button class="template-card" data-template="purple"><span class="swatch sw-purple"></span>Purple glow</button>
+          <button class="template-card" data-template="green"><span class="swatch sw-green"></span>Green tech</button>
+          <button class="template-card" data-template="sunset"><span class="swatch sw-sunset"></span>Sunset</button>
+          <button class="template-card" data-template="dark"><span class="swatch sw-dark"></span>Dark carbon</button>
+          <button class="template-card" data-template="minimal"><span class="swatch sw-minimal"></span>Minimal white</button>
+          <button class="template-card" data-template="red"><span class="swatch sw-red"></span>Red energy</button>
+          <button class="template-card" data-template="gold"><span class="swatch sw-gold"></span>Gold luxury</button>
+        </div>
+      </div>
+
+      <div class="panel">
+        <h2>4. Print and export</h2>
+        <div class="field">
+          <label for="paperSize">Paper size</label>
+          <select id="paperSize">
+            <option value="a4">A4 (210 × 297 mm)</option>
+            <option value="letter">Letter (216 × 279 mm)</option>
+            <option value="legal">Legal (216 × 356 mm)</option>
+            <option value="custom">Custom paper</option>
+          </select>
+        </div>
+        <div id="customPaperFields" class="two-col hidden">
+          <div class="field"><label for="paperW">Width (mm)</label><input id="paperW" type="number" value="210" min="50"></div>
+          <div class="field"><label for="paperH">Height (mm)</label><input id="paperH" type="number" value="297" min="50"></div>
+        </div>
+        <div class="two-col">
+          <div class="field"><label for="cardW">ID width (mm)</label><input id="cardW" type="number" value="85.6" min="20" max="200" step="0.1"></div>
+          <div class="field"><label for="cardH">ID height (mm)</label><input id="cardH" type="number" value="54" min="20" max="200" step="0.1"></div>
+        </div>
+        <div class="two-col">
+          <div class="field"><label for="printMargin">Margin (mm)</label><input id="printMargin" type="number" value="5" min="0" max="50" step="0.5"></div>
+          <div class="field"><label for="printGap">Gap (mm)</label><input id="printGap" type="number" value="3" min="0" max="30" step="0.5"></div>
+        </div>
+        <div class="field">
+          <label for="copies">Number of copies</label>
+          <input id="copies" type="number" min="1" max="500" value="10">
+        </div>
+        <div class="print-summary" id="printSummary">Configure your paper and ID size.</div>
+        <button id="printBtn" class="btn primary full">Print ID sheet</button>
+        <div class="button-row">
+          <button id="exportPngBtn" class="btn">Export current PNG</button>
+          <button id="exportBothBtn" class="btn">Export front + back</button>
+        </div>
+        <div class="button-row">
+          <button id="exportJsonBtn" class="btn">Backup project</button>
+          <label class="btn file-button">Import backup<input id="importJsonInput" type="file" accept=".json,application/json"></label>
+        </div>
+      </div>
+
+      <div class="panel">
+        <h2>Saved projects</h2>
+        <div id="savedProjects" class="saved-list"><p class="hint">No saved projects yet.</p></div>
+      </div>
+    </aside>
+
+    <section class="editor-area">
+      <div class="editor-toolbar">
+        <div>
+          <strong id="sideTitle">Front side</strong>
+          <small id="selectionInfo">Select an object on the card to edit it.</small>
+        </div>
+        <div class="zoom-controls">
+          <button id="zoomOutBtn" class="btn square" aria-label="Zoom out">−</button>
+          <span id="zoomLabel">100%</span>
+          <button id="zoomInBtn" class="btn square" aria-label="Zoom in">+</button>
+          <button id="fitViewBtn" class="btn">Fit view</button>
+        </div>
+      </div>
+
+      <div class="canvas-scroll">
+        <div id="canvasFrame" class="canvas-frame">
+          <canvas id="idCanvas" width="856" height="540" aria-label="ID card editor"></canvas>
+        </div>
+      </div>
+      <p class="canvas-tip">Touch or click an object to select it. Drag inside to move it. Drag the corner handles to resize. For photos, use the crop controls below.</p>
+
+      <section class="panel properties-panel">
+        <div class="properties-heading">
+          <div><h2>Selected object</h2><p class="hint">Changes apply to the selected item.</p></div>
+          <div class="button-row">
+            <button id="duplicateBtn" class="btn">Duplicate</button>
+            <button id="deleteBtn" class="btn danger">Delete</button>
+          </div>
+        </div>
+
+        <div id="emptySelection" class="empty-state">Select text, a shape, or an image on your ID card to edit its properties.</div>
+
+        <div id="properties" class="hidden">
+          <div class="field">
+            <label for="objText">Text / label</label>
+            <input id="objText" type="text" placeholder="Enter text">
+          </div>
+          <div class="two-col">
+            <div class="field"><label for="objX">X position</label><input id="objX" type="number" step="1"></div>
+            <div class="field"><label for="objY">Y position</label><input id="objY" type="number" step="1"></div>
+          </div>
+          <div class="two-col">
+            <div class="field"><label for="objW">Width</label><input id="objW" type="number" min="1" step="1"></div>
+            <div class="field"><label for="objH">Height</label><input id="objH" type="number" min="1" step="1"></div>
+          </div>
+          <div class="two-col">
+            <div class="field"><label for="objColor">Text / fill color</label><input id="objColor" type="color" value="#163b70"></div>
+            <div class="field"><label for="objStroke">Border color</label><input id="objStroke" type="color" value="#163b70"></div>
+          </div>
+          <div class="two-col">
+            <div class="field"><label for="objFont">Font family</label>
+              <select id="objFont">
+                <option>Arial</option><option>Verdana</option><option>Tahoma</option>
+                <option>Georgia</option><option>Times New Roman</option>
+                <option>Trebuchet MS</option><option>Courier New</option>
+              </select>
+            </div>
+            <div class="field"><label for="objFontSize">Font size</label><input id="objFontSize" type="number" min="4" max="180" value="30"></div>
+          </div>
+          <div class="two-col">
+            <div class="field"><label for="objAlign">Text alignment</label>
+              <select id="objAlign"><option value="left">Left</option><option value="center">Center</option><option value="right">Right</option></select>
+            </div>
+            <div class="field"><label for="objWeight">Font weight</label>
+              <select id="objWeight"><option value="400">Regular</option><option value="600">Semi-bold</option><option value="700">Bold</option><option value="900">Extra bold</option></select>
+            </div>
+          </div>
+          <div class="two-col">
+            <div class="field"><label for="objStrokeWidth">Border thickness</label><input id="objStrokeWidth" type="number" min="0" max="30" step="1" value="0"></div>
+            <div class="field"><label for="objRadius">Corner radius</label><input id="objRadius" type="number" min="0" max="200" step="1" value="0"></div>
+          </div>
+          <div class="field">
+            <label for="objOpacity">Opacity <span id="opacityLabel">100%</span></label>
+            <input id="objOpacity" type="range" min="0.1" max="1" value="1" step="0.05">
+          </div>
+          <div id="imageControls" class="image-controls hidden">
+            <h3>Photo crop and fit</h3>
+            <div class="field">
+              <label for="cropZoom">Image zoom <span id="cropZoomLabel">1.0×</span></label>
+              <input id="cropZoom" type="range" min="1" max="4" step="0.05" value="1">
+            </div>
+            <div class="button-row">
+              <button id="fitImageBtn" class="btn">Fit image</button>
+              <button id="fillImageBtn" class="btn">Fill frame</button>
+              <button id="resetCropBtn" class="btn">Reset crop</button>
+            </div>
+            <p class="hint">With zoom above 1×, drag the photo to reposition the cropped area inside its frame.</p>
+          </div>
+          <div class="button-row layer-actions">
+            <button id="bringFrontBtn" class="btn">Bring to front</button>
+            <button id="sendBackBtn" class="btn">Send backward</button>
+          </div>
+        </div>
+      </section>
+    </section>
+  </section>
+</main>
+
+<footer>© 2026 LinkTech Freelance IT Specialist Zamboanga · ID Maker Mo</footer>
+<div id="toast" class="toast" role="status"></div>
+<script src="js/app.js"></script>
+</body>
+</html>
