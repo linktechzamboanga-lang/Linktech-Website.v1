@@ -1,0 +1,395 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#eef7ff">
+
+  <meta name="description" content="Font Bonito by LinkTech. Format text, change letter case, choose fonts and colors, and copy your text easily.">
+
+  <title>Font Bonito | LinkTech</title>
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&family=Lobster&family=Montserrat:wght@400;500;700;900&family=Oswald:wght@400;700&family=Pacifico&family=Playfair+Display:wght@400;700;900&family=Poppins:wght@400;500;700;900&family=Roboto:wght@400;700&family=Roboto+Mono:wght@400;700&family=Raleway:wght@400;700;900&family=Nunito:wght@400;700;900&family=Ubuntu:wght@400;700&family=Quicksand:wght@400;700&display=swap" rel="stylesheet">
+
+  <!-- Keep your existing CSS -->
+  <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+
+  <div class="light-orb orb-one"></div>
+  <div class="light-orb orb-two"></div>
+
+  <!-- HEADER -->
+  <header class="site-header">
+    <a class="brand" href="/" aria-label="LinkTech Home">
+      <span class="brand-icon">LT</span>
+      <span>
+        <strong>LinkTech</strong>
+        <small>Freelance IT Specialist Zamboanga</small>
+      </span>
+    </a>
+
+    <a class="home-link" href="/">Home ↗</a>
+  </header>
+
+  <main class="app-container">
+
+    <!-- HERO -->
+    <section class="hero">
+      <span class="eyebrow">LINKTECH ONLINE TOOL</span>
+
+      <h1>Font <span>Bonito</span></h1>
+
+      <p>
+        Transform your text with beautiful fonts, colors,
+        and letter styles. Format and copy in seconds.
+      </p>
+
+      <div class="hero-tags">
+        <span>✦ Free Tool</span>
+        <span>✦ 1,000 Characters</span>
+        <span>✦ Local Saving</span>
+      </div>
+    </section>
+
+    <!-- MAIN TOOL -->
+    <section class="tool-card">
+
+      <!-- STEP 1 -->
+      <div class="section-heading">
+        <div>
+          <span class="step-label">STEP 01</span>
+          <h2>Enter Your Text</h2>
+          <p>Type or paste your text below.</p>
+        </div>
+
+        <span class="heading-icon">Aa</span>
+      </div>
+
+      <label for="inputText">Your original text</label>
+
+      <textarea
+        id="inputText"
+        maxlength="1000"
+        placeholder="Type or paste your text here..."
+        spellcheck="true"
+      ></textarea>
+
+      <div class="input-footer">
+        <span id="charCount">0 / 1000 characters</span>
+
+        <button type="button" class="text-button" id="clearBtn">
+          Clear Text
+        </button>
+      </div>
+
+      <div class="button-row">
+        <button type="button" class="btn btn-primary" id="pasteBtn">
+          ⬇ Paste Your Text
+        </button>
+
+        <button type="button" class="btn btn-secondary" id="saveBtn">
+          ♡ Save Text
+        </button>
+      </div>
+
+      <div class="section-divider"></div>
+
+      <!-- STEP 2 -->
+      <div class="section-heading">
+        <div>
+          <span class="step-label">STEP 02</span>
+          <h2>Text Formatting</h2>
+          <p>Choose the style you want to apply.</p>
+        </div>
+
+        <span class="heading-icon">✎</span>
+      </div>
+
+      <label for="caseStyle">Letter case</label>
+
+      <select id="caseStyle">
+        <option value="original">Original Text</option>
+        <option value="upper">UPPERCASE</option>
+        <option value="lower">lowercase</option>
+        <option value="title">Title Case</option>
+        <option value="sentence">Sentence case</option>
+        <option value="alternating">aLtErNaTiNg CaSe</option>
+      </select>
+
+      <div class="settings-grid">
+
+        <!-- FONT FAMILY -->
+        <div class="setting-group">
+          <label for="fontFamily">Font style</label>
+
+          <select id="fontFamily">
+            <optgroup label="Clean & Professional">
+              <option value="Arial, sans-serif">Arial</option>
+              <option value="Verdana, sans-serif">Verdana</option>
+              <option value="Tahoma, sans-serif">Tahoma</option>
+              <option value="Helvetica, sans-serif">Helvetica</option>
+              <option value="Calibri, sans-serif">Calibri</option>
+              <option value="system-ui, sans-serif">System UI</option>
+              <option value="'Trebuchet MS', sans-serif">Trebuchet MS</option>
+            </optgroup>
+
+            <optgroup label="Google Fonts">
+              <option value="'Poppins', sans-serif">Poppins</option>
+              <option value="'Roboto', sans-serif">Roboto</option>
+              <option value="'Montserrat', sans-serif">Montserrat</option>
+              <option value="'Raleway', sans-serif">Raleway</option>
+              <option value="'Nunito', sans-serif">Nunito</option>
+              <option value="'Ubuntu', sans-serif">Ubuntu</option>
+              <option value="'Quicksand', sans-serif">Quicksand</option>
+              <option value="'Oswald', sans-serif">Oswald</option>
+            </optgroup>
+
+            <optgroup label="Elegant & Classic">
+              <option value="Georgia, serif">Georgia</option>
+              <option value="'Times New Roman', serif">Times New Roman</option>
+              <option value="'Palatino Linotype', serif">Palatino Linotype</option>
+              <option value="Garamond, serif">Garamond</option>
+              <option value="'Playfair Display', serif">Playfair Display</option>
+            </optgroup>
+
+            <optgroup label="Creative & Decorative">
+              <option value="'Pacifico', cursive">Pacifico</option>
+              <option value="'Dancing Script', cursive">Dancing Script</option>
+              <option value="'Lobster', cursive">Lobster</option>
+              <option value="cursive">System Cursive</option>
+              <option value="fantasy">Fantasy</option>
+            </optgroup>
+
+            <optgroup label="Bold & Technical">
+              <option value="Impact, sans-serif">Impact</option>
+              <option value="'Arial Black', sans-serif">Arial Black</option>
+              <option value="'Courier New', monospace">Courier New</option>
+              <option value="'Roboto Mono', monospace">Roboto Mono</option>
+              <option value="monospace">System Monospace</option>
+            </optgroup>
+          </select>
+        </div>
+
+        <!-- FONT SIZE -->
+        <div class="setting-group">
+          <label for="fontSize">Font size</label>
+
+          <select id="fontSize">
+            <option value="12">12 px</option>
+            <option value="14">14 px</option>
+            <option value="16" selected>16 px</option>
+            <option value="18">18 px</option>
+            <option value="20">20 px</option>
+            <option value="24">24 px</option>
+            <option value="28">28 px</option>
+            <option value="32">32 px</option>
+            <option value="36">36 px</option>
+            <option value="40">40 px</option>
+            <option value="48">48 px</option>
+            <option value="56">56 px</option>
+            <option value="64">64 px</option>
+          </select>
+        </div>
+
+      </div>
+
+      <div class="section-divider"></div>
+
+      <!-- FONT COLOR -->
+      <div class="section-heading">
+        <div>
+          <span class="step-label">STEP 03</span>
+          <h2>Font Colors</h2>
+          <p>Choose a preset or select your own color.</p>
+        </div>
+
+        <span class="heading-icon">🎨</span>
+      </div>
+
+      <label for="fontColor">Custom font color</label>
+
+      <div class="color-setting">
+        <div>
+          <p>Selected color</p>
+          <strong id="colorHex">#1677D2</strong>
+        </div>
+
+        <input
+          type="color"
+          id="fontColor"
+          value="#1677d2"
+          aria-label="Choose custom font color"
+        >
+      </div>
+
+      <label for="colorPresets" style="margin-top: 18px;">
+        Quick color presets
+      </label>
+
+      <div class="color-palette" id="colorPresets">
+
+        <button type="button" class="color-swatch"
+          data-color="#172B43" style="--swatch:#172B43"
+          aria-label="Dark navy" title="Dark Navy"></button>
+
+        <button type="button" class="color-swatch"
+          data-color="#1677D2" style="--swatch:#1677D2"
+          aria-label="LinkTech blue" title="LinkTech Blue"></button>
+
+        <button type="button" class="color-swatch"
+          data-color="#00AEEF" style="--swatch:#00AEEF"
+          aria-label="Sky blue" title="Sky Blue"></button>
+
+        <button type="button" class="color-swatch"
+          data-color="#00A878" style="--swatch:#00A878"
+          aria-label="Green" title="Green"></button>
+
+        <button type="button" class="color-swatch"
+          data-color="#2E7D32" style="--swatch:#2E7D32"
+          aria-label="Forest green" title="Forest Green"></button>
+
+        <button type="button" class="color-swatch"
+          data-color="#F57C00" style="--swatch:#F57C00"
+          aria-label="Orange" title="Orange"></button>
+
+        <button type="button" class="color-swatch"
+          data-color="#E53935" style="--swatch:#E53935"
+          aria-label="Red" title="Red"></button>
+
+        <button type="button" class="color-swatch"
+          data-color="#C2185B" style="--swatch:#C2185B"
+          aria-label="Pink" title="Pink"></button>
+
+        <button type="button" class="color-swatch"
+          data-color="#8E24AA" style="--swatch:#8E24AA"
+          aria-label="Purple" title="Purple"></button>
+
+        <button type="button" class="color-swatch"
+          data-color="#5E35B1" style="--swatch:#5E35B1"
+          aria-label="Violet" title="Violet"></button>
+
+        <button type="button" class="color-swatch"
+          data-color="#795548" style="--swatch:#795548"
+          aria-label="Brown" title="Brown"></button>
+
+        <button type="button" class="color-swatch"
+          data-color="#607D8B" style="--swatch:#607D8B"
+          aria-label="Blue grey" title="Blue Grey"></button>
+
+        <button type="button" class="color-swatch"
+          data-color="#111111" style="--swatch:#111111"
+          aria-label="Black" title="Black"></button>
+
+        <button type="button" class="color-swatch"
+          data-color="#757575" style="--swatch:#757575"
+          aria-label="Grey" title="Grey"></button>
+
+        <button type="button" class="color-swatch"
+          data-color="#FFFFFF" style="--swatch:#FFFFFF"
+          aria-label="White" title="White"></button>
+
+      </div>
+
+      <button type="button" class="btn btn-secondary reset-btn" id="resetBtn">
+        ↺ Reset Formatting
+      </button>
+
+      <div class="section-divider"></div>
+
+      <!-- PREVIEW -->
+      <div class="section-heading">
+        <div>
+          <span class="step-label">STEP 04</span>
+          <h2>Live Text Preview</h2>
+          <p>See your selected font and color instantly.</p>
+        </div>
+
+        <span class="heading-icon">✓</span>
+      </div>
+
+      <div class="preview-box" id="preview" aria-live="polite">Your formatted text will appear here...</div>
+
+      <div class="preview-info">
+        <span id="outputCount">0 characters</span>
+        <span>Live Preview</span>
+      </div>
+
+      <div class="button-row action-buttons">
+        <button type="button" class="btn btn-primary" id="copyBtn">
+          ⧉ Copy Text All
+        </button>
+
+        <button type="button" class="btn btn-secondary" id="selectBtn">
+          Select Output
+        </button>
+      </div>
+
+      <p class="helper-text">
+        Copy Text All copies your converted text as plain text.
+        Font family, color, and size are visual preview settings.
+      </p>
+
+      <div class="status-message" id="statusMessage"
+        role="status" aria-live="polite"></div>
+
+    </section>
+
+    <!-- FEATURES -->
+    <section class="feature-grid">
+      <article class="feature-card">
+        <span>⚡</span>
+        <h3>Instant Formatting</h3>
+        <p>Convert letter cases and preview fonts as you type.</p>
+      </article>
+
+      <article class="feature-card">
+        <span>🎨</span>
+        <h3>Creative Colors</h3>
+        <p>Choose a color preset or create your own custom color.</p>
+      </article>
+
+      <article class="feature-card">
+        <span>🔒</span>
+        <h3>Local Saving</h3>
+        <p>Save your latest draft on this browser using IndexedDB.</p>
+      </article>
+    </section>
+
+    <p class="storage-note" id="storageNote">
+      Initializing local storage...
+    </p>
+
+  </main>
+
+  <!-- LINKTECH FOOTER -->
+  <footer class="site-footer">
+    <a href="/" class="footer-brand">LinkTech</a>
+
+    <p>Freelance IT Specialist Zamboanga</p>
+
+    <nav class="footer-links" aria-label="Footer navigation">
+      <a href="/">Home</a>
+      <a href="/services.html">Services</a>
+      <a href="/contact.html">Contact</a>
+      <a href="/privacy-policy.html">Privacy Policy</a>
+    </nav>
+
+    <p class="copyright">
+      © 2026 LinkTech Freelance IT Specialist Zamboanga
+    </p>
+
+    <p class="footer-tool">
+      Font Bonito · Free Online Text Formatter
+    </p>
+  </footer>
+
+  <script src="js/app.js"></script>
+</body>
+</html>
