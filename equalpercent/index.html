@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#050a19">
+
+    <title>Equal Percent Calculator | LinkTech</title>
+    <meta name="description"
+          content="Calculate totals, average percentages, percentages of amounts, time, distance, and speed with Equal Percent by LinkTech.">
+
+    <link rel="stylesheet" href="css/style.css">
+    <script src="js/app.js" defer></script>
+</head>
+
+<body>
+<header class="site-header">
+    <nav class="navbar">
+        <a class="logo" href="/">LinkTech</a>
+        <div class="nav-links">
+            <a href="/">Home</a>
+            <a href="/it-portal.html">IT Portal</a>
+        </div>
+    </nav>
+</header>
+
+<main class="container">
+    <section class="hero">
+        <h1>Equal Percent Calculator</h1>
+        <p>
+            Calculate numbers, average percentages, percentage values,
+            time, distance, and speed in one place.
+        </p>
+    </section>
+
+    <!-- 1. MAIN CALCULATOR -->
+    <section class="section calculator-section" id="calculatorSection">
+        <h2>1. Number Calculator</h2>
+        <p>Enter your numbers. Add more fields when needed.</p>
+
+        <div id="valuesContainer" class="values-grid">
+            <div class="value-row">
+                <label for="value1">Value 1</label>
+                <input class="calc-value" id="value1"
+                       type="number" step="any" placeholder="Enter first value">
+            </div>
+
+            <div class="value-row">
+                <label for="value2">Value 2</label>
+                <input class="calc-value" id="value2"
+                       type="number" step="any" placeholder="Enter second value">
+            </div>
+        </div>
+
+        <div class="input-group">
+            <label for="operation">Operation</label>
+            <select id="operation">
+                <option value="add">Addition (+)</option>
+                <option value="subtract">Subtraction (−)</option>
+                <option value="multiply">Multiplication (×)</option>
+                <option value="divide">Division (÷)</option>
+            </select>
+        </div>
+
+        <div class="button-group">
+            <button type="button" class="btn" id="addValueBtn">
+                + Add Value
+            </button>
+            <button type="button" class="btn" id="calculateBtn">
+                Calculate
+            </button>
+            <button type="button" class="btn" id="clearDataBtn">
+                Clear Data
+            </button>
+        </div>
+
+        <div class="result-card">
+            <h3>Calculation Result</h3>
+            <p id="totalResult" aria-live="polite">Enter your values.</p>
+            <div id="calculationDetails" class="result-details"></div>
+        </div>
+    </section>
+
+    <!-- 2. AVERAGE PERCENTAGE -->
+    <section class="section" id="percentageSection">
+        <h2>2. Average Percentage</h2>
+        <p>
+            Automatically uses the numbers in the Number Calculator.
+            For scores out of 100, the average is your percentage result.
+        </p>
+
+        <div class="result-card">
+            <h3>Your Entered Values</h3>
+            <p id="percentageValues">Enter values in the Number Calculator.</p>
+        </div>
+
+        <div class="percentage-results">
+            <div class="mini-result">
+                <span>Sum of Values</span>
+                <strong id="percentageTotal">—</strong>
+            </div>
+
+            <div class="mini-result">
+                <span>Number of Values</span>
+                <strong id="percentageUsed">—</strong>
+            </div>
+
+            <div class="mini-result">
+                <span>Average Percentage</span>
+                <strong id="percentageAnswer">—</strong>
+            </div>
+        </div>
+
+        <div class="result-card">
+            <h3>Formula</h3>
+            <p id="percentageFormula">Average = sum of values ÷ number of values</p>
+        </div>
+
+        <div class="button-group">
+            <button type="button" class="btn" id="calculatePercentageBtn">
+                Refresh Average
+            </button>
+            <button type="button" class="btn" id="clearPercentageBtn">
+                Clear Average Display
+            </button>
+        </div>
+    </section>
+
+    <!-- 3. PERCENTAGE OF AN AMOUNT -->
+    <section class="section" id="amountPercentageSection">
+        <h2>3. Percentage of an Amount</h2>
+        <p>
+            Enter one amount and the percentage you want to calculate.
+        </p>
+
+        <div class="input-group">
+            <label for="amountBase">Amount</label>
+            <input id="amountBase" type="number" min="0"
+                   step="any" placeholder="Example: 2500">
+        </div>
+
+        <div class="input-group">
+            <label for="amountPercent">Percentage (%)</label>
+            <input id="amountPercent" type="number"
+                   step="any" placeholder="Example: 3">
+        </div>
+
+        <div class="button-group">
+            <button type="button" class="btn" id="calculateAmountPercentageBtn">
+                Calculate Percentage
+            </button>
+            <button type="button" class="btn" id="clearAmountPercentageBtn">
+                Clear
+            </button>
+        </div>
+
+        <div class="result-card">
+            <h3>Percentage Result</h3>
+            <p id="amountPercentageAnswer" aria-live="polite">Enter an amount and percentage.</p>
+            <div id="amountPercentageFormula" class="result-details"></div>
+        </div>
+    </section>
+
+    <!-- 4. TIME AND DISTANCE CONVERTER -->
+    <section class="section" id="conversionSection">
+        <h2>4. Time and Distance Converter</h2>
+
+        <div class="input-group">
+            <label for="conversionType">Conversion</label>
+            <select id="conversionType">
+                <option value="hours-minutes">Hours to minutes</option>
+                <option value="minutes-hours">Minutes to hours</option>
+                <option value="minutes-seconds">Minutes to seconds</option>
+                <option value="seconds-minutes">Seconds to minutes</option>
+                <option value="km-m">Kilometres to metres</option>
+                <option value="m-km">Metres to kilometres</option>
+                <option value="miles-km">Miles to kilometres</option>
+                <option value="km-miles">Kilometres to miles</option>
+            </select>
+        </div>
+
+        <div class="input-group">
+            <label for="conversionValue">Value to Convert</label>
+            <input id="conversionValue" type="number"
+                   step="any" placeholder="Enter a value">
+        </div>
+
+        <div class="button-group">
+            <button type="button" class="btn" id="convertValueBtn">
+                Convert
+            </button>
+            <button type="button" class="btn" id="clearConversionBtn">
+                Clear
+            </button>
+        </div>
+
+        <div class="result-card">
+            <h3>Conversion Result</h3>
+            <p id="conversionAnswer" aria-live="polite">Enter a value to convert.</p>
+            <div id="conversionFormula" class="result-details"></div>
+        </div>
+    </section>
+
+    <!-- 5. SPEED CONVERTER -->
+    <section class="section" id="speedSection">
+        <h2>5. Speed Converter</h2>
+
+        <div class="input-group">
+            <label for="speedType">Conversion</label>
+            <select id="speedType">
+                <option value="kmh-ms">Kilometres/hour to metres/second</option>
+                <option value="ms-kmh">Metres/second to kilometres/hour</option>
+                <option value="mph-kmh">Miles/hour to kilometres/hour</option>
+                <option value="kmh-mph">Kilometres/hour to miles/hour</option>
+            </select>
+        </div>
+
+        <div class="input-group">
+            <label for="speedValue">Speed</label>
+            <input id="speedValue" type="number"
+                   step="any" placeholder="Enter speed">
+        </div>
+
+        <div class="button-group">
+            <button type="button" class="btn" id="convertSpeedBtn">
+                Convert Speed
+            </button>
+            <button type="button" class="btn" id="clearSpeedBtn">
+                Clear
+            </button>
+        </div>
+
+        <div class="result-card">
+            <h3>Speed Result</h3>
+            <p id="speedAnswer" aria-live="polite">Enter a speed to convert.</p>
+            <div id="speedFormula" class="result-details"></div>
+        </div>
+    </section>
+
+    <!-- 6. DIMENSIONS -->
+    <section class="section" id="dimensionsSection">
+        <h2>6. Area, Perimeter and Volume</h2>
+
+        <div class="input-group">
+            <label for="dimensionType">Calculation</label>
+            <select id="dimensionType">
+                <option value="area">Rectangle Area</option>
+                <option value="perimeter">Rectangle Perimeter</option>
+                <option value="volume">Box Volume</option>
+            </select>
+        </div>
+
+        <div class="input-group">
+            <label for="dimensionLength">Length</label>
+            <input id="dimensionLength" type="number"
+                   min="0" step="any" placeholder="Enter length">
+        </div>
+
+        <div class="input-group">
+            <label for="dimensionWidth">Width</label>
+            <input id="dimensionWidth" type="number"
+                   min="0" step="any" placeholder="Enter width">
+        </div>
+
+        <div class="input-group" id="heightGroup">
+            <label for="dimensionHeight">Height (for volume)</label>
+            <input id="dimensionHeight" type="number"
+                   min="0" step="any" placeholder="Enter height">
+        </div>
+
+        <div class="button-group">
+            <button type="button" class="btn" id="calculateDimensionsBtn">
+                Calculate Dimensions
+            </button>
+            <button type="button" class="btn" id="clearDimensionsBtn">
+                Clear
+            </button>
+        </div>
+
+        <div class="result-card">
+            <h3>Dimensions Result</h3>
+            <p id="dimensionsAnswer" aria-live="polite">Enter dimensions.</p>
+            <div id="dimensionsFormula" class="result-details"></div>
+        </div>
+    </section>
+
+    <!-- 7. LOCAL HISTORY -->
+    <section class="section" id="historySection">
+        <h2>7. Saved Calculation History</h2>
+        <p>
+            History is saved in this browser on this device using IndexedDB.
+            It is not automatically shared with other users or devices.
+        </p>
+
+        <div class="button-group">
+            <button type="button" class="btn" id="saveCalculationBtn">
+                Save Current Calculation
+            </button>
+            <button type="button" class="btn" id="exportHistoryBtn">
+                Export JSON Backup
+            </button>
+            <button type="button" class="btn" id="exportPdfBtn">
+                Export PDF / Print Report
+            </button>
+            <button type="button" class="btn" id="clearHistoryBtn">
+                Clear History
+            </button>
+        </div>
+
+        <p id="historyStatus" aria-live="polite"></p>
+        <div id="historyList"></div>
+    </section>
+</main>
+
+<footer class="site-footer">
+    <p>© 2026 LinkTech Freelance IT Specialist Zamboanga</p>
+    <p>Equal Percent Calculator</p>
+</footer>
+
+<div id="notification" role="status" aria-live="polite"></div>
+</body>
+</html>
