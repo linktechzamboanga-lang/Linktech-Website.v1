@@ -1,0 +1,320 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#f4f9ff">
+  <meta name="description" content="LinkTech Cheque Generator - create, customize, save and print cheque layouts with automatic amount-to-words conversion.">
+  <title>Cheque Generator | LinkTech</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <header class="topbar">
+    <a href="https://lintechzamboanga.solutions" class="brand">
+      <span class="brand-icon">LT</span>
+      <span>
+        <strong>LinkTech</strong>
+        <small>Cheque Generator</small>
+      </span>
+    </a>
+    <div class="header-actions">
+      <span class="online-status"><i></i> Ready to use</span>
+      <button class="btn btn-light" id="helpBtn">Help & Instructions</button>
+    </div>
+  </header>
+
+  <main class="container">
+    <section class="hero">
+      <div class="hero-label">LINKTECH PRODUCTIVITY TOOL</div>
+      <h1>Cheque Generator</h1>
+      <p>Design your cheque layout, convert amounts into words, calibrate dimensions, save templates, and print at the intended size.</p>
+    </section>
+
+    <div class="notice">
+      <strong>Important:</strong> This tool creates a printable layout, not a bank-issued cheque.
+      Confirm your bank's cheque dimensions and test the print alignment on plain paper first.
+    </div>
+
+    <nav class="toolbar" aria-label="Main tools">
+      <button class="btn btn-primary" id="saveBtn">Save Layout</button>
+      <button class="btn btn-light" id="exportBtn">Export JSON</button>
+      <button class="btn btn-light" id="importBtn">Import Layout</button>
+      <button class="btn btn-light" id="resetBtn">Reset Layout</button>
+      <button class="btn btn-success" id="printBtn">Print Cheque</button>
+      <input type="file" id="importFile" accept=".json,application/json" hidden>
+    </nav>
+
+    <div class="workspace">
+      <aside class="panel controls-panel">
+        <div class="panel-heading">
+          <div>
+            <h2>Layout Settings</h2>
+            <p>Configure your cheque and its contents.</p>
+          </div>
+          <span class="panel-icon">⚙</span>
+        </div>
+
+        <details open class="setting-section">
+          <summary>Cheque dimensions</summary>
+          <div class="field-grid">
+            <label>
+              Width (mm)
+              <input type="number" id="chequeWidth" min="60" max="350" step="0.5" value="165">
+            </label>
+            <label>
+              Height (mm)
+              <input type="number" id="chequeHeight" min="30" max="180" step="0.5" value="70">
+            </label>
+          </div>
+          <label class="field">
+            Preset size
+            <select id="presetSize">
+              <option value="custom">Custom dimensions</option>
+              <option value="165x70">165 × 70 mm — sample</option>
+              <option value="170x80">170 × 80 mm — sample</option>
+              <option value="180x85">180 × 85 mm — sample</option>
+              <option value="200x90">200 × 90 mm — sample</option>
+            </select>
+          </label>
+          <p class="hint">Presets are examples only. Measure your actual cheque before printing.</p>
+          <label class="check-row">
+            <input type="checkbox" id="showRulers" checked>
+            Show measurement rulers
+          </label>
+          <label class="check-row">
+            <input type="checkbox" id="showGrid">
+            Show alignment grid
+          </label>
+        </details>
+
+        <details open class="setting-section">
+          <summary>Cheque information</summary>
+          <label class="field">
+            Currency
+            <select id="currency">
+              <option value="PHP">Philippine Peso (PHP)</option>
+              <option value="USD">US Dollar (USD)</option>
+              <option value="custom">Custom currency</option>
+            </select>
+          </label>
+          <label class="field" id="customCurrencyWrap" hidden>
+            Currency name
+            <input id="customCurrency" type="text" placeholder="e.g. Ringgit">
+          </label>
+          <label class="field">
+            Amount
+            <input id="amount" type="number" min="0" max="999999999999.99"
+              step="0.01" value="12345.67" placeholder="0.00">
+          </label>
+          <label class="field">
+            Amount in words
+            <textarea id="amountWordsInput" rows="3"
+              placeholder="Generated automatically; you may edit it."></textarea>
+          </label>
+          <label class="field">
+            Pay to the order of
+            <input id="payee" type="text" placeholder="Enter payee name">
+          </label>
+          <label class="field">
+            Cheque date
+            <input id="chequeDate" type="date">
+          </label>
+          <label class="field">
+            Date format
+            <select id="dateFormat">
+              <option value="DMY">Day / Month / Year</option>
+              <option value="MDY">Month / Day / Year</option>
+              <option value="YMD">Year / Month / Day</option>
+            </select>
+          </label>
+          <label class="field">
+            Memo / reference
+            <input id="memo" type="text" placeholder="Optional reference">
+          </label>
+        </details>
+
+        <details open class="setting-section">
+          <summary>Selected element</summary>
+          <p class="hint">Tap or click an element on the cheque to select it. Drag it to move.</p>
+          <label class="field">
+            Element
+            <select id="elementSelect"></select>
+          </label>
+          <label class="field">
+            Text content
+            <textarea id="elementText" rows="2" placeholder="Selected element text"></textarea>
+          </label>
+          <div class="field-grid">
+            <label>
+              X position (mm)
+              <input type="number" id="elementX" step="0.5">
+            </label>
+            <label>
+              Y position (mm)
+              <input type="number" id="elementY" step="0.5">
+            </label>
+            <label>
+              Font size (px)
+              <input type="number" id="elementFontSize" min="5" max="72" step="1">
+            </label>
+            <label>
+              Width (mm)
+              <input type="number" id="elementWidth" min="5" max="350" step="0.5">
+            </label>
+          </div>
+          <div class="field-grid">
+            <label>
+              Text color
+              <input type="color" id="elementColor" value="#172b4d">
+            </label>
+            <label>
+              Font
+              <select id="elementFont">
+                <option value="Arial, sans-serif">Arial</option>
+                <option value="Georgia, serif">Georgia</option>
+                <option value="'Times New Roman', serif">Times New Roman</option>
+                <option value="Verdana, sans-serif">Verdana</option>
+                <option value="'Courier New', monospace">Courier New</option>
+              </select>
+            </label>
+          </div>
+          <label class="check-row">
+            <input type="checkbox" id="elementBold">
+            Bold text
+          </label>
+          <label class="field">
+            Alignment
+            <select id="elementAlign">
+              <option value="left">Left</option>
+              <option value="center">Center</option>
+              <option value="right">Right</option>
+            </select>
+          </label>
+          <div class="button-row">
+            <button class="btn btn-primary" id="applyElementBtn">Apply Changes</button>
+            <button class="btn btn-light" id="duplicateBtn">Duplicate</button>
+          </div>
+          <div class="button-row">
+            <button class="btn btn-light" id="addTextBtn">+ Add Text</button>
+            <button class="btn btn-danger" id="deleteElementBtn">Delete Element</button>
+          </div>
+        </details>
+
+        <details class="setting-section">
+          <summary>Print settings</summary>
+          <label class="field">
+            Paper size
+            <select id="paperSize">
+              <option value="a4">A4</option>
+              <option value="letter">Letter</option>
+              <option value="legal">Legal</option>
+              <option value="custom">Use printer settings</option>
+            </select>
+          </label>
+          <label class="field">
+            Orientation
+            <select id="orientation">
+              <option value="portrait">Portrait</option>
+              <option value="landscape">Landscape</option>
+            </select>
+          </label>
+          <label class="field">
+            Copies on page
+            <select id="copies">
+              <option value="1">1 cheque</option>
+              <option value="2">2 cheques</option>
+              <option value="3">3 cheques</option>
+              <option value="4">4 cheques</option>
+              <option value="6">6 cheques</option>
+            </select>
+          </label>
+          <label class="field">
+            Print calibration offset X (mm)
+            <input type="number" id="offsetX" min="-20" max="20" step="0.5" value="0">
+          </label>
+          <label class="field">
+            Print calibration offset Y (mm)
+            <input type="number" id="offsetY" min="-20" max="20" step="0.5" value="0">
+          </label>
+          <label class="check-row">
+            <input type="checkbox" id="printGuides">
+            Print dimension guides
+          </label>
+          <p class="hint">For real-size output, disable “Fit to page” in the print dialog if available. Browser margins and printer hardware can still affect alignment.</p>
+        </details>
+      </aside>
+
+      <section class="panel preview-panel">
+        <div class="preview-heading">
+          <div>
+            <h2>Live Cheque Preview</h2>
+            <p>Drag text to reposition. Use the corner handle to resize the element width.</p>
+          </div>
+          <span class="preview-badge">LIVE</span>
+        </div>
+
+        <div class="dimension-summary">
+          <div><span>Width</span><strong id="widthDisplay">165 mm</strong></div>
+          <div><span>Height</span><strong id="heightDisplay">70 mm</strong></div>
+          <div><span>Selected</span><strong id="selectedDisplay">Date</strong></div>
+        </div>
+
+        <div class="preview-scroll">
+          <div class="ruler ruler-top" id="topRuler"></div>
+          <div class="preview-row">
+            <div class="ruler ruler-left" id="leftRuler"></div>
+            <div class="cheque" id="cheque">
+              <div class="cheque-border"></div>
+              <div class="cheque-watermark">CHEQUE LAYOUT SAMPLE</div>
+              <div id="elementsLayer"></div>
+            </div>
+          </div>
+        </div>
+        <p class="hint ruler-hint">Rulers show millimeters. The on-screen scale is a design reference; print calibration must be checked with a physical ruler.</p>
+
+        <div class="preview-actions">
+          <button class="btn btn-light" id="fitViewBtn">Fit preview</button>
+          <button class="btn btn-light" id="centerElementBtn">Center selected</button>
+          <button class="btn btn-light" id="testPrintBtn">Print test</button>
+        </div>
+
+        <div class="instructions-card" id="instructions">
+          <h3>How to use Cheque Generator</h3>
+          <ol>
+            <li>Measure your cheque's width and height with a ruler, then enter the dimensions.</li>
+            <li>Enter the amount. The app converts it into words automatically.</li>
+            <li>Enter the payee, date, and optional memo.</li>
+            <li>Tap an element in the preview. Drag it using touch or a mouse to position it.</li>
+            <li>Use the selected-element settings to change its text, font, color, size, and width.</li>
+            <li>Save the layout in this browser or export a JSON backup for future use.</li>
+            <li>Print a test on plain paper, measure the output, and adjust the X/Y offsets if necessary.</li>
+          </ol>
+          <p><strong>Privacy:</strong> Your saved layout stays in this browser unless you export or print it. Do not use this tool to alter a cheque's official security features.</p>
+        </div>
+      </section>
+    </div>
+
+    <section class="panel saved-panel">
+      <div class="panel-heading">
+        <div>
+          <h2>Saved Layouts</h2>
+          <p>Reopen a layout you saved in this browser.</p>
+        </div>
+      </div>
+      <div id="savedLayouts" class="saved-layouts">
+        <p class="hint">No saved layouts yet.</p>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <p>© 2026 LinkTech Freelance IT Specialist Zamboanga</p>
+    <p>Cheque Generator · Browser-based productivity tool</p>
+    <a href="https://lintechzamboanga.solutions">lintechzamboanga.solutions</a>
+  </footer>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+  <script src="js/app.js"></script>
+</body>
+</html>
