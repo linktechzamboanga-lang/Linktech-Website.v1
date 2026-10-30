@@ -1,3 +1,4 @@
+
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
 
 :root {
@@ -974,3 +975,75 @@ select {
         display: none !important;
     }
 }
+
+
+/* =====================================================
+   SAVED DOCUMENT PRINT OUTPUT — keep app design unchanged
+===================================================== */
+@media print {
+    body.print-resume #letterMode,
+    body.print-letter #resumeMode {
+        display: none !important;
+    }
+
+    body.print-resume #resumeMode,
+    body.print-letter #letterMode {
+        display: block !important;
+    }
+
+    body.print-resume .site-header,
+    body.print-letter .site-header,
+    body.print-resume .hero,
+    body.print-letter .hero,
+    body.print-resume .main-tabs,
+    body.print-letter .main-tabs,
+    body.print-resume footer,
+    body.print-letter footer,
+    body.print-resume #saveStatus,
+    body.print-letter #saveStatus,
+    body.print-resume .sidebar,
+    body.print-letter .sidebar,
+    body.print-resume .editor-toolbar,
+    body.print-letter .editor-toolbar,
+    body.print-resume .paper-footer,
+    body.print-letter .paper-footer,
+    body.print-resume .toast,
+    body.print-letter .toast {
+        display: none !important;
+    }
+
+    body.print-resume .workspace,
+    body.print-letter .workspace {
+        display: block !important;
+        margin: 0 !important;
+        padding: 0 !important;
+    }
+
+    body.print-resume .editor-area,
+    body.print-letter .editor-area,
+    body.print-resume .paper-stage,
+    body.print-letter .paper-stage {
+        display: block !important;
+        width: 100% !important;
+        min-height: 0 !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        overflow: visible !important;
+        border: 0 !important;
+        box-shadow: none !important;
+        background: #fff !important;
+    }
+
+    body.print-resume #resumePaper,
+    body.print-letter #letterPaper {
+        display: block !important;
+        width: 210mm !important;
+        min-height: 297mm !important;
+        margin: 0 auto !important;
+        padding: initial;
+        transform: none !important;
+        box-shadow: none !important;
+        background: #fff !important;
+    }
+    }
+    
