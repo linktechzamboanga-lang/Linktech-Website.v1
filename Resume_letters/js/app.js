@@ -1908,15 +1908,108 @@ $("newDocument").addEventListener("click", () => {
 
 
 /* =====================================================
-   22. PRINT / SAVE PDF
+   22. SAVE DOCUMENT + PRINT SAVED COPY ONLY
 ===================================================== */
 
-$("printDocument").addEventListener("click", () => {
+const SAVED_RESUME_KEY = STORAGE_KEY + "_saved_resume";
+const SAVED_LETTER_KEY = STORAGE_KEY + "_saved_letter";
+let printRestoreHTML = null;
+let printRestoreClassName = null;
+let printRestoreLetterStyle = null;
 
+function saveCurrentDocument() {
     saveAll();
 
-    window.print();
+    const activeMode = document.querySelector(".tab.active")?.dataset.mode || "resume";
+    try {
+        if (activeMode === "resume") {
+            const snapshot = {
+                type: "resume",
+                html: resumePaper.innerHTML,
+                className: resumePaper.className,
+                template: currentTemplate,
+                savedAt: new Date().toISOString()
+            };
+            localStorage.setItem(SAVED_RESUME_KEY, JSON.stringify(snapshot));
+            showToast("Resume saved. You can print the saved resume anytime.");
+        } else {
+            const snapshot = {
+                type: "letter",
+                html: letterPaper.innerHTML,
+                font: letterPaper.style.fontFamily || $("letterFont").value,
+                fontSize: letterPaper.style.fontSize || $("letterFontSize").value + "pt",
+                savedAt: new Date().toISOString()
+            };
+            localStorage.setItem(SAVED_LETTER_KEY, JSON.stringify(snapshot));
+            showToast("Letter saved. You can print the saved letter anytime.");
+        }
+        $("saveStatus").textContent = activeMode === "resume" ? "Resume saved" : "Letter saved";
+    } catch (error) {
+        console.error("Save document error:", error);
+        showToast("Unable to save. Device storage may be full.");
+    }
+}
 
+$("saveCurrentDocument").addEventListener("click", saveCurrentDocument);
+
+function printSavedDocument(type) {
+    const key = type === "resume" ? SAVED_RESUME_KEY : SAVED_LETTER_KEY;
+    let saved;
+    try {
+        saved = JSON.parse(localStorage.getItem(key) || "null");
+    } catch (error) {
+        saved = null;
+    }
+
+    if (!saved || !saved.html) {
+        showToast(`No saved ${type} found. Open ${type === "resume" ? "Resume Builder" : "Letter Writer"}, then tap Save Current first.`);
+        return;
+    }
+
+    saveAll(); // Preserve the current working draft; printing uses the saved snapshot below.
+    printRestoreHTML = type === "resume" ? resumePaper.innerHTML : letterPaper.innerHTML;
+    printRestoreClassName = resumePaper.className;
+    printRestoreLetterStyle = {
+        fontFamily: letterPaper.style.fontFamily,
+        fontSize: letterPaper.style.fontSize
+    };
+
+    if (type === "resume") {
+        resumePaper.innerHTML = saved.html;
+        resumePaper.className = saved.className || "resume-paper";
+    } else {
+        letterPaper.innerHTML = saved.html;
+        letterPaper.style.fontFamily = saved.font || "Arial";
+        letterPaper.style.fontSize = saved.fontSize || "11pt";
+    }
+
+    document.body.classList.remove("print-resume", "print-letter");
+    document.body.classList.add(type === "resume" ? "print-resume" : "print-letter");
+
+    // Allow the browser to apply the print-only layout before opening the dialog.
+    requestAnimationFrame(() => window.print());
+}
+
+$("printResumeNow").addEventListener("click", () => printSavedDocument("resume"));
+$("printLetterNow").addEventListener("click", () => printSavedDocument("letter"));
+
+window.addEventListener("afterprint", () => {
+    if (printRestoreHTML !== null) {
+        if (document.body.classList.contains("print-resume")) {
+            resumePaper.innerHTML = printRestoreHTML;
+            resumePaper.className = printRestoreClassName || "resume-paper";
+            bindResumeEvents();
+        } else if (document.body.classList.contains("print-letter")) {
+            letterPaper.innerHTML = printRestoreHTML;
+            letterPaper.style.fontFamily = printRestoreLetterStyle?.fontFamily || "";
+            letterPaper.style.fontSize = printRestoreLetterStyle?.fontSize || "";
+            bindLetterEvents();
+        }
+        printRestoreHTML = null;
+        printRestoreClassName = null;
+        printRestoreLetterStyle = null;
+    }
+    document.body.classList.remove("print-resume", "print-letter");
 });
 
 
