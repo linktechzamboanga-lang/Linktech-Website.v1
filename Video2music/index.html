@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#eaf5ff">
+  <meta name="description" content="LinkTech Video To Music Converter. Extract and convert audio from videos to MP3, WAV and M4A directly in your browser.">
+  <title>Video To Music Converter | LinkTech</title>
+  <link rel="stylesheet" href="css/style.css">
+   <link rel="stylesheet" href="../css/download.css">
+</head>
+
+<body>
+<header class="site-header">
+  <a class="logo" href="../index.html">
+    <img src="../images/LinkTech-logo.png" alt="LinkTech logo">
+    <span>
+      <b>LinkTech</b>
+      <small>Freelance IT Specialist Zamboanga</small>
+    </span>
+  </a>
+</header>
+
+<main class="container">
+
+  <section class="hero">
+    <span class="eyebrow">FREE ONLINE AUDIO TOOL</span>
+    <h1>Video To Music <span>Converter</span></h1>
+    <p>Extract, edit and convert audio from your videos.
+       Create MP3, WAV and M4A files directly in your browser.</p>
+  </section>
+
+  <section class="panel">
+    <div class="section-heading">
+      <div>
+        <span class="step">STEP 01</span>
+        <h2>Upload Your Video</h2>
+        <p>Select a video from your device.</p>
+      </div>
+      <span class="heading-icon">🎬</span>
+    </div>
+
+    <label class="upload-area" for="videoInput" id="dropArea">
+      <div class="upload-icon">⬆</div>
+      <h3>Choose a Video File</h3>
+      <p>Tap here to browse your phone or computer</p>
+      <span class="upload-button">Browse Video</span>
+      <small>MP4, MOV, WebM, AVI, MKV and other supported formats</small>
+    </label>
+    <input type="file" id="videoInput" accept="video/*,.mkv,.avi,.mov,.mp4,.webm">
+
+    <div id="fileInfo" class="file-info hidden">
+      <div class="file-icon">🎞️</div>
+      <div class="file-details">
+        <strong id="fileName">Video name</strong>
+        <span id="fileMeta">File information</span>
+      </div>
+      <button id="removeVideo" class="icon-button" type="button" title="Remove video">✕</button>
+    </div>
+
+    <video id="videoPreview" class="video-preview hidden" controls playsinline></video>
+  </section>
+
+  <section class="panel">
+    <div class="section-heading">
+      <div>
+        <span class="step">STEP 02</span>
+        <h2>Audio Settings</h2>
+        <p>Customize your output music.</p>
+      </div>
+      <span class="heading-icon">🎵</span>
+    </div>
+
+    <div class="settings-grid">
+      <div class="field">
+        <label for="format">Output Format</label>
+        <select id="format">
+          <option value="mp3">MP3 - Compatible audio</option>
+          <option value="wav">WAV - Uncompressed audio</option>
+          <option value="m4a">M4A - AAC audio</option>
+        </select>
+      </div>
+
+      <div class="field">
+        <label for="quality">Audio Quality</label>
+        <select id="quality">
+          <option value="128k">128 kbps - Standard</option>
+          <option value="192k" selected>192 kbps - High</option>
+          <option value="256k">256 kbps - Very High</option>
+          <option value="320k">320 kbps - Maximum MP3</option>
+        </select>
+      </div>
+
+      <div class="field">
+        <label for="channels">Audio Channels</label>
+        <select id="channels">
+          <option value="2">Stereo</option>
+          <option value="1">Mono</option>
+        </select>
+      </div>
+
+      <div class="field">
+        <label for="volume">Volume: <span id="volumeValue">100%</span></label>
+        <input type="range" id="volume" min="0" max="200" value="100">
+      </div>
+    </div>
+
+    <div class="trim-box">
+      <h3>✂ Audio Trimming</h3>
+      <p>Choose which part of the video audio you want to extract.</p>
+      <div class="settings-grid">
+        <div class="field">
+          <label for="startTime">Start Time (seconds)</label>
+          <input type="number" id="startTime" min="0" step="0.1" value="0">
+        </div>
+        <div class="field">
+          <label for="endTime">End Time (seconds)</label>
+          <input type="number" id="endTime" min="0" step="0.1" placeholder="Video end">
+        </div>
+      </div>
+      <div class="trim-info" id="trimInfo">Full video audio will be extracted.</div>
+    </div>
+
+    <div class="effects-box">
+      <h3>Audio Effects</h3>
+      <label class="check-row">
+        <input type="checkbox" id="fadeIn">
+        <span>Fade In</span>
+        <small>Gradually increase volume at the beginning.</small>
+      </label>
+      <label class="check-row">
+        <input type="checkbox" id="fadeOut">
+        <span>Fade Out</span>
+        <small>Gradually reduce volume at the end.</small>
+      </label>
+      <div class="field fade-duration">
+        <label for="fadeDuration">Fade Duration (seconds)</label>
+        <input type="number" id="fadeDuration" min="0.1" max="30" step="0.1" value="2">
+      </div>
+    </div>
+  </section>
+
+  <section class="panel">
+    <div class="section-heading">
+      <div>
+        <span class="step">STEP 03</span>
+        <h2>Convert Your Video</h2>
+        <p>Start extracting your audio.</p>
+      </div>
+      <span class="heading-icon">⚙️</span>
+    </div>
+
+    <div class="engine-status" id="engineStatus">
+      <span class="status-dot"></span>
+      Conversion engine not loaded
+    </div>
+
+    <div class="progress-area hidden" id="progressArea">
+      <div class="progress-heading">
+        <strong id="progressLabel">Preparing conversion...</strong>
+        <strong id="progressPercent">0%</strong>
+      </div>
+      <div class="progress-track">
+        <div id="progressBar" class="progress-bar"></div>
+      </div>
+      <p id="progressDetail">Please wait.</p>
+    </div>
+
+    <div class="action-buttons">
+      <button id="convertBtn" class="primary-button" type="button">
+        🎵 Convert Video to Music
+      </button>
+      <button id="resetBtn" class="secondary-button" type="button">
+        ↻ Reset
+      </button>
+    </div>
+    <p class="notice">Keep this page open during conversion. Large videos may take several minutes.</p>
+  </section>
+
+  <section class="panel hidden" id="resultPanel">
+    <div class="section-heading">
+      <div>
+        <span class="step">STEP 04</span>
+        <h2>Your Converted Music</h2>
+        <p>Your audio is ready to preview.</p>
+      </div>
+      <span class="heading-icon">🎧</span>
+    </div>
+
+    <div class="success-message">✓ Conversion completed successfully!</div>
+    <div class="result-info" id="resultInfo"></div>
+    <audio id="audioPreview" controls></audio>
+    <a id="downloadBtn" class="download-button" download>
+      ⬇ Download Audio
+    </a>
+  </section>
+
+  <section class="panel information-panel">
+    <h2>📖 How To Use This Converter</h2>
+    <div class="instruction">
+      <strong>1. Select your video</strong>
+      <p>Upload a video file from your device. Wait until its preview and information appear.</p>
+    </div>
+    <div class="instruction">
+      <strong>2. Select audio format</strong>
+      <p>MP3 is recommended for music and sharing. WAV is suitable for uncompressed audio editing. M4A offers AAC audio compression.</p>
+    </div>
+    <div class="instruction">
+      <strong>3. Customize your music</strong>
+      <p>Adjust volume, choose stereo or mono, and set the start and end points if you only need a specific section.</p>
+    </div>
+    <div class="instruction">
+      <strong>4. Apply effects</strong>
+      <p>Enable fade-in or fade-out to create smoother audio beginnings and endings.</p>
+    </div>
+    <div class="instruction">
+      <strong>5. Convert and download</strong>
+      <p>Press Convert Video to Music. When completed, preview your audio and save it to your device.</p>
+    </div>
+  </section>
+
+  <section class="panel information-panel">
+    <h2>ℹ️ Format Information</h2>
+    <div class="format-card">
+      <strong>MP3</strong>
+      <p>Widely supported on phones, computers, music players and social platforms.</p>
+    </div>
+    <div class="format-card">
+      <strong>WAV</strong>
+      <p>Uncompressed PCM audio. Usually larger files, useful for audio editing.</p>
+    </div>
+    <div class="format-card">
+      <strong>M4A</strong>
+      <p>AAC compressed audio, commonly used on modern devices and media players.</p>
+    </div>
+  </section>
+
+  <section class="privacy-box">
+    <h3>🔐 Your Privacy Matters</h3>
+    <p>Your selected video is processed locally in your browser using FFmpeg.wasm. This app does not send your video to a LinkTech server. The FFmpeg engine itself is downloaded from its CDN. Your browser may retain temporary processing data until it is released.</p>
+  </section>
+
+</main>
+
+<script src="js/app.js"></script>
+
+<div id="toast" class="toast" role="status" aria-live="polite"></div>
+
+<script type="module" src="js/app.js"></script>
+</body>
+</html>
