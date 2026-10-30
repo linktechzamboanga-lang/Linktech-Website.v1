@@ -1,0 +1,394 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#eef6ff">
+
+    <title>Resume and Letters | LinkTech</title>
+
+    <meta name="description" content="Create professional resumes, application letters, authorization letters and more using LinkTech Resume and Letters.">
+
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+
+<header class="topbar">
+    <a href="#" class="brand">
+        <span class="brand-logo">RL</span>
+        <span>
+            <strong>Resume & Letters</strong>
+            <small>LinkTech Document Studio</small>
+        </span>
+    </a>
+
+    <div class="top-actions">
+        <span id="saveStatus">Ready</span>
+        <button class="btn btn-outline" id="newDocument">
+            New Document
+        </button>
+        <button class="btn btn-primary" id="printDocument">
+            Print / Save PDF
+        </button>
+    </div>
+</header>
+
+<main class="container">
+
+    <section class="hero">
+        <div>
+            <span class="eyebrow">LINKTECH ONLINE TOOLS</span>
+
+            <h1>Resume and Letters</h1>
+
+            <p>
+                Create professional resumes and formal letters.
+                Customize your information, choose your design,
+                upload your photo, and print your document.
+            </p>
+        </div>
+
+        <div class="hero-card">
+            <span class="hero-icon">✦</span>
+            <div>
+                <strong>Professional Document Maker</strong>
+                <small>10 Resume Templates • Multiple Letter Samples</small>
+            </div>
+        </div>
+    </section>
+
+    <!-- DOCUMENT TABS -->
+
+    <nav class="main-tabs">
+        <button class="tab active" data-mode="resume">
+            Resume Builder
+        </button>
+
+        <button class="tab" data-mode="letter">
+            Letter Writer
+        </button>
+    </nav>
+
+    <!-- ==================================
+         RESUME BUILDER
+    =================================== -->
+
+    <section id="resumeMode" class="workspace">
+
+        <aside class="sidebar">
+
+            <!-- TEMPLATE SELECTION -->
+
+            <div class="panel">
+
+                <div class="panel-title">
+                    <span>01</span>
+                    <h2>Resume Templates</h2>
+                </div>
+
+                <p class="description">
+                    Choose one of the 10 professional designs.
+                </p>
+
+                <div id="templateList" class="template-list"></div>
+
+            </div>
+
+            <!-- PHOTO EDITOR -->
+
+            <div class="panel">
+
+                <div class="panel-title">
+                    <span>02</span>
+                    <h2>Profile Photo</h2>
+                </div>
+
+                <label class="field-label">
+                    Upload your photo
+                </label>
+
+                <input
+                    type="file"
+                    id="photoUpload"
+                    accept="image/*"
+                >
+
+                <label class="field-label">
+                    Photo dimensions
+                </label>
+
+                <select id="photoSize">
+                    <option value="2x2">2 × 2 inches</option>
+                    <option value="1x1">1 × 1 inch</option>
+                    <option value="passport">Passport size</option>
+                    <option value="small">Small profile</option>
+                    <option value="none">Hide photo</option>
+                </select>
+
+                <label class="field-label">
+                    Photo shape
+                </label>
+
+                <select id="photoShape">
+                    <option value="circle">Circle</option>
+                    <option value="square">Square</option>
+                    <option value="rounded">Rounded</option>
+                </select>
+
+                <button class="btn btn-outline full" id="removePhoto">
+                    Remove Photo
+                </button>
+
+                <p class="hint">
+                    Use a clear professional photo. You can change
+                    its display size and shape anytime.
+                </p>
+
+            </div>
+
+            <!-- RESUME SECTIONS -->
+
+            <div class="panel">
+
+                <div class="panel-title">
+                    <span>03</span>
+                    <h2>Resume Sections</h2>
+                </div>
+
+                <button class="btn btn-soft full" id="addSection">
+                    + Add Custom Section
+                </button>
+
+                <button class="btn btn-soft full" id="restoreResume">
+                    Restore Sample Resume
+                </button>
+
+                <p class="hint">
+                    Tap any text in the resume preview to edit it.
+                    You can also remove unwanted text and sections.
+                </p>
+
+            </div>
+
+        </aside>
+
+        <!-- RESUME PREVIEW -->
+
+        <section class="editor-area">
+
+            <div class="editor-toolbar">
+                <div>
+                    <strong>Resume Preview</strong>
+                    <small>Tap text to edit your information</small>
+                </div>
+
+                <div class="zoom-controls">
+                    <button id="zoomOut">−</button>
+                    <span id="zoomValue">100%</span>
+                    <button id="zoomIn">+</button>
+                </div>
+            </div>
+
+            <div class="paper-stage">
+                <article
+                    id="resumePaper"
+                    class="resume-paper"
+                ></article>
+            </div>
+
+            <div class="paper-footer">
+                <span>A4 Paper Layout</span>
+                <span>Live Editing Enabled</span>
+            </div>
+
+        </section>
+
+    </section>
+
+    <!-- ==================================
+         LETTER WRITER
+    =================================== -->
+
+    <section id="letterMode" class="workspace hidden">
+
+        <aside class="sidebar">
+
+            <div class="panel">
+
+                <div class="panel-title">
+                    <span>01</span>
+                    <h2>Letter Templates</h2>
+                </div>
+
+                <label class="field-label">
+                    Select letter type
+                </label>
+
+                <select id="letterType">
+
+                    <option value="resignation">
+                        Resignation Letter
+                    </option>
+
+                    <option value="promissory">
+                        Promissory Note
+                    </option>
+
+                    <option value="excuse">
+                        Excuse Letter
+                    </option>
+
+                    <option value="authorization">
+                        Authorization Letter
+                    </option>
+
+                    <option value="application">
+                        Job Application Letter
+                    </option>
+
+                    <option value="request">
+                        Request Letter
+                    </option>
+
+                    <option value="thankyou">
+                        Thank You Letter
+                    </option>
+
+                    <option value="complaint">
+                        Complaint Letter
+                    </option>
+
+                    <option value="undertaking">
+                        Letter of Undertaking
+                    </option>
+
+                    <option value="recommendation">
+                        Recommendation Letter
+                    </option>
+
+                    <option value="cover">
+                        Cover Letter
+                    </option>
+
+                    <option value="custom">
+                        Blank Formal Letter
+                    </option>
+
+                </select>
+
+                <button class="btn btn-outline full" id="restoreLetter">
+                    Restore Letter Sample
+                </button>
+
+            </div>
+
+            <!-- FORMATTING -->
+
+            <div class="panel">
+
+                <div class="panel-title">
+                    <span>02</span>
+                    <h2>Text Formatting</h2>
+                </div>
+
+                <label class="field-label">
+                    Font Style
+                </label>
+
+                <select id="letterFont">
+                    <option value="Arial">Arial</option>
+                    <option value="Calibri">Calibri</option>
+                    <option value="Georgia">Georgia</option>
+                    <option value="Times New Roman">Times New Roman</option>
+                </select>
+
+                <label class="field-label">
+                    Font Size
+                </label>
+
+                <select id="letterFontSize">
+                    <option value="10">10 pt</option>
+                    <option value="11" selected>11 pt</option>
+                    <option value="12">12 pt</option>
+                    <option value="13">13 pt</option>
+                    <option value="14">14 pt</option>
+                </select>
+
+                <button class="btn btn-soft full" id="insertDate">
+                    Insert Today's Date
+                </button>
+
+            </div>
+
+            <div class="panel">
+
+                <div class="panel-title">
+                    <span>03</span>
+                    <h2>Instructions</h2>
+                </div>
+
+                <ol class="instructions">
+                    <li>Select a letter type.</li>
+                    <li>Tap the text to edit.</li>
+                    <li>Replace bracketed information.</li>
+                    <li>Review your letter.</li>
+                    <li>Print or save as PDF.</li>
+                </ol>
+
+            </div>
+
+        </aside>
+
+        <!-- LETTER PREVIEW -->
+
+        <section class="editor-area">
+
+            <div class="editor-toolbar">
+                <div>
+                    <strong>Letter Preview</strong>
+                    <small>Edit the sample directly</small>
+                </div>
+
+                <span class="paper-label">A4 DOCUMENT</span>
+            </div>
+
+            <div class="paper-stage">
+
+                <article
+                    id="letterPaper"
+                    class="letter-paper"
+                    contenteditable="true"
+                    spellcheck="true"
+                ></article>
+
+            </div>
+
+            <div class="paper-footer">
+                <span>Formal Letter Format</span>
+                <span>Ready for Printing</span>
+            </div>
+
+        </section>
+
+    </section>
+
+</main>
+
+<footer class="footer">
+    <span>
+        © 2026 LinkTech Freelance IT Specialist Zamboanga
+    </span>
+
+    <span>
+        Resume and Letters Online Webapp
+    </span>
+</footer>
+
+<div id="toast" class="toast"></div>
+
+<script src="js/app.js"></script>
+
+</body>
+</html>
