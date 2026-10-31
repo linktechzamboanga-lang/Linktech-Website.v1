@@ -1,39 +1,38 @@
-
 const products = [
   {
-    name: "Wireless Keyboard and Mouse",
-    category: "Accessories",
-    description: "Wireless computer keyboard and mouse set.",
-    image: "images/shop/keyboard.jpg",
-    link: "PASTE_YOUR_SHOPEE_AFFILIATE_LINK_HERE"
+    name: "EcoFlow 240 Wh RIVER 2",
+    category: "PowerStation",
+    description: "Check out EcoFlow 240 Wh RIVER 2 Portable Power Station 220V Solar Generator with Solar Panel LiFeP04 Quick Charge in 1 Hour Up to 600 W Power for Emergency Power Camping Motor Homes Home for ₱9,990 - ₱19,480. Get it on Shopee now!",
+    image: "images/shop/powerstation.png",
+    link: "https://s.shopee.ph/2BG5K0qcst"
   },
   {
-    name: "Computer SSD Storage",
+    name: "Sandisk 480GB 1TB SSD PLUS SATA III 2.5",
     category: "Storage",
-    description: "Upgrade computer storage performance.",
-    image: "images/shop/ssd.jpg",
-    link: "PASTE_YOUR_SHOPEE_AFFILIATE_LINK_HERE"
+    description: "Check out Sandisk 480GB 1TB SSD PLUS SATA III 2.5 Solid State Drive | Internal SSD | Sata SSD | Desktop SSD for ₱1,556 - ₱2,479. Get it on Shopee now!",
+    image: "images/shop/ssd.png",
+    link: "https://s.shopee.ph/7puS2neuuG"
   },
   {
-    name: "Desktop RAM Memory",
-    category: "Storage",
-    description: "Memory upgrade for compatible computers.",
-    image: "images/shop/ram.jpg",
-    link: "PASTE_YOUR_SHOPEE_AFFILIATE_LINK_HERE"
+    name: "FlashFish E103 Portable Power Station 300W",
+    category: "PowerStation",
+    description: "Check out FlashFish E103 Portable Power Station 300W LiFePO4 Battery Solar Generator Set UPS Laptop Powerbank for ₱8,099 - ₱22,390. Get it on Shopee now!",
+    image: "images/shop/powerstation1.png",
+    link: "https://s.shopee.ph/9pfWSmEium"
   },
   {
-    name: "Epson Printer",
-    category: "Printers",
-    description: "Explore printers for home and office.",
-    image: "images/shop/printer.jpg",
-    link: "PASTE_YOUR_SHOPEE_AFFILIATE_LINK_HERE"
+    name: "Acer Nitro VG0",
+    category: "Monitor",
+    description: "Check out Acer Nitro VG0 VG240Y X1BMIIPX 23.8 FHD 1920x1080 IPS Technology 1ms 200Hz Gaming Monitor for ₱6,299. Get it on Shopee now!",
+    image: "images/shop/monitor.png",
+    link: "https://s.shopee.ph/70LL65U76G"
   },
   {
-    name: "CCTV Security Camera",
-    category: "CCTV",
-    description: "Security camera for home and business.",
-    image: "images/shop/cctv.jpg",
-    link: "PASTE_YOUR_SHOPEE_AFFILIATE_LINK_HERE"
+    name: "BROTHER DCP-T730W",
+    category: "Printer",
+    description: "Check out BROTHER DCP-T730W 3IN1 PRINTER for ₱14,950. Get it on Shopee now!",
+    image: "images/shop/printer.png",
+    link: "https://s.shopee.ph/gRHZt94MS"
   }
 ];
 
