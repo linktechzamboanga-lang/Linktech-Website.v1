@@ -1,0 +1,287 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#eaf6ff">
+
+    <title>DaFishTech | Fishing Battle Game</title>
+
+<link rel="stylesheet" href="../css/download.css">
+    <link rel="stylesheet" href="css/style.css">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+
+<body>
+
+<header class="site-header">
+  <a class="logo" href="../index.html">
+    <img src="../images/LinkTech-logo.png" alt="LinkTech logo">
+    <span>
+      <b>LinkTech</b>
+      <small>Freelance IT Specialist Zamboanga</small>
+    </span>
+  </a>
+  </header>
+
+<main class="container">
+
+    <!-- HERO -->
+    <section class="hero">
+        <span class="eyebrow">WELCOME TO THE OCEAN</span>
+
+        <h1>
+            DaFishTech
+            <span>Fishing Battle!</span>
+        </h1>
+
+        <p>
+            Can you trick the fisherman or survive five fishing casts?
+            Choose your team and let's play!
+        </p>
+
+        <div class="hero-emoji">
+            🎣 🌊 🐟
+        </div>
+    </section>
+
+    <!-- GAME AREA -->
+    <section class="game-card">
+
+        <!-- LOGIN -->
+        <div id="loginScreen">
+
+            <h2>Choose Your Team</h2>
+
+            <p class="subtitle">
+                Select your role to enter the fishing battle.
+            </p>
+
+            <div class="team-grid">
+
+                <button class="team-option fisherman"
+                        onclick="selectTeam('fisherman')">
+
+                    <span class="team-icon">🎣</span>
+
+                    <h3>Fisherman Team</h3>
+
+                    <p>
+                        Catch the fish using your fishing tricks!
+                    </p>
+
+                    <span class="select-text">JOIN TEAM →</span>
+
+                </button>
+
+                <button class="team-option fish"
+                        onclick="selectTeam('fish')">
+
+                    <span class="team-icon">🐟</span>
+
+                    <h3>Fish Team</h3>
+
+                    <p>
+                        Find the real food and escape the hook!
+                    </p>
+
+                    <span class="select-text">JOIN TEAM →</span>
+
+                </button>
+
+            </div>
+
+            <div class="team-note">
+                👥 2 Players vs 2 Players
+            </div>
+
+        </div>
+
+
+        <!-- GAME SCREEN -->
+        <div id="gameScreen" class="hidden">
+
+            <div class="game-top">
+
+                <div>
+                    <span class="small-label">YOUR TEAM</span>
+                    <h2 id="teamTitle">Fisherman Team</h2>
+                </div>
+
+                <button class="reset-btn" onclick="resetGame()">
+                    ↻ Exit Game
+                </button>
+
+            </div>
+
+            <div class="score-board">
+
+                <div class="score-box">
+                    <span>🎣</span>
+                    <small>Fisherman</small>
+                    <strong id="fisherScore">0</strong>
+                </div>
+
+                <div class="round-box">
+                    <small>ROUND</small>
+                    <strong id="roundNumber">1 / 5</strong>
+                </div>
+
+                <div class="score-box">
+                    <span>🐟</span>
+                    <small>Fish Level</small>
+                    <strong id="fishScore">0</strong>
+                </div>
+
+            </div>
+
+            <div class="progress-track">
+                <div id="progressBar"></div>
+            </div>
+
+            <!-- FISHERMAN -->
+            <div id="fishermanPanel" class="hidden">
+
+                <div class="ocean-scene">
+                    <div class="sun">☀️</div>
+                    <div class="ocean-character">🎣</div>
+                    <div class="waves">🌊 🌊 🌊</div>
+                </div>
+
+                <h3>Prepare Your Fishing Bait!</h3>
+
+                <p class="instruction">
+                    Select the real food hidden among five choices.
+                    The fish will try to guess it!
+                </p>
+
+                <div id="baitSetup" class="bait-grid"></div>
+
+                <button id="castButton"
+                        class="primary-btn"
+                        onclick="castLine()"
+                        disabled>
+                    🎣 CAST YOUR LINE
+                </button>
+
+                <p id="fisherMessage" class="message">
+                    Choose the real food first.
+                </p>
+
+            </div>
+
+
+            <!-- FISH -->
+            <div id="fishPanel" class="hidden">
+
+                <div class="ocean-scene fish-scene">
+                    <div class="sun">☀️</div>
+                    <div class="ocean-character">🐟</div>
+                    <div class="waves">🌊 🫧 🌊</div>
+                </div>
+
+                <h3>Find the Real Food!</h3>
+
+                <p class="instruction">
+                    Five choices are waiting in the ocean.
+                    Choose carefully, little fish!
+                </p>
+
+                <div id="fishChoices" class="bait-grid"></div>
+
+                <p id="fishMessage" class="message">
+                    Waiting for the fisherman to cast...
+                </p>
+
+            </div>
+
+
+            <!-- ROUND RESULT -->
+            <div id="resultPanel" class="result-panel hidden">
+
+                <div id="resultEmoji" class="result-emoji">🐟</div>
+
+                <h2 id="resultTitle">Great Job!</h2>
+
+                <p id="resultDescription"></p>
+
+                <button id="nextButton"
+                        class="primary-btn"
+                        onclick="nextRound()">
+                    NEXT ROUND →
+                </button>
+
+            </div>
+
+
+            <!-- FINAL RESULT -->
+            <div id="winnerPanel" class="winner-panel hidden">
+
+                <div id="winnerEmoji" class="winner-emoji">🏆</div>
+
+                <h2 id="winnerTitle">Game Over!</h2>
+
+                <p id="winnerDescription"></p>
+
+                <button class="primary-btn"
+                        onclick="resetGame()">
+                    PLAY AGAIN
+                </button>
+
+            </div>
+
+        </div>
+
+    </section>
+
+    <section class="how-to-play">
+
+        <h2>How To Play</h2>
+
+        <div class="steps">
+
+            <div class="step">
+                <span>01</span>
+                <h3>Choose Your Team</h3>
+                <p>Join the fisherman or fish team.</p>
+            </div>
+
+            <div class="step">
+                <span>02</span>
+                <h3>Cast Your Line</h3>
+                <p>The fisherman secretly chooses the real food.</p>
+            </div>
+
+            <div class="step">
+                <span>03</span>
+                <h3>Guess The Food</h3>
+                <p>The fish chooses one of five options.</p>
+            </div>
+
+            <div class="step">
+                <span>04</span>
+                <h3>Win The Battle</h3>
+                <p>Survive five rounds or get caught!</p>
+            </div>
+
+        </div>
+
+    </section>
+
+</main>
+
+<footer>
+    <p>
+        © 2026 LinkTech Freelance IT Specialist Zamboanga | All Rights Reserved
+    </p>
+</footer>
+
+
+<script src="js/app.js"></script>
+
+</body>
+</html>
