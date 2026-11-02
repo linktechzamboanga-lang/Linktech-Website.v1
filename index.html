@@ -92,6 +92,66 @@ fbq('track', 'PageView');
 <meta name="twitter:card" content="summary_large_image">
       
 
+
+<style>
+/* LinkTech: Facebook in-app browser Google Sign-In guidance */
+.lt-fb-browser-notice {
+    width: 100%;
+    max-width: 430px;
+    margin: 18px auto 0;
+    padding: 22px;
+    border: 1px solid rgba(14, 165, 233, .28);
+    border-radius: 18px;
+    background: linear-gradient(145deg, #f0f9ff, #ffffff);
+    color: #0f172a;
+    text-align: center;
+    box-shadow: 0 12px 30px rgba(15, 23, 42, .08);
+    font-family: 'Poppins', sans-serif;
+}
+.lt-fb-browser-notice[hidden] { display: none !important; }
+.lt-fb-browser-icon { font-size: 34px; margin-bottom: 8px; }
+.lt-fb-browser-notice h3 {
+    margin: 0 0 10px;
+    color: #0f172a;
+    font-size: 19px;
+    font-weight: 700;
+}
+.lt-fb-browser-notice p {
+    margin: 0 0 16px;
+    color: #475569;
+    font-size: 13px;
+    line-height: 1.7;
+}
+.lt-fb-browser-notice button {
+    display: block;
+    width: 100%;
+    margin: 9px 0 0;
+    padding: 12px 16px;
+    border: 0;
+    border-radius: 10px;
+    background: #1877f2;
+    color: #fff;
+    font: 600 14px 'Poppins', sans-serif;
+    cursor: pointer;
+}
+.lt-fb-browser-notice button#ltCopyWebsiteLink {
+    background: #e0f2fe;
+    color: #075985;
+    border: 1px solid #bae6fd;
+}
+.lt-fb-browser-notice button:focus-visible {
+    outline: 3px solid #7dd3fc;
+    outline-offset: 3px;
+}
+.lt-fb-browser-notice small {
+    display: block;
+    margin-top: 14px;
+    color: #64748b;
+    font-size: 11px;
+    line-height: 1.6;
+}
+</style>
+
 </head>
 
 
@@ -166,6 +226,28 @@ fbq('track', 'PageView');
 
 <div id="g_id_signin"></div>
 <div id="googleLoginButton"></div>
+
+<!-- Facebook in-app browser Google Sign-In guidance -->
+<div id="ltFacebookBrowserNotice" class="lt-fb-browser-notice"
+     role="status" aria-live="polite" hidden>
+    <div class="lt-fb-browser-icon" aria-hidden="true">🔐</div>
+    <h3>Open LinkTech in Chrome</h3>
+    <p>
+        Google Sign-In may be blocked inside Facebook's built-in browser.
+        Open this page in your phone's external browser, such as Google Chrome,
+        then sign in again.
+    </p>
+    <button type="button" id="ltOpenExternalBrowser">
+        Open in Chrome
+    </button>
+    <button type="button" id="ltCopyWebsiteLink">
+        Copy Website Link
+    </button>
+    <small>
+        If Chrome does not open, use Facebook's menu (⋯) and choose
+        “Open in external browser” or copy this link and paste it into Chrome.
+    </small>
+</div>
 
 <p class="login-note">
 Secure • Fast • Google Authentication
@@ -286,9 +368,6 @@ Secure • Fast • Google Authentication
 </div>
       
       
-
-      
-
 <!-- LinkTech Social Buttons -->
 <section class="lt-social" aria-label="LinkTech social media">
   <h2>Connect With LinkTech</h2>
@@ -1175,8 +1254,6 @@ All Rights Reserved
 ========================================== -->
 
 <script src="js/home.js"></script>
-
-
 </body>
-
 </html>
+      
