@@ -1,0 +1,827 @@
+/* =====================================================
+   LINKTECH CUSTOMER SUPPORT PORTAL
+   MODERN POPUP DASHBOARD - CSS ONLY
+   Original HTML and JavaScript preserved
+===================================================== */
+
+/* ==========================================
+   1. USER PROFILE CARD
+========================================== */
+
+#userProfile {
+    position: relative;
+    width: 100%;
+    max-width: 380px;
+    margin: 25px auto;
+    padding: 25px;
+
+    text-align: center;
+    box-sizing: border-box;
+
+    background: rgba(255,255,255,.96);
+    border: 1px solid #e2edfa;
+    border-radius: 22px;
+
+    box-shadow: 0 12px 35px rgba(30,64,175,.10);
+
+    animation: ltProfileEnter .6s ease both;
+}
+
+#userProfile img {
+    width: 78px;
+    height: 78px;
+    object-fit: cover;
+
+    border-radius: 50%;
+    border: 4px solid #dbeafe;
+
+    box-shadow: 0 5px 15px rgba(37,99,235,.15);
+}
+
+#userProfile h3 {
+    margin: 13px 0 5px;
+    color: #172554;
+    font-size: 19px;
+    font-weight: 750;
+}
+
+#userProfile p {
+    margin: 0 0 17px;
+    color: #64748b;
+    font-size: 12px;
+    overflow-wrap: anywhere;
+}
+
+#userProfile button {
+    min-width: 130px;
+    padding: 11px 22px;
+
+    color: #2563eb;
+    background: #eff6ff;
+
+    border: 1px solid #bfdbfe;
+    border-radius: 12px;
+
+    font-size: 12px;
+    font-weight: 700;
+
+    cursor: pointer;
+    transition: .3s ease;
+}
+
+#userProfile button:hover {
+    color: white;
+    background: #2563eb;
+    transform: translateY(-2px);
+}
+
+
+/* ==========================================
+   2. MAIN DASHBOARD POPUP OVERLAY
+========================================== */
+
+#dashboard {
+    position: fixed !important;
+
+    inset: 0 !important;
+    z-index: 99990 !important;
+
+    width: 100% !important;
+    height: 100vh !important;
+    height: 100dvh !important;
+
+    overflow-x: hidden !important;
+    overflow-y: auto !important;
+
+    padding: 25px 18px 45px !important;
+
+    box-sizing: border-box;
+
+    /* Blur original first page */
+
+    background:
+        radial-gradient(
+            circle at 10% 10%,
+            rgba(147,197,253,.30),
+            transparent 35%
+        ),
+        radial-gradient(
+            circle at 90% 80%,
+            rgba(196,181,253,.25),
+            transparent 40%
+        ),
+        rgba(239,246,255,.78) !important;
+
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+
+    animation: ltDashboardAppear .55s ease both;
+    overscroll-behavior: contain;
+}
+
+/* Animated background */
+
+#dashboard::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+
+    z-index: -1;
+    pointer-events: none;
+
+    background:
+        radial-gradient(
+            circle at 20% 30%,
+            rgba(56,189,248,.12),
+            transparent 35%
+        ),
+        radial-gradient(
+            circle at 80% 70%,
+            rgba(99,102,241,.10),
+            transparent 40%
+        );
+
+    background-size: 180% 180%;
+
+    animation: ltBackgroundMove 12s ease-in-out infinite alternate;
+}
+
+
+/* ==========================================
+   3. DASHBOARD NAVIGATION BUTTONS
+========================================== */
+
+.dashboard-menu {
+    position: relative;
+
+    width: 100%;
+    max-width: 1050px;
+
+    margin: 0 auto 22px;
+    padding: 12px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+
+    gap: 12px;
+
+    background: rgba(255,255,255,.88);
+    border: 1px solid rgba(219,234,254,.95);
+    border-radius: 20px;
+
+    box-shadow: 0 8px 30px rgba(30,64,175,.07);
+
+    backdrop-filter: blur(15px);
+}
+
+.dashboard-menu button {
+    position: relative;
+
+    flex: 1 1 170px;
+    min-height: 48px;
+
+    padding: 12px 17px;
+
+    color: #2563eb;
+
+    background: linear-gradient(
+        135deg,
+        #eff6ff,
+        #dbeafe
+    );
+
+    border: 1px solid #bfdbfe;
+    border-radius: 13px;
+
+    font-family: 'Poppins', 'Inter', sans-serif;
+    font-size: 12px;
+    font-weight: 700;
+
+    cursor: pointer;
+
+    transition:
+        transform .3s ease,
+        background .3s ease,
+        box-shadow .3s ease,
+        color .3s ease;
+
+    overflow: hidden;
+}
+
+/* Button light animation */
+
+.dashboard-menu button::before {
+    content: "";
+    position: absolute;
+
+    top: 0;
+    left: -120%;
+
+    width: 70%;
+    height: 100%;
+
+    background: linear-gradient(
+        90deg,
+        transparent,
+        rgba(255,255,255,.75),
+        transparent
+    );
+
+    transform: skewX(-20deg);
+    transition: left .6s ease;
+}
+
+.dashboard-menu button:hover::before {
+    left: 150%;
+}
+
+.dashboard-menu button:hover {
+    color: #ffffff;
+
+    background: linear-gradient(
+        135deg,
+        #60a5fa,
+        #2563eb
+    );
+
+    border-color: #60a5fa;
+
+    transform: translateY(-3px);
+
+    box-shadow:
+        0 8px 20px rgba(37,99,235,.22);
+}
+
+.dashboard-menu button:active {
+    transform: scale(.97);
+}
+
+
+/* ==========================================
+   4. DASHBOARD CONTENT CONTAINER
+========================================== */
+
+#customerContent {
+    position: relative;
+
+    width: 100%;
+    max-width: 1050px;
+
+    margin: 0 auto;
+
+    animation: ltContentEnter .7s ease both;
+}
+
+
+/* ==========================================
+   5. CONTENT CARDS
+========================================== */
+
+#customerContent .box {
+    position: relative;
+
+    width: 100%;
+
+    margin: 0 auto 22px;
+    padding: 27px;
+
+    box-sizing: border-box;
+
+    background: rgba(255,255,255,.97);
+
+    border: 1px solid #e5edf7;
+    border-radius: 20px;
+
+    box-shadow:
+        0 10px 35px rgba(15,55,95,.07),
+        0 2px 8px rgba(15,55,95,.03);
+
+    animation: ltCardEnter .5s ease both;
+}
+
+#customerContent .box h2 {
+    margin: 0 0 18px;
+
+    color: #172554;
+
+    font-family: 'Poppins', 'Inter', sans-serif;
+    font-size: 22px;
+    font-weight: 750;
+}
+
+#customerContent .box h3 {
+    color: #1e40af;
+    font-size: 15px;
+    font-weight: 700;
+}
+
+#customerContent .box > p {
+    color: #64748b;
+    font-size: 13px;
+    line-height: 1.8;
+}
+
+
+/* ==========================================
+   6. FORM LABELS
+========================================== */
+
+#customerContent label {
+    display: block;
+
+    margin: 17px 0 8px;
+
+    color: #334155;
+
+    font-size: 12px;
+    font-weight: 700;
+}
+
+
+/* ==========================================
+   7. INPUTS AND TEXTAREAS
+========================================== */
+
+#customerContent input:not([type="checkbox"]),
+#customerContent select,
+#customerContent textarea {
+
+    display: block;
+
+    width: 100%;
+    min-height: 46px;
+
+    padding: 12px 14px;
+
+    box-sizing: border-box;
+
+    color: #1e293b;
+    background: #f8fbff;
+
+    border: 1px solid #dbe5f1;
+    border-radius: 11px;
+
+    outline: none;
+
+    font-family: 'Poppins', 'Inter', sans-serif;
+    font-size: 12px;
+
+    transition:
+        border-color .25s ease,
+        box-shadow .25s ease,
+        background .25s ease;
+}
+
+#customerContent textarea {
+    min-height: 110px;
+    resize: vertical;
+}
+
+#customerContent input:focus,
+#customerContent select:focus,
+#customerContent textarea:focus {
+    background: #ffffff;
+
+    border-color: #60a5fa;
+
+    box-shadow:
+        0 0 0 4px rgba(59,130,246,.10);
+}
+
+#customerContent input[readonly] {
+    background: #eff6ff;
+    color: #64748b;
+    cursor: not-allowed;
+}
+
+#customerContent input::placeholder,
+#customerContent textarea::placeholder {
+    color: #94a3b8;
+}
+
+
+/* ==========================================
+   8. ALL DASHBOARD ACTION BUTTONS
+========================================== */
+
+#customerContent .box button {
+    position: relative;
+
+    min-height: 43px;
+
+    margin-top: 12px;
+    padding: 11px 20px;
+
+    color: #2563eb;
+
+    background: linear-gradient(
+        135deg,
+        #eff6ff,
+        #dbeafe
+    );
+
+    border: 1px solid #bfdbfe;
+    border-radius: 11px;
+
+    font-family: 'Poppins', 'Inter', sans-serif;
+    font-size: 12px;
+    font-weight: 700;
+
+    cursor: pointer;
+
+    transition: .3s ease;
+}
+
+#customerContent .box button:hover {
+    color: #ffffff;
+
+    background: linear-gradient(
+        135deg,
+        #60a5fa,
+        #2563eb
+    );
+
+    transform: translateY(-2px);
+
+    box-shadow:
+        0 7px 17px rgba(37,99,235,.20);
+}
+
+#customerContent .box button:active {
+    transform: scale(.97);
+}
+
+
+/* ==========================================
+   9. TERMS AND CONDITIONS
+========================================== */
+
+.terms-box {
+    padding: 19px;
+
+    background: #f8fbff;
+
+    border: 1px solid #dbeafe;
+    border-radius: 14px;
+}
+
+.terms-box h3 {
+    margin-top: 0;
+    color: #1d4ed8;
+}
+
+.terms-box p,
+.terms-box li {
+    color: #64748b;
+    font-size: 12px;
+    line-height: 1.8;
+}
+
+.terms-box ul {
+    padding-left: 20px;
+}
+
+.terms-box .checkbox {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+
+    margin-top: 15px;
+
+    color: #334155;
+    font-size: 12px;
+}
+
+.terms-box input[type="checkbox"] {
+    width: 17px;
+    height: 17px;
+    flex-shrink: 0;
+
+    accent-color: #2563eb;
+}
+
+
+/* ==========================================
+   10. ADMIN STATISTICS
+========================================== */
+
+#adminPanel .stats {
+    display: grid;
+
+    grid-template-columns:
+        repeat(auto-fit, minmax(140px, 1fr));
+
+    gap: 14px;
+
+    margin: 20px 0;
+}
+
+#adminPanel .stat-card {
+    padding: 19px;
+
+    background: linear-gradient(
+        135deg,
+        #eff6ff,
+        #ffffff
+    );
+
+    border: 1px solid #dbeafe;
+    border-radius: 15px;
+
+    transition: .3s ease;
+}
+
+#adminPanel .stat-card:hover {
+    transform: translateY(-4px);
+
+    box-shadow:
+        0 8px 20px rgba(37,99,235,.10);
+}
+
+#adminPanel .stat-card h3 {
+    color: #64748b;
+    font-size: 11px;
+}
+
+#adminPanel .stat-card span {
+    color: #2563eb;
+    font-size: 27px;
+    font-weight: 800;
+}
+
+
+/* ==========================================
+   11. ADMIN TOOLBAR
+========================================== */
+
+.admin-toolbar {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.admin-toolbar button {
+    flex: 1 1 130px;
+}
+
+
+/* ==========================================
+   12. TABLE AND TIMELINE CONTENT
+========================================== */
+
+#customerContent table {
+    width: 100%;
+    border-collapse: collapse;
+    background: #ffffff;
+}
+
+#customerContent th {
+    padding: 13px;
+
+    color: #1e40af;
+    background: #eff6ff;
+
+    font-size: 11px;
+    text-align: left;
+}
+
+#customerContent td {
+    padding: 12px;
+
+    color: #475569;
+
+    border-bottom: 1px solid #e5edf5;
+
+    font-size: 11px;
+}
+
+#customerContent #commentList,
+#customerContent #timelineList,
+#customerContent #myRequests,
+#customerContent #adminConcerns,
+#customerContent #adminTimelineList {
+    overflow-wrap: anywhere;
+}
+
+#customerContent img {
+    max-width: 100%;
+}
+
+
+/* ==========================================
+   13. DIVIDERS
+========================================== */
+
+#customerContent hr {
+    margin: 25px 0;
+
+    border: none;
+    border-top: 1px solid #e5edf5;
+}
+
+
+/* ==========================================
+   14. SCROLLBAR
+========================================== */
+
+#dashboard::-webkit-scrollbar {
+    width: 7px;
+}
+
+#dashboard::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+#dashboard::-webkit-scrollbar-thumb {
+    background: #bfdbfe;
+    border-radius: 20px;
+}
+
+#dashboard::-webkit-scrollbar-thumb:hover {
+    background: #60a5fa;
+}
+
+
+/* ==========================================
+   15. ANIMATIONS
+========================================== */
+
+@keyframes ltDashboardAppear {
+    from {
+        opacity: 0;
+        transform: scale(.98);
+    }
+
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+@keyframes ltProfileEnter {
+    from {
+        opacity: 0;
+        transform: translateY(15px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes ltContentEnter {
+    from {
+        opacity: 0;
+        transform: translateY(12px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes ltCardEnter {
+    from {
+        opacity: 0;
+        transform: translateY(15px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes ltBackgroundMove {
+    0% {
+        transform: translate(0, 0);
+    }
+
+    50% {
+        transform: translate(2%, -2%);
+    }
+
+    100% {
+        transform: translate(-2%, 2%);
+    }
+}
+
+
+/* ==========================================
+   16. TABLET RESPONSIVE
+========================================== */
+
+@media (max-width: 768px) {
+
+    #dashboard {
+        padding: 15px 12px 30px !important;
+    }
+
+    .dashboard-menu {
+        gap: 9px;
+        padding: 10px;
+    }
+
+    .dashboard-menu button {
+        flex: 1 1 140px;
+        font-size: 11px;
+    }
+
+    #customerContent .box {
+        padding: 21px;
+    }
+
+    #customerContent .box h2 {
+        font-size: 19px;
+    }
+
+    #adminPanel .stats {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+
+/* ==========================================
+   17. MOBILE RESPONSIVE
+========================================== */
+
+@media (max-width: 480px) {
+
+    #dashboard {
+        padding: 10px 9px 25px !important;
+    }
+
+    .dashboard-menu {
+        border-radius: 15px;
+        gap: 8px;
+    }
+
+    .dashboard-menu button {
+        flex: 1 1 100%;
+        min-height: 44px;
+        font-size: 11px;
+    }
+
+    #customerContent .box {
+        padding: 17px;
+        border-radius: 16px;
+    }
+
+    #customerContent .box h2 {
+        font-size: 18px;
+    }
+
+    #customerContent input:not([type="checkbox"]),
+    #customerContent select,
+    #customerContent textarea {
+        font-size: 13px;
+    }
+
+    #adminPanel .stats {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 9px;
+    }
+
+    #adminPanel .stat-card {
+        padding: 13px;
+    }
+
+    #adminPanel .stat-card span {
+        font-size: 23px;
+    }
+
+    .admin-toolbar {
+        flex-direction: column;
+    }
+
+    .admin-toolbar button {
+        width: 100%;
+    }
+}
+
+
+/* ==========================================
+   18. ACCESSIBILITY
+========================================== */
+
+@media (prefers-reduced-motion: reduce) {
+
+    #dashboard,
+    #dashboard::before,
+    #userProfile,
+    #customerContent,
+    #customerContent .box {
+        animation: none !important;
+    }
+
+    #dashboard *,
+    #userProfile *,
+    #customerContent * {
+        scroll-behavior: auto !important;
+        transition-duration: .01ms !important;
+    }
+  }
