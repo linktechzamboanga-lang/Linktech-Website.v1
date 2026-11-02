@@ -365,15 +365,15 @@ nav a:hover::after{
 }
 
 .login-title{
-    font-size:28px;
-    font-weight:700;
+    font-size:20px;
+    font-weight:500;
     color:#0f172a;
     margin-bottom:8px;
 }
 
 .login-subtitle{
     color:#64748b;
-    margin-bottom:28px;
+    margin-bottom:18px;
     text-align:center;
 }
 
