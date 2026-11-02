@@ -1,132 +1,209 @@
 /* =====================================================
    LINKTECH CUSTOMER SUPPORT PORTAL
-   MODERN POPUP DASHBOARD - CSS ONLY
-   Original HTML and JavaScript preserved
+   MODERN POPUP DASHBOARD V2
+   CSS ONLY - PRESERVE EXISTING HTML AND JAVASCRIPT
 ===================================================== */
 
-/* ==========================================
-   1. USER PROFILE CARD
-========================================== */
+
+/* =====================================================
+   01. GOOGLE USER PROFILE
+   IMPORTANT: KEEP ABOVE DASHBOARD OVERLAY
+===================================================== */
 
 #userProfile {
-    position: relative;
-    width: 100%;
-    max-width: 380px;
-    margin: 25px auto;
-    padding: 25px;
+    position: fixed !important;
 
-    text-align: center;
+    top: 12px !important;
+    right: 18px !important;
+
+    z-index: 100100 !important;
+
+    width: 260px;
+    max-width: calc(100% - 30px);
+
+    margin: 0 !important;
+    padding: 14px 17px;
+
     box-sizing: border-box;
 
-    background: rgba(255,255,255,.96);
-    border: 1px solid #e2edfa;
-    border-radius: 22px;
+    display: block;
 
-    box-shadow: 0 12px 35px rgba(30,64,175,.10);
+    text-align: center;
 
-    animation: ltProfileEnter .6s ease both;
+    background: rgba(255,255,255,.98);
+
+    border: 1px solid #dbeafe;
+    border-radius: 17px;
+
+    box-shadow:
+        0 8px 30px rgba(15,55,95,.16),
+        0 2px 8px rgba(37,99,235,.07);
+
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+
+    animation: ltProfileShow .5s ease both;
+}
+
+/* Preserve JavaScript-controlled visibility */
+
+#userProfile[style*="display: none"] {
+    display: none !important;
 }
 
 #userProfile img {
-    width: 78px;
-    height: 78px;
+    display: block;
+
+    width: 62px;
+    height: 62px;
+
+    margin: 0 auto 9px;
+
     object-fit: cover;
 
     border-radius: 50%;
-    border: 4px solid #dbeafe;
 
-    box-shadow: 0 5px 15px rgba(37,99,235,.15);
+    border: 3px solid #bfdbfe;
+
+    box-shadow:
+        0 4px 14px rgba(37,99,235,.18);
 }
 
 #userProfile h3 {
-    margin: 13px 0 5px;
+    margin: 5px 0;
+
     color: #172554;
-    font-size: 19px;
+
+    font-family: 'Poppins', 'Inter', sans-serif;
+    font-size: 14px;
     font-weight: 750;
 }
 
 #userProfile p {
-    margin: 0 0 17px;
+    margin: 5px 0 12px;
+
     color: #64748b;
-    font-size: 12px;
+
+    font-size: 10px;
+
     overflow-wrap: anywhere;
 }
 
+/* LOGOUT BUTTON */
+
 #userProfile button {
-    min-width: 130px;
-    padding: 11px 22px;
+    width: 100%;
+
+    min-height: 38px;
+
+    padding: 9px 15px;
 
     color: #2563eb;
-    background: #eff6ff;
+
+    background: linear-gradient(
+        135deg,
+        #eff6ff,
+        #dbeafe
+    );
 
     border: 1px solid #bfdbfe;
-    border-radius: 12px;
+    border-radius: 10px;
 
-    font-size: 12px;
+    font-family: 'Poppins', 'Inter', sans-serif;
+    font-size: 11px;
     font-weight: 700;
 
     cursor: pointer;
+
     transition: .3s ease;
 }
 
 #userProfile button:hover {
     color: white;
-    background: #2563eb;
+
+    background: linear-gradient(
+        135deg,
+        #60a5fa,
+        #2563eb
+    );
+
     transform: translateY(-2px);
+
+    box-shadow: 0 6px 15px rgba(37,99,235,.2);
 }
 
 
-/* ==========================================
-   2. MAIN DASHBOARD POPUP OVERLAY
-========================================== */
+/* =====================================================
+   02. DASHBOARD POPUP
+===================================================== */
 
 #dashboard {
     position: fixed !important;
 
     inset: 0 !important;
+
     z-index: 99990 !important;
 
     width: 100% !important;
     height: 100vh !important;
     height: 100dvh !important;
 
-    overflow-x: hidden !important;
-    overflow-y: auto !important;
+    margin: 0 !important;
 
-    padding: 25px 18px 45px !important;
+    padding:
+        115px
+        20px
+        35px !important;
 
     box-sizing: border-box;
 
-    /* Blur original first page */
+    overflow-x: hidden !important;
+    overflow-y: auto !important;
 
     background:
         radial-gradient(
-            circle at 10% 10%,
-            rgba(147,197,253,.30),
+            circle at 10% 15%,
+            rgba(147,197,253,.25),
             transparent 35%
         ),
         radial-gradient(
-            circle at 90% 80%,
-            rgba(196,181,253,.25),
+            circle at 90% 85%,
+            rgba(196,181,253,.20),
             transparent 40%
         ),
         rgba(239,246,255,.78) !important;
 
-    backdrop-filter: blur(15px);
-    -webkit-backdrop-filter: blur(15px);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
 
-    animation: ltDashboardAppear .55s ease both;
+    -webkit-overflow-scrolling: touch;
+
     overscroll-behavior: contain;
+
+    animation: ltDashboardShow .55s ease both;
+}
+
+/* Do not override JavaScript visibility */
+
+#dashboard[style*="display: none"] {
+    display: none !important;
 }
 
 /* Animated background */
 
 #dashboard::before {
     content: "";
-    position: fixed;
-    inset: 0;
+
+    position: absolute;
+
+    top: 0;
+    left: 0;
+
+    width: 100%;
+    height: 100%;
 
     z-index: -1;
+
     pointer-events: none;
 
     background:
@@ -143,13 +220,13 @@
 
     background-size: 180% 180%;
 
-    animation: ltBackgroundMove 12s ease-in-out infinite alternate;
+    animation: ltBackground 12s ease-in-out infinite alternate;
 }
 
 
-/* ==========================================
-   3. DASHBOARD NAVIGATION BUTTONS
-========================================== */
+/* =====================================================
+   03. DASHBOARD NAVIGATION
+===================================================== */
 
 .dashboard-menu {
     position: relative;
@@ -161,28 +238,35 @@
     padding: 12px;
 
     display: flex;
+
     justify-content: center;
     align-items: center;
+
     flex-wrap: wrap;
 
     gap: 12px;
 
-    background: rgba(255,255,255,.88);
-    border: 1px solid rgba(219,234,254,.95);
-    border-radius: 20px;
+    background: rgba(255,255,255,.94);
 
-    box-shadow: 0 8px 30px rgba(30,64,175,.07);
+    border: 1px solid #dbeafe;
+    border-radius: 18px;
 
-    backdrop-filter: blur(15px);
+    box-shadow:
+        0 8px 30px rgba(37,99,235,.08);
+
+    backdrop-filter: blur(12px);
 }
 
 .dashboard-menu button {
     position: relative;
 
     flex: 1 1 170px;
+
     min-height: 48px;
 
-    padding: 12px 17px;
+    padding: 12px 15px;
+
+    overflow: hidden;
 
     color: #2563eb;
 
@@ -193,7 +277,7 @@
     );
 
     border: 1px solid #bfdbfe;
-    border-radius: 13px;
+    border-radius: 12px;
 
     font-family: 'Poppins', 'Inter', sans-serif;
     font-size: 12px;
@@ -201,35 +285,31 @@
 
     cursor: pointer;
 
-    transition:
-        transform .3s ease,
-        background .3s ease,
-        box-shadow .3s ease,
-        color .3s ease;
-
-    overflow: hidden;
+    transition: .3s ease;
 }
 
-/* Button light animation */
+/* Animated light sweep */
 
 .dashboard-menu button::before {
     content: "";
+
     position: absolute;
 
     top: 0;
     left: -120%;
 
-    width: 70%;
+    width: 65%;
     height: 100%;
 
     background: linear-gradient(
         90deg,
         transparent,
-        rgba(255,255,255,.75),
+        rgba(255,255,255,.8),
         transparent
     );
 
     transform: skewX(-20deg);
+
     transition: left .6s ease;
 }
 
@@ -246,12 +326,10 @@
         #2563eb
     );
 
-    border-color: #60a5fa;
-
     transform: translateY(-3px);
 
     box-shadow:
-        0 8px 20px rgba(37,99,235,.22);
+        0 8px 20px rgba(37,99,235,.23);
 }
 
 .dashboard-menu button:active {
@@ -259,9 +337,9 @@
 }
 
 
-/* ==========================================
-   4. DASHBOARD CONTENT CONTAINER
-========================================== */
+/* =====================================================
+   04. DASHBOARD CONTENT
+===================================================== */
 
 #customerContent {
     position: relative;
@@ -271,13 +349,8 @@
 
     margin: 0 auto;
 
-    animation: ltContentEnter .7s ease both;
+    animation: ltContentShow .6s ease both;
 }
-
-
-/* ==========================================
-   5. CONTENT CARDS
-========================================== */
 
 #customerContent .box {
     position: relative;
@@ -285,20 +358,20 @@
     width: 100%;
 
     margin: 0 auto 22px;
+
     padding: 27px;
 
     box-sizing: border-box;
 
     background: rgba(255,255,255,.97);
 
-    border: 1px solid #e5edf7;
+    border: 1px solid #e2eefa;
     border-radius: 20px;
 
     box-shadow:
-        0 10px 35px rgba(15,55,95,.07),
-        0 2px 8px rgba(15,55,95,.03);
+        0 10px 35px rgba(15,55,95,.07);
 
-    animation: ltCardEnter .5s ease both;
+    animation: ltCardShow .45s ease both;
 }
 
 #customerContent .box h2 {
@@ -313,20 +386,22 @@
 
 #customerContent .box h3 {
     color: #1e40af;
+
     font-size: 15px;
     font-weight: 700;
 }
 
 #customerContent .box > p {
     color: #64748b;
+
     font-size: 13px;
     line-height: 1.8;
 }
 
 
-/* ==========================================
-   6. FORM LABELS
-========================================== */
+/* =====================================================
+   05. FORM LABELS
+===================================================== */
 
 #customerContent label {
     display: block;
@@ -340,9 +415,9 @@
 }
 
 
-/* ==========================================
-   7. INPUTS AND TEXTAREAS
-========================================== */
+/* =====================================================
+   06. INPUTS
+===================================================== */
 
 #customerContent input:not([type="checkbox"]),
 #customerContent select,
@@ -351,6 +426,7 @@
     display: block;
 
     width: 100%;
+
     min-height: 46px;
 
     padding: 12px 14px;
@@ -358,6 +434,7 @@
     box-sizing: border-box;
 
     color: #1e293b;
+
     background: #f8fbff;
 
     border: 1px solid #dbe5f1;
@@ -368,10 +445,7 @@
     font-family: 'Poppins', 'Inter', sans-serif;
     font-size: 12px;
 
-    transition:
-        border-color .25s ease,
-        box-shadow .25s ease,
-        background .25s ease;
+    transition: .25s ease;
 }
 
 #customerContent textarea {
@@ -392,7 +466,9 @@
 
 #customerContent input[readonly] {
     background: #eff6ff;
+
     color: #64748b;
+
     cursor: not-allowed;
 }
 
@@ -402,16 +478,15 @@
 }
 
 
-/* ==========================================
-   8. ALL DASHBOARD ACTION BUTTONS
-========================================== */
+/* =====================================================
+   07. CONTENT BUTTONS
+===================================================== */
 
 #customerContent .box button {
-    position: relative;
-
     min-height: 43px;
 
     margin-top: 12px;
+
     padding: 11px 20px;
 
     color: #2563eb;
@@ -454,9 +529,9 @@
 }
 
 
-/* ==========================================
-   9. TERMS AND CONDITIONS
-========================================== */
+/* =====================================================
+   08. TERMS AND CONDITIONS
+===================================================== */
 
 .terms-box {
     padding: 19px;
@@ -475,6 +550,7 @@
 .terms-box p,
 .terms-box li {
     color: #64748b;
+
     font-size: 12px;
     line-height: 1.8;
 }
@@ -486,6 +562,7 @@
 .terms-box .checkbox {
     display: flex;
     align-items: flex-start;
+
     gap: 10px;
 
     margin-top: 15px;
@@ -497,15 +574,16 @@
 .terms-box input[type="checkbox"] {
     width: 17px;
     height: 17px;
+
     flex-shrink: 0;
 
     accent-color: #2563eb;
 }
 
 
-/* ==========================================
-   10. ADMIN STATISTICS
-========================================== */
+/* =====================================================
+   09. ADMIN STATISTICS
+===================================================== */
 
 #adminPanel .stats {
     display: grid;
@@ -547,14 +625,15 @@
 
 #adminPanel .stat-card span {
     color: #2563eb;
+
     font-size: 27px;
     font-weight: 800;
 }
 
 
-/* ==========================================
-   11. ADMIN TOOLBAR
-========================================== */
+/* =====================================================
+   10. ADMIN TOOLBAR
+===================================================== */
 
 .admin-toolbar {
     display: flex;
@@ -567,9 +646,9 @@
 }
 
 
-/* ==========================================
-   12. TABLE AND TIMELINE CONTENT
-========================================== */
+/* =====================================================
+   11. TABLES AND TIMELINE
+===================================================== */
 
 #customerContent table {
     width: 100%;
@@ -610,21 +689,22 @@
 }
 
 
-/* ==========================================
-   13. DIVIDERS
-========================================== */
+/* =====================================================
+   12. DIVIDERS
+===================================================== */
 
 #customerContent hr {
     margin: 25px 0;
 
     border: none;
+
     border-top: 1px solid #e5edf5;
 }
 
 
-/* ==========================================
-   14. SCROLLBAR
-========================================== */
+/* =====================================================
+   13. SCROLLBAR
+===================================================== */
 
 #dashboard::-webkit-scrollbar {
     width: 7px;
@@ -644,26 +724,14 @@
 }
 
 
-/* ==========================================
-   15. ANIMATIONS
-========================================== */
+/* =====================================================
+   14. ANIMATIONS
+===================================================== */
 
-@keyframes ltDashboardAppear {
+@keyframes ltProfileShow {
     from {
         opacity: 0;
-        transform: scale(.98);
-    }
-
-    to {
-        opacity: 1;
-        transform: scale(1);
-    }
-}
-
-@keyframes ltProfileEnter {
-    from {
-        opacity: 0;
-        transform: translateY(15px);
+        transform: translateY(-12px);
     }
 
     to {
@@ -672,7 +740,17 @@
     }
 }
 
-@keyframes ltContentEnter {
+@keyframes ltDashboardShow {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes ltContentShow {
     from {
         opacity: 0;
         transform: translateY(12px);
@@ -684,10 +762,10 @@
     }
 }
 
-@keyframes ltCardEnter {
+@keyframes ltCardShow {
     from {
         opacity: 0;
-        transform: translateY(15px);
+        transform: translateY(12px);
     }
 
     to {
@@ -696,29 +774,39 @@
     }
 }
 
-@keyframes ltBackgroundMove {
+@keyframes ltBackground {
     0% {
-        transform: translate(0, 0);
+        transform: translate(0,0);
     }
 
     50% {
-        transform: translate(2%, -2%);
+        transform: translate(2%,-2%);
     }
 
     100% {
-        transform: translate(-2%, 2%);
+        transform: translate(-2%,2%);
     }
 }
 
 
-/* ==========================================
-   16. TABLET RESPONSIVE
-========================================== */
+/* =====================================================
+   15. TABLET RESPONSIVE
+===================================================== */
 
 @media (max-width: 768px) {
 
+    #userProfile {
+        top: 10px !important;
+        right: 12px !important;
+
+        width: 225px;
+    }
+
     #dashboard {
-        padding: 15px 12px 30px !important;
+        padding:
+            125px
+            12px
+            30px !important;
     }
 
     .dashboard-menu {
@@ -740,29 +828,65 @@
     }
 
     #adminPanel .stats {
-        grid-template-columns: repeat(2, 1fr);
+        grid-template-columns: repeat(2,1fr);
     }
 }
 
 
-/* ==========================================
-   17. MOBILE RESPONSIVE
-========================================== */
+/* =====================================================
+   16. MOBILE RESPONSIVE
+===================================================== */
 
 @media (max-width: 480px) {
 
+    #userProfile {
+        top: 8px !important;
+        right: 8px !important;
+
+        width: 185px;
+
+        padding: 10px 12px;
+
+        border-radius: 14px;
+    }
+
+    #userProfile img {
+        width: 48px;
+        height: 48px;
+    }
+
+    #userProfile h3 {
+        font-size: 12px;
+    }
+
+    #userProfile p {
+        font-size: 9px;
+        margin-bottom: 8px;
+    }
+
+    #userProfile button {
+        min-height: 33px;
+        font-size: 10px;
+    }
+
     #dashboard {
-        padding: 10px 9px 25px !important;
+        padding:
+            140px
+            9px
+            25px !important;
     }
 
     .dashboard-menu {
-        border-radius: 15px;
         gap: 8px;
+        padding: 9px;
+        border-radius: 15px;
     }
 
     .dashboard-menu button {
         flex: 1 1 100%;
-        min-height: 44px;
+
+        min-height: 43px;
+
         font-size: 11px;
     }
 
@@ -782,7 +906,7 @@
     }
 
     #adminPanel .stats {
-        grid-template-columns: repeat(2, 1fr);
+        grid-template-columns: repeat(2,1fr);
         gap: 9px;
     }
 
@@ -804,9 +928,9 @@
 }
 
 
-/* ==========================================
-   18. ACCESSIBILITY
-========================================== */
+/* =====================================================
+   17. ACCESSIBILITY
+===================================================== */
 
 @media (prefers-reduced-motion: reduce) {
 
@@ -821,7 +945,6 @@
     #dashboard *,
     #userProfile *,
     #customerContent * {
-        scroll-behavior: auto !important;
-        transition-duration: .01ms !important;
+        transition: none !important;
     }
-  }
+   }
