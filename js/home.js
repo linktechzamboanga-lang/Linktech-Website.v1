@@ -46,9 +46,99 @@ window.addEventListener("load", function(){
 
     restoreSession();
 
+    // Google blocks OAuth sign-in inside some embedded browsers, including Facebook.
+    // Keep the existing Google sign-in flow unchanged in supported browsers.
+    if (isFacebookInAppBrowser() && !currentUser) {
+        showFacebookBrowserNotice();
+        return;
+    }
+
     waitForGoogle();
 
 });
+
+
+// ==========================================
+// FACEBOOK IN-APP BROWSER DETECTION
+// ==========================================
+
+function isFacebookInAppBrowser() {
+    const ua = navigator.userAgent || "";
+
+    // FBAN / FBAV are common Facebook app user-agent markers.
+    return /FBAN|FBAV|FB_IAB/i.test(ua);
+}
+
+
+function showFacebookBrowserNotice() {
+    const loginButton = document.getElementById("googleLoginButton");
+    const notice = document.getElementById("ltFacebookBrowserNotice");
+    const openButton = document.getElementById("ltOpenExternalBrowser");
+    const copyButton = document.getElementById("ltCopyWebsiteLink");
+
+    if (loginButton) {
+        loginButton.style.display = "none";
+    }
+
+    if (notice) {
+        notice.hidden = false;
+    }
+
+    if (openButton && !openButton.dataset.bound) {
+        openButton.dataset.bound = "true";
+
+        openButton.addEventListener("click", function () {
+            const pageUrl = window.location.href;
+            const isAndroid = /Android/i.test(navigator.userAgent);
+
+            if (isAndroid) {
+                // Attempts to hand the current HTTPS URL to Chrome on Android.
+                // Facebook may still intercept or block this intent.
+                const target = new URL(pageUrl);
+                const fallback = encodeURIComponent(pageUrl);
+                const intentUrl =
+                    "intent://" + target.host + target.pathname + target.search +
+                    target.hash +
+                    "#Intent;scheme=https;package=com.android.chrome;" +
+                    "S.browser_fallback_url=" + fallback + ";end";
+
+                window.location.href = intentUrl;
+                return;
+            }
+
+            // On iOS and desktop, users should use Facebook's own
+            // "Open in external browser" menu.
+            alert(
+                "Please open Facebook's menu (⋯) and choose " +
+                "'Open in external browser'. You can also copy the link " +
+                "and paste it into Safari or Chrome."
+            );
+        });
+    }
+
+    if (copyButton && !copyButton.dataset.bound) {
+        copyButton.dataset.bound = "true";
+
+        copyButton.addEventListener("click", async function () {
+            const pageUrl = window.location.href;
+
+            try {
+                if (navigator.clipboard && window.isSecureContext) {
+                    await navigator.clipboard.writeText(pageUrl);
+                    copyButton.textContent = "Website Link Copied";
+                } else {
+                    window.prompt("Copy this LinkTech website link:", pageUrl);
+                }
+            } catch (error) {
+                window.prompt("Copy this LinkTech website link:", pageUrl);
+            }
+        });
+    }
+
+    console.info(
+        "Facebook in-app browser detected. Google Sign-In initialization skipped."
+    );
+}
 
 
 // ==========================================
