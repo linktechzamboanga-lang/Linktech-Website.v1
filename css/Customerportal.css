@@ -1,86 +1,99 @@
 /* =====================================================
    LINKTECH CUSTOMER SUPPORT PORTAL
-   MODERN POPUP DASHBOARD
-   COMPLETE CSS UPDATE
-   HTML AND JAVASCRIPT REMAIN UNCHANGED
+   CENTERED GOOGLE PROFILE + POPUP DASHBOARD
+   COMPLETE CSS
+   HTML AND JAVASCRIPT UNCHANGED
 ===================================================== */
 
 
 /* =====================================================
-   01. GENERAL DASHBOARD SETTINGS
+   01. GLOBAL SETTINGS
 ===================================================== */
 
 #dashboard,
-#dashboard * {
+#dashboard *,
+#userProfile,
+#userProfile * {
     box-sizing: border-box;
 }
 
-#dashboard {
+#dashboard,
+#userProfile {
     font-family: 'Poppins', 'Inter', sans-serif;
 }
 
 
 /* =====================================================
-   02. GOOGLE USER PROFILE
-   PROFILE AND LOGOUT ABOVE DASHBOARD
+   02. GOOGLE PROFILE - TOP CENTER
 ===================================================== */
 
 #userProfile {
     position: fixed !important;
 
     top: 12px !important;
-    right: 18px !important;
+    left: 50% !important;
+    right: auto !important;
+
+    transform: translateX(-50%);
 
     z-index: 100100 !important;
 
-    width: 260px;
+    width: 310px;
     max-width: calc(100% - 24px);
 
     margin: 0 !important;
-    padding: 14px 17px;
+    padding: 13px 18px;
 
-    box-sizing: border-box;
+    display: block;
 
     text-align: center;
 
-    background: rgba(255,255,255,.98);
+    background: rgba(255,255,255,.97);
 
     border: 1px solid #dbeafe;
-    border-radius: 17px;
+    border-radius: 20px;
 
     box-shadow:
-        0 8px 30px rgba(15,55,95,.16),
-        0 2px 8px rgba(37,99,235,.07);
+        0 8px 30px rgba(15,55,95,.14),
+        0 3px 10px rgba(37,99,235,.08);
 
-    backdrop-filter: blur(15px);
-    -webkit-backdrop-filter: blur(15px);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
 
     animation: ltProfileShow .5s ease both;
 }
 
-/* Respect JavaScript-controlled visibility */
+/* Preserve JavaScript visibility */
 
 #userProfile[style*="display: none"] {
     display: none !important;
 }
 
+
+/* GOOGLE PROFILE IMAGE */
+
 #userProfile img {
     display: block;
 
-    width: 62px;
-    height: 62px;
+    width: 66px;
+    height: 66px;
 
-    margin: 0 auto 9px;
+    margin: 0 auto 8px;
 
     object-fit: cover;
 
     border-radius: 50%;
 
-    border: 3px solid #bfdbfe;
+    border: 3px solid #93c5fd;
+
+    background: #eff6ff;
 
     box-shadow:
-        0 4px 14px rgba(37,99,235,.18);
+        0 4px 15px rgba(37,99,235,.20);
 }
+
+
+/* GOOGLE NAME */
 
 #userProfile h3 {
     margin: 5px 0;
@@ -91,8 +104,11 @@
     font-weight: 750;
 }
 
+
+/* GOOGLE EMAIL */
+
 #userProfile p {
-    margin: 5px 0 12px;
+    margin: 4px 0 11px;
 
     color: #64748b;
 
@@ -101,11 +117,16 @@
     overflow-wrap: anywhere;
 }
 
+
 /* LOGOUT BUTTON */
 
 #userProfile button {
+    display: block;
+
     width: 100%;
     min-height: 38px;
+
+    margin: 0 auto;
 
     padding: 9px 15px;
 
@@ -118,14 +139,15 @@
     );
 
     border: 1px solid #bfdbfe;
-    border-radius: 10px;
+    border-radius: 11px;
 
+    font-family: inherit;
     font-size: 11px;
     font-weight: 700;
 
     cursor: pointer;
 
-    transition: .3s ease;
+    transition: all .3s ease;
 }
 
 #userProfile button:hover {
@@ -140,7 +162,11 @@
     transform: translateY(-2px);
 
     box-shadow:
-        0 6px 15px rgba(37,99,235,.2);
+        0 7px 18px rgba(37,99,235,.22);
+}
+
+#userProfile button:active {
+    transform: scale(.97);
 }
 
 
@@ -156,12 +182,13 @@
     z-index: 99990 !important;
 
     width: 100% !important;
+
     height: 100vh !important;
     height: 100dvh !important;
 
     margin: 0 !important;
 
-    padding: 115px 20px 35px !important;
+    padding: 190px 20px 35px !important;
 
     box-sizing: border-box;
 
@@ -171,18 +198,18 @@
     background:
         radial-gradient(
             circle at 10% 15%,
-            rgba(147,197,253,.25),
+            rgba(147,197,253,.24),
             transparent 35%
         ),
         radial-gradient(
             circle at 90% 85%,
-            rgba(196,181,253,.20),
+            rgba(196,181,253,.18),
             transparent 40%
         ),
-        rgba(239,246,255,.78) !important;
+        rgba(239,246,255,.80) !important;
 
-    backdrop-filter: blur(16px);
-    -webkit-backdrop-filter: blur(16px);
+    backdrop-filter: blur(17px);
+    -webkit-backdrop-filter: blur(17px);
 
     -webkit-overflow-scrolling: touch;
 
@@ -191,7 +218,7 @@
     animation: ltDashboardShow .5s ease both;
 }
 
-/* Keep JavaScript in control of display */
+/* Preserve JavaScript visibility */
 
 #dashboard[style*="display: none"] {
     display: none !important;
@@ -238,12 +265,14 @@
 
 .dashboard-menu {
     position: relative;
+
     z-index: 1;
 
     width: 100%;
     max-width: 1050px;
 
     margin: 0 auto 22px;
+
     padding: 12px;
 
     display: flex;
@@ -255,7 +284,7 @@
 
     gap: 12px;
 
-    background: rgba(255,255,255,.95);
+    background: rgba(255,255,255,.96);
 
     border: 1px solid #dbeafe;
     border-radius: 18px;
@@ -295,8 +324,11 @@
 
     cursor: pointer;
 
-    transition: .3s ease;
+    transition: all .3s ease;
 }
+
+
+/* BUTTON LIGHT ANIMATION */
 
 .dashboard-menu button::before {
     content: "";
@@ -351,6 +383,7 @@
 
 #customerContent {
     position: relative;
+
     z-index: 1;
 
     width: 100%;
@@ -367,6 +400,7 @@
     width: 100%;
 
     margin: 0 auto 22px;
+
     padding: 27px;
 
     box-sizing: border-box;
@@ -432,6 +466,7 @@
     display: block;
 
     width: 100%;
+
     min-height: 46px;
 
     padding: 12px 14px;
@@ -450,11 +485,12 @@
     font-family: inherit;
     font-size: 12px;
 
-    transition: .25s ease;
+    transition: all .25s ease;
 }
 
 #customerContent textarea {
     min-height: 110px;
+
     resize: vertical;
 }
 
@@ -491,6 +527,7 @@
     min-height: 43px;
 
     margin-top: 12px;
+
     padding: 11px 20px;
 
     color: #2563eb;
@@ -510,7 +547,7 @@
 
     cursor: pointer;
 
-    transition: .3s ease;
+    transition: all .3s ease;
 }
 
 #customerContent .box button:hover {
@@ -548,6 +585,7 @@
 
 .terms-box h3 {
     margin-top: 0;
+
     color: #1d4ed8;
 }
 
@@ -565,6 +603,7 @@
 
 .terms-box .checkbox {
     display: flex;
+
     align-items: flex-start;
 
     gap: 10px;
@@ -572,6 +611,7 @@
     margin-top: 15px;
 
     color: #334155;
+
     font-size: 12px;
 }
 
@@ -624,6 +664,7 @@
 
 #adminPanel .stat-card h3 {
     color: #64748b;
+
     font-size: 11px;
 }
 
@@ -672,6 +713,7 @@
     background: #eff6ff;
 
     font-size: 11px;
+
     text-align: left;
 }
 
@@ -718,6 +760,7 @@
 
 #dashboard {
     scrollbar-width: thin;
+
     scrollbar-color: #bfdbfe transparent;
 }
 
@@ -731,6 +774,7 @@
 
 #dashboard::-webkit-scrollbar-thumb {
     background: #bfdbfe;
+
     border-radius: 20px;
 }
 
@@ -746,12 +790,16 @@
 @keyframes ltProfileShow {
     from {
         opacity: 0;
-        transform: translateY(-12px);
+
+        transform:
+            translate(-50%, -12px);
     }
 
     to {
         opacity: 1;
-        transform: translateY(0);
+
+        transform:
+            translate(-50%, 0);
     }
 }
 
@@ -768,11 +816,13 @@
 @keyframes ltContentShow {
     from {
         opacity: 0;
+
         transform: translateY(12px);
     }
 
     to {
         opacity: 1;
+
         transform: translateY(0);
     }
 }
@@ -780,11 +830,13 @@
 @keyframes ltCardShow {
     from {
         opacity: 0;
+
         transform: translateY(12px);
     }
 
     to {
         opacity: 1;
+
         transform: translateY(0);
     }
 }
@@ -812,17 +864,24 @@
 
     #userProfile {
         top: 10px !important;
-        right: 12px !important;
 
-        width: 225px;
+        width: 280px;
+
+        padding: 12px 15px;
+    }
+
+    #userProfile img {
+        width: 58px;
+        height: 58px;
     }
 
     #dashboard {
-        padding: 125px 12px 30px !important;
+        padding: 185px 12px 30px !important;
     }
 
     .dashboard-menu {
         gap: 9px;
+
         padding: 10px;
     }
 
@@ -854,18 +913,17 @@
 
     #userProfile {
         top: 8px !important;
-        right: 8px !important;
 
-        width: 185px;
+        width: 245px;
 
-        padding: 10px 12px;
+        padding: 10px 13px;
 
-        border-radius: 14px;
+        border-radius: 16px;
     }
 
     #userProfile img {
-        width: 48px;
-        height: 48px;
+        width: 50px;
+        height: 50px;
     }
 
     #userProfile h3 {
@@ -874,20 +932,23 @@
 
     #userProfile p {
         font-size: 9px;
+
         margin-bottom: 8px;
     }
 
     #userProfile button {
-        min-height: 33px;
+        min-height: 34px;
+
         font-size: 10px;
     }
 
     #dashboard {
-        padding: 140px 9px 25px !important;
+        padding: 165px 9px 25px !important;
     }
 
     .dashboard-menu {
         gap: 8px;
+
         padding: 9px;
 
         border-radius: 15px;
@@ -939,8 +1000,6 @@
         width: 100%;
     }
 
-    /* Allow wide tables to scroll on phones */
-
     #customerContent table {
         display: block;
 
@@ -972,4 +1031,4 @@
     #customerContent * {
         transition: none !important;
     }
-       }
+   }
