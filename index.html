@@ -227,26 +227,70 @@ fbq('track', 'PageView');
 <div id="g_id_signin"></div>
 <div id="googleLoginButton"></div>
 
-<!-- Facebook in-app browser Google Sign-In guidance -->
-<div id="ltFacebookBrowserNotice" class="lt-fb-browser-notice"
-     role="status" aria-live="polite" hidden>
-    <div class="lt-fb-browser-icon" aria-hidden="true">🔐</div>
+<!-- LINKTECH FACEBOOK IN-APP BROWSER NOTICE -->
+<div id="ltFacebookBrowserNotice"
+     class="lt-fb-browser-notice"
+     role="status"
+     aria-live="polite"
+     hidden>
+
+    <div class="lt-fb-security-animation">
+        <div class="lt-fb-security-ring"></div>
+
+        <div class="lt-fb-lock">
+            <div class="lt-fb-lock-shackle"></div>
+            <div class="lt-fb-lock-body">
+                <span class="lt-fb-lock-keyhole"></span>
+            </div>
+        </div>
+    </div>
+
+    <span class="lt-fb-notice-label">
+        LINKTECH SECURITY NOTICE
+    </span>
+
     <h3>Open LinkTech in Chrome</h3>
-    <p>
-        Google Sign-In may be blocked inside Facebook's built-in browser.
-        Open this page in your phone's external browser, such as Google Chrome,
-        then sign in again.
+
+    <p class="lt-fb-description">
+        You're currently browsing LinkTech inside Facebook.
+        Google Sign-In may be restricted in this browser.
+        For a smoother and more secure sign-in experience,
+        open our website using Google Chrome.
     </p>
-    <button type="button" id="ltOpenExternalBrowser">
-        Open in Chrome
-    </button>
-    <button type="button" id="ltCopyWebsiteLink">
-        Copy Website Link
-    </button>
-    <small>
-        If Chrome does not open, use Facebook's menu (⋯) and choose
-        “Open in external browser” or copy this link and paste it into Chrome.
-    </small>
+
+    <div class="lt-fb-browser-actions">
+
+        <button type="button"
+                id="ltOpenExternalBrowser"
+                class="lt-fb-btn-primary">
+            <span>↗</span>
+            Open in Chrome
+        </button>
+
+        <button type="button"
+                id="ltCopyWebsiteLink"
+                class="lt-fb-btn-secondary">
+            <span>⧉</span>
+            Copy Website Link
+        </button>
+
+    </div>
+
+    <div class="lt-fb-help">
+        <span class="lt-fb-help-icon">ⓘ</span>
+
+        <small>
+            If Chrome does not open, tap the Facebook menu (⋯)
+            and select "Open in external browser". You can also
+            copy this website link and paste it into Chrome.
+        </small>
+    </div>
+
+    <div class="lt-fb-footer">
+        <span class="lt-fb-footer-dot"></span>
+        LinkTech Freelance IT Specialist Zamboanga
+    </div>
+
 </div>
 
 <p class="login-note">
@@ -350,7 +394,7 @@ Secure • Fast • Google Authentication
 
         <p>Video to music converter adjust volume stereo</p>
 
-        <span class="tool-link">Open Tool →</span>
+        <span class="tool-link">Prototype Preparing Server→</span>
 </a>
 
       <a href="/Dafishtechgame/index.html"
@@ -362,7 +406,7 @@ Secure • Fast • Google Authentication
 
         <p>2 player funny game to catch fish!</p>
 
-        <span class="tool-link">Open To Play →</span>
+        <span class="tool-link">Prototype Preparing Server→</span>
       </a>
       
 </div>
