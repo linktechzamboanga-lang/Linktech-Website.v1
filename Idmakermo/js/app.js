@@ -172,10 +172,15 @@ function normalizeState(data) {
   return {
     front: normalizeSide(data.front),
     back: normalizeSide(data.back),
-    layouts: Array.isArray(data.layouts) ? data.layouts : [],
+
+    layouts: Array.isArray(data.layouts)
+      ? data.layouts
+      : [],
+
     employees: Array.isArray(data.employees)
       ? data.employees.map(employee => ({
           ...employee,
+
           id: employee.id || uid(),
           name: String(employee.name || ""),
           birthday: employee.birthday || "",
@@ -183,8 +188,28 @@ function normalizeState(data) {
           position: employee.position || "",
           department: employee.department || "",
           role: employee.role || "",
+
+          // Existing fields
           photoData: employee.photoData || "",
           signatureData: employee.signatureData || "",
+
+          // NEW FIELDS
+          information1: employee.information1 || "",
+          information2: employee.information2 || "",
+          information3: employee.information3 || "",
+
+          authorizedSignature:
+            employee.authorizedSignature || "",
+
+          presidentSignatureData:
+            employee.presidentSignatureData || "",
+
+          presidentName:
+            employee.presidentName || "",
+
+          presidentPosition:
+            employee.presidentPosition || "",
+
           printed: Boolean(employee.printed)
         }))
       : []
@@ -270,8 +295,19 @@ function getPreviewEmployee() {
     position: "Position",
     department: "Department",
     role: "Employee",
+
     photoData: "",
-    signatureData: ""
+    signatureData: "",
+
+    information1: "Information 1",
+    information2: "Information 2",
+    information3: "Information 3",
+
+    authorizedSignature: "Authorized Signature",
+
+    presidentSignatureData: "",
+    presidentName: "President / General Manager",
+    presidentPosition: "Position / Title"
   };
 }
 
@@ -284,7 +320,17 @@ function employeeValue(employee, field) {
     id: employee.employeeId,
     position: employee.position,
     department: employee.department,
-    role: employee.role
+    role: employee.role,
+
+    // NEW INFORMATION
+    information1: employee.information1,
+    information2: employee.information2,
+    information3: employee.information3,
+
+    authorizedSignature: employee.authorizedSignature,
+
+    presidentName: employee.presidentName,
+    presidentPosition: employee.presidentPosition
   };
 
   return fields[field] ?? "";
@@ -500,8 +546,12 @@ async function drawElement(element, employee) {
     }
 
     if (element.bindField === "signatureData") {
-      source = employee.signatureData;
-    }
+  source = employee.signatureData;
+}
+
+if (element.bindField === "presidentSignatureData") {
+  source = employee.presidentSignatureData;
+}
 
     const image = await getImage(source);
 
@@ -580,6 +630,7 @@ async function renderCanvas() {
       ctx.fillStyle = "#087cf0";
 
       const handleSize = 12;
+
       ctx.fillRect(
         element.x + element.w - handleSize / 2,
         element.y + element.h - handleSize / 2,
@@ -1547,7 +1598,9 @@ $("employeeForm").addEventListener("submit", async event => {
 
   try {
     const photoFile = $("empPhoto").files[0];
-    const signatureFile = $("empSignature").files[0];
+const signatureFile = $("empSignature").files[0];
+const presidentSignatureFile =
+  $("empPresidentSignature").files[0];
 
     const photoData = photoFile
       ? await readFile(photoFile)
@@ -1556,23 +1609,47 @@ $("employeeForm").addEventListener("submit", async event => {
     const signatureData = signatureFile
       ? await readFile(signatureFile)
       : (existing?.signatureData || "");
+      
+const presidentSignatureData = presidentSignatureFile
+  ? await readFile(presidentSignatureFile)
+  : (existing?.presidentSignatureData || "");
 
     const employee = {
-      id: existing ? existing.id : uid(),
-      name,
-      birthday: $("empBirthday").value,
-      employeeId: $("empId").value.trim(),
-      position: $("empPosition").value.trim(),
-      department: $("empDepartment").value.trim(),
-      role: $("empRole").value.trim(),
-      photoData,
-      signatureData,
-      printed: existing ? existing.printed : false,
-      createdAt: existing
-        ? existing.createdAt
-        : new Date().toISOString(),
-      updatedAt: new Date().toISOString()
-    };
+  id: existing ? existing.id : uid(),
+
+  // EXISTING INFORMATION
+  name,
+  birthday: $("empBirthday").value,
+  employeeId: $("empId").value.trim(),
+  position: $("empPosition").value.trim(),
+  department: $("empDepartment").value.trim(),
+  role: $("empRole").value.trim(),
+
+  // EXISTING UPLOADS
+  photoData,
+  signatureData,
+
+  // NEW INFORMATION
+  information1: $("empInformation1").value.trim(),
+  information2: $("empInformation2").value.trim(),
+  information3: $("empInformation3").value.trim(),
+
+  authorizedSignature:
+    $("empAuthorizedSignature").value.trim(),
+
+  // PRESIDENT / GENERAL MANAGER
+  presidentSignatureData,
+  presidentName: $("empPresidentName").value.trim(),
+  presidentPosition: $("empPresidentPosition").value.trim(),
+
+  printed: existing ? existing.printed : false,
+
+  createdAt: existing
+    ? existing.createdAt
+    : new Date().toISOString(),
+
+  updatedAt: new Date().toISOString()
+};
 
     if (existing) {
       Object.assign(existing, employee);
@@ -1598,21 +1675,43 @@ function editEmployee(id) {
   editingEmployeeId = id;
 
   $("editingEmployeeId").value = id;
-  $("empName").value = employee.name;
-  $("empBirthday").value = employee.birthday;
-  $("empId").value = employee.employeeId;
-  $("empPosition").value = employee.position;
-  $("empDepartment").value = employee.department;
-  $("empRole").value = employee.role;
 
+  $("empName").value = employee.name || "";
+  $("empBirthday").value = employee.birthday || "";
+  $("empId").value = employee.employeeId || "";
+  $("empPosition").value = employee.position || "";
+  $("empDepartment").value = employee.department || "";
+  $("empRole").value = employee.role || "";
+
+  // NEW INFORMATION
+  $("empInformation1").value = employee.information1 || "";
+  $("empInformation2").value = employee.information2 || "";
+  $("empInformation3").value = employee.information3 || "";
+
+  $("empAuthorizedSignature").value =
+    employee.authorizedSignature || "";
+
+  // PRESIDENT / GENERAL MANAGER
+  $("empPresidentName").value =
+    employee.presidentName || "";
+
+  $("empPresidentPosition").value =
+    employee.presidentPosition || "";
+
+  // File inputs cannot be populated programmatically.
+  // Existing uploaded images remain stored in IndexedDB.
   $("empPhoto").value = "";
   $("empSignature").value = "";
+  $("empPresidentSignature").value = "";
 
   $("addEmployeeBtn").textContent = "Update Employee";
 
   document.querySelector('[data-tab="employees"]').click();
 
-  window.scrollTo({ top: 0, behavior: "smooth" });
+  window.scrollTo({
+    top: 0,
+    behavior: "smooth"
+  });
 }
 
 async function deleteEmployee(id) {
@@ -1991,9 +2090,6 @@ function makePrintCanvas(side, employee) {
         }
       }
 
-      const oldCanvas = canvas;
-      const oldCtx = ctx;
-
       for (const element of side.elements) {
         await drawPrintElement(
           outputContext,
@@ -2144,7 +2240,9 @@ async function drawPrintElement(context, element, employee) {
     if (element.bindField === "signatureData") {
       source = employee.signatureData;
     }
-
+if (element.bindField === "presidentSignatureData") {
+  source = employee.presidentSignatureData;
+}
     const image = await getImage(source);
 
     if (image) {
@@ -2614,55 +2712,82 @@ $("importWorkspaceInput").addEventListener("change", async event => {
    NEW DESIGN
 ========================================== */
 
-$("newLayoutBtn").addEventListener("click", async () => {
-  if (!confirm(
-    "Create a new blank ID design? Save your current template first if needed."
-  )) {
-    return;
-  }
+const newLayoutButton = $("newLayoutBtn");
 
-  state.front = makeSide();
-  state.back = makeSide();
+if (newLayoutButton) {
+  newLayoutButton.addEventListener("click", async () => {
+    if (!confirm(
+      "Create a new blank ID design? Save your current template first if needed."
+    )) {
+      return;
+    }
 
-  orientation = "portrait";
-  currentSide = "front";
-  selectedId = null;
+    state.front = makeSide();
+    state.back = makeSide();
 
-  $("layoutName").value = "";
+    orientation = "portrait";
+    currentSide = "front";
+    selectedId = null;
 
-  document.querySelectorAll("[data-side]").forEach(button => {
-    button.classList.toggle(
-      "active",
-      button.dataset.side === "front"
-    );
+    $("layoutName").value = "";
+
+    document.querySelectorAll("[data-side]").forEach(button => {
+      button.classList.toggle(
+        "active",
+        button.dataset.side === "front"
+      );
+    });
+
+    document.querySelectorAll("[data-orientation]").forEach(button => {
+      button.classList.toggle(
+        "active",
+        button.dataset.orientation === "portrait"
+      );
+    });
+
+    $("sideTitle").textContent = "Front Side";
+    $("backgroundColor").value = "#ffffff";
+
+    resizeCanvas();
+    setDesignLocked(false);
+    updatePropertyPanel();
+
+    await saveWorkspace();
+
+    notify("New blank design created.");
   });
-
-  document.querySelectorAll("[data-orientation]").forEach(button => {
-    button.classList.toggle(
-      "active",
-      button.dataset.orientation === "portrait"
-    );
-  });
-
-  $("sideTitle").textContent = "Front Side";
-  $("backgroundColor").value = "#ffffff";
-
-  resizeCanvas();
-  setDesignLocked(false);
-  updatePropertyPanel();
-
-  await saveWorkspace();
-
-  notify("New blank design created.");
-});
+}
 
 /* ==========================================
    MAIN SAVE BUTTON
 ========================================== */
 
-$("saveBtn").addEventListener("click", async () => {
-  await saveWorkspace();
-});
+const saveButton = $("saveBtn");
+
+if (saveButton) {
+  saveButton.addEventListener("click", async () => {
+    if (!db) {
+      notify("Storage is not ready yet. Please try again.");
+      return;
+    }
+
+    const originalText = saveButton.textContent;
+
+    saveButton.disabled = true;
+    saveButton.textContent = "Saving...";
+
+    try {
+      await dbSet("main", state);
+      notify("Workspace saved successfully.");
+    } catch (error) {
+      console.error(error);
+      notify("Unable to save workspace.");
+    } finally {
+      saveButton.disabled = false;
+      saveButton.textContent = originalText;
+    }
+  });
+}
 
 /* ==========================================
    TAB NAVIGATION
