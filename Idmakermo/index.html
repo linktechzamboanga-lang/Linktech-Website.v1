@@ -2,14 +2,16 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1">
-  <meta name="theme-color" content="#edf7ff">
-  <title>ID Maker Mo | LinkTech</title>
-  <link rel="stylesheet" href="css/style.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#087cf0">
+
+  <title>LinkTech ID Maker Mo</title>
 <link rel="stylesheet" href="../css/download.css">
+  <link rel="stylesheet" href="css/style.css">
 </head>
 
 <body>
+
 <header class="site-header">
   <a class="logo" href="../index.html">
     <img src="../images/LinkTech-logo.png" alt="LinkTech logo">
@@ -18,297 +20,624 @@
       <small>Freelance IT Specialist Zamboanga</small>
     </span>
   </a>
-  <div class="top-actions">
-    <button id="newLayoutBtn" class="btn">New layout</button>
-    <button id="saveBtn" class="btn primary">Save workspace</button>
-  </div>
 </header>
 
-<main class="app">
-  <section class="intro">
+<main class="app-container">
+
+  <section class="welcome-panel">
     <div>
-      <span class="eyebrow">REUSABLE ID DESIGN + EMPLOYEE BATCH PRINTING</span>
-      <h1>Design once. Print IDs for everyone.</h1>
-      <p>Keep your company design fixed while each employee receives their own information.</p>
+      <span class="eyebrow">LINKTECH DESIGN STUDIO</span>
+      <h2>Create and manage your ID cards</h2>
+      <p>Design ID templates, manage employee records, and prepare front-and-back batch prints.</p>
     </div>
-    <span class="status-pill"><span></span> Browser storage</span>
+    <div class="status-area">
+      <span id="designStatus" class="status-pill">Design Unlocked</span>
+      <span id="toast" class="toast" role="status" aria-live="polite"></span>
+    </div>
   </section>
 
-  <nav class="main-tabs">
-    <button class="active" data-tab="design">ID Design</button>
-    <button data-tab="employees">Employee Records</button>
-    <button data-tab="batch">Batch Print</button>
+  <nav class="main-tabs" aria-label="Main navigation">
+    <button class="tab-btn active" data-tab="design">ID Designer</button>
+    <button class="tab-btn" data-tab="employees">Employees</button>
+    <button class="tab-btn" data-tab="batch">Batch Printing</button>
+    <button class="tab-btn" data-tab="help">Help</button>
   </nav>
 
-  <section id="designTab" class="tab-content">
-    <div class="workspace">
-      <aside class="sidebar">
-        <section class="panel">
-          <h2>Layout settings</h2>
-          <div class="field">
-            <label for="layoutName">Layout name</label>
-            <input id="layoutName" value="Company Employee ID" maxlength="100">
-          </div>
-          <div class="field">
-            <label>Orientation</label>
-            <div class="segmented">
-              <button class="active" data-orientation="landscape">Landscape</button>
-              <button data-orientation="portrait">Portrait</button>
-            </div>
-          </div>
-          <div class="field">
-            <label>Editing side</label>
-            <div class="segmented">
-              <button class="active" data-side="front">Front</button>
-              <button data-side="back">Back</button>
-            </div>
-          </div>
-          <p class="hint" id="dimensionLabel">Landscape · 856 × 540</p>
-          <div class="field">
-            <label for="previewEmployee">Preview with employee</label>
-            <select id="previewEmployee"></select>
-          </div>
-        </section>
+  <!-- =========================================
+       DESIGN TAB
+  ========================================== -->
 
-        <section class="panel">
-          <h2>Add layout elements</h2>
-          <div class="tool-grid">
-            <button id="addTextBtn" class="tool-btn">＋ Add text</button>
-            <button id="addRectBtn" class="tool-btn">▰ Rectangle</button>
-            <button id="addCircleBtn" class="tool-btn">● Circle</button>
-            <button id="addLineBtn" class="tool-btn">／ Line</button>
-            <button id="addPhotoBtn" class="tool-btn">▧ Photo</button>
-            <button id="addSignatureBtn" class="tool-btn">✍ Signature</button>
+  <section id="designTab" class="tab-panel active">
+
+    <div class="section-heading">
+      <div>
+        <h2>ID Card Designer</h2>
+        <p>Build your reusable front and back ID templates.</p>
+      </div>
+      <button id="designModeBtn" class="btn btn-warning">
+        Lock Design
+      </button>
+    </div>
+
+    <div class="designer-grid">
+
+      <!-- LEFT PANEL -->
+      <aside class="editor-sidebar">
+
+        <div class="panel-card">
+          <h3>Design Settings</h3>
+
+          <label for="layoutName">Template Name</label>
+          <input id="layoutName" type="text" placeholder="Enter template name">
+
+          <label>Card Orientation</label>
+          <div class="button-group">
+            <button data-orientation="portrait" class="active">Portrait</button>
+            <button data-orientation="landscape">Landscape</button>
           </div>
-          <div class="field">
-            <label for="imageInput">Upload photo / logo / transparent signature PNG</label>
-            <input id="imageInput" type="file" accept="image/*">
+
+          <label>Card Side</label>
+          <div class="button-group">
+            <button data-side="front" class="active">Front Side</button>
+            <button data-side="back">Back Side</button>
           </div>
-          <div class="field">
-            <label for="backgroundInput">Upload background image</label>
-            <input id="backgroundInput" type="file" accept="image/*">
+
+          <p id="dimensionLabel" class="field-note">Portrait ID card</p>
+
+          <label for="previewEmployee">Preview Employee</label>
+          <select id="previewEmployee">
+            <option value="">Sample Employee</option>
+          </select>
+        </div>
+
+        <div class="panel-card">
+          <h3>Add Design Elements</h3>
+
+          <div class="element-grid">
+            <button id="addTextBtn">＋ Text</button>
+            <button id="addRectBtn">▭ Rectangle</button>
+            <button id="addCircleBtn">◯ Circle</button>
+            <button id="addLineBtn">／ Line</button>
+            <button id="addTriangleBtn">△ Triangle</button>
+            <button id="addInvertedTriangleBtn">▽ Inverted</button>
+            <button id="addPolygonBtn">⬡ Polygon</button>
+            <button id="addPhotoBtn">▣ Photo Frame</button>
+            <button id="addSignatureBtn">✎ Signature</button>
+            <button id="addImageBtn">▧ Image</button>
           </div>
-          <div class="field">
-            <label for="backgroundColor">Background color</label>
-            <input id="backgroundColor" type="color" value="#ffffff">
-          </div>
+
+          <input id="imageInput" type="file" accept="image/*" hidden>
+          <input id="backgroundInput" type="file" accept="image/*" hidden>
+        </div>
+
+        <div class="panel-card">
+          <h3>Background</h3>
+
+          <label for="backgroundColor">Background Color</label>
+          <input id="backgroundColor" type="color" value="#ffffff">
+
+          <button id="uploadBackgroundBtn" class="btn btn-light full-width">
+            Upload Background Image
+          </button>
+        </div>
+
+        <div class="panel-card">
+          <h3>Quick Templates</h3>
+
           <div class="template-grid">
-            <button data-template="blue" class="template-card"><span class="swatch sw-blue"></span>Blue wave</button>
-            <button data-template="purple" class="template-card"><span class="swatch sw-purple"></span>Purple glow</button>
-            <button data-template="green" class="template-card"><span class="swatch sw-green"></span>Green tech</button>
-            <button data-template="sunset" class="template-card"><span class="swatch sw-sunset"></span>Sunset</button>
-            <button data-template="dark" class="template-card"><span class="swatch sw-dark"></span>Dark carbon</button>
-            <button data-template="minimal" class="template-card"><span class="swatch sw-minimal"></span>Minimal</button>
+            <button data-template="professional">Professional</button>
+            <button data-template="modern">Modern</button>
+            <button data-template="minimal">Minimal</button>
+            <button data-template="corporate">Corporate</button>
           </div>
-          <p class="hint">Background templates do not add sample text or change employee records.</p>
-        </section>
+        </div>
 
-        <section class="panel">
-          <h2>Saved layouts</h2>
-          <div id="savedLayouts" class="saved-list"></div>
-          <div class="button-row">
-            <button id="saveLayoutBtn" class="btn primary">Save as reusable layout</button>
-            <button id="loadLayoutBtn" class="btn">Load selected layout</button>
+        <div class="panel-card">
+          <h3>Saved Templates</h3>
+
+          <label for="layoutSelect">Select Template</label>
+          <select id="layoutSelect">
+            <option value="">No saved templates</option>
+          </select>
+
+          <div class="button-group">
+            <button id="saveLayoutBtn">Save Template</button>
+            <button id="loadLayoutBtn">Load</button>
+            <button id="deleteLayoutBtn" class="danger-text">Delete</button>
           </div>
-          <div class="field">
-            <label for="layoutSelect">Choose saved layout</label>
-            <select id="layoutSelect"></select>
-          </div>
-        </section>
+        </div>
+
       </aside>
 
-      <section class="editor-area">
-        <div class="editor-toolbar">
-          <div><strong id="sideTitle">Front side</strong><small id="selectionInfo">Select an object to edit.</small></div>
+      <!-- CANVAS AND PROPERTIES -->
+      <div class="designer-workspace">
+
+        <div class="canvas-toolbar">
+          <div>
+            <strong id="sideTitle">Front Side</strong>
+            <span id="selectionInfo">No object selected</span>
+          </div>
+
           <div class="zoom-controls">
-            <button id="zoomOutBtn" class="btn square">−</button>
+            <button id="zoomOutBtn" aria-label="Zoom out">−</button>
             <span id="zoomLabel">100%</span>
-            <button id="zoomInBtn" class="btn square">+</button>
-            <button id="fitViewBtn" class="btn">Fit view</button>
+            <button id="zoomInBtn" aria-label="Zoom in">＋</button>
+            <button id="zoomResetBtn">Reset</button>
           </div>
         </div>
 
-        <div class="canvas-scroll">
-          <div id="canvasFrame" class="canvas-frame">
-            <canvas id="idCanvas" width="856" height="540"></canvas>
-          </div>
+        <div id="canvasFrame" class="canvas-frame">
+          <canvas id="idCanvas" width="638" height="1012">
+            Your browser does not support canvas.
+          </canvas>
         </div>
-        <p class="canvas-tip">Select and drag an object to move it. Drag the corner or edge handles to resize it. Text linked to an employee changes automatically when you preview or print another employee.</p>
 
-        <section class="panel">
-          <div class="properties-heading">
-            <div><h2>Selected object</h2><p class="hint">Use employee fields for variable information.</p></div>
-            <div class="button-row">
-              <button id="duplicateBtn" class="btn">Duplicate</button>
-              <button id="deleteBtn" class="btn danger">Delete</button>
+        <div class="canvas-hint">
+          Select an object to edit its properties. Unlock the design to move,
+          resize, rotate, or rearrange template elements.
+        </div>
+
+        <div class="panel-card properties-panel">
+          <div class="section-heading compact-heading">
+            <div>
+              <h3>Object Properties</h3>
+              <p>Edit the selected design element.</p>
             </div>
           </div>
-          <div id="emptySelection" class="empty-state">Select an object on the card.</div>
-          <div id="properties" class="hidden">
-            <div class="field">
-              <label for="objText">Text / content</label>
-              <textarea id="objText" rows="2" placeholder="Example: {{name}}"></textarea>
-              <small class="hint">Placeholders: {{name}}, {{birthday}}, {{idNumber}}, {{position}}, {{department}}, {{role}}</small>
+
+          <div class="property-grid">
+
+            <div class="property-field property-wide">
+              <label for="objText">Text / Content</label>
+              <input id="objText" type="text" placeholder="Object text">
             </div>
-            <div class="field">
-              <label for="bindField">Link text to employee information</label>
+
+            <div class="property-field">
+              <label for="bindField">Employee Data Binding</label>
               <select id="bindField">
-                <option value="">Fixed text (not linked)</option>
-                <option value="name">Employee name</option>
+                <option value="">Static Content</option>
+                <option value="name">Employee Name</option>
                 <option value="birthday">Birthday</option>
-                <option value="idNumber">ID number</option>
+                <option value="id">Employee ID</option>
                 <option value="position">Position</option>
                 <option value="department">Department</option>
                 <option value="role">Role</option>
+                <option value="photoData">Employee Photo</option>
+                <option value="signatureData">Employee Signature</option>
               </select>
             </div>
-            <div class="two-col">
-              <div class="field"><label for="objX">X position</label><input id="objX" type="number"></div>
-              <div class="field"><label for="objY">Y position</label><input id="objY" type="number"></div>
-              <div class="field"><label for="objW">Width</label><input id="objW" type="number" min="1"></div>
-              <div class="field"><label for="objH">Height</label><input id="objH" type="number" min="1"></div>
-            </div>
-            <div class="two-col">
-              <div class="field"><label for="objColor">Text / fill color</label><input id="objColor" type="color" value="#163b70"></div>
-              <div class="field"><label for="objStroke">Border color</label><input id="objStroke" type="color" value="#163b70"></div>
-              <div class="field"><label for="objFont">Font family</label>
-                <select id="objFont">
-                  <option>Arial</option><option>Verdana</option><option>Tahoma</option>
-                  <option>Trebuchet MS</option><option>Georgia</option>
-                  <option>Times New Roman</option><option>Courier New</option>
-                  <option>Impact</option><option>Palatino Linotype</option>
-                  <option>Arial Black</option><option>Lucida Sans</option>
-                </select>
-              </div>
-              <div class="field"><label for="objFontSize">Font size</label><input id="objFontSize" type="number" min="4" max="180"></div>
-              <div class="field"><label for="objAlign">Alignment</label>
-                <select id="objAlign"><option value="left">Left</option><option value="center">Center</option><option value="right">Right</option></select>
-              </div>
-              <div class="field"><label for="objWeight">Font weight</label>
-                <select id="objWeight"><option value="400">Regular</option><option value="600">Semi-bold</option><option value="700">Bold</option><option value="900">Extra bold</option></select>
-              </div>
-              <div class="field"><label for="objUnderline">Underline</label>
-                <select id="objUnderline"><option value="false">No underline</option><option value="true">Underline text</option></select>
-              </div>
-              <div class="field"><label for="objStrokeWidth">Border thickness</label><input id="objStrokeWidth" type="number" min="0" max="30"></div>
-              <div class="field"><label for="objRadius">Corner radius</label><input id="objRadius" type="number" min="0" max="200"></div>
-            </div>
-            <div class="field">
-              <label for="objOpacity">Opacity <span id="opacityLabel">100%</span></label>
-              <input id="objOpacity" type="range" min="0.1" max="1" step="0.05">
+
+            <div class="property-field">
+              <label for="objX">X Position</label>
+              <input id="objX" type="number">
             </div>
 
-            <div id="imageControls" class="image-controls hidden">
-              <h3>Image crop / signature</h3>
-              <div class="field">
-                <label for="cropZoom">Crop zoom <span id="cropZoomLabel">1.00×</span></label>
-                <input id="cropZoom" type="range" min="1" max="4" step="0.05">
-              </div>
-              <div class="button-row">
-                <button id="resetCropBtn" class="btn">Reset crop</button>
-                <button id="fitImageBtn" class="btn">Fit image</button>
-              </div>
-              <p class="hint">Transparent PNG signatures work best on the back of the card. Select the signature and move or resize it like any image.</p>
+            <div class="property-field">
+              <label for="objY">Y Position</label>
+              <input id="objY" type="number">
             </div>
 
-            <div class="button-row layer-actions">
-              <button id="bringFrontBtn" class="btn">Bring to front</button>
-              <button id="sendBackBtn" class="btn">Send backward</button>
+            <div class="property-field">
+              <label for="objW">Width</label>
+              <input id="objW" type="number" min="1">
             </div>
+
+            <div class="property-field">
+              <label for="objH">Height</label>
+              <input id="objH" type="number" min="1">
+            </div>
+
+            <div class="property-field">
+              <label for="objColor">Fill Color</label>
+              <input id="objColor" type="color" value="#087cf0">
+            </div>
+
+            <div class="property-field">
+              <label for="objStroke">Border Color</label>
+              <input id="objStroke" type="color" value="#172338">
+            </div>
+
+            <div class="property-field">
+              <label for="objStrokeWidth">Border Width</label>
+              <input id="objStrokeWidth" type="number" min="0" max="30">
+            </div>
+
+            <div class="property-field">
+              <label for="objRadius">Corner Radius</label>
+              <input id="objRadius" type="number" min="0">
+            </div>
+
+            <div class="property-field">
+              <label for="objOpacity">Opacity</label>
+              <input id="objOpacity" type="range" min="0" max="1" step="0.05">
+            </div>
+
+            <div class="property-field">
+              <label for="objRotation">Rotation</label>
+              <input id="objRotation" type="number" min="-360" max="360">
+            </div>
+
+            <div class="property-field">
+              <label for="objFont">Font Family</label>
+              <select id="objFont">
+                <option value="Arial">Arial</option>
+                <option value="Inter">Inter</option>
+                <option value="Poppins">Poppins</option>
+                <option value="Georgia">Georgia</option>
+                <option value="Times New Roman">Times New Roman</option>
+                <option value="Verdana">Verdana</option>
+              </select>
+            </div>
+
+            <div class="property-field">
+              <label for="objFontSize">Font Size</label>
+              <input id="objFontSize" type="number" min="1" max="200">
+            </div>
+
+            <div class="property-field">
+              <label for="objAlign">Text Alignment</label>
+              <select id="objAlign">
+                <option value="left">Left</option>
+                <option value="center">Center</option>
+                <option value="right">Right</option>
+              </select>
+            </div>
+
+            <div class="property-field">
+              <label for="objWeight">Font Weight</label>
+              <select id="objWeight">
+                <option value="400">Normal</option>
+                <option value="500">Medium</option>
+                <option value="600">Semi Bold</option>
+                <option value="700">Bold</option>
+                <option value="800">Extra Bold</option>
+              </select>
+            </div>
+
+            <div class="property-field checkbox-field">
+              <label for="objUnderline">Underline Text</label>
+              <input id="objUnderline" type="checkbox">
+            </div>
+
           </div>
-        </section>
-      </section>
+
+          <div class="property-actions">
+            <button id="bringFrontBtn" class="btn btn-light">Bring Forward</button>
+            <button id="sendBackBtn" class="btn btn-light">Send Backward</button>
+            <button id="duplicateBtn" class="btn btn-light">Duplicate</button>
+            <button id="deleteBtn" class="btn btn-danger">Delete Object</button>
+          </div>
+
+          <div class="image-property-actions">
+            <label for="cropZoom">Image Zoom</label>
+            <input id="cropZoom" type="range" min="0.5" max="3" step="0.05" value="1">
+            <button id="resetCropBtn" class="btn btn-light">Reset Crop</button>
+            <button id="fitImageBtn" class="btn btn-light">Fit Image</button>
+          </div>
+
+        </div>
+
+      </div>
     </div>
   </section>
 
-  <section id="employeesTab" class="tab-content hidden">
-    <section class="panel">
-      <h2>Employee information</h2>
-      <p class="muted">Add each person once. The same layout can be reused for every record. Use a distinct ID number for each employee.</p>
-      <div class="employee-form">
-        <input id="empName" placeholder="Full name *" maxlength="100">
-        <input id="empBirthday" type="date" aria-label="Birthday">
-        <input id="empId" placeholder="Unique ID number *" maxlength="60">
-        <input id="empPosition" placeholder="Position">
-        <input id="empDepartment" placeholder="Department">
-        <select id="empRole">
-          <option value="Employee">Employee</option>
-          <option value="President">President</option>
-          <option value="General Manager">General Manager</option>
-          <option value="Manager">Manager</option>
-          <option value="Other">Other</option>
-        </select>
-        <label class="check-label"><input id="allowRepeatName" type="checkbox"> Allow repeated name for management / shared-name exception</label>
-        <div class="button-row">
-          <button id="addEmployeeBtn" class="btn primary">Add employee</button>
-          <button id="clearEmployeeFormBtn" class="btn">Clear form</button>
-        </div>
-      </div>
-      <p class="hint">The repeated-name exception applies only to names, not ID numbers. Enable it only when you have verified the person and the reason for the repeat.</p>
-    </section>
+  <!-- =========================================
+       EMPLOYEES TAB
+  ========================================== -->
 
-    <section class="panel">
-      <div class="properties-heading">
-        <div><h2>Employee register</h2><p class="hint">Edit records, check printed status, or mark an ID unprinted for reprinting.</p></div>
-        <div class="button-row">
-          <button id="exportWorkspaceBtn" class="btn">Export all data</button>
-          <label class="btn file-button">Import all data<input id="importWorkspaceInput" type="file" accept=".json,application/json"></label>
-        </div>
+  <section id="employeesTab" class="tab-panel">
+
+    <div class="section-heading">
+      <div>
+        <h2>Employee Management</h2>
+        <p>Add, update, search, and manage ID card information.</p>
       </div>
+      <span id="employeeCount" class="count-pill">0 Employees</span>
+    </div>
+
+    <div class="panel-card">
+      <h3>Employee Information</h3>
+
+      <form id="employeeForm">
+
+        <input id="editingEmployeeId" type="hidden">
+
+        <div class="employee-form-grid">
+
+          <div class="property-field">
+            <label for="empName">Full Name *</label>
+            <input id="empName" type="text" required placeholder="Employee full name">
+          </div>
+
+          <div class="property-field">
+            <label for="empBirthday">Birthday</label>
+            <input id="empBirthday" type="date">
+          </div>
+
+          <div class="property-field">
+            <label for="empId">Employee ID</label>
+            <input id="empId" type="text" placeholder="Employee ID">
+          </div>
+
+          <div class="property-field">
+            <label for="empPosition">Position</label>
+            <input id="empPosition" type="text" placeholder="Position">
+          </div>
+
+          <div class="property-field">
+            <label for="empDepartment">Department</label>
+            <input id="empDepartment" type="text" placeholder="Department">
+          </div>
+
+          <div class="property-field">
+            <label for="empRole">Role</label>
+            <input id="empRole" type="text" placeholder="Role">
+          </div>
+
+          <div class="property-field">
+            <label for="empPhoto">Employee Photo</label>
+            <input id="empPhoto" type="file" accept="image/*">
+          </div>
+
+          <div class="property-field">
+            <label for="empSignature">Employee Signature</label>
+            <input id="empSignature" type="file" accept="image/*">
+          </div>
+
+        </div>
+
+        <label class="inline-checkbox">
+          <input id="allowRepeatName" type="checkbox">
+          Allow duplicate employee names
+        </label>
+
+        <div class="form-actions">
+          <button id="addEmployeeBtn" type="submit" class="btn btn-primary">
+            Add Employee
+          </button>
+          <button id="clearEmployeeFormBtn" type="button" class="btn btn-light">
+            Clear Form
+          </button>
+        </div>
+
+      </form>
+    </div>
+
+    <div class="panel-card">
+      <div class="section-heading compact-heading">
+        <div>
+          <h3>Employee Records</h3>
+          <p>Search and edit existing employee records.</p>
+        </div>
+        <input id="employeeSearch" class="search-input" type="search"
+               placeholder="Search employees...">
+      </div>
+
       <div class="table-wrap">
-        <table>
-          <thead><tr><th>Name</th><th>Birthday</th><th>ID number</th><th>Position / Department</th><th>Status</th><th>Actions</th></tr></thead>
-          <tbody id="employeeRows"></tbody>
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th>Employee</th>
+              <th>ID</th>
+              <th>Position</th>
+              <th>Department</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody id="employeeRows">
+            <tr>
+              <td colspan="5" class="empty-cell">No employee records yet.</td>
+            </tr>
+          </tbody>
         </table>
       </div>
-      <div id="employeeCount" class="print-summary">0 employees</div>
-    </section>
+    </div>
+
+    <div class="panel-card">
+      <h3>Workspace Backup</h3>
+      <p>Export your workspace as a JSON backup or restore a previous backup.</p>
+
+      <div class="backup-actions">
+        <button id="exportWorkspaceBtn" class="btn btn-primary">
+          Export Backup
+        </button>
+
+        <label for="importWorkspaceInput" class="btn btn-light file-button">
+          Import Backup
+        </label>
+
+        <input id="importWorkspaceInput" type="file"
+               accept=".json,application/json" hidden>
+      </div>
+    </div>
+
   </section>
 
-  <section id="batchTab" class="tab-content hidden">
-    <section class="panel">
-      <h2>Batch print different employees on one sheet</h2>
-      <p class="muted">Each printed card uses the same saved design, but the linked employee fields are rendered separately. Choose front or back. Print the other side separately for duplex alignment.</p>
-      <div class="two-col">
-        <div class="field"><label for="printSide">Side to print</label><select id="printSide"><option value="front">Front</option><option value="back">Back</option></select></div>
-        <div class="field"><label for="printStatus">Records to include</label><select id="printStatus"><option value="unprinted">Unprinted only</option><option value="all">All employees</option><option value="printed">Printed only</option></select></div>
-        <div class="field"><label for="paperSize">Paper size</label><select id="paperSize"><option value="a4">A4 (210 × 297 mm)</option><option value="letter">Letter (216 × 279 mm)</option><option value="legal">Legal (216 × 356 mm)</option><option value="custom">Custom</option></select></div>
-        <div class="field"><label for="paperOrientation">Paper orientation</label><select id="paperOrientation"><option value="portrait">Portrait</option><option value="landscape">Landscape</option></select></div>
-        <div class="field"><label for="cardW">ID width (mm)</label><input id="cardW" type="number" value="85.6" min="20" max="200" step="0.1"></div>
-        <div class="field"><label for="cardH">ID height (mm)</label><input id="cardH" type="number" value="54" min="20" max="200" step="0.1"></div>
-        <div class="field"><label for="paperW">Custom paper width (mm)</label><input id="paperW" type="number" value="210" min="50"></div>
-        <div class="field"><label for="paperH">Custom paper height (mm)</label><input id="paperH" type="number" value="297" min="50"></div>
-        <div class="field"><label for="printMargin">Page margin (mm)</label><input id="printMargin" type="number" value="5" min="0" max="50" step="0.5"></div>
-        <div class="field"><label for="printGap">Gap between IDs (mm)</label><input id="printGap" type="number" value="3" min="0" max="30" step="0.5"></div>
+  <!-- =========================================
+       BATCH PRINT TAB
+  ========================================== -->
+
+  <section id="batchTab" class="tab-panel">
+
+    <div class="section-heading">
+      <div>
+        <h2>Batch Printing</h2>
+        <p>Prepare employee ID cards for printing.</p>
       </div>
-      <div class="field">
-        <label for="batchSearch">Search employees</label>
-        <input id="batchSearch" placeholder="Search name, ID number, position...">
+      <span id="batchSummary" class="count-pill">0 selected</span>
+    </div>
+
+    <div class="print-grid">
+
+      <div class="panel-card">
+        <h3>Print Settings</h3>
+
+        <label for="printSide">Print Side</label>
+        <select id="printSide">
+          <option value="both">Front and Back</option>
+          <option value="front">Front Only</option>
+          <option value="back">Back Only</option>
+        </select>
+
+        <label for="printStatus">Employee Status</label>
+        <select id="printStatus">
+          <option value="all">All Employees</option>
+          <option value="unprinted">Unprinted Only</option>
+          <option value="printed">Printed Only</option>
+        </select>
+
+        <label for="paperSize">Paper Size</label>
+        <select id="paperSize">
+          <option value="a4">A4</option>
+          <option value="letter">Letter</option>
+          <option value="legal">Legal</option>
+          <option value="custom">Custom</option>
+        </select>
+
+        <label for="paperOrientation">Paper Orientation</label>
+        <select id="paperOrientation">
+          <option value="portrait">Portrait</option>
+          <option value="landscape">Landscape</option>
+        </select>
+
+        <div class="print-setting-grid">
+          <div>
+            <label for="cardW">Card Width (mm)</label>
+            <input id="cardW" type="number" min="10" value="54">
+          </div>
+
+          <div>
+            <label for="cardH">Card Height (mm)</label>
+            <input id="cardH" type="number" min="10" value="86">
+          </div>
+
+          <div>
+            <label for="paperW">Custom Paper Width</label>
+            <input id="paperW" type="number" min="10" value="210">
+          </div>
+
+          <div>
+            <label for="paperH">Custom Paper Height</label>
+            <input id="paperH" type="number" min="10" value="297">
+          </div>
+
+          <div>
+            <label for="printMargin">Margin (mm)</label>
+            <input id="printMargin" type="number" min="0" value="8">
+          </div>
+
+          <div>
+            <label for="printGap">Card Gap (mm)</label>
+            <input id="printGap" type="number" min="0" value="4">
+          </div>
+        </div>
+
+        <div class="print-actions">
+          <button id="printBatchBtn" class="btn btn-primary full-width">
+            Preview and Print
+          </button>
+
+          <button id="markUnprintedBtn" class="btn btn-light full-width">
+            Mark Selected as Unprinted
+          </button>
+        </div>
+
+        <p id="printValidation" class="validation-message" role="alert"></p>
       </div>
-      <div class="button-row">
-        <button id="selectAllBatchBtn" class="btn">Select all shown</button>
-        <button id="clearBatchBtn" class="btn">Clear selection</button>
+
+      <div class="panel-card">
+        <div class="section-heading compact-heading">
+          <div>
+            <h3>Select Employees</h3>
+            <p>Choose which employee cards to include.</p>
+          </div>
+        </div>
+
+        <input id="batchSearch" class="search-input full-width"
+               type="search" placeholder="Search employees...">
+
+        <div class="batch-actions">
+          <button id="selectAllBatchBtn" class="btn btn-light">
+            Select All
+          </button>
+          <button id="clearBatchBtn" class="btn btn-light">
+            Clear Selection
+          </button>
+        </div>
+
+        <div id="batchRows" class="batch-list">
+          <p class="empty-cell">No employee records available.</p>
+        </div>
       </div>
-      <div class="table-wrap batch-table-wrap">
-        <table>
-          <thead><tr><th>Select</th><th>Name</th><th>ID number</th><th>Status</th></tr></thead>
-          <tbody id="batchRows"></tbody>
-        </table>
-      </div>
-      <div id="batchSummary" class="print-summary">Select employees to print.</div>
-      <div class="button-row">
-        <button id="printBatchBtn" class="btn primary">Preview / print selected IDs</button>
-        <button id="markUnprintedBtn" class="btn">Mark selected unprinted</button>
-      </div>
-    </section>
+
+    </div>
+
   </section>
+
+  <!-- =========================================
+       HELP TAB
+  ========================================== -->
+
+  <section id="helpTab" class="tab-panel">
+
+    <div class="section-heading">
+      <div>
+        <h2>Help and Instructions</h2>
+        <p>Learn how to use LinkTech ID Maker Mo.</p>
+      </div>
+    </div>
+
+    <div class="help-grid">
+
+      <article class="panel-card">
+        <h3>1. Create an ID Template</h3>
+        <p>Open ID Designer, choose portrait or landscape, and add text, shapes, images, photo frames, and signature frames.</p>
+      </article>
+
+      <article class="panel-card">
+        <h3>2. Design Front and Back</h3>
+        <p>Use the Front Side and Back Side controls to create both sides of your ID card.</p>
+      </article>
+
+      <article class="panel-card">
+        <h3>3. Lock Your Design</h3>
+        <p>Save your template and lock the design to protect its layout. Unlock it when you need to rearrange design elements.</p>
+      </article>
+
+      <article class="panel-card">
+        <h3>4. Manage Employees</h3>
+        <p>Add employee information, photos, and signatures. Edit existing records without creating a new employee record.</p>
+      </article>
+
+      <article class="panel-card">
+        <h3>5. Batch Printing</h3>
+        <p>Select employees, choose the paper and card dimensions, then preview the print layout before printing.</p>
+      </article>
+
+      <article class="panel-card">
+        <h3>6. Backup Your Workspace</h3>
+        <p>Export a JSON backup regularly. Keep a separate copy of your backup file for recovery.</p>
+      </article>
+
+    </div>
+
+    <div class="panel-card warning-panel">
+      <h3>Important Printing Reminder</h3>
+      <p>Complete both the front and back template before selecting Front and Back printing. Check the print preview, paper size, orientation, margins, and card dimensions before printing.</p>
+    </div>
+
+  </section>
+
 </main>
+
+
 <footer>
     <p>
         © 2026 LinkTech Freelance IT Specialist Zamboanga | All Rights Reserved
     </p>
 </footer>
-<div id="toast" class="toast" role="status"></div>
+
 <script src="js/app.js"></script>
+
 </body>
 </html>
