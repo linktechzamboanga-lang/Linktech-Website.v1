@@ -24,6 +24,20 @@ body {
     font-family: Inter, Arial, sans-serif;
 }
 
+
+img{
+    max-width:100%;
+}
+
+button,
+input,
+textarea,
+select{
+    font-family:'Poppins',sans-serif;
+}
+
+
+
 button,
 input,
 select {
