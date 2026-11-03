@@ -813,6 +813,7 @@ select {
     border-top: 1px solid var(--border);
     color: var(--muted);
     font-size: 10px;
+    align-items: center;
 }
 
 .toast {
