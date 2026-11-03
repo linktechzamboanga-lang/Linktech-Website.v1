@@ -47,6 +47,51 @@ select {
     backdrop-filter: blur(12px);
 }
 
+/* ==========================================
+   LOGO
+========================================== */
+
+header b{
+    font-size:24px;
+    color:#0284c7;
+    font-weight:700;
+}
+
+.logo{
+    display:flex;
+    align-items:center;
+    gap:10px;
+
+    font-size:22px;
+    white-space:nowrap;
+
+    color:#0f172a;
+}
+
+.logo img{
+    width:45px;
+    height:45px;
+
+    object-fit:contain;
+
+    transition:
+        transform .4s ease,
+        filter .4s ease;
+}
+
+.logo:hover img{
+    transform:
+        rotate(-5deg)
+        scale(1.08);
+
+    filter:
+        drop-shadow(
+            0 5px 10px
+            rgba(14,165,233,.35)
+        );
+}
+
+
 .brand {
     display: flex;
     align-items: center;
