@@ -1046,7 +1046,20 @@ select {
     }
 }
 
+footer{
 
+    text-align:center;
+
+    padding:30px 20px;
+
+    background:#ffffff;
+
+    border-top:1px solid #e2e8f0;
+
+    margin-top:0;
+
+    color:#64748b;
+}
 /* =====================================================
    SAVED DOCUMENT PRINT OUTPUT — keep app design unchanged
 ===================================================== */
