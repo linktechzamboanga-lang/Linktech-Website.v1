@@ -6,7 +6,8 @@
   <meta name="theme-color" content="#087cf0">
 
   <title>LinkTech ID Maker Mo</title>
-<link rel="stylesheet" href="../css/download.css">
+
+  <link rel="stylesheet" href="../css/download.css">
   <link rel="stylesheet" href="css/style.css">
 </head>
 
@@ -30,6 +31,7 @@
       <h2>Create and manage your ID cards</h2>
       <p>Design ID templates, manage employee records, and prepare front-and-back batch prints.</p>
     </div>
+
     <div class="status-area">
       <span id="designStatus" class="status-pill">Design Unlocked</span>
       <span id="toast" class="toast" role="status" aria-live="polite"></span>
@@ -37,10 +39,10 @@
   </section>
 
   <nav class="main-tabs" aria-label="Main navigation">
-    <button class="tab-btn active" data-tab="design">ID Designer</button>
-    <button class="tab-btn" data-tab="employees">Employees</button>
-    <button class="tab-btn" data-tab="batch">Batch Printing</button>
-    <button class="tab-btn" data-tab="help">Help</button>
+    <button type="button" class="tab-btn active" data-tab="design">ID Designer</button>
+    <button type="button" class="tab-btn" data-tab="employees">Employees</button>
+    <button type="button" class="tab-btn" data-tab="batch">Batch Printing</button>
+    <button type="button" class="tab-btn" data-tab="help">Help</button>
   </nav>
 
   <!-- =========================================
@@ -54,9 +56,20 @@
         <h2>ID Card Designer</h2>
         <p>Build your reusable front and back ID templates.</p>
       </div>
-      <button id="designModeBtn" class="btn btn-warning">
-        Lock Design
-      </button>
+
+      <div class="design-actions">
+        <button type="button" id="newLayoutBtn" class="btn btn-light">
+          + New Design
+        </button>
+
+        <button type="button" id="saveBtn" class="btn btn-primary">
+          Save Workspace
+        </button>
+
+        <button type="button" id="designModeBtn" class="btn btn-warning">
+          Lock Design
+        </button>
+      </div>
     </div>
 
     <div class="designer-grid">
@@ -71,20 +84,23 @@
           <input id="layoutName" type="text" placeholder="Enter template name">
 
           <label>Card Orientation</label>
+
           <div class="button-group">
-            <button data-orientation="portrait" class="active">Portrait</button>
-            <button data-orientation="landscape">Landscape</button>
+            <button type="button" data-orientation="portrait" class="active">Portrait</button>
+            <button type="button" data-orientation="landscape">Landscape</button>
           </div>
 
           <label>Card Side</label>
+
           <div class="button-group">
-            <button data-side="front" class="active">Front Side</button>
-            <button data-side="back">Back Side</button>
+            <button type="button" data-side="front" class="active">Front Side</button>
+            <button type="button" data-side="back">Back Side</button>
           </div>
 
           <p id="dimensionLabel" class="field-note">Portrait ID card</p>
 
           <label for="previewEmployee">Preview Employee</label>
+
           <select id="previewEmployee">
             <option value="">Sample Employee</option>
           </select>
@@ -94,16 +110,16 @@
           <h3>Add Design Elements</h3>
 
           <div class="element-grid">
-            <button id="addTextBtn">＋ Text</button>
-            <button id="addRectBtn">▭ Rectangle</button>
-            <button id="addCircleBtn">◯ Circle</button>
-            <button id="addLineBtn">／ Line</button>
-            <button id="addTriangleBtn">△ Triangle</button>
-            <button id="addInvertedTriangleBtn">▽ Inverted</button>
-            <button id="addPolygonBtn">⬡ Polygon</button>
-            <button id="addPhotoBtn">▣ Photo Frame</button>
-            <button id="addSignatureBtn">✎ Signature</button>
-            <button id="addImageBtn">▧ Image</button>
+            <button type="button" id="addTextBtn">＋ Text</button>
+            <button type="button" id="addRectBtn">▭ Rectangle</button>
+            <button type="button" id="addCircleBtn">◯ Circle</button>
+            <button type="button" id="addLineBtn">／ Line</button>
+            <button type="button" id="addTriangleBtn">△ Triangle</button>
+            <button type="button" id="addInvertedTriangleBtn">▽ Inverted</button>
+            <button type="button" id="addPolygonBtn">⬡ Polygon</button>
+            <button type="button" id="addPhotoBtn">▣ Photo Frame</button>
+            <button type="button" id="addSignatureBtn">✎ Signature</button>
+            <button type="button" id="addImageBtn">▧ Image</button>
           </div>
 
           <input id="imageInput" type="file" accept="image/*" hidden>
@@ -116,7 +132,7 @@
           <label for="backgroundColor">Background Color</label>
           <input id="backgroundColor" type="color" value="#ffffff">
 
-          <button id="uploadBackgroundBtn" class="btn btn-light full-width">
+          <button type="button" id="uploadBackgroundBtn" class="btn btn-light full-width">
             Upload Background Image
           </button>
         </div>
@@ -125,10 +141,10 @@
           <h3>Quick Templates</h3>
 
           <div class="template-grid">
-            <button data-template="professional">Professional</button>
-            <button data-template="modern">Modern</button>
-            <button data-template="minimal">Minimal</button>
-            <button data-template="corporate">Corporate</button>
+            <button type="button" data-template="professional">Professional</button>
+            <button type="button" data-template="modern">Modern</button>
+            <button type="button" data-template="minimal">Minimal</button>
+            <button type="button" data-template="corporate">Corporate</button>
           </div>
         </div>
 
@@ -136,14 +152,15 @@
           <h3>Saved Templates</h3>
 
           <label for="layoutSelect">Select Template</label>
+
           <select id="layoutSelect">
             <option value="">No saved templates</option>
           </select>
 
           <div class="button-group">
-            <button id="saveLayoutBtn">Save Template</button>
-            <button id="loadLayoutBtn">Load</button>
-            <button id="deleteLayoutBtn" class="danger-text">Delete</button>
+            <button type="button" id="saveLayoutBtn">Save Template</button>
+            <button type="button" id="loadLayoutBtn">Load</button>
+            <button type="button" id="deleteLayoutBtn" class="danger-text">Delete</button>
           </div>
         </div>
 
@@ -159,10 +176,10 @@
           </div>
 
           <div class="zoom-controls">
-            <button id="zoomOutBtn" aria-label="Zoom out">−</button>
+            <button type="button" id="zoomOutBtn" aria-label="Zoom out">−</button>
             <span id="zoomLabel">100%</span>
-            <button id="zoomInBtn" aria-label="Zoom in">＋</button>
-            <button id="zoomResetBtn">Reset</button>
+            <button type="button" id="zoomInBtn" aria-label="Zoom in">＋</button>
+            <button type="button" id="zoomResetBtn">Reset</button>
           </div>
         </div>
 
@@ -178,6 +195,7 @@
         </div>
 
         <div class="panel-card properties-panel">
+
           <div class="section-heading compact-heading">
             <div>
               <h3>Object Properties</h3>
@@ -194,6 +212,7 @@
 
             <div class="property-field">
               <label for="bindField">Employee Data Binding</label>
+
               <select id="bindField">
                 <option value="">Static Content</option>
                 <option value="name">Employee Name</option>
@@ -204,6 +223,13 @@
                 <option value="role">Role</option>
                 <option value="photoData">Employee Photo</option>
                 <option value="signatureData">Employee Signature</option>
+                <option value="information1">Information 1</option>
+<option value="information2">Information 2</option>
+<option value="information3">Information 3</option>
+<option value="authorizedSignature">Authorized Signature</option>
+<option value="presidentName">President / General Manager Name</option>
+<option value="presidentPosition">President / General Manager Position / Title</option>
+<option value="presidentSignatureData">President / General Manager Signature</option>
               </select>
             </div>
 
@@ -259,6 +285,7 @@
 
             <div class="property-field">
               <label for="objFont">Font Family</label>
+
               <select id="objFont">
                 <option value="Arial">Arial</option>
                 <option value="Inter">Inter</option>
@@ -276,6 +303,7 @@
 
             <div class="property-field">
               <label for="objAlign">Text Alignment</label>
+
               <select id="objAlign">
                 <option value="left">Left</option>
                 <option value="center">Center</option>
@@ -285,6 +313,7 @@
 
             <div class="property-field">
               <label for="objWeight">Font Weight</label>
+
               <select id="objWeight">
                 <option value="400">Normal</option>
                 <option value="500">Medium</option>
@@ -302,17 +331,17 @@
           </div>
 
           <div class="property-actions">
-            <button id="bringFrontBtn" class="btn btn-light">Bring Forward</button>
-            <button id="sendBackBtn" class="btn btn-light">Send Backward</button>
-            <button id="duplicateBtn" class="btn btn-light">Duplicate</button>
-            <button id="deleteBtn" class="btn btn-danger">Delete Object</button>
+            <button type="button" id="bringFrontBtn" class="btn btn-light">Bring Forward</button>
+            <button type="button" id="sendBackBtn" class="btn btn-light">Send Backward</button>
+            <button type="button" id="duplicateBtn" class="btn btn-light">Duplicate</button>
+            <button type="button" id="deleteBtn" class="btn btn-danger">Delete Object</button>
           </div>
 
           <div class="image-property-actions">
             <label for="cropZoom">Image Zoom</label>
             <input id="cropZoom" type="range" min="0.5" max="3" step="0.05" value="1">
-            <button id="resetCropBtn" class="btn btn-light">Reset Crop</button>
-            <button id="fitImageBtn" class="btn btn-light">Fit Image</button>
+            <button type="button" id="resetCropBtn" class="btn btn-light">Reset Crop</button>
+            <button type="button" id="fitImageBtn" class="btn btn-light">Fit Image</button>
           </div>
 
         </div>
@@ -332,6 +361,7 @@
         <h2>Employee Management</h2>
         <p>Add, update, search, and manage ID card information.</p>
       </div>
+
       <span id="employeeCount" class="count-pill">0 Employees</span>
     </div>
 
@@ -383,7 +413,69 @@
             <label for="empSignature">Employee Signature</label>
             <input id="empSignature" type="file" accept="image/*">
           </div>
+<!-- Additional Information -->
+<div class="property-field">
+  <label for="empInformation1">Information 1</label>
+  <input
+    id="empInformation1"
+    type="text"
+    placeholder="Enter information 1">
+</div>
 
+<div class="property-field">
+  <label for="empInformation2">Information 2</label>
+  <input
+    id="empInformation2"
+    type="text"
+    placeholder="Enter information 2">
+</div>
+
+<div class="property-field">
+  <label for="empInformation3">Information 3</label>
+  <input
+    id="empInformation3"
+    type="text"
+    placeholder="Enter information 3">
+</div>
+
+<div class="property-field">
+  <label for="empAuthorizedSignature">Authorized Signature</label>
+  <input
+    id="empAuthorizedSignature"
+    type="text"
+    placeholder="Authorized signatory">
+</div>
+
+<!-- President / General Manager -->
+<div class="property-field">
+  <label for="empPresidentSignature">
+    President / General Manager Signature Upload
+  </label>
+  <input
+    id="empPresidentSignature"
+    type="file"
+    accept="image/*">
+</div>
+
+<div class="property-field">
+  <label for="empPresidentName">
+    President / General Manager Name
+  </label>
+  <input
+    id="empPresidentName"
+    type="text"
+    placeholder="Enter full name">
+</div>
+
+<div class="property-field">
+  <label for="empPresidentPosition">
+    Position / Title
+  </label>
+  <input
+    id="empPresidentPosition"
+    type="text"
+    placeholder="President / General Manager">
+</div>
         </div>
 
         <label class="inline-checkbox">
@@ -395,6 +487,7 @@
           <button id="addEmployeeBtn" type="submit" class="btn btn-primary">
             Add Employee
           </button>
+
           <button id="clearEmployeeFormBtn" type="button" class="btn btn-light">
             Clear Form
           </button>
@@ -404,11 +497,13 @@
     </div>
 
     <div class="panel-card">
+
       <div class="section-heading compact-heading">
         <div>
           <h3>Employee Records</h3>
           <p>Search and edit existing employee records.</p>
         </div>
+
         <input id="employeeSearch" class="search-input" type="search"
                placeholder="Search employees...">
       </div>
@@ -424,6 +519,7 @@
               <th>Actions</th>
             </tr>
           </thead>
+
           <tbody id="employeeRows">
             <tr>
               <td colspan="5" class="empty-cell">No employee records yet.</td>
@@ -431,6 +527,7 @@
           </tbody>
         </table>
       </div>
+
     </div>
 
     <div class="panel-card">
@@ -438,7 +535,7 @@
       <p>Export your workspace as a JSON backup or restore a previous backup.</p>
 
       <div class="backup-actions">
-        <button id="exportWorkspaceBtn" class="btn btn-primary">
+        <button type="button" id="exportWorkspaceBtn" class="btn btn-primary">
           Export Backup
         </button>
 
@@ -464,6 +561,7 @@
         <h2>Batch Printing</h2>
         <p>Prepare employee ID cards for printing.</p>
       </div>
+
       <span id="batchSummary" class="count-pill">0 selected</span>
     </div>
 
@@ -473,6 +571,7 @@
         <h3>Print Settings</h3>
 
         <label for="printSide">Print Side</label>
+
         <select id="printSide">
           <option value="both">Front and Back</option>
           <option value="front">Front Only</option>
@@ -480,6 +579,7 @@
         </select>
 
         <label for="printStatus">Employee Status</label>
+
         <select id="printStatus">
           <option value="all">All Employees</option>
           <option value="unprinted">Unprinted Only</option>
@@ -487,6 +587,7 @@
         </select>
 
         <label for="paperSize">Paper Size</label>
+
         <select id="paperSize">
           <option value="a4">A4</option>
           <option value="letter">Letter</option>
@@ -495,12 +596,14 @@
         </select>
 
         <label for="paperOrientation">Paper Orientation</label>
+
         <select id="paperOrientation">
           <option value="portrait">Portrait</option>
           <option value="landscape">Landscape</option>
         </select>
 
         <div class="print-setting-grid">
+
           <div>
             <label for="cardW">Card Width (mm)</label>
             <input id="cardW" type="number" min="10" value="54">
@@ -530,14 +633,15 @@
             <label for="printGap">Card Gap (mm)</label>
             <input id="printGap" type="number" min="0" value="4">
           </div>
+
         </div>
 
         <div class="print-actions">
-          <button id="printBatchBtn" class="btn btn-primary full-width">
+          <button type="button" id="printBatchBtn" class="btn btn-primary full-width">
             Preview and Print
           </button>
 
-          <button id="markUnprintedBtn" class="btn btn-light full-width">
+          <button type="button" id="markUnprintedBtn" class="btn btn-light full-width">
             Mark Selected as Unprinted
           </button>
         </div>
@@ -546,6 +650,7 @@
       </div>
 
       <div class="panel-card">
+
         <div class="section-heading compact-heading">
           <div>
             <h3>Select Employees</h3>
@@ -557,10 +662,11 @@
                type="search" placeholder="Search employees...">
 
         <div class="batch-actions">
-          <button id="selectAllBatchBtn" class="btn btn-light">
+          <button type="button" id="selectAllBatchBtn" class="btn btn-light">
             Select All
           </button>
-          <button id="clearBatchBtn" class="btn btn-light">
+
+          <button type="button" id="clearBatchBtn" class="btn btn-light">
             Clear Selection
           </button>
         </div>
@@ -568,8 +674,8 @@
         <div id="batchRows" class="batch-list">
           <p class="empty-cell">No employee records available.</p>
         </div>
-      </div>
 
+      </div>
     </div>
 
   </section>
@@ -606,7 +712,13 @@
 
       <article class="panel-card">
         <h3>4. Manage Employees</h3>
-        <p>Add employee information, photos, and signatures. Edit existing records without creating a new employee record.</p>
+<p>
+  Add employee information, three additional information fields,
+  employee photos, employee signatures, and authorized signatory
+  details. Upload the President / General Manager signature and
+  enter the signatory's name and position. Edit existing records
+  without creating a new employee record.
+</p>
       </article>
 
       <article class="panel-card">
@@ -630,11 +742,10 @@
 
 </main>
 
-
 <footer>
-    <p>
-        © 2026 LinkTech Freelance IT Specialist Zamboanga | All Rights Reserved
-    </p>
+  <p>
+    © 2026 LinkTech Freelance IT Specialist Zamboanga | All Rights Reserved
+  </p>
 </footer>
 
 <script src="js/app.js"></script>
