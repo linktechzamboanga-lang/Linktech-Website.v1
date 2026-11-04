@@ -24,19 +24,6 @@ body {
     font-family: Inter, Arial, sans-serif;
 }
 
-
-img{
-    max-width:100%;
-}
-
-button,
-input,
-textarea,
-select{
-    font-family:'Poppins',sans-serif;
-}
-
-
 button,
 input,
 select {
@@ -59,56 +46,13 @@ select {
     gap: 12px;
     backdrop-filter: blur(12px);
     align-items:center;
+
 }
 header b{
     font-size:24px;
     color:#0284c7;
     font-weight:700;
-
-/* ==========================================
-   LOGO
-========================================== */
-
-header b{
-    font-size:24px;
-    color:#0284c7;
-    font-weight:700;
 }
-
-.logo{
-    display:flex;
-    align-items:center;
-    gap:10px;
-
-    font-size:22px;
-    white-space:nowrap;
-
-    color:#0f172a;
-}
-
-.logo img{
-    width:45px;
-    height:45px;
-
-    object-fit:contain;
-
-    transition:
-        transform .4s ease,
-        filter .4s ease;
-}
-
-.logo:hover img{
-    transform:
-        rotate(-5deg)
-        scale(1.08);
-
-    filter:
-        drop-shadow(
-            0 5px 10px
-            rgba(14,165,233,.35)
-        );
-}
-
 
 .brand {
     display: flex;
@@ -806,7 +750,6 @@ select {
     border-top: 1px solid var(--border);
     color: var(--muted);
     font-size: 10px;
-    align-items: center;
 }
 
 .toast {
@@ -1040,20 +983,7 @@ select {
     }
 }
 
-footer{
 
-    text-align:center;
-
-    padding:30px 20px;
-
-    background:#ffffff;
-
-    border-top:1px solid #e2e8f0;
-
-    margin-top:0;
-
-    color:#64748b;
-}
 /* =====================================================
    SAVED DOCUMENT PRINT OUTPUT — keep app design unchanged
 ===================================================== */
