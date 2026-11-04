@@ -85,7 +85,7 @@ const templates = [
 ===================================================== */
 
 const defaultResume = {
-    name: "ALEXANDRA REYES",
+    name: "JUAN DELA CRUZ",
 
     role: "ADMINISTRATIVE ASSISTANT",
 
