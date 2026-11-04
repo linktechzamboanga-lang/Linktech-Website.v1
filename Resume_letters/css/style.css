@@ -58,7 +58,12 @@ select {
     align-items: center;
     gap: 12px;
     backdrop-filter: blur(12px);
+    align-items:center;
 }
+header b{
+    font-size:24px;
+    color:#0284c7;
+    font-weight:700;
 
 /* ==========================================
    LOGO
