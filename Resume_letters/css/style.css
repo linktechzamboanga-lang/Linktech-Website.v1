@@ -36,18 +36,6 @@ select{
     font-family:'Poppins',sans-serif;
 }
 
-.app-header {
-  width: 100%;
-  min-height: 76px;
-  display: flex;
-  align-items: center;
-  padding: 12px 24px;
-  background: var(--header-bg);
-  border-bottom: 1px solid var(--header-border);
-  box-shadow: 0 2px 12px rgba(15, 23, 42, 0.04);
-}
-
-
 
 button,
 input,
