@@ -1,0 +1,316 @@
+/* ==========================================
+LINKTECH CUSTOMER SUPPORT PORTAL
+GOOGLE LOGIN ONLY CONTAINER
+========================================== */
+
+/* ==========================================
+
+1. LOGIN SCREEN - FULL VIEWPORT
+   ========================================== */
+
+body:has(.login-section) {
+margin: 0;
+min-height: 100vh;
+}
+
+/*
+Hide all direct body content except login.
+This prevents header, hero, dashboard,
+tools, social links, advertisements and
+footer from appearing behind login.
+*/
+
+body:has(.login-section:not([style*="display: none"]))
+
+«*:not(.login-section) {
+display: none !important;
+}»
+
+/* ==========================================
+2. GOOGLE LOGIN OVERLAY
+========================================== */
+
+.login-section {
+position: fixed !important;
+
+inset: 0 !important;
+
+z-index: 999999 !important;
+
+width: 100% !important;
+height: 100vh !important;
+min-height: 100vh !important;
+
+display: flex !important;
+
+justify-content: center !important;
+align-items: center !important;
+
+padding: 20px !important;
+
+margin: 0 !important;
+
+box-sizing: border-box !important;
+
+overflow-y: auto !important;
+
+background:
+    radial-gradient(
+        circle at top right,
+        #dbeafe,
+        transparent 45%
+    ),
+    linear-gradient(
+        135deg,
+        #eff6ff,
+        #e0f2fe,
+        #f8fafc
+    ) !important;
+
+backdrop-filter: none !important;
+-webkit-backdrop-filter: none !important;
+
+}
+
+/* ==========================================
+3. GOOGLE LOGIN CARD
+========================================== */
+
+.google-login-card {
+
+position: relative !important;
+
+width: 100% !important;
+
+max-width: 460px !important;
+
+margin: auto !important;
+
+padding: 30px 25px !important;
+
+box-sizing: border-box !important;
+
+background: #ffffff !important;
+
+border: 1px solid #dbeafe !important;
+
+border-radius: 22px !important;
+
+box-shadow:
+    0 20px 60px rgba(15, 60, 120, 0.14),
+    0 5px 20px rgba(0, 0, 0, 0.05) !important;
+
+text-align: center !important;
+
+animation: ltLoginAppear 0.45s ease;
+
+}
+
+/* ==========================================
+4. LOGIN DESCRIPTION
+========================================== */
+
+.login-subtitle {
+
+width: 100% !important;
+
+max-width: 420px !important;
+
+margin: 0 auto 22px !important;
+
+color: #334155 !important;
+
+font-family: 'Poppins', sans-serif !important;
+
+font-size: 14px !important;
+
+font-weight: 400 !important;
+
+line-height: 1.8 !important;
+
+text-align: center !important;
+
+}
+
+.login-subtitle strong {
+color: #0759a8 !important;
+font-weight: 700 !important;
+}
+
+/* ==========================================
+5. GOOGLE SIGN-IN ALIGNMENT
+========================================== */
+
+#g_id_signin,
+#googleLoginButton {
+
+display: flex !important;
+
+justify-content: center !important;
+
+align-items: center !important;
+
+width: 100% !important;
+
+margin: 18px auto !important;
+
+}
+
+/* ==========================================
+6. LOGIN SECURITY NOTE
+========================================== */
+
+.login-note {
+
+margin: 20px 0 0 !important;
+
+color: #64748b !important;
+
+font-family: 'Poppins', sans-serif !important;
+
+font-size: 12px !important;
+
+font-weight: 600 !important;
+
+letter-spacing: 0.4px !important;
+
+text-align: center !important;
+
+}
+
+/* ==========================================
+7. FACEBOOK BROWSER SECURITY NOTICE
+========================================== */
+
+.lt-fb-browser-notice {
+
+width: 100% !important;
+
+max-width: 430px !important;
+
+margin: 20px auto 0 !important;
+
+padding: 20px !important;
+
+box-sizing: border-box !important;
+
+background: #f0f7ff !important;
+
+border: 1px solid #d5e8ff !important;
+
+border-radius: 16px !important;
+
+text-align: center !important;
+
+}
+
+.lt-fb-browser-notice[hidden] {
+display: none !important;
+}
+
+.lt-fb-description {
+
+color: #334155 !important;
+
+font-size: 13px !important;
+
+line-height: 1.7 !important;
+
+}
+
+.lt-fb-browser-actions {
+
+display: flex !important;
+
+flex-direction: column !important;
+
+gap: 10px !important;
+
+margin-top: 15px !important;
+
+}
+
+.lt-fb-browser-actions button {
+
+width: 100% !important;
+
+min-height: 45px !important;
+
+border-radius: 10px !important;
+
+cursor: pointer;
+
+}
+
+/* ==========================================
+8. LOGIN ANIMATION
+========================================== */
+
+@keyframes ltLoginAppear {
+
+from {
+    opacity: 0;
+    transform: translateY(20px) scale(0.97);
+}
+
+to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+}
+
+}
+
+/* ==========================================
+9. MOBILE RESPONSIVE
+========================================== */
+
+@media (max-width: 600px) {
+
+.login-section {
+
+    padding: 15px !important;
+
+    align-items: center !important;
+}
+
+.google-login-card {
+
+    max-width: 100% !important;
+
+    padding: 25px 18px !important;
+
+    border-radius: 18px !important;
+}
+
+.login-subtitle {
+
+    font-size: 13px !important;
+
+    line-height: 1.7 !important;
+}
+
+}
+
+/* ==========================================
+10. SMALL SCREEN HEIGHT
+========================================== */
+
+@media (max-height: 650px) {
+
+.login-section {
+
+    align-items: flex-start !important;
+}
+
+.google-login-card {
+
+    margin-top: 15px !important;
+
+    margin-bottom: 15px !important;
+}
+
+}
+
+/* ==========================================
+END LINKTECH LOGIN CSS
+========================================== */
