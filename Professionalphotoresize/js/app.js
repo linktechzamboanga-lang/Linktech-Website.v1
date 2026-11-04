@@ -286,7 +286,19 @@
       const ctx = view.getContext("2d");
 
       ctx.clearRect(0, 0, view.width, view.height);
-      ctx.drawImage(canvas, 0, 0);
+ctx.drawImage(canvas, 0, 0);
+
+// BLACK PHOTO BORDER - LIVE PREVIEW
+ctx.save();
+ctx.strokeStyle = "#000000";
+ctx.lineWidth = Math.max(1, Math.round(view.width / 500));
+ctx.strokeRect(
+  0,
+  0,
+  view.width,
+  view.height
+);
+ctx.restore();
 
       $("outputDimensions").textContent =
         `${canvas.width} × ${canvas.height} px`;
@@ -890,6 +902,22 @@
             photoW,
             photoH
           );
+          // BLACK CUTTING BORDER - PRINT AND PDF
+ctx.save();
+
+ctx.strokeStyle = "#000000";
+
+// Approximately 1px at 150 DPI
+ctx.lineWidth = 1.5;
+
+ctx.strokeRect(
+  photoX,
+  photoY,
+  photoW,
+  photoH
+);
+
+ctx.restore();
         });
 
         pageCanvases.push({
