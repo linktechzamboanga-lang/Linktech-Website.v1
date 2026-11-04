@@ -1,0 +1,765 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#087cf0">
+  <meta name="description" content="LinkTech Game Scorer - Tournament and sports scoring management.">
+
+  <title>Game Scorer | LinkTech</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+
+<header class="site-header">
+  <a class="logo" href="../index.html">
+    <img src="../images/LinkTech-logo.png" alt="LinkTech logo">
+    <span>
+      <b>LinkTech</b>
+      <small>Freelance IT Specialist Zamboanga</small>
+    </span>
+  </a>
+
+  <div class="header-actions">
+    <button class="btn btn-light" id="exportBtn">Export</button>
+
+    <label class="btn btn-light file-label">
+      Import
+      <input type="file" id="importFile" accept=".json,application/json">
+    </label>
+
+    <button class="btn btn-primary" id="helpBtn">
+      <span>?</span> Help
+    </button>
+  </div>
+</header>
+
+<main class="app-shell">
+
+  <!-- HERO -->
+
+  <section class="hero">
+    <div>
+      <span class="eyebrow">LINKTECH SPORTS MANAGEMENT</span>
+      <h1>Game Scorer</h1>
+      <p>
+        Manage tournaments, teams, players, brackets,
+        live scores and championship results.
+      </p>
+    </div>
+
+    <div class="hero-mark">GS</div>
+  </section>
+
+  <!-- NOTIFICATION -->
+
+  <div id="notification" class="notification hidden">
+    <span id="notificationIcon">✓</span>
+    <span id="notificationMessage"></span>
+    <button id="closeNotification" aria-label="Close notification">×</button>
+  </div>
+
+  <!-- NAVIGATION -->
+
+  <nav class="tabs">
+    <button class="tab active" data-tab="dashboard">Dashboard</button>
+    <button class="tab" data-tab="setup">Tournament</button>
+    <button class="tab" data-tab="teams">Teams & Players</button>
+    <button class="tab" data-tab="bracket">Bracket & Schedule</button>
+    <button class="tab" data-tab="scorer">Live Scorer</button>
+    <button class="tab" data-tab="results">Results</button>
+    <button class="tab" data-tab="instructions">Instructions</button>
+  </nav>
+
+  <!-- DASHBOARD -->
+
+  <section class="panel tab-panel active" id="panel-dashboard">
+
+    <div class="section-heading">
+      <div>
+        <h2>Tournament Dashboard</h2>
+        <p>Overview of your current tournament.</p>
+      </div>
+
+      <button class="btn btn-primary" id="dashboardNewBtn">
+        + New Tournament
+      </button>
+    </div>
+
+    <div class="stats-grid">
+
+      <article class="stat-card">
+        <span>Total Teams</span>
+        <strong id="statTeams">0</strong>
+        <small>Registered teams</small>
+      </article>
+
+      <article class="stat-card">
+        <span>Total Players</span>
+        <strong id="statPlayers">0</strong>
+        <small>Team members</small>
+      </article>
+
+      <article class="stat-card">
+        <span>Total Matches</span>
+        <strong id="statMatches">0</strong>
+        <small>Scheduled matches</small>
+      </article>
+
+      <article class="stat-card">
+        <span>Completed</span>
+        <strong id="statCompleted">0</strong>
+        <small>Final results</small>
+      </article>
+
+    </div>
+
+    <div class="dashboard-card">
+      <h3>Current Tournament</h3>
+
+      <div id="dashboardTournament">
+        <div class="empty-state">
+          No tournament created yet.
+        </div>
+      </div>
+    </div>
+
+    <div class="dashboard-card">
+      <h3>Recent Matches</h3>
+      <div id="recentMatches"></div>
+    </div>
+
+    <div class="dashboard-card">
+      <h3>Tournament Champion</h3>
+      <div id="dashboardChampion" class="empty-state">
+        Champion will appear here after the tournament is completed.
+      </div>
+    </div>
+
+  </section>
+
+  <!-- TOURNAMENT SETUP -->
+
+  <section class="panel tab-panel" id="panel-setup">
+
+    <div class="section-heading">
+      <div>
+        <h2>Tournament Settings</h2>
+        <p>Configure your sports competition.</p>
+      </div>
+    </div>
+
+    <form id="tournamentForm">
+
+      <div class="form-grid">
+
+        <label class="field wide">
+          Tournament Name
+          <input id="tournamentName" required
+            placeholder="Barangay Sports Festival 2026">
+        </label>
+
+        <label class="field">
+          Sport
+          <select id="sportSelect"></select>
+        </label>
+
+        <label class="field">
+          Scoring System
+          <select id="formatSelect">
+            <option value="points">Points</option>
+            <option value="sets">Sets / Games</option>
+            <option value="goals">Goals</option>
+            <option value="rounds">Rounds</option>
+            <option value="frames">Frames</option>
+            <option value="time">Time / Race</option>
+            <option value="manual">Manual scoring</option>
+          </select>
+        </label>
+
+        <label class="field">
+          Tournament Date
+          <input type="date" id="tournamentDate">
+        </label>
+
+        <label class="field">
+          Venue
+          <input id="tournamentVenue"
+            placeholder="Sports complex / Barangay court">
+        </label>
+
+        <label class="field">
+          Organizer
+          <input id="tournamentOrganizer"
+            placeholder="Organizer name">
+        </label>
+
+        <label class="field">
+          Match Duration
+          <input id="matchDuration"
+            placeholder="Example: 4 quarters / 15 minutes">
+        </label>
+
+        <label class="field">
+          Tournament Format
+          <select id="tournamentFormat">
+            <option value="single">Single Elimination</option>
+            <option value="double">Double Elimination</option>
+            <option value="roundrobin">Round Robin</option>
+          </select>
+        </label>
+
+        <label class="field">
+          Default points to win
+          <input type="number" id="targetScore" min="1" value="21">
+        </label>
+
+        <label class="field">
+          Best of
+          <select id="bestOf">
+            <option value="1">1</option>
+            <option value="3" selected>3</option>
+            <option value="5">5</option>
+            <option value="7">7</option>
+          </select>
+        </label>
+
+        <label class="field">
+          Win by
+          <input type="number" id="winBy" min="1" value="2">
+        </label>
+
+        <label class="field">
+          Maximum score (optional)
+          <input type="number" id="maxScore" min="0"
+            placeholder="No maximum">
+        </label>
+
+      </div>
+
+      <div class="notice">
+        <strong>Sport rules:</strong>
+        You can adjust the target score, best-of format,
+        winning margin and maximum score.
+        These settings are used by the scoring engine.
+      </div>
+
+      <div class="actions">
+        <button type="submit" class="btn btn-primary">
+          Save Tournament
+        </button>
+
+        <button type="button" class="btn btn-outline" id="clearTournamentBtn">
+          Clear Tournament
+        </button>
+      </div>
+
+    </form>
+
+  </section>
+
+  <!-- TEAMS -->
+
+  <section class="panel tab-panel" id="panel-teams">
+
+    <div class="section-heading">
+      <div>
+        <h2>Teams & Players</h2>
+        <p>Register teams, upload logos and add members.</p>
+      </div>
+    </div>
+
+    <form id="teamForm">
+
+      <div class="form-grid">
+
+        <label class="field">
+          Team Name
+          <input id="teamName" required maxlength="60"
+            placeholder="Zamboanga Eagles">
+        </label>
+
+        <label class="field">
+          Team Captain / Username
+          <input id="teamCaptain"
+            placeholder="Captain name">
+        </label>
+
+        <label class="field">
+          Team Logo
+          <input type="file" id="teamLogo"
+            accept="image/png,image/jpeg,image/webp">
+        </label>
+
+        <label class="field">
+          Team Color
+          <input type="color" id="teamColor" value="#087cf0">
+        </label>
+
+        <label class="field wide">
+          Players / Members
+          <textarea id="teamMembers" rows="4"
+            placeholder="Enter one player per line.&#10;Example:&#10;Juan Dela Cruz&#10;Pedro Santos&#10;Mark Reyes"></textarea>
+        </label>
+
+      </div>
+
+      <button type="submit" class="btn btn-primary">
+        + Register Team
+      </button>
+
+    </form>
+
+    <div class="divider"></div>
+
+    <div class="section-heading">
+      <div>
+        <h2>Registered Teams</h2>
+        <p id="teamCount">0 teams</p>
+      </div>
+    </div>
+
+    <div id="teamList" class="team-grid"></div>
+
+    <div class="actions">
+      <button class="btn btn-primary" id="generateBracketBtn">
+        Generate Tournament Bracket
+      </button>
+    </div>
+
+  </section>
+
+  <!-- BRACKET -->
+
+  <section class="panel tab-panel" id="panel-bracket">
+
+    <div class="section-heading">
+      <div>
+        <h2>Bracket & Schedule</h2>
+        <p>Manage match pairings and tournament progression.</p>
+      </div>
+
+      <div class="actions compact">
+        <button class="btn btn-outline" id="shareScheduleBtn">
+          Share
+        </button>
+
+        <button class="btn btn-outline" id="printBracketBtn">
+          Print
+        </button>
+      </div>
+    </div>
+
+    <div class="champion-banner hidden" id="championBanner"></div>
+
+    <div class="schedule-toolbar">
+      <button class="btn btn-light" id="addMatchBtn">
+        + Add Match
+      </button>
+
+      <button class="btn btn-light" id="regenerateBtn">
+        Regenerate Bracket
+      </button>
+    </div>
+
+    <div id="bracketView" class="bracket-view">
+      <div class="empty-state">
+        Register teams and generate your tournament bracket.
+      </div>
+    </div>
+
+  </section>
+
+  <!-- LIVE SCORER -->
+
+  <section class="panel tab-panel" id="panel-scorer">
+
+    <div class="section-heading">
+      <div>
+        <h2>Live Scorer</h2>
+        <p>Operator-controlled match scoring.</p>
+      </div>
+
+      <button class="btn btn-primary" id="fullscreenBtn">
+        ⛶ Full Screen
+      </button>
+    </div>
+
+    <div class="scorer-controls">
+
+      <label class="field">
+        Select Match
+        <select id="matchSelect"></select>
+      </label>
+
+      <label class="field">
+        Match Status
+        <select id="matchStatus">
+          <option value="Scheduled">Scheduled</option>
+          <option value="Live">Live</option>
+          <option value="Paused">Paused</option>
+          <option value="Final">Final</option>
+        </select>
+      </label>
+
+    </div>
+
+    <div class="scoreboard" id="scoreboard">
+
+      <div class="score-team" id="scoreTeamA">
+
+        <div class="score-logo" id="scoreLogoA">A</div>
+
+        <div class="score-name" id="scoreNameA">
+          Team A
+        </div>
+
+        <div class="score-value" id="scoreA">0</div>
+
+        <div class="score-buttons">
+          <button data-side="A" data-delta="-1">−</button>
+          <button data-side="A" data-delta="1">+</button>
+        </div>
+
+      </div>
+
+      <div class="score-middle">
+
+        <span class="live-dot" id="liveIndicator"></span>
+
+        <b id="scoreSport">GAME SCORER</b>
+
+        <strong>VS</strong>
+
+        <div class="period-display">
+          <span id="periodLabel">PERIOD</span>
+          <b id="periodNumber">1</b>
+        </div>
+
+        <small id="scoreRound">Select a match</small>
+
+        <div class="timer-display" id="timerDisplay">
+          00:00
+        </div>
+
+        <div class="timer-controls">
+          <button class="btn btn-light" id="timerStartBtn">Start</button>
+          <button class="btn btn-light" id="timerPauseBtn">Pause</button>
+          <button class="btn btn-light" id="timerResetBtn">Reset</button>
+        </div>
+
+      </div>
+
+      <div class="score-team" id="scoreTeamB">
+
+        <div class="score-logo" id="scoreLogoB">B</div>
+
+        <div class="score-name" id="scoreNameB">
+          Team B
+        </div>
+
+        <div class="score-value" id="scoreB">0</div>
+
+        <div class="score-buttons">
+          <button data-side="B" data-delta="-1">−</button>
+          <button data-side="B" data-delta="1">+</button>
+        </div>
+
+      </div>
+
+    </div>
+
+    <div class="score-extra">
+
+      <div class="score-extra-card">
+        <span>Team A Sets / Games</span>
+        <strong id="setsA">0</strong>
+      </div>
+
+      <div class="score-extra-card">
+        <span>Team B Sets / Games</span>
+        <strong id="setsB">0</strong>
+      </div>
+
+      <div class="score-extra-card">
+        <span>Current Winner</span>
+        <strong id="currentWinner">Pending</strong>
+      </div>
+
+    </div>
+
+    <div class="scorer-actions">
+
+      <button class="btn btn-outline" id="undoScoreBtn">
+        ↶ Undo
+      </button>
+
+      <button class="btn btn-outline" id="resetScoreBtn">
+        Reset Score
+      </button>
+
+      <button class="btn btn-outline" id="nextPeriodBtn">
+        Next Period / Set
+      </button>
+
+      <button class="btn btn-primary" id="saveResultBtn">
+        Save Match Result
+      </button>
+
+      <button class="btn btn-light" id="shareScoreBtn">
+        Share Score
+      </button>
+
+    </div>
+
+    <div class="notice">
+      <strong>Operator instructions:</strong>
+      Select the match, start scoring, update the points,
+      and save the result when the match is complete.
+      Undo reverses the last score adjustment.
+    </div>
+
+  </section>
+
+  <!-- RESULTS -->
+
+  <section class="panel tab-panel" id="panel-results">
+
+    <div class="section-heading">
+      <div>
+        <h2>Tournament Results</h2>
+        <p>Completed matches and championship standings.</p>
+      </div>
+
+      <button class="btn btn-outline" id="exportCSVBtn">
+        Export CSV
+      </button>
+    </div>
+
+    <div id="resultsList"></div>
+
+    <div class="dashboard-card">
+      <h3>Champion</h3>
+      <div id="finalChampion" class="empty-state">
+        No champion determined yet.
+      </div>
+    </div>
+
+  </section>
+
+  <!-- INSTRUCTIONS -->
+
+  <section class="panel tab-panel" id="panel-instructions">
+
+    <div class="section-heading">
+      <div>
+        <h2>How to Use Game Scorer</h2>
+        <p>Step-by-step instructions for tournament operators.</p>
+      </div>
+    </div>
+
+    <div class="guide-list">
+
+      <article class="guide-card">
+        <span>01</span>
+        <div>
+          <h3>Create a Tournament</h3>
+          <p>Open Tournament, enter the event name, select a sport,
+          choose the format, date and venue, and save your settings.</p>
+        </div>
+      </article>
+
+      <article class="guide-card">
+        <span>02</span>
+        <div>
+          <h3>Register Teams</h3>
+          <p>Open Teams & Players. Add the team name, captain,
+          logo, color and player names. Register each team.</p>
+        </div>
+      </article>
+
+      <article class="guide-card">
+        <span>03</span>
+        <div>
+          <h3>Generate the Bracket</h3>
+          <p>Generate your match schedule. Review the pairings
+          before starting the competition.</p>
+        </div>
+      </article>
+
+      <article class="guide-card">
+        <span>04</span>
+        <div>
+          <h3>Operate Live Scoring</h3>
+          <p>Select a match, update scores with the plus and minus
+          controls, manage periods and use the timer when needed.</p>
+        </div>
+      </article>
+
+      <article class="guide-card">
+        <span>05</span>
+        <div>
+          <h3>Save Match Results</h3>
+          <p>Confirm the final score and save the match.
+          The tournament engine uses the result to advance teams.</p>
+        </div>
+      </article>
+
+      <article class="guide-card">
+        <span>06</span>
+        <div>
+          <h3>Share Results</h3>
+          <p>Use the share controls to prepare tournament
+          schedules and score updates for social media.</p>
+        </div>
+      </article>
+
+      <article class="guide-card">
+        <span>07</span>
+        <div>
+          <h3>Backup Your Tournament</h3>
+          <p>Export your JSON backup regularly. Import the file
+          later to restore the tournament on a supported device.</p>
+        </div>
+      </article>
+
+    </div>
+
+    <div class="notice warning-notice">
+      <strong>Important data protection:</strong>
+      Tournament data is stored in this browser on this device.
+      Clearing browser data, uninstalling the browser or changing
+      devices may remove access to the saved data.
+      Export a backup regularly.
+    </div>
+
+    <div class="dashboard-card">
+      <h3>Supported Sports</h3>
+      <div id="sportGuide" class="sport-guide"></div>
+    </div>
+
+  </section>
+
+  <footer class="app-footer">
+    © 2026 LinkTech Freelance IT Specialist Zamboanga
+  </footer>
+
+</main>
+
+<!-- ADD / EDIT MATCH MODAL -->
+
+<div class="modal hidden" id="matchModal">
+  <div class="modal-card">
+
+    <div class="modal-heading">
+      <h2>Add Match</h2>
+      <button class="modal-close" id="closeMatchModal">×</button>
+    </div>
+
+    <form id="matchForm">
+
+      <label class="field">
+        Team A
+        <select id="matchTeamA" required></select>
+      </label>
+
+      <label class="field">
+        Team B
+        <select id="matchTeamB" required></select>
+      </label>
+
+      <label class="field">
+        Round / Stage
+        <input id="matchRound" required
+          placeholder="Example: Semifinal">
+      </label>
+
+      <label class="field">
+        Match Date and Time
+        <input type="datetime-local" id="matchDate">
+      </label>
+
+      <label class="field">
+        Court / Venue
+        <input id="matchVenue" placeholder="Court 1">
+      </label>
+
+      <button type="submit" class="btn btn-primary">
+        Save Match
+      </button>
+
+    </form>
+
+  </div>
+</div>
+
+<!-- TEAM EDIT MODAL -->
+
+<div class="modal hidden" id="teamModal">
+  <div class="modal-card">
+    <div class="modal-heading">
+      <h2>Edit Team</h2>
+      <button class="modal-close" id="closeTeamModal">×</button>
+    </div>
+
+    <form id="editTeamForm">
+      <input type="hidden" id="editTeamId">
+
+      <label class="field">
+        Team Name
+        <input id="editTeamName" required>
+      </label>
+
+      <label class="field">
+        Captain
+        <input id="editTeamCaptain">
+      </label>
+
+      <label class="field">
+        Members
+        <textarea id="editTeamMembers" rows="5"></textarea>
+      </label>
+
+      <label class="field">
+        Replace Logo
+        <input type="file" id="editTeamLogo" accept="image/*">
+      </label>
+
+      <button type="submit" class="btn btn-primary">
+        Update Team
+      </button>
+    </form>
+  </div>
+</div>
+
+<!-- CONFIRMATION / INFORMATION MODAL -->
+
+<div class="modal hidden" id="infoModal">
+  <div class="modal-card">
+    <div class="modal-heading">
+      <h2 id="infoTitle">Information</h2>
+      <button class="modal-close" id="closeInfoModal">×</button>
+    </div>
+    <div id="infoContent"></div>
+    <button class="btn btn-primary" id="infoOkBtn">OK</button>
+  </div>
+</div>
+
+<!-- JAVASCRIPT -->
+
+<script src="js/database.js"></script>
+<script src="js/sports-rules.js"></script>
+<script src="js/bracket.js"></script>
+<script src="js/scoring.js"></script>
+<script src="js/sharing.js"></script>
+<script src="js/backup.js"></script>
+<script src="js/app.js"></script>
+<script src="js/live.js"></script>
+</body>
+</html>
