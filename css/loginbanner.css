@@ -1,0 +1,192 @@
+/* =====================================
+   LINKTECH ANIMATED INSTRUCTION BANNER
+===================================== */
+
+.login-instruction {
+    position: relative;
+    width: 100%;
+    margin: 20px auto;
+    padding: 18px;
+    overflow: hidden;
+
+    background: linear-gradient(
+        135deg,
+        #e0f5ff,
+        #c5eaff,
+        #edfaff
+    );
+
+    border: 1px solid #a5dcf7;
+    border-radius: 18px;
+
+    box-shadow:
+        0 8px 25px rgba(36, 153, 220, 0.12);
+
+    color: #17466a;
+}
+
+/* Heading */
+
+.instruction-heading {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+
+    font-size: 16px;
+    font-weight: 700;
+
+    color: #0879bd;
+    margin-bottom: 15px;
+}
+
+.instruction-heading i {
+    font-size: 21px;
+}
+
+/* Scrolling Area */
+
+.instruction-track {
+    width: 100%;
+    overflow: hidden;
+    position: relative;
+
+    border-radius: 12px;
+    background: rgba(255, 255, 255, 0.65);
+
+    padding: 15px 0;
+
+    -webkit-mask-image: linear-gradient(
+        to right,
+        transparent,
+        black 5%,
+        black 95%,
+        transparent
+    );
+
+    mask-image: linear-gradient(
+        to right,
+        transparent,
+        black 5%,
+        black 95%,
+        transparent
+    );
+}
+
+/* Moving Content */
+
+.instruction-content {
+    display: flex;
+    align-items: center;
+    width: max-content;
+    gap: 35px;
+
+    animation: instructionScroll 35s linear infinite;
+}
+
+/* Individual Instructions */
+
+.instruction-item {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+
+    white-space: nowrap;
+
+    font-size: 13px;
+    font-weight: 600;
+
+    color: #17577e;
+}
+
+.instruction-item i {
+    font-size: 19px;
+    color: #0799df;
+}
+
+/* Animation */
+
+@keyframes instructionScroll {
+
+    0% {
+        transform: translateX(100%);
+    }
+
+    100% {
+        transform: translateX(-100%);
+    }
+
+}
+
+/* Pause when hovered */
+
+.login-instruction:hover .instruction-content {
+    animation-play-state: paused;
+}
+
+/* Footer */
+
+.instruction-footer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    gap: 8px;
+    margin-top: 15px;
+
+    font-size: 11px;
+    font-weight: 700;
+
+    color: #0879bd;
+    text-align: center;
+}
+
+/* Footer Icon */
+
+.instruction-footer i {
+    color: #16a36a;
+    font-size: 14px;
+}
+
+/* Mobile Responsive */
+
+@media (max-width: 600px) {
+
+    .login-instruction {
+        padding: 14px;
+        border-radius: 15px;
+    }
+
+    .instruction-heading {
+        font-size: 14px;
+    }
+
+    .instruction-item {
+        font-size: 12px;
+    }
+
+    .instruction-item i {
+        font-size: 17px;
+    }
+
+    .instruction-footer {
+        font-size: 10px;
+    }
+
+}
+
+/* Accessibility */
+
+@media (prefers-reduced-motion: reduce) {
+
+    .instruction-content {
+        animation: none;
+        width: 100%;
+        flex-wrap: wrap;
+        justify-content: flex-start;
+    }
+
+    .instruction-item {
+        white-space: normal;
+    }
+
+}

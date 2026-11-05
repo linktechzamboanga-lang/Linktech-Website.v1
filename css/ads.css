@@ -1,0 +1,45 @@
+/* LinkTech AdSense Container */
+
+.adsense-container {
+    display: block;
+    position: relative;
+
+    width: 100%;
+    max-width: 100%;
+
+    min-height: 100px;
+
+    margin: 20px auto;
+    padding: 10px;
+
+    box-sizing: border-box;
+
+    background: #ffffff;
+
+    border: 1px solid #e5efff;
+    border-radius: 14px;
+
+    overflow: hidden;
+}
+
+/* Responsive Advertisement */
+
+.adsense-container ins.adsbygoogle {
+    display: block;
+
+    width: 100%;
+    min-width: 0;
+}
+
+/* Mobile */
+
+@media (max-width: 600px) {
+
+    .adsense-container {
+        margin: 15px auto;
+        padding: 5px;
+
+        border-radius: 10px;
+    }
+
+}
