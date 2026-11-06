@@ -262,7 +262,7 @@
     const floatingButton = document.createElement("button");
     floatingButton.type = "button";
     floatingButton.className = "lt-floating-share";
-    floatingButton.textContent = "✨ Explore & Share";
+    floatingButton.textContent = "Explore & Share";
     floatingButton.setAttribute("aria-label", "Open LinkTech slideshow");
 
     // Full-screen slideshow overlay.
