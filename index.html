@@ -14,7 +14,9 @@ LinkTech Customer Support Portal
 <link rel="icon"
       href="images/LinkTech-logo.png">
 
-
+<link rel="manifest" href="/manifest.webmanifest">
+<meta name="theme-color" content="#1688e8">
+<meta name="application-name" content="LinkTech Zamboanga">
 <!-- LinkTech Social Sharing Metadata -->
 <meta property="og:type" content="website">
 <meta property="og:title"
@@ -62,6 +64,8 @@ crossorigin="anonymous">
 
 <script async custom-element="amp-ad" src="https://cdn.ampproject.org/v0/amp-ad-0.1.js"></script>
 
+      <link rel="stylesheet"
+      href="css/install.css">
       <link rel="stylesheet"
       href="css/sharepage.css">
       <link rel="stylesheet"
@@ -196,6 +200,9 @@ fbq('track', 'PageView');
 
   <div id="lt-home-slideshow"></div>
 </section>
+      <button id="ltInstallButton">
+  ↓ Install
+      </button>
 <!-- LinkTech AdSense Advertisement 1 -->
 <div class="adsense-container">
 
@@ -1269,7 +1276,7 @@ All Rights Reserved
 <!-- ==========================================
      JAVASCRIPT
 ========================================== -->
-
+<script src="js/install.js"></script>
 <script src="js/home.js"></script>
 <script src="js/sharepage.js"></script>
 </body>
