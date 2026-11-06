@@ -1,0 +1,17 @@
+#ltInstallButton {
+  position: fixed;
+  top: 12px;
+  right: 12px;
+  z-index: 999999;
+  display: none;
+  padding: 8px 14px;
+  border: none;
+  border-radius: 30px;
+  background: linear-gradient(120deg,#1688e8,#42b8ff);
+  color: white;
+  font-family: Poppins, sans-serif;
+  font-size: 12px;
+  font-weight: 600;
+  box-shadow: 0 3px 12px rgba(22,136,232,.25);
+  cursor: pointer;
+}
