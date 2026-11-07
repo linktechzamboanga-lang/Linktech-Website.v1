@@ -81,6 +81,11 @@ const downloadFiles = {
     linktech2026:
         "https://github.com/linktechzamboanga-lang/Linktech-Website.v1/releases/download/v1.0.0.0/LinkTech2026.apk",
 
+
+    ProfessionalPhotoResize:
+        "https://github.com/linktechzamboanga-lang/LinkTech-Source-Private-Full/releases/download/PPv.1/Professional-Photo-Resize-1.0.apk",
+  
+
     TxtToolHub:
         "https://github.com/linktechzamboanga-lang/Linktech-Website.v1/releases/download/v1.1/TextToolHub.apk",
 
