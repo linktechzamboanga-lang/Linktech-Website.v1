@@ -101,6 +101,11 @@ const downloadFiles = {
     ResetterL120:
         "https://github.com/linktechzamboanga-lang/Linktech-Website.v1/releases/download/resetter1/L120.RESETTER.rar",
 
+
+  ResetterEpsonL110_L210_L300_L350_L355:
+        "https://github.com/linktechzamboanga-lang/LinkTech-Source-Private-Full/releases/download/resetter2/ResetterEpsonL110-L210-L300-L350-L355.rar",
+
+  
     "Computer Inventory System pro":
         "https://github.com/linktechzamboanga-lang/Linktech-Website.v1/releases/download/v1.0/Computer-Inventory-System-Pro-1.0.apk"
 };
