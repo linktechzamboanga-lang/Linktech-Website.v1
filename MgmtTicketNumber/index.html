@@ -1,0 +1,794 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+  <meta charset="UTF-8">
+
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0">
+
+  <meta name="theme-color" content="#1689e8">
+
+  <meta name="description"
+        content="LinkTech Ticket Number and Queue Management System">
+
+  <title>LinkTech Ticket Number</title>
+
+  <!-- GitHub Pages CSS files -->
+  
+  <link rel="stylesheet" href="../css/download.css">
+  <link rel="stylesheet" href="./css/style.css">
+  <link rel="stylesheet" href="./css/login.css">
+  <link rel="stylesheet" href="./css/teller.css">
+  <link rel="stylesheet" href="./css/secondscreen.css">
+  <link rel="stylesheet" href="./css/ticket.css">
+  <link rel="stylesheet" href="./css/print.css">
+
+</head>
+
+<body>
+
+  <script>
+    // Customer display mode: ?display=ROOM_ID
+    const INITIAL_DISPLAY_ID =
+      new URLSearchParams(window.location.search).get("display") || "";
+  </script>
+
+  <!-- =================================
+       HEADER
+  ================================== -->
+
+  <header class="site-header">
+  <a class="logo" href="../index.html">
+    <img src="../images/LinkTech-logo.png" alt="LinkTech logo">
+    <span>
+      <b>LinkTech</b>
+      <small>Freelance IT Specialist Zamboanga</small>
+    </span>
+  </a>
+    </div>
+
+    <div class="header-account">
+
+      <span id="accountName"></span>
+
+      <button id="logoutBtn"
+              class="soft-btn hidden">
+        Sign out
+      </button>
+
+    </div>
+
+  </header>
+
+
+  <!-- =================================
+       LOGIN SECTION
+  ================================== -->
+
+  <main id="authView" class="main-container">
+
+    <section class="auth-card">
+
+      <div class="section-label">
+        QUEUE MANAGEMENT SYSTEM
+      </div>
+
+      <h1>Ticket Number</h1>
+
+      <p class="subtitle">
+        Manage your teller counter and customer
+        waiting queue in one place.
+      </p>
+
+      <!-- LOGIN TABS -->
+
+      <div class="auth-tabs">
+
+        <button class="auth-tab active"
+                data-tab="login">
+          Sign in
+        </button>
+
+        <button class="auth-tab"
+                data-tab="signup">
+          Register
+        </button>
+
+      </div>
+
+
+      <!-- LOGIN FORM -->
+
+      <form id="loginForm">
+
+        <div class="form-group">
+
+          <label for="identity">
+            Email or username
+          </label>
+
+          <input
+            id="identity"
+            type="text"
+            placeholder="Enter email or username"
+            autocomplete="username"
+            required>
+
+        </div>
+
+        <div class="form-group">
+
+          <label for="password">
+            Password
+          </label>
+
+          <input
+            id="password"
+            type="password"
+            placeholder="Enter password"
+            autocomplete="current-password"
+            required>
+
+        </div>
+
+        <button class="primary-btn full-btn"
+                type="submit">
+          Sign in
+        </button>
+
+      </form>
+
+
+      <!-- REGISTRATION FORM -->
+
+      <form id="signupForm" class="hidden">
+
+        <div class="form-group">
+
+          <label for="newEmail">
+            Email address
+          </label>
+
+          <input
+            id="newEmail"
+            type="email"
+            placeholder="Enter your email"
+            autocomplete="email"
+            required>
+
+        </div>
+
+        <div class="form-group">
+
+          <label for="newUsername">
+            Username
+          </label>
+
+          <input
+            id="newUsername"
+            type="text"
+            placeholder="Create a username"
+            minlength="3"
+            autocomplete="username"
+            required>
+
+        </div>
+
+        <div class="form-group">
+
+          <label for="newPassword">
+            Password
+          </label>
+
+          <input
+            id="newPassword"
+            type="password"
+            placeholder="Create a password"
+            minlength="8"
+            autocomplete="new-password"
+            required>
+
+        </div>
+
+        <button class="primary-btn full-btn"
+                type="submit">
+          Create account
+        </button>
+
+        <p class="small-info">
+          Administrator approval is required
+          before accessing the teller dashboard.
+        </p>
+
+      </form>
+
+      <p id="authMessage"
+         class="message"></p>
+
+    </section>
+
+  </main>
+
+
+  <!-- =================================
+       MAIN DASHBOARD
+  ================================== -->
+
+  <main id="workspace"
+        class="main-container hidden">
+
+    <!-- WELCOME HEADER -->
+
+    <section class="welcome-section">
+
+      <div>
+
+        <div class="section-label">
+          CONTROL CENTER
+        </div>
+
+        <h1>Queue Dashboard</h1>
+
+        <p class="subtitle">
+          Create a shared room or join an existing
+          teller queue.
+        </p>
+
+      </div>
+
+    </section>
+
+
+    <!-- =================================
+         ROOM SETUP - TWO COLUMNS
+    ================================== -->
+
+    <div class="two-column room-setup-grid">
+
+      <!-- CREATE ROOM -->
+
+      <section class="content-card">
+
+        <h2>Create display room</h2>
+
+        <p class="subtitle">
+          Create a customer waiting display.
+          You will become its Queue Owner.
+        </p>
+
+        <div class="form-group">
+
+          <label for="roomName">
+            Room name
+          </label>
+
+          <input
+            id="roomName"
+            type="text"
+            placeholder="Main Service Counter">
+
+        </div>
+
+        <button id="createRoomBtn"
+                class="primary-btn full-btn">
+          Create room
+        </button>
+
+      </section>
+
+
+      <!-- JOIN ROOM -->
+
+      <section class="content-card">
+
+        <h2>Join display room</h2>
+
+        <p class="subtitle">
+          Join a room created by another teller.
+        </p>
+
+        <div class="form-group">
+
+          <label for="joinCode">
+            Room invitation code
+          </label>
+
+          <input
+            id="joinCode"
+            type="text"
+            placeholder="Enter room code"
+            maxlength="8">
+
+        </div>
+
+        <button id="joinRoomBtn"
+                class="primary-btn full-btn">
+          Join room
+        </button>
+
+      </section>
+
+    </div>
+
+
+    <!-- =================================
+         SHARED ROOM
+    ================================== -->
+
+    <section id="roomPanel"
+             class="content-card hidden">
+
+      <!-- ROOM HEADER -->
+
+      <div class="room-heading">
+
+        <div>
+
+          <div class="section-label">
+            SHARED QUEUE ROOM
+          </div>
+
+          <h2 id="roomTitle">
+            Main Service Counter
+          </h2>
+
+          <p class="subtitle">
+            Room invitation code:
+            <strong id="roomCode"></strong>
+          </p>
+
+        </div>
+
+        <span id="ownerBadge"
+              class="owner-badge hidden">
+          QUEUE OWNER
+        </span>
+
+      </div>
+
+
+      <!-- DISPLAY CONTROLS -->
+
+      <div class="room-buttons">
+
+        <button id="openDisplayBtn"
+                class="primary-btn">
+          Open customer display
+        </button>
+
+        <button id="copyDisplayBtn"
+                class="soft-btn">
+          Copy display link
+        </button>
+
+      </div>
+
+
+      <!-- =================================
+           QUEUE OWNER SETTINGS
+      ================================== -->
+
+      <section id="ownerControls"
+               class="owner-section hidden">
+
+        <div class="section-label">
+          QUEUE OWNER SETTINGS
+        </div>
+
+        <h3>Ticket printing and batch settings</h3>
+
+        <!-- SETTINGS TWO COLUMNS -->
+
+        <div class="two-column settings-grid">
+
+          <div class="form-group">
+
+            <label for="batchCount">
+              Number of tickets to generate
+            </label>
+
+            <input
+              id="batchCount"
+              type="number"
+              min="1"
+              max="500"
+              value="100">
+
+          </div>
+
+          <div class="form-group">
+
+            <label for="numberFormat">
+              Ticket number format
+            </label>
+
+            <select id="numberFormat">
+
+              <option value="3">
+                001, 002, 003
+              </option>
+
+              <option value="2">
+                01, 02, 03
+              </option>
+
+              <option value="0">
+                1, 2, 3
+              </option>
+
+            </select>
+
+          </div>
+
+        </div>
+
+
+        <!-- OWNER ACTIONS -->
+
+        <div class="room-buttons">
+
+          <button id="generateBatchBtn"
+                  class="primary-btn">
+            Generate and print tickets
+          </button>
+
+          <button id="pauseQueueBtn"
+                  class="soft-btn">
+            Pause queue
+          </button>
+
+          <button id="resetQueueBtn"
+                  class="danger-btn">
+            Reset daily queue
+          </button>
+
+        </div>
+
+        <p class="small-info">
+          Ticket generation and printing are restricted
+          to the Queue Owner. A reset archives the
+          current day's tickets before restarting the
+          sequence.
+        </p>
+
+      </section>
+
+
+      <!-- =================================
+           TELLER AND QUEUE
+           TWO-COLUMN DASHBOARD
+      ================================== -->
+
+      <div class="two-column dashboard-grid">
+
+
+        <!-- TELLER REGISTRATION -->
+
+        <section class="section-block">
+
+          <div class="section-heading">
+
+            <h3>Teller registration</h3>
+
+            <span class="small-info">
+              Maximum 10 teller positions
+            </span>
+
+          </div>
+
+
+          <!-- TELLER FORM -->
+
+          <div class="teller-form">
+
+            <div class="form-group">
+
+              <label for="tellerName">
+                Display name
+              </label>
+
+              <input
+                id="tellerName"
+                type="text"
+                placeholder="Teller name">
+
+            </div>
+
+            <div class="form-group">
+
+              <label for="tellerNo">
+                Teller number
+              </label>
+
+              <select id="tellerNo"></select>
+
+            </div>
+
+            <button id="registerTellerBtn"
+                    class="primary-btn">
+              Register teller
+            </button>
+
+          </div>
+
+
+          <!-- REGISTERED TELLERS -->
+
+          <div id="tellerCards"
+               class="teller-grid"></div>
+
+        </section>
+
+
+        <!-- TICKET QUEUE -->
+
+        <section class="section-block">
+
+          <div class="section-heading">
+
+            <h3>Ticket queue</h3>
+
+            <span id="queueStatus"
+                  class="status-label">
+              Loading...
+            </span>
+
+          </div>
+
+
+          <!-- QUEUE STATISTICS -->
+
+          <div class="two-column statistics-grid">
+
+            <div class="stat-card">
+
+              <small>Total tickets</small>
+
+              <strong id="statTotal">0</strong>
+
+            </div>
+
+            <div class="stat-card">
+
+              <small>Waiting</small>
+
+              <strong id="statWaiting">0</strong>
+
+            </div>
+
+            <div class="stat-card">
+
+              <small>Called</small>
+
+              <strong id="statCalled">0</strong>
+
+            </div>
+
+            <div class="stat-card">
+
+              <small>Completed</small>
+
+              <strong id="statCompleted">0</strong>
+
+            </div>
+
+          </div>
+
+
+          <!-- TICKET LIST -->
+
+          <div id="ticketList"
+               class="ticket-list"></div>
+
+        </section>
+
+
+      </div>
+
+
+      <!-- =================================
+           ADMIN ACCOUNT MANAGEMENT
+           FULL WIDTH
+      ================================== -->
+
+      <section id="adminPanel"
+               class="section-block full-width hidden">
+
+        <div class="section-heading">
+
+          <h3>Administrator account management</h3>
+
+          <button id="refreshUsersBtn"
+                  class="soft-btn">
+            Refresh
+          </button>
+
+        </div>
+
+        <div id="userList"></div>
+
+      </section>
+
+
+    </section>
+
+
+    <!-- APPLICATION MESSAGE -->
+
+    <p id="appMessage"
+       class="message"></p>
+
+  </main>
+
+
+  <!-- =================================
+       CUSTOMER DISPLAY SCREEN
+  ================================== -->
+
+  <section id="displayView"
+           class="display-view hidden">
+
+    <!-- DISPLAY HEADER -->
+
+    <header class="display-header">
+
+      <div class="display-logo">
+
+        LINKTECH
+
+        <span>TICKET DISPLAY</span>
+
+      </div>
+
+      <div class="display-header-right">
+
+        <strong id="displayRoomName">
+          Customer Waiting Area
+        </strong>
+
+        <span id="connectionStatus">
+          Connecting...
+        </span>
+
+        <button id="exitDisplayBtn"
+                class="display-control-btn">
+          Exit
+        </button>
+
+      </div>
+
+    </header>
+
+
+    <!-- DISPLAY CONTENT -->
+
+    <main class="display-main">
+
+
+      <!-- NOW SERVING -->
+
+      <section class="now-serving-card">
+
+        <div class="now-serving-label">
+          NOW SERVING
+        </div>
+
+        <div id="bigNumber"
+             class="big-ticket-number">
+          ---
+        </div>
+
+        <div class="proceed-label">
+          PLEASE PROCEED TO
+        </div>
+
+        <div id="bigTeller"
+             class="big-teller-number">
+          TELLER ---
+        </div>
+
+        <div id="displayStatus"
+             class="display-message">
+          Waiting for the next ticket.
+        </div>
+
+      </section>
+
+
+      <!-- DISPLAY SIDEBAR -->
+
+      <aside class="display-sidebar">
+
+
+        <!-- AVAILABLE TELLERS -->
+
+        <section class="display-box">
+
+          <h2>AVAILABLE TELLERS</h2>
+
+          <div id="displayTellers"></div>
+
+        </section>
+
+
+        <!-- WAITING NUMBERS -->
+
+        <section class="display-box">
+
+          <h2>WAITING NUMBERS</h2>
+
+          <div id="displayWaiting"
+               class="waiting-numbers">
+            ---
+          </div>
+
+        </section>
+
+
+      </aside>
+
+    </main>
+
+
+    <!-- DISPLAY FOOTER -->
+
+    <footer class="display-footer">
+
+      <span>
+        PLEASE KEEP YOUR TICKET READY
+      </span>
+
+      <strong id="displayClock"></strong>
+
+      <button id="soundBtn"
+              class="display-control-btn">
+        Enable voice and alarm
+      </button>
+
+      <button id="fullscreenBtn"
+              class="display-control-btn">
+        Full screen
+      </button>
+
+    </footer>
+
+  </section>
+
+
+  <!-- =================================
+       PRINT AREA
+  ================================== -->
+
+  <section id="printRoot"
+           class="print-root hidden">
+
+    <div id="printTickets"
+         class="print-tickets"></div>
+
+  </section>
+
+
+  <!-- =================================
+       NOTIFICATION
+  ================================== -->
+
+  <div id="toast"
+       class="toast">
+  </div>
+
+
+  <!-- =================================
+       JAVASCRIPT FILES
+  ================================== -->
+
+  <!-- GitHub Pages JavaScript files. Keep this load order. -->
+  <script src="./js/login.js"></script>
+  <script src="./js/teller.js"></script>
+  <script src="./js/ticket.js"></script>
+  <script src="./js/admin.js"></script>
+  <script src="./js/connection.js"></script>
+  <script src="./js/secondscreen.js"></script>
+
+</body>
+</html>
