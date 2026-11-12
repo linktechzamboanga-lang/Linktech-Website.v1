@@ -1,0 +1,1025 @@
+
+/* =====================================================
+   LINKTECH TICKET NUMBER SYSTEM
+   PROFESSIONAL PHOTO RESIZE STYLE
+   Theme: Sky Blue / Clean White
+   Layout: Two Columns / Responsive
+   Devices: Android / Tablet / Desktop
+===================================================== */
+
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap');
+
+/* =====================================================
+   1. ROOT VARIABLES
+===================================================== */
+
+:root {
+  --lt-primary: #168eea;
+  --lt-primary-dark: #0875cf;
+  --lt-accent: #45c8ff;
+
+  --lt-bg: #f4f9ff;
+  --lt-surface: #ffffff;
+  --lt-surface-soft: #f7fbff;
+
+  --lt-text: #243447;
+  --lt-muted: #708399;
+  --lt-border: #dceaf6;
+
+  --lt-success: #16a36a;
+  --lt-warning: #e99a18;
+  --lt-danger: #e34b58;
+
+  --lt-radius: 14px;
+  --lt-radius-small: 9px;
+
+  --lt-shadow:
+    0 4px 16px rgba(35,113,174,.08);
+
+  --lt-shadow-hover:
+    0 8px 22px rgba(22,142,234,.15);
+}
+
+/* =====================================================
+   2. RESET
+===================================================== */
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;
+
+  font-family: 'Poppins', sans-serif;
+
+  font-size: 13px;
+  line-height: 1.6;
+
+  color: var(--lt-text);
+
+  background:
+    linear-gradient(
+      135deg,
+      #f8fcff,
+      #edf7ff,
+      #f7fbff
+    );
+}
+
+/* =====================================================
+   3. TEXT
+===================================================== */
+
+h1, h2, h3, h4, h5, h6 {
+  margin-top: 0;
+  color: #20364d;
+  font-weight: 700;
+  line-height: 1.35;
+}
+
+h1 {
+  font-size: clamp(22px, 3vw, 30px);
+}
+
+h2 {
+  font-size: clamp(18px, 2.5vw, 23px);
+}
+
+h3 {
+  font-size: 16px;
+}
+
+p {
+  color: var(--lt-muted);
+  margin: 0 0 10px;
+}
+
+small {
+  font-size: 11px;
+  color: var(--lt-muted);
+}
+
+a {
+  color: var(--lt-primary);
+  text-decoration: none;
+}
+
+a:hover {
+  color: var(--lt-primary-dark);
+}
+
+/* =====================================================
+   4. MAIN CONTAINERS
+===================================================== */
+
+.container,
+.lt-container,
+.app-container {
+  width: min(100% - 28px, 1250px);
+  margin: 0 auto;
+}
+
+main {
+  width: 100%;
+  max-width: 1250px;
+  margin: 0 auto;
+  padding: 15px;
+}
+
+section {
+  margin-bottom: 16px;
+}
+
+/* =====================================================
+   5. HEADER
+===================================================== */
+
+header,
+.lt-header {
+  width: 100%;
+  padding: 13px 18px;
+
+  background: rgba(255,255,255,.96);
+
+  border-bottom: 1px solid var(--lt-border);
+
+  box-shadow:
+    0 3px 12px rgba(30,100,160,.05);
+
+  z-index: 10;
+}
+
+header h1,
+.lt-header h1 {
+  margin: 0;
+  font-size: 20px;
+  color: var(--lt-primary-dark);
+}
+
+/* =====================================================
+   6. TWO-COLUMN LAYOUT
+===================================================== */
+
+.grid,
+.lt-grid,
+.two-column,
+.two-columns,
+.dashboard-grid,
+.panels-grid {
+  display: grid;
+
+  grid-template-columns:
+    repeat(2, minmax(0, 1fr));
+
+  gap: 16px;
+
+  width: 100%;
+  align-items: start;
+}
+
+/* Equal column width */
+
+.grid > *,
+.lt-grid > *,
+.two-column > *,
+.two-columns > *,
+.dashboard-grid > *,
+.panels-grid > * {
+  min-width: 0;
+  width: 100%;
+}
+
+/* Full-width item when needed */
+
+.full-width,
+.grid-full {
+  grid-column: 1 / -1;
+}
+
+/* Three-column option */
+
+.three-column {
+  display: grid;
+
+  grid-template-columns:
+    repeat(3, minmax(0, 1fr));
+
+  gap: 14px;
+}
+
+/* =====================================================
+   7. CARDS AND PANELS
+===================================================== */
+
+.card,
+.lt-card,
+.panel,
+.dashboard-card {
+  width: 100%;
+  min-width: 0;
+
+  padding: 17px;
+
+  margin-bottom: 0;
+
+  background: var(--lt-surface);
+
+  border: 1px solid var(--lt-border);
+  border-radius: var(--lt-radius);
+
+  box-shadow: var(--lt-shadow);
+
+  transition:
+    border-color .25s ease,
+    box-shadow .25s ease,
+    transform .25s ease;
+}
+
+.card:hover,
+.lt-card:hover,
+.panel:hover,
+.dashboard-card:hover {
+  border-color: #b8ddf8;
+  box-shadow: var(--lt-shadow-hover);
+}
+
+/* =====================================================
+   8. SECTION HEADINGS
+===================================================== */
+
+.section-title,
+.card-title {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+
+  gap: 9px;
+  margin-bottom: 13px;
+}
+
+.section-title h2,
+.card-title h3 {
+  margin: 0;
+}
+
+/* =====================================================
+   9. PROFESSIONAL BUTTONS
+===================================================== */
+
+button,
+.lt-btn,
+input[type="button"],
+input[type="submit"] {
+  position: relative;
+  overflow: hidden;
+
+  min-height: 38px;
+
+  padding: 8px 14px;
+
+  border: 1px solid transparent;
+  border-radius: 9px;
+
+  background:
+    linear-gradient(
+      110deg,
+      #168eea,
+      #38b8f7,
+      #168eea
+    );
+
+  background-size: 200% 100%;
+
+  color: #ffffff;
+
+  font-family: 'Poppins', sans-serif;
+  font-size: 12px;
+  font-weight: 600;
+
+  cursor: pointer;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+
+  text-align: center;
+
+  box-shadow:
+    0 3px 10px rgba(22,142,234,.15);
+
+  transition:
+    transform .2s ease,
+    box-shadow .25s ease,
+    background-position .4s ease;
+}
+
+button:hover,
+.lt-btn:hover,
+input[type="button"]:hover,
+input[type="submit"]:hover {
+  background-position: 100% 0;
+
+  transform: translateY(-2px);
+
+  box-shadow:
+    0 6px 15px rgba(22,142,234,.22);
+}
+
+button:active,
+.lt-btn:active {
+  transform: scale(.97);
+}
+
+/* BUTTON LIGHT SWEEP */
+
+button::before,
+.lt-btn::before {
+  content: "";
+
+  position: absolute;
+  top: 0;
+  left: -120%;
+
+  width: 60%;
+  height: 100%;
+
+  background:
+    linear-gradient(
+      110deg,
+      transparent,
+      rgba(255,255,255,.4),
+      transparent
+    );
+
+  transform: skewX(-25deg);
+
+  transition: left .65s ease;
+
+  pointer-events: none;
+}
+
+button:hover::before,
+.lt-btn:hover::before {
+  left: 150%;
+}
+
+/* BUTTON VARIANTS */
+
+button.secondary,
+.lt-btn.secondary {
+  background: #e9f5ff;
+  color: var(--lt-primary-dark);
+  border-color: #c8e5fa;
+  box-shadow: none;
+}
+
+button.success,
+.lt-btn.success {
+  background: linear-gradient(110deg,#12a66a,#37c98d);
+}
+
+button.danger,
+.lt-btn.danger {
+  background: linear-gradient(110deg,#df4555,#fa7180);
+}
+
+button.warning,
+.lt-btn.warning {
+  background: linear-gradient(110deg,#e99a18,#ffc04b);
+}
+
+button:disabled,
+.lt-btn:disabled {
+  opacity: .5;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+
+/* BUTTON GROUP */
+
+.button-group,
+.actions,
+.action-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  align-items: center;
+}
+
+.button-group button,
+.actions button,
+.action-buttons button {
+  flex: 0 1 auto;
+}
+
+/* =====================================================
+   10. LOGIN CONTAINER
+===================================================== */
+
+.login-container,
+.login-box,
+.auth-container,
+.auth-box {
+  width: min(100%, 430px);
+
+  margin: 20px auto;
+  padding: 22px;
+
+  background: #ffffff;
+
+  border: 1px solid var(--lt-border);
+  border-radius: 15px;
+
+  box-shadow: var(--lt-shadow);
+
+  animation: lt-fade-in .4s ease;
+}
+
+.login-container h2,
+.login-box h2,
+.auth-container h2,
+.auth-box h2 {
+  text-align: center;
+  margin-bottom: 16px;
+}
+
+.login-container form,
+.login-box form,
+.auth-container form,
+.auth-box form {
+  width: 100%;
+}
+
+/* =====================================================
+   11. FORM INPUTS
+===================================================== */
+
+form {
+  width: 100%;
+}
+
+.form-group {
+  width: 100%;
+  min-width: 0;
+  margin-bottom: 13px;
+}
+
+label {
+  display: block;
+
+  margin-bottom: 6px;
+
+  color: #40566c;
+
+  font-size: 12px;
+  font-weight: 600;
+}
+
+input,
+select,
+textarea {
+  display: block;
+
+  width: 100%;
+  min-width: 0;
+  min-height: 41px;
+
+  padding: 10px 12px;
+
+  border: 1px solid #d5e6f5;
+  border-radius: 9px;
+
+  background: #ffffff;
+
+  color: var(--lt-text);
+
+  font-family: 'Poppins', sans-serif;
+  font-size: 12px;
+
+  outline: none;
+
+  transition:
+    border-color .25s ease,
+    box-shadow .25s ease,
+    background .25s ease;
+}
+
+input::placeholder,
+textarea::placeholder {
+  color: #a0b2c4;
+  font-size: 11px;
+}
+
+input:hover,
+select:hover,
+textarea:hover {
+  border-color: #a8d6f7;
+  background: #fcfeff;
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+  border-color: var(--lt-primary);
+
+  box-shadow:
+    0 0 0 3px rgba(22,142,234,.10);
+
+  background: #ffffff;
+}
+
+textarea {
+  min-height: 95px;
+  resize: vertical;
+}
+
+/* Checkboxes and radio */
+
+input[type="checkbox"],
+input[type="radio"] {
+  width: auto;
+  min-height: auto;
+  accent-color: var(--lt-primary);
+  display: inline-block;
+}
+
+/* File input */
+
+input[type="file"] {
+  padding: 8px;
+  border: 1px dashed #a9d5f3;
+  background: #f8fcff;
+}
+
+/* =====================================================
+   12. GOOGLE LOGIN
+===================================================== */
+
+#g_id_signin,
+.google-login,
+.google-login-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  width: 100%;
+  margin: 13px auto;
+}
+
+/* =====================================================
+   13. TABLES
+===================================================== */
+
+.table-container,
+.table-responsive {
+  width: 100%;
+  overflow-x: auto;
+
+  background: #ffffff;
+
+  border: 1px solid var(--lt-border);
+  border-radius: 10px;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  background: #ffffff;
+}
+
+th,
+td {
+  padding: 10px 11px;
+
+  border-bottom: 1px solid var(--lt-border);
+
+  text-align: left;
+  vertical-align: middle;
+
+  font-size: 11px;
+}
+
+th {
+  background: #edf7ff;
+  color: #31536f;
+  font-weight: 700;
+}
+
+tr:hover td {
+  background: #f8fcff;
+}
+
+/* =====================================================
+   14. STATUS
+===================================================== */
+
+.badge,
+.status,
+.lt-status {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 5px 9px;
+
+  border-radius: 30px;
+
+  font-size: 10px;
+  font-weight: 700;
+
+  background: #eaf3fb;
+  color: #52718e;
+}
+
+.badge.success,
+.status.available,
+.lt-status.available {
+  background: #e5f8ef;
+  color: #138653;
+}
+
+.badge.warning,
+.status.pending {
+  background: #fff4df;
+  color: #a66b08;
+}
+
+.badge.danger,
+.status.unavailable {
+  background: #ffeaec;
+  color: #d23d4d;
+}
+
+/* =====================================================
+   15. MESSAGES
+===================================================== */
+
+.message,
+.app-message {
+  padding: 11px 13px;
+  margin: 10px 0;
+
+  border-radius: 9px;
+
+  background: #eaf5ff;
+  border: 1px solid #cde8fb;
+
+  color: #28618a;
+  font-size: 11px;
+}
+
+.message.success {
+  background: #e9f9f0;
+  border-color: #c8efd9;
+  color: #147b4b;
+}
+
+.message.error {
+  background: #fff0f1;
+  border-color: #f5cbd0;
+  color: #c23748;
+}
+
+/* =====================================================
+   16. ALIGNMENT HELPERS
+===================================================== */
+
+.text-center {
+  text-align: center;
+}
+
+.text-left {
+  text-align: left;
+}
+
+.text-right {
+  text-align: right;
+}
+
+.flex {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+}
+
+.flex-between {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.flex-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 9px;
+}
+
+.mt-1 { margin-top: 5px; }
+.mt-2 { margin-top: 10px; }
+.mt-3 { margin-top: 15px; }
+
+.mb-1 { margin-bottom: 5px; }
+.mb-2 { margin-bottom: 10px; }
+.mb-3 { margin-bottom: 15px; }
+
+/* =====================================================
+   17. DIVIDERS
+===================================================== */
+
+hr {
+  border: 0;
+  border-top: 1px solid var(--lt-border);
+  margin: 15px 0;
+}
+
+/* =====================================================
+   18. LOADING
+===================================================== */
+
+.loading {
+  text-align: center;
+  padding: 18px;
+  color: var(--lt-muted);
+}
+
+.loading::after {
+  content: "";
+  display: block;
+
+  width: 23px;
+  height: 23px;
+
+  margin: 10px auto 0;
+
+  border: 3px solid #d8edfc;
+  border-top-color: var(--lt-primary);
+
+  border-radius: 50%;
+
+  animation: lt-spin .8s linear infinite;
+}
+
+@keyframes lt-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* =====================================================
+   19. TOAST
+===================================================== */
+
+#toast {
+  position: fixed;
+  left: 50%;
+  bottom: 20px;
+
+  transform: translate(-50%,20px);
+
+  width: max-content;
+  max-width: calc(100% - 25px);
+
+  padding: 11px 16px;
+
+  border-radius: 10px;
+
+  background: #20364d;
+  color: #ffffff;
+
+  font-size: 11px;
+  text-align: center;
+
+  opacity: 0;
+  visibility: hidden;
+
+  z-index: 9999;
+
+  transition: all .25s ease;
+}
+
+#toast.show {
+  opacity: 1;
+  visibility: visible;
+  transform: translate(-50%,0);
+}
+
+/* =====================================================
+   20. ANIMATIONS
+===================================================== */
+
+@keyframes lt-fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* =====================================================
+   21. SCROLLBAR
+===================================================== */
+
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: #edf5fc;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #b9d8ef;
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #80bce8;
+}
+
+/* =====================================================
+   22. TABLET
+===================================================== */
+
+@media (max-width: 900px) {
+
+  .container,
+  .lt-container,
+  .app-container {
+    width: calc(100% - 22px);
+  }
+
+  .three-column {
+    grid-template-columns:
+      repeat(2, minmax(0,1fr));
+  }
+
+  .card,
+  .lt-card,
+  .panel,
+  .dashboard-card {
+    padding: 14px;
+  }
+}
+
+/* =====================================================
+   23. MOBILE
+===================================================== */
+
+@media (max-width: 600px) {
+
+  body {
+    font-size: 12px;
+  }
+
+  main {
+    padding: 10px;
+  }
+
+  .container,
+  .lt-container,
+  .app-container {
+    width: calc(100% - 16px);
+  }
+
+  /* Single column on small phones */
+
+  .grid,
+  .lt-grid,
+  .two-column,
+  .two-columns,
+  .dashboard-grid,
+  .panels-grid,
+  .three-column {
+    grid-template-columns: 1fr;
+    gap: 11px;
+  }
+
+  .full-width,
+  .grid-full {
+    grid-column: auto;
+  }
+
+  .card,
+  .lt-card,
+  .panel,
+  .dashboard-card {
+    padding: 13px;
+    border-radius: 12px;
+  }
+
+  .login-container,
+  .login-box,
+  .auth-container,
+  .auth-box {
+    width: 100%;
+    padding: 16px;
+    margin: 12px auto;
+  }
+
+  .section-title {
+    align-items: flex-start;
+  }
+
+  .button-group,
+  .actions,
+  .action-buttons {
+    width: 100%;
+  }
+
+  .button-group button,
+  .actions button,
+  .action-buttons button {
+    flex: 1 1 auto;
+  }
+
+  button,
+  .lt-btn {
+    min-height: 39px;
+    font-size: 11px;
+    padding: 8px 11px;
+  }
+
+  th,
+  td {
+    padding: 8px;
+    font-size: 10px;
+  }
+}
+
+/* =====================================================
+   24. VERY SMALL PHONES
+===================================================== */
+
+@media (max-width: 380px) {
+
+  h1 {
+    font-size: 21px;
+  }
+
+  h2 {
+    font-size: 17px;
+  }
+
+  .card,
+  .lt-card,
+  .panel {
+    padding: 11px;
+  }
+
+  .button-group,
+  .actions,
+  .action-buttons {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .button-group button,
+  .actions button,
+  .action-buttons button {
+    width: 100%;
+  }
+}
+
+/* =====================================================
+   25. ACCESSIBILITY
+===================================================== */
+
+button:focus-visible,
+.lt-btn:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible {
+  outline: 3px solid rgba(22,142,234,.25);
+  outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    animation-duration: .01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: .01ms !important;
+  }
+}

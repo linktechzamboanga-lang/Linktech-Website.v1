@@ -1,0 +1,104 @@
+
+/* Hidden during normal dashboard use */
+#printRoot {
+  display: none;
+}
+
+@page {
+  size: 58mm auto;
+  margin: 2mm;
+}
+
+@media print {
+  html,
+  body {
+    width: 58mm !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    background: white !important;
+    color: #000 !important;
+    font-family: Arial, sans-serif !important;
+  }
+
+  body * {
+    visibility: hidden !important;
+  }
+
+  #printRoot,
+  #printRoot * {
+    visibility: visible !important;
+  }
+
+  #printRoot {
+    display: block !important;
+    position: absolute !important;
+    left: 0 !important;
+    top: 0 !important;
+    width: 54mm !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    background: white !important;
+    color: black !important;
+  }
+
+  .lt-print-ticket {
+    width: 54mm;
+    min-height: 38mm;
+    margin: 0 auto;
+    padding: 2mm 1mm 3mm;
+    page-break-after: always;
+    break-after: page;
+    text-align: center;
+    border-bottom: 1px dashed #777;
+    overflow: hidden;
+  }
+
+  .lt-print-ticket:last-child {
+    page-break-after: auto;
+    break-after: auto;
+  }
+
+  .lt-print-brand {
+    font-size: 11pt;
+    font-weight: 800;
+    letter-spacing: .4px;
+  }
+
+  .lt-print-subtitle {
+    margin-top: 1mm;
+    font-size: 7pt;
+  }
+
+  .lt-print-line {
+    margin: 2mm 0;
+    border-top: 1px dashed #555;
+  }
+
+  .lt-print-label {
+    font-size: 8pt;
+    font-weight: 700;
+  }
+
+  .lt-print-number {
+    margin: 1mm 0;
+    font-size: 30pt;
+    line-height: 1.1;
+    font-weight: 900;
+    letter-spacing: 1px;
+  }
+
+  .lt-print-instruction {
+    font-size: 8pt;
+    font-weight: 700;
+  }
+
+  .lt-print-date {
+    margin-top: 2mm;
+    font-size: 7pt;
+  }
+
+  .lt-print-footer {
+    margin-top: 2mm;
+    font-size: 7pt;
+  }
+}
