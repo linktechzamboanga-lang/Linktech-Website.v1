@@ -15,14 +15,15 @@
   <title>LinkTech Ticket Number</title>
 
   <!-- GitHub Pages CSS files -->
-  
-  <link rel="stylesheet" href="../css/download.css">
+  <link rel="stylesheet"
+  href="css/download.css">
   <link rel="stylesheet" href="./css/style.css">
   <link rel="stylesheet" href="./css/login.css">
   <link rel="stylesheet" href="./css/teller.css">
   <link rel="stylesheet" href="./css/secondscreen.css">
   <link rel="stylesheet" href="./css/ticket.css">
   <link rel="stylesheet" href="./css/print.css">
+  <link rel="stylesheet" href="./css/kiosk.css">
 
 </head>
 
@@ -32,11 +33,14 @@
     // Customer display mode: ?display=ROOM_ID
     const INITIAL_DISPLAY_ID =
       new URLSearchParams(window.location.search).get("display") || "";
+    const INITIAL_KIOSK_ID =
+      new URLSearchParams(window.location.search).get("kiosk") || "";
   </script>
 
   <!-- =================================
        HEADER
   ================================== -->
+
 
   <header class="site-header">
   <a class="logo" href="../index.html">
@@ -47,6 +51,7 @@
     </span>
   </a>
     </div>
+
 
     <div class="header-account">
 
@@ -362,6 +367,14 @@
           Copy display link
         </button>
 
+        <button id="openKioskBtn" class="primary-btn">
+          Open customer ticket kiosk
+        </button>
+
+        <button id="copyKioskBtn" class="soft-btn">
+          Copy kiosk link
+        </button>
+
       </div>
 
 
@@ -496,8 +509,8 @@
             </div>
 
             <div class="form-group">
-
-            
+                
+                
 <label for="tellerNo">Select Teller Number</label>
 
 <select id="tellerNo" name="tellerNo" required>
@@ -513,7 +526,8 @@
   <option value="9">Teller 9</option>
   <option value="10">Teller 10</option>
 </select>
-              
+
+
 
             </div>
 
@@ -531,6 +545,7 @@
                class="teller-grid"></div>
 
         </section>
+
 
 
         <!-- TICKET QUEUE -->
@@ -769,6 +784,35 @@
 
 
   <!-- =================================
+       CUSTOMER SELF-SERVICE TICKET KIOSK
+  ================================== -->
+  <section id="kioskView" class="kiosk-view hidden">
+    <header class="kiosk-header">
+      <div class="kiosk-brand"><span class="kiosk-logo">LT</span><div><strong>LINKTECH</strong><small>Customer Queue Ticket</small></div></div>
+      <div id="kioskRoomName" class="kiosk-room-name">Customer Entrance</div>
+    </header>
+    <main class="kiosk-main">
+      <div class="kiosk-intro">
+        <span class="kiosk-eyebrow">WELCOME</span>
+        <h1>What is the purpose of your visit?</h1>
+        <p>Select one transaction below. Your ticket number will be printed automatically.</p>
+      </div>
+      <div id="kioskPaused" class="kiosk-alert hidden">Ticket issuance is temporarily paused. Please ask the staff for assistance.</div>
+      <div class="kiosk-services">
+        <button class="kiosk-service" data-category="PAYMENT"><span class="kiosk-service-icon">₱</span><strong>Payment</strong><small>Pay bills, fees or dues</small></button>
+        <button class="kiosk-service" data-category="DEPOSIT"><span class="kiosk-service-icon">＋</span><strong>Deposit</strong><small>Cash or account deposit</small></button>
+        <button class="kiosk-service" data-category="WITHDRAWAL"><span class="kiosk-service-icon">↗</span><strong>Withdrawal</strong><small>Withdraw funds</small></button>
+        <button class="kiosk-service" data-category="RELEASING"><span class="kiosk-service-icon">▣</span><strong>Releasing</strong><small>Claim or release documents</small></button>
+        <button class="kiosk-service" data-category="COMPLAINT"><span class="kiosk-service-icon">!</span><strong>Complaint</strong><small>Report an issue or concern</small></button>
+        <button class="kiosk-service" data-category="OTHER"><span class="kiosk-service-icon">•••</span><strong>Other concern</strong><small>Other services</small></button>
+      </div>
+      <p id="kioskMessage" class="kiosk-message" aria-live="polite">Please choose your transaction purpose.</p>
+      <button id="kioskBackBtn" class="kiosk-back-btn">Back to service selection</button>
+    </main>
+    <footer class="kiosk-footer">Please take only one ticket per transaction. Keep your ticket until your number is called.</footer>
+  </section>
+
+  <!-- =================================
        PRINT AREA
   ================================== -->
 
@@ -800,6 +844,7 @@
   <script src="./js/ticket.js"></script>
   <script src="./js/admin.js"></script>
   <script src="./js/connection.js"></script>
+  <script src="./js/kiosk.js"></script>
   <script src="./js/secondscreen.js"></script>
 
 </body>
