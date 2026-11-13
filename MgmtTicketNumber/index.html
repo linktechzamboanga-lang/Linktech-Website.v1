@@ -50,8 +50,6 @@
       <small>Freelance IT Specialist Zamboanga</small>
     </span>
   </a>
-    </div>
-
 
     <div class="header-account">
 
@@ -417,20 +415,10 @@
             </label>
 
             <select id="numberFormat">
-
-              <option value="3">
-                001, 002, 003
-              </option>
-
-              <option value="2">
-                01, 02, 03
-              </option>
-
-              <option value="0">
-                1, 2, 3
-              </option>
-
-            </select>
+  <option value="3">001, 002, 003</option>
+  <option value="01">01, 02, 03</option>
+  <option value="1">1, 2, 3</option>
+</select>
 
           </div>
 
@@ -445,6 +433,10 @@
                   class="primary-btn">
             Generate and print tickets
           </button>
+
+          <button id="printBatchBtn" class="soft-btn" type="button">
+  Print generated tickets
+</button>
 
           <button id="pauseQueueBtn"
                   class="soft-btn">
@@ -838,13 +830,13 @@
        JAVASCRIPT FILES
   ================================== -->
 
-  <!-- GitHub Pages JavaScript files. Keep this load order. -->
-  <script src="./js/login.js"></script>
-  <script src="./js/teller.js"></script>
-  <script src="./js/ticket.js"></script>
-  <script src="./js/admin.js"></script>
-  <script src="./js/connection.js"></script>
-  <script src="./js/kiosk.js"></script>
+<script src="./js/connection.js"></script>
+<script src="./js/login.js"></script>
+<script src="./js/teller.js"></script>
+<script src="./js/ticket.js"></script>
+<script src="./js/admin.js"></script>
+<script src="./js/kiosk.js"></script>
+<script src="./js/secondscreen.js"></script>
   <script src="./js/secondscreen.js"></script>
 
 </body>
