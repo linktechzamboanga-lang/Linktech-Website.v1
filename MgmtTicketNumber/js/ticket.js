@@ -50,46 +50,68 @@ async function generateTicketBatch() {
   const button = LT.el("generateBatchBtn");
   const countInput = LT.el("batchCount");
   const count = Number(countInput ? countInput.value : 0);
+  const roomId = LT.currentRoomId();
 
-  if (!Number.isInteger(count) || count < 1 || count > 500) {
-    LT.message(
-      "Enter a valid ticket quantity from 1 to 500.",
-      "error"
-    );
+  if (!roomId) {
+    LT.message("Please select a queue room first.", "error");
     return;
   }
 
-  const confirmed = confirm(
-    "Generate " + count + " new tickets for this queue room?"
-  );
+  if (!Number.isInteger(count) || count < 1 || count > 500) {
+    LT.message("Enter a quantity from 1 to 500.", "error");
+    return;
+  }
 
-  if (!confirmed) return;
+  if (!confirm("Generate " + count + " tickets for this room?")) {
+    return;
+  }
 
   LT.setLoading(button, true, "Generating tickets...");
 
   try {
-    const result = await LT.api("issueTicketBatch", {
+    let result = await LT.api("issueTicketBatch", {
       token: LT.state.token,
-      roomId: LT.currentRoomId(),
+      roomId: roomId,
       count: count
     });
 
-    const created = result.created || result.count || count;
+    // Support both wrapped and unwrapped API responses.
+    while (
+      result &&
+      result.data &&
+      typeof result.data === "object"
+    ) {
+      result = result.data;
+    }
+
+    if (!result || result.ok === false) {
+      throw new Error(
+        result && result.message
+          ? result.message
+          : "Ticket generation failed."
+      );
+    }
+
+    if (!result.batchId) {
+      throw new Error("Tickets were generated but no batch ID was returned.");
+    }
 
     LT.message(
-      created + " tickets generated successfully.",
+      result.count + " tickets generated successfully.",
       "success"
     );
 
-    await LT.refreshRoom(LT.currentRoomId());
+    // Refresh the owner's queue.
+    await LT.refreshRoom(roomId);
 
-    // Automatically load the generated batch for owner printing.
-    if (result.batchId) {
-      await loadPrintableTickets(result.batchId);
-    }
+    // Load only the newly generated batch for printing.
+    await loadPrintableTickets(result.batchId);
 
   } catch (error) {
-    LT.message(error.message, "error");
+    LT.message(
+      error.message || "Unable to generate tickets.",
+      "error"
+    );
   } finally {
     LT.setLoading(button, false);
   }
@@ -189,29 +211,26 @@ async function resetDailyQueue() {
 
 /* ---------- LOAD PRINTABLE TICKETS ---------- */
 
-
 async function loadPrintableTickets(batchId) {
   if (!LT.requireOwner()) return;
 
-  const roomId = LT.currentRoomId();
-
-  if (!roomId) {
-    LT.message("Please select a queue room first.", "error");
-    return;
-  }
-
   try {
-    const response = await LT.api("getPrintableTickets", {
+    let result = await LT.api("getPrintableTickets", {
       token: LT.state.token,
-      roomId: roomId,
+      roomId: LT.currentRoomId(),
       batchId: batchId || ""
     });
 
-    // Handle both direct and nested API responses.
-    let result = response;
-
-    for (let i = 0; i < 3 && result && result.data !== undefined; i++) {
+    while (
+      result &&
+      result.data &&
+      typeof result.data === "object"
+    ) {
       result = result.data;
+    }
+
+    if (result && result.ok === false) {
+      throw new Error(result.message || "Unable to load tickets.");
     }
 
     const tickets = Array.isArray(result)
@@ -222,27 +241,18 @@ async function loadPrintableTickets(batchId) {
 
     if (!tickets.length) {
       LT.lastPrintedTickets = [];
-      const root = LT.el("printTickets");
-      if (root) root.replaceChildren();
-
-      LT.message(
-        "No printable tickets were found. Check the batch and room.",
-        "error"
-      );
+      LT.message("No printable tickets were found.", "error");
       return;
     }
 
     LT.lastPrintedTickets = tickets;
+
     renderPrintableTickets(tickets);
 
   } catch (error) {
-    LT.message(
-      error.message || "Unable to load printable tickets.",
-      "error"
-    );
+    LT.message(error.message || "Unable to load printable tickets.", "error");
   }
 }
-
 
 /* =========================================
    PRINT PREVIEW
