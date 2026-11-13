@@ -102,3 +102,4 @@
     font-size: 7pt;
   }
 }
+@media print { .lt-print-purpose { margin: 1mm 0; font-size: 8pt; font-weight: 800; text-transform: uppercase; } }
