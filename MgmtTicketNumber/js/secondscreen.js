@@ -163,10 +163,11 @@ LT.speakTicket = function(ticketNo, tellerNo) {
     return;
   }
 
-  const number = Number(ticketNo);
+  const number = String(ticketNo || "").trim();
   const teller = Number(tellerNo);
 
-  const spokenNumber = String(number)
+  const spokenNumber = number
+    .replace(/-/g, " ")
     .split("")
     .join(" ");
 
@@ -276,7 +277,7 @@ LT.renderCustomerDisplay = function(data) {
   const status = LT.el("displayStatus");
 
   if (current) {
-    const ticketNo = String(current.number).padStart(3, "0");
+    const ticketNo = String(current.number || "");
 
     if (number && number.textContent !== ticketNo) {
       number.textContent = ticketNo;
@@ -372,7 +373,7 @@ LT.renderDisplayWaiting = function(tickets) {
 
     const number = document.createElement("strong");
     number.className = "lt-waiting-number";
-    number.textContent = String(ticket.number).padStart(3, "0");
+    number.textContent = String(ticket.number || "");
 
     row.append(label, number);
     container.appendChild(row);
@@ -399,7 +400,7 @@ LT.toggleFullscreen = async function() {
 /* ---------- START DISPLAY ---------- */
 
 document.addEventListener("DOMContentLoaded", function() {
-  if (INITIAL_DISPLAY_ID) {
+  if (INITIAL_DISPLAY_ID && !INITIAL_KIOSK_ID) {
     LT.startCustomerDisplay();
   }
 });

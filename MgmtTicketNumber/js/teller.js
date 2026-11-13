@@ -472,7 +472,7 @@ LT.renderTicketList = function(tickets) {
 
     const number = document.createElement("strong");
     number.className = "lt-ticket-no";
-    number.textContent = String(ticket.number).padStart(3, "0");
+    number.textContent = String(ticket.number || "");
 
     const meta = document.createElement("span");
     meta.className = "lt-ticket-meta";
@@ -481,7 +481,7 @@ LT.renderTicketList = function(tickets) {
       ? "Teller " + ticket.tellerNo
       : "Not yet assigned";
 
-    meta.textContent = tellerText;
+    meta.textContent = (ticket.category ? String(ticket.category).replace(/_/g, " ") + " • " : "") + tellerText;
 
     main.append(number, meta);
 

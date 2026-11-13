@@ -9,9 +9,11 @@ LT.lastPrintedTickets = [];
 /* ---------- NUMBER FORMATTING ---------- */
 
 LT.formatTicketNumber = function(number, format) {
-  const value = Number(number);
-
-  if (!Number.isFinite(value)) return "000";
+  const raw = String(number == null ? "" : number).trim();
+  if (!raw) return "000";
+  if (!/^\d+$/.test(raw)) return raw;
+  const value = Number(raw);
+  if (!Number.isFinite(value)) return raw;
 
   if (format === "1") return String(value);
   if (format === "01") return String(value).padStart(2, "0");
@@ -252,6 +254,10 @@ function renderPrintableTickets(tickets) {
     number.className = "lt-print-number";
     number.textContent = LT.formatTicketNumber(ticket.number, format);
 
+    const purpose = document.createElement("div");
+    purpose.className = "lt-print-purpose";
+    purpose.textContent = ticket.purpose || ticket.category || "General queue";
+
     const instruction = document.createElement("div");
     instruction.className = "lt-print-instruction";
     instruction.textContent = "PLEASE WAIT FOR YOUR NUMBER";
@@ -273,6 +279,7 @@ function renderPrintableTickets(tickets) {
       line1,
       label,
       number,
+      purpose,
       instruction,
       line2,
       date,

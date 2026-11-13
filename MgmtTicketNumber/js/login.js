@@ -160,6 +160,6 @@ document.addEventListener("DOMContentLoaded", function() {
   document.querySelectorAll(".auth-tab").forEach(button => {
     button.addEventListener("click", () => setActiveAuthTab(button.dataset.tab));
   });
-  if (INITIAL_DISPLAY_ID) return;
+  if (INITIAL_DISPLAY_ID || INITIAL_KIOSK_ID) return;
   if (LT.state.token) LT.loadDashboard(); else LT.showLogin();
 });

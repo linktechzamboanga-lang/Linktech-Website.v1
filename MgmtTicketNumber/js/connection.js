@@ -69,7 +69,7 @@ window.addEventListener("online", async function() {
 
 document.addEventListener("DOMContentLoaded", function() {
   LT.updateConnectionUI();
-  if (INITIAL_DISPLAY_ID) return;
+  if (INITIAL_DISPLAY_ID || INITIAL_KIOSK_ID) return;
   if (LT.connection.dashboardTimer) clearInterval(LT.connection.dashboardTimer);
   LT.connection.dashboardTimer = setInterval(function() {
     const roomId = LT.currentRoomId && LT.currentRoomId();
