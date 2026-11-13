@@ -1,0 +1,8 @@
+name = "linktech-ticket-api"
+main = "worker.js"
+compatibility_date = "2026-11-12"
+
+[vars]
+ALLOWED_ORIGINS = "https://lintechzamboanga.solutions,https://www.lintechzamboanga.solutions,https://linktechzamboanga-lang.github.io"
+
+# Add GAS_WEB_APP_URL as a Worker variable in the Cloudflare dashboard.
