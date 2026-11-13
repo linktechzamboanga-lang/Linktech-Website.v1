@@ -189,22 +189,46 @@ async function resetDailyQueue() {
 
 /* ---------- LOAD PRINTABLE TICKETS ---------- */
 
+
 async function loadPrintableTickets(batchId) {
   if (!LT.requireOwner()) return;
 
+  const roomId = LT.currentRoomId();
+
+  if (!roomId) {
+    LT.message("Please select a queue room first.", "error");
+    return;
+  }
+
   try {
-    const result = await LT.api("getPrintableTickets", {
+    const response = await LT.api("getPrintableTickets", {
       token: LT.state.token,
-      roomId: LT.currentRoomId(),
+      roomId: roomId,
       batchId: batchId || ""
     });
 
+    // Handle both direct and nested API responses.
+    let result = response;
+
+    for (let i = 0; i < 3 && result && result.data !== undefined; i++) {
+      result = result.data;
+    }
+
     const tickets = Array.isArray(result)
       ? result
-      : (result.tickets || []);
+      : (result && Array.isArray(result.tickets)
+          ? result.tickets
+          : []);
 
     if (!tickets.length) {
-      LT.message("No printable tickets were found.", "error");
+      LT.lastPrintedTickets = [];
+      const root = LT.el("printTickets");
+      if (root) root.replaceChildren();
+
+      LT.message(
+        "No printable tickets were found. Check the batch and room.",
+        "error"
+      );
       return;
     }
 
@@ -212,17 +236,28 @@ async function loadPrintableTickets(batchId) {
     renderPrintableTickets(tickets);
 
   } catch (error) {
-    LT.message(error.message, "error");
+    LT.message(
+      error.message || "Unable to load printable tickets.",
+      "error"
+    );
   }
 }
 
-/* ---------- BUILD PRINT PREVIEW ---------- */
+
+/* =========================================
+   PRINT PREVIEW
+========================================= */
 
 function renderPrintableTickets(tickets) {
   const root = LT.el("printTickets");
 
   if (!root) {
-    LT.message("The print ticket container is missing.", "error");
+    LT.message("Print ticket container not found.", "error");
+    return;
+  }
+
+  if (!Array.isArray(tickets) || !tickets.length) {
+    LT.message("No tickets available to print.", "error");
     return;
   }
 
@@ -252,11 +287,18 @@ function renderPrintableTickets(tickets) {
 
     const number = document.createElement("div");
     number.className = "lt-print-number";
-    number.textContent = LT.formatTicketNumber(ticket.number, format);
+
+    number.textContent = LT.formatTicketNumber(
+      ticket.number,
+      format
+    );
 
     const purpose = document.createElement("div");
     purpose.className = "lt-print-purpose";
-    purpose.textContent = ticket.purpose || ticket.category || "General queue";
+    purpose.textContent =
+      ticket.purpose ||
+      ticket.category ||
+      "General Queue";
 
     const instruction = document.createElement("div");
     instruction.className = "lt-print-instruction";
@@ -290,27 +332,32 @@ function renderPrintableTickets(tickets) {
   });
 
   LT.message(
-    tickets.length + " tickets are ready for printing.",
+    tickets.length + " tickets ready for printing.",
     "success"
   );
 }
 
-/* ---------- PRINT TICKETS ---------- */
+
+/* =========================================
+   PRINT TICKET BATCH
+========================================= */
 
 function printTicketBatch() {
   if (!LT.requireOwner()) return;
 
-  if (!LT.lastPrintedTickets.length) {
+  if (!LT.lastPrintedTickets ||
+      !LT.lastPrintedTickets.length) {
+
     LT.message(
-      "Generate a ticket batch or load a batch before printing.",
+      "Please generate or load a ticket batch first.",
       "error"
     );
+
     return;
   }
 
   renderPrintableTickets(LT.lastPrintedTickets);
 
-  // Browser print dialog. The user selects the connected printer.
   window.print();
 }
 
