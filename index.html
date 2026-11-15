@@ -60,6 +60,13 @@ crossorigin="anonymous">
 
 <script async custom-element="amp-ad" src="https://cdn.ampproject.org/v0/amp-ad-0.1.js"></script>
 
+
+      <link rel="stylesheet"
+      href="css/toolexplore.css">
+      <link rel="stylesheet"
+      href="css/navigation.css">
+      <link rel="stylesheet"
+      href="css/github.css">
       <link rel="stylesheet"
       href="css/season.css">
       <link rel="stylesheet"
@@ -76,7 +83,7 @@ crossorigin="anonymous">
       href="css/loginbanner.css">
       <link rel="stylesheet"
       href="css/shop.css">
-<link rel="stylesheet"
+      <link rel="stylesheet"
       href="css/home.css">
       <link rel="stylesheet"
       href="css/login.css">
@@ -160,38 +167,59 @@ fbq('track', 'PageView');
       <small>Freelance IT Specialist Zamboanga</small>
     </span>
   </a>
-      <nav aria-label="Main navigation">
+  
+  <!-- LINKTECH TOOLS BUTTON -->
+<button type="button" id="openToolsBtn" class="open-tools-btn">
+    <span class="tools-icon">⚙</span>
+    <span>Explore Free Tools</span>
+    <span class="tools-arrow">↓</span>
+</button>
+</header>
+
+<!-- SIDE PANEL ARROW -->
+<button class="lt-side-trigger" id="ltSideTrigger"
+        aria-label="Open navigation"
+        aria-expanded="false">
+    ❯
+</button>
+<!-- SIDE NAVIGATION -->
+<aside class="lt-side-panel" id="ltSidePanel">
+
+    <div class="lt-side-header">
+        <h2>LinkTech</h2>
+        <button id="ltSideClose" aria-label="Close navigation">
+            ✕
+        </button>
+    </div>
+
+    <nav class="lt-side-links">
         <a href="index.html">
             Home
         </a>
-
         <a href="download.html">
             Download
         </a>
-
             <a href="Shop.html">
             Shop
             </a>
-
         <a href="services.html">
             Services
         </a>
-
       <a href="contact.html">
             Contact Us
       </a>
-
           <a href="privacy-policy.html">
             Privacy Policy 
           </a>
-
         <a href="about.html">
             About
         </a>
 <a href="member.html" class="nav-current">IT Community</a>
     </nav>
+</aside>
 
-</header>
+<!-- DARK BACKGROUND OVERLAY -->
+<div class="lt-side-overlay" id="ltSideOverlay"></div>
 <main>
 <section class="member-hero">
     <div class="hero-inner">
@@ -201,65 +229,47 @@ fbq('track', 'PageView');
           </button>
   <h1>We're Here <span>to Help You</span></h1>
   <p>Get technical assistance, submit your repair concerns, ask questions, and stay updated with the latest LinkTech projects and support activities.</p>
- <br>
-<br>
-      <!-- LinkTech Homepage Slideshow -->
-  <h2>Explore LinkTech Zamboanga</h2>
-  <p>Discover our services, tools and technology community.</p>
-
-  <div id="lt-home-slideshow"></div>
-</section>
-
-<!-- Log In Account -->
-      
-<section class="login-section">
-    <div class="login-instruction">
+ <!-- Log In Account -->
+ 
+     <div class="login-instruction">
     <div class="instruction-heading">
         <i class="fa-solid fa-circle-info"></i>
         <strong>How to Get Started</strong>
     </div>
-
     <div class="instruction-track">
-
         <div class="instruction-content">
-
             <span class="instruction-item">
                 <i class="fa-brands fa-google"></i>
                 Sign in with your Google Account to securely access the LinkTech Timeline.
             </span>
-
             <span class="instruction-item">
                 <i class="fa-solid fa-screwdriver-wrench"></i>
                 Submit repair concerns directly to LinkTech.
             </span>
-
             <span class="instruction-item">
                 <i class="fa-solid fa-comments"></i>
                 Ask questions and post comments directly to LinkTech.
             </span>
-
             <span class="instruction-item">
                 <i class="fa-solid fa-shield-halved"></i>
                 Secure Google Sign-In protects your account and verifies your identity.
             </span>
         </div>
     </div>
-    
 <div id="g_id_signin"></div>
 <div id="googleLoginButton"></div>
     <div class="instruction-footer">
         <i class="fa-solid fa-circle-check"></i>
     </div>
+
 <!-- LINKTECH FACEBOOK IN-APP BROWSER NOTICE -->
 <div id="ltFacebookBrowserNotice"
      class="lt-fb-browser-notice"
      role="status"
      aria-live="polite"
      hidden>
-
     <div class="lt-fb-security-animation">
         <div class="lt-fb-security-ring"></div>
-
         <div class="lt-fb-lock">
             <div class="lt-fb-lock-shackle"></div>
             <div class="lt-fb-lock-body">
@@ -267,15 +277,12 @@ fbq('track', 'PageView');
             </div>
         </div>
     </div>
-
     <span class="lt-fb-notice-label">
         LINKTECH SECURITY NOTICE
     </span>
       <br>
     <p class="lt-fb-description">
-        You're currently browsing LinkTech inside Facebook.
-        Google Sign-In may be restricted in this browser.
-        For a smoother and more secure sign-in experience,
+secure sign-in experience,
         open our website using Google Chrome.
     </p>
     <div class="lt-fb-browser-actions">
@@ -291,9 +298,7 @@ fbq('track', 'PageView');
             <span>⧉</span>
             Copy Website Link
         </button>
-
     </div>
-
     <div class="lt-fb-help">
         <span class="lt-fb-help-icon">ⓘ</span>
 
@@ -304,48 +309,35 @@ fbq('track', 'PageView');
         </small>
     </div>
 </div>
-<p class="login-note">
-Secure • Fast • Google Authentication
-</p>
-
 </div>
+      <!-- LinkTech Homepage Slideshow -->
+  <h2>Explore LinkTech Zamboanga</h2>
+  <p>Discover our services, tools and technology community.</p>
+  <div id="lt-home-slideshow"></div>
 </section>
     <!-- ======================================
          USER PROFILE
     ======================================= -->
-
     <div id="userProfile"
          style="display:none;">
-
         <img
             id="userImage"
             src=""
             width="70"
             height="70"
             alt="Profile">
-
         <h3 id="userName"></h3>
-
         <p id="userEmail"></p>
-
         <button
             type="button"
             onclick="logoutUser()">
-
             Logout
-
         </button>
-
     </div>
-
 </section>
-
-
-
 <!-- ==========================================
      MAIN DASHBOARD
 ========================================== -->
-
 <section id="dashboard"
          style="display:none;">
 
@@ -381,9 +373,6 @@ Secure • Fast • Google Authentication
         </button>
 
     </div>
-
-
-
     <!-- ======================================
          CONTENT CONTAINER
     ======================================= -->
@@ -1107,7 +1096,196 @@ Secure • Fast • Google Authentication
     </div>
 
 </section>     
+<!-- =========================================
+     LINKTECH - GITHUB DEVELOPER PORTFOLIO
+========================================= -->
 
+<section id="githubPortfolio" class="github-portfolio">
+  <div class="github-intro">
+    <span class="github-eyebrow">DEVELOPMENT & TECHNOLOGY</span>
+    <h2>My GitHub Developer Portfolio</h2>
+    <p>Explore my coding activity, projects and technologies.</p>
+  </div>
+
+  <!-- PROFILE -->
+  <div class="github-profile-card">
+    <div class="github-profile-info">
+      <img id="ghAvatar" src="images/LinkTech-logo.png"
+           alt="GitHub profile" />
+
+      <div>
+        <h3 id="ghName">LinkTech Developer</h3>
+        <a id="ghUsername" href="https://github.com/linktechzamboanga-lang"
+           target="_blank" rel="noopener">
+          @linktechzamboanga-lang
+        </a>
+        <p id="ghBio">Loading GitHub profile...</p>
+      </div>
+    </div>
+
+    <a class="gh-view-profile"
+       href="https://github.com/linktechzamboanga-lang"
+       target="_blank" rel="noopener">
+      View GitHub Profile ↗
+    </a>
+  </div>
+  
+  <!-- CONTRIBUTION CALENDAR -->
+  <div class="gh-panel">
+
+    <div class="gh-panel-heading">
+      <div>
+        <h3>Contribution Activity</h3>
+        <p>Daily GitHub coding activity</p>
+      </div>
+
+      <span id="ghCalendarYear">Loading...</span>
+    </div>
+
+    <div class="gh-calendar-summary">
+      <strong id="ghCalendarTotal">-- contributions</strong>
+      <span id="ghActiveDays">-- active days</span>
+    </div>
+
+    <div id="ghCalendar" class="gh-calendar">
+      <span class="gh-loading">Loading contribution calendar...</span>
+    </div>
+
+    <div class="gh-calendar-legend">
+      <span>Less</span>
+      <i class="level-0"></i>
+      <i class="level-1"></i>
+      <i class="level-2"></i>
+      <i class="level-3"></i>
+      <i class="level-4"></i>
+      <span>More</span>
+    </div>
+
+  </div>
+
+  <!-- PROGRAMMING LANGUAGES -->
+  <div class="gh-panel">
+
+    <div class="gh-panel-heading">
+      <div>
+        <h3>Programming Languages & Technologies</h3>
+        <p>Based on your public repositories</p>
+      </div>
+    </div>
+
+    <div id="ghLanguages" class="gh-languages">
+      <span class="gh-loading">Loading programming languages...</span>
+    </div>
+
+  </div>
+
+  <!-- LATEST PROJECTS -->
+  <div class="gh-panel">
+
+    <div class="gh-panel-heading">
+      <div>
+        <h3>Latest GitHub Projects</h3>
+        <p>Recently updated public repositories</p>
+      </div>
+
+      <a href="https://github.com/linktechzamboanga-lang?tab=repositories"
+         target="_blank" rel="noopener">
+        View All ↗
+      </a>
+    </div>
+
+    <div id="ghRepositories" class="gh-repositories">
+      <span class="gh-loading">Loading projects...</span>
+    </div>
+
+  </div>
+
+  <!-- MOVING TECHNOLOGY BANNER -->
+  <div class="gh-tech-section">
+
+    <div class="gh-tech-heading">
+      <span>MY DEVELOPMENT TOOLKIT</span>
+      <h3>Technologies I Work With</h3>
+    </div>
+
+    <div class="gh-tech-marquee">
+
+      <div class="gh-tech-track">
+
+        <div class="gh-tech-item">
+          <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg" alt="HTML5">
+          <span>HTML5</span>
+        </div>
+
+        <div class="gh-tech-item">
+          <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-original.svg" alt="CSS3">
+          <span>CSS3</span>
+        </div>
+
+        <div class="gh-tech-item">
+          <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg" alt="JavaScript">
+          <span>JavaScript</span>
+        </div>
+
+        <div class="gh-tech-item">
+          <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/github/github-original.svg" alt="GitHub">
+          <span>GitHub</span>
+        </div>
+
+        <div class="gh-tech-item">
+          <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/google/google-original.svg" alt="Google">
+          <span>Google Apps Script</span>
+        </div>
+
+        <div class="gh-tech-item">
+          <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/cloudflare/cloudflare-original.svg" alt="Cloudflare">
+          <span>Cloudflare</span>
+        </div>
+
+        <!-- DUPLICATE FOR SEAMLESS MOVEMENT -->
+
+        <div class="gh-tech-item">
+          <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg" alt="HTML5">
+          <span>HTML5</span>
+        </div>
+
+        <div class="gh-tech-item">
+          <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-original.svg" alt="CSS3">
+          <span>CSS3</span>
+        </div>
+
+        <div class="gh-tech-item">
+          <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg" alt="JavaScript">
+          <span>JavaScript</span>
+        </div>
+
+
+        <div class="gh-tech-item">
+          <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/github/github-original.svg" alt="GitHub">
+          <span>GitHub</span>
+        </div>
+
+        <div class="gh-tech-item">
+          <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/google/google-original.svg" alt="Google">
+          <span>Google Apps Script</span>
+        </div>
+
+        <div class="gh-tech-item">
+          <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/cloudflare/cloudflare-original.svg" alt="Cloudflare">
+          <span>Cloudflare</span>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+
+  <div class="gh-last-updated">
+    <span id="ghStatus">Connecting to GitHub...</span>
+    <span id="ghUpdated"></span>
+  </div>
+  </section>
+  
   <!-- LinkTech AdSense Advertisement 1 -->    
 
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6474337076207412"
@@ -1122,20 +1300,6 @@ Secure • Fast • Google Authentication
 <script>
      (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
-      
-<!-- LinkTech AdSense Advertisement 2 -->
-<div class="adsense-container">
-  <ins class="adsbygoogle"
-       style="display:block"
-       data-ad-client="ca-pub-6474337076207412"
-       data-ad-slot="3856334505"
-       data-ad-format="auto"
-       data-full-width-responsive="true"></ins>
-
-  <script>
-    (adsbygoogle = window.adsbygoogle || []).push({});
-  </script>
-</div>
       
 <div class="tools-grid">
 
@@ -1276,32 +1440,42 @@ Secure • Fast • Google Authentication
       </a>
 
       
-</div>
-         
+</div>     
 
+<!-- LinkTech AdSense Advertisement 2 -->
+<div class="adsense-container">
+  <ins class="adsbygoogle"
+       style="display:block"
+       data-ad-client="ca-pub-6474337076207412"
+       data-ad-slot="3856334505"
+       data-ad-format="auto"
+       data-full-width-responsive="true"></ins>
+
+  <script>
+    (adsbygoogle = window.adsbygoogle || []).push({});
+  </script>
+</div>
+      
+    </main>   
 <!-- ==========================================
      FOOTER
 ========================================== -->
-    </main>  
 <footer>
-
 <p>
 © 2026 LinkTech Freelance IT Specialist Zamboanga |
 
 All Rights Reserved
 </p>
-
-
 </footer>
-
-
-
 <!-- ==========================================
      JAVASCRIPT
 ========================================== -->
 <script src="js/home.js"></script>
+<script src="js/tools.js"></script>
 <script src="js/linktechgame.js"></script>
+<script src="js/navigation.js"></script>
 <script src="js/sharepage.js"></script>
+<script src="js/github.js"></script>
 </body>
 </html>
       
