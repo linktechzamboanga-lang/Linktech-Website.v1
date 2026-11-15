@@ -8,20 +8,6 @@
     margin: 20px auto;
     padding: 18px;
     overflow: hidden;
-
-    background: linear-gradient(
-        135deg,
-        #e0f5ff,
-        #c5eaff,
-        #edfaff
-    );
-
-    border: 1px solid #a5dcf7;
-    border-radius: 18px;
-
-    box-shadow:
-        0 8px 25px rgba(36, 153, 220, 0.12);
-
     color: #17466a;
 }
 
