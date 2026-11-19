@@ -1,6 +1,6 @@
 # LinkTech Freelance IT Specialist Zamboanga
 
-Official website: https://lintechzamboanga.solutions
+Official website: https://flitspecialist.com
 
 ## About This Project
 
@@ -34,4 +34,4 @@ Unauthorized copying or redistribution of proprietary materials is not permitted
 
 This repository may contain publicly accessible website files required to operate the website. A README or copyright notice does not make public source code private.
 
-Official website: https://lintechzamboanga.solutions
+Official website: https://flitspecialist.com
