@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://lintechzamboanga.solutions/sitemap.xml
+Sitemap: https://flitspecialist.com/sitemap.xml
