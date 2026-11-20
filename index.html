@@ -262,56 +262,41 @@ fbq('track', 'PageView');
         <i class="fa-solid fa-circle-check"></i>
     </div>
 
-<!-- LINKTECH FACEBOOK IN-APP BROWSER NOTICE -->
+
+<!-- FACEBOOK IN-APP BROWSER LOGIN NOTICE -->
 <div id="ltFacebookBrowserNotice"
      class="lt-fb-browser-notice"
      role="status"
      aria-live="polite"
      hidden>
-    <div class="lt-fb-security-animation">
-        <div class="lt-fb-security-ring"></div>
-        <div class="lt-fb-lock">
-            <div class="lt-fb-lock-shackle"></div>
-            <div class="lt-fb-lock-body">
-                <span class="lt-fb-lock-keyhole"></span>
-            </div>
-        </div>
-    </div>
-    <span class="lt-fb-notice-label">
-        LINKTECH SECURITY NOTICE
-    </span>
-      <br>
-    <p class="lt-fb-description">
-secure sign-in experience,
-        open our website using Google Chrome.
-    </p>
-    <div class="lt-fb-browser-actions">
-        <button type="button"
-                id="ltOpenExternalBrowser"
-                class="lt-fb-btn-primary">
-            <span>↗</span>
-            Open in Chrome
-        </button>
-        <button type="button"
-                id="ltCopyWebsiteLink"
-                class="lt-fb-btn-secondary">
-            <span>⧉</span>
-            Copy Website Link
-        </button>
-    </div>
-    <div class="lt-fb-help">
-        <span class="lt-fb-help-icon">ⓘ</span>
+
+    <div class="lt-fb-login-card">
+        <span class="lt-fb-label">GOOGLE SIGN-IN</span>
+
+        <div class="lt-fb-icon">G</div>
+
+        <p>How to Login</p>
 
         <small>
-            If Chrome does not open, tap the Facebook menu (⋯)
-            and select "Open in external browser". You can also
-            copy this website link and paste it into Chrome.
+            Open this website in Google Chrome
+            to sign in with your Google account.
         </small>
+
+        <div class="lt-fb-actions">
+            <button type="button" id="ltOpenExternalBrowser">
+                ↗ Open in Chrome
+            </button>
+
+            <button type="button" id="ltCopyWebsiteLink">
+                Copy Link
+            </button>
+        </div>
     </div>
+
 </div>
-</div>
+
       <!-- LinkTech Homepage Slideshow -->
-  <h2>Explore LinkTech Zamboanga</h2>
+  <h2>Explore FLITS</h2>
   <p>Discover our services, tools and technology community.</p>
   <div id="lt-home-slideshow"></div>
 </section>
@@ -1107,28 +1092,6 @@ secure sign-in experience,
     <p>Explore my coding activity, projects and technologies.</p>
   </div>
 
-  <!-- PROFILE -->
-  <div class="github-profile-card">
-    <div class="github-profile-info">
-      <img id="ghAvatar" src="images/LinkTech-logo.png"
-           alt="GitHub profile" />
-
-      <div>
-        <h3 id="ghName">LinkTech Developer</h3>
-        <a id="ghUsername" href="https://github.com/linktechzamboanga-lang"
-           target="_blank" rel="noopener">
-          @linktechzamboanga-lang
-        </a>
-        <p id="ghBio">Loading GitHub profile...</p>
-      </div>
-    </div>
-
-    <a class="gh-view-profile"
-       href="https://github.com/linktechzamboanga-lang"
-       target="_blank" rel="noopener">
-      View GitHub Profile ↗
-    </a>
-  </div>
   
   <!-- CONTRIBUTION CALENDAR -->
   <div class="gh-panel">
