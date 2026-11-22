@@ -1,10 +1,10 @@
-# LinkTech Freelance IT Specialist Zamboanga
+# FLITS — Freelance IT Specialist
 
 Official website: https://flitspecialist.com
 
 ## About This Project
 
-LinkTech provides IT support and technology-related services, including computer repair, software support, website development, and other digital solutions.
+FLITS provides IT support and technology-related services, including computer repair, software support, website development, and other digital solutions.
 
 ## Website Features
 
@@ -24,7 +24,7 @@ LinkTech provides IT support and technology-related services, including computer
 
 ## Copyright Notice
 
-Copyright © 2026 LinkTech Freelance IT Specialist Zamboanga.
+Copyright © 2026 FLITS — Freelance IT Specialist.
 
 All rights reserved in original materials owned by the applicable rights holder, subject to third-party rights and licenses.
 
@@ -35,3 +35,6 @@ Unauthorized copying or redistribution of proprietary materials is not permitted
 This repository may contain publicly accessible website files required to operate the website. A README or copyright notice does not make public source code private.
 
 Official website: https://flitspecialist.com
+
+
+See [SECURITY.md](SECURITY.md) for deployment hardening guidance and frontend security boundaries.
