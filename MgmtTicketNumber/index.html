@@ -4,19 +4,16 @@
 
   <meta charset="UTF-8">
 
-  <meta name="viewport"
-        content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <meta name="theme-color" content="#1689e8">
 
-  <meta name="description"
-        content="LinkTech Ticket Number and Queue Management System">
+  <meta name="description" content="FLITS Ticket Number and Queue Management System">
 
-  <title>LinkTech Ticket Number</title>
+  <title>FLITS Ticket Number</title>
 
   <!-- GitHub Pages CSS files -->
-  <link rel="stylesheet"
-  href="../css/download.css">
+  <link rel="stylesheet" href="../css/download.css">
   <link rel="stylesheet" href="./css/style.css">
   <link rel="stylesheet" href="./css/login.css">
   <link rel="stylesheet" href="./css/teller.css">
@@ -25,6 +22,7 @@
   <link rel="stylesheet" href="./css/print.css">
   <link rel="stylesheet" href="./css/kiosk.css">
 
+<link rel="stylesheet" href="../css/flits-design-system.css">
 </head>
 
 <body>
@@ -44,9 +42,9 @@
 
   <header class="site-header">
   <a class="logo" href="../index.html">
-    <img src="../images/LinkTech-logo.png" alt="LinkTech logo">
+    <img src="../images/LinkTech-logo.png" alt="FLITS logo">
     <span>
-      <b>LinkTech</b>
+      <b>FLITS</b>
       <small>Freelance IT Specialist Zamboanga</small>
     </span>
   </a>
@@ -55,8 +53,7 @@
 
       <span id="accountName"></span>
 
-      <button id="logoutBtn"
-              class="soft-btn hidden">
+      <button id="logoutBtn" class="soft-btn hidden">
         Sign out
       </button>
 
@@ -88,13 +85,11 @@
 
       <div class="auth-tabs">
 
-        <button class="auth-tab active"
-                data-tab="login">
+        <button class="auth-tab active" data-tab="login">
           Sign in
         </button>
 
-        <button class="auth-tab"
-                data-tab="signup">
+        <button class="auth-tab" data-tab="signup">
           Register
         </button>
 
@@ -111,12 +106,7 @@
             Email or username
           </label>
 
-          <input
-            id="identity"
-            type="text"
-            placeholder="Enter email or username"
-            autocomplete="username"
-            required>
+          <input id="identity" type="text" placeholder="Enter email or username" autocomplete="username" required>
 
         </div>
 
@@ -126,17 +116,11 @@
             Password
           </label>
 
-          <input
-            id="password"
-            type="password"
-            placeholder="Enter password"
-            autocomplete="current-password"
-            required>
+          <input id="password" type="password" placeholder="Enter password" autocomplete="current-password" required>
 
         </div>
 
-        <button class="primary-btn full-btn"
-                type="submit">
+        <button class="primary-btn full-btn" type="submit">
           Sign in
         </button>
 
@@ -153,12 +137,7 @@
             Email address
           </label>
 
-          <input
-            id="newEmail"
-            type="email"
-            placeholder="Enter your email"
-            autocomplete="email"
-            required>
+          <input id="newEmail" type="email" placeholder="Enter your email" autocomplete="email" required>
 
         </div>
 
@@ -168,13 +147,7 @@
             Username
           </label>
 
-          <input
-            id="newUsername"
-            type="text"
-            placeholder="Create a username"
-            minlength="3"
-            autocomplete="username"
-            required>
+          <input id="newUsername" type="text" placeholder="Create a username" minlength="3" autocomplete="username" required>
 
         </div>
 
@@ -184,18 +157,11 @@
             Password
           </label>
 
-          <input
-            id="newPassword"
-            type="password"
-            placeholder="Create a password"
-            minlength="8"
-            autocomplete="new-password"
-            required>
+          <input id="newPassword" type="password" placeholder="Create a password" minlength="8" autocomplete="new-password" required>
 
         </div>
 
-        <button class="primary-btn full-btn"
-                type="submit">
+        <button class="primary-btn full-btn" type="submit">
           Create account
         </button>
 
@@ -206,8 +172,7 @@
 
       </form>
 
-      <p id="authMessage"
-         class="message"></p>
+      <p id="authMessage" class="message"></p>
 
     </section>
 
@@ -218,8 +183,7 @@
        MAIN DASHBOARD
   ================================== -->
 
-  <main id="workspace"
-        class="main-container hidden">
+  <main id="workspace" class="main-container hidden">
 
     <!-- WELCOME HEADER -->
 
@@ -266,15 +230,11 @@
             Room name
           </label>
 
-          <input
-            id="roomName"
-            type="text"
-            placeholder="Main Service Counter">
+          <input id="roomName" type="text" placeholder="Main Service Counter">
 
         </div>
 
-        <button id="createRoomBtn"
-                class="primary-btn full-btn">
+        <button id="createRoomBtn" class="primary-btn full-btn">
           Create room
         </button>
 
@@ -297,16 +257,11 @@
             Room invitation code
           </label>
 
-          <input
-            id="joinCode"
-            type="text"
-            placeholder="Enter room code"
-            maxlength="8">
+          <input id="joinCode" type="text" placeholder="Enter room code" maxlength="8">
 
         </div>
 
-        <button id="joinRoomBtn"
-                class="primary-btn full-btn">
+        <button id="joinRoomBtn" class="primary-btn full-btn">
           Join room
         </button>
 
@@ -319,8 +274,7 @@
          SHARED ROOM
     ================================== -->
 
-    <section id="roomPanel"
-             class="content-card hidden">
+    <section id="roomPanel" class="content-card hidden">
 
       <!-- ROOM HEADER -->
 
@@ -343,8 +297,7 @@
 
         </div>
 
-        <span id="ownerBadge"
-              class="owner-badge hidden">
+        <span id="ownerBadge" class="owner-badge hidden">
           QUEUE OWNER
         </span>
 
@@ -355,13 +308,11 @@
 
       <div class="room-buttons">
 
-        <button id="openDisplayBtn"
-                class="primary-btn">
+        <button id="openDisplayBtn" class="primary-btn">
           Open customer display
         </button>
 
-        <button id="copyDisplayBtn"
-                class="soft-btn">
+        <button id="copyDisplayBtn" class="soft-btn">
           Copy display link
         </button>
 
@@ -380,8 +331,7 @@
            QUEUE OWNER SETTINGS
       ================================== -->
 
-      <section id="ownerControls"
-               class="owner-section hidden">
+      <section id="ownerControls" class="owner-section hidden">
 
         <div class="section-label">
           QUEUE OWNER SETTINGS
@@ -399,12 +349,7 @@
               Number of tickets to generate
             </label>
 
-            <input
-              id="batchCount"
-              type="number"
-              min="1"
-              max="500"
-              value="100">
+            <input id="batchCount" type="number" min="1" max="500" value="100">
 
           </div>
 
@@ -429,8 +374,7 @@
 
         <div class="room-buttons">
 
-          <button id="generateBatchBtn"
-                  class="primary-btn">
+          <button id="generateBatchBtn" class="primary-btn">
             Generate and print tickets
           </button>
 
@@ -438,13 +382,11 @@
   Print generated tickets
 </button>
 
-          <button id="pauseQueueBtn"
-                  class="soft-btn">
+          <button id="pauseQueueBtn" class="soft-btn">
             Pause queue
           </button>
 
-          <button id="resetQueueBtn"
-                  class="danger-btn">
+          <button id="resetQueueBtn" class="danger-btn">
             Reset daily queue
           </button>
 
@@ -493,10 +435,7 @@
                 Display name
               </label>
 
-              <input
-                id="tellerName"
-                type="text"
-                placeholder="Teller name">
+              <input id="tellerName" type="text" placeholder="Teller name">
 
             </div>
 
@@ -523,8 +462,7 @@
 
             </div>
 
-            <button id="registerTellerBtn"
-                    class="primary-btn">
+            <button id="registerTellerBtn" class="primary-btn">
               Register teller
             </button>
 
@@ -533,8 +471,7 @@
 
           <!-- REGISTERED TELLERS -->
 
-          <div id="tellerCards"
-               class="teller-grid"></div>
+          <div id="tellerCards" class="teller-grid"></div>
 
         </section>
 
@@ -548,8 +485,7 @@
 
             <h3>Ticket queue</h3>
 
-            <span id="queueStatus"
-                  class="status-label">
+            <span id="queueStatus" class="status-label">
               Loading...
             </span>
 
@@ -597,8 +533,7 @@
 
           <!-- TICKET LIST -->
 
-          <div id="ticketList"
-               class="ticket-list"></div>
+          <div id="ticketList" class="ticket-list"></div>
 
         </section>
 
@@ -611,15 +546,13 @@
            FULL WIDTH
       ================================== -->
 
-      <section id="adminPanel"
-               class="section-block full-width hidden">
+      <section id="adminPanel" class="section-block full-width hidden">
 
         <div class="section-heading">
 
           <h3>Administrator account management</h3>
 
-          <button id="refreshUsersBtn"
-                  class="soft-btn">
+          <button id="refreshUsersBtn" class="soft-btn">
             Refresh
           </button>
 
@@ -635,8 +568,7 @@
 
     <!-- APPLICATION MESSAGE -->
 
-    <p id="appMessage"
-       class="message"></p>
+    <p id="appMessage" class="message"></p>
 
   </main>
 
@@ -645,8 +577,7 @@
        CUSTOMER DISPLAY SCREEN
   ================================== -->
 
-  <section id="displayView"
-           class="display-view hidden">
+  <section id="displayView" class="display-view hidden">
 
     <!-- DISPLAY HEADER -->
 
@@ -654,7 +585,7 @@
 
       <div class="display-logo">
 
-        LINKTECH
+        FLITS
 
         <span>TICKET DISPLAY</span>
 
@@ -670,8 +601,7 @@
           Connecting...
         </span>
 
-        <button id="exitDisplayBtn"
-                class="display-control-btn">
+        <button id="exitDisplayBtn" class="display-control-btn">
           Exit
         </button>
 
@@ -693,8 +623,7 @@
           NOW SERVING
         </div>
 
-        <div id="bigNumber"
-             class="big-ticket-number">
+        <div id="bigNumber" class="big-ticket-number">
           ---
         </div>
 
@@ -702,13 +631,11 @@
           PLEASE PROCEED TO
         </div>
 
-        <div id="bigTeller"
-             class="big-teller-number">
+        <div id="bigTeller" class="big-teller-number">
           TELLER ---
         </div>
 
-        <div id="displayStatus"
-             class="display-message">
+        <div id="displayStatus" class="display-message">
           Waiting for the next ticket.
         </div>
 
@@ -737,8 +664,7 @@
 
           <h2>WAITING NUMBERS</h2>
 
-          <div id="displayWaiting"
-               class="waiting-numbers">
+          <div id="displayWaiting" class="waiting-numbers">
             ---
           </div>
 
@@ -760,13 +686,11 @@
 
       <strong id="displayClock"></strong>
 
-      <button id="soundBtn"
-              class="display-control-btn">
+      <button id="soundBtn" class="display-control-btn">
         Enable voice and alarm
       </button>
 
-      <button id="fullscreenBtn"
-              class="display-control-btn">
+      <button id="fullscreenBtn" class="display-control-btn">
         Full screen
       </button>
 
@@ -780,7 +704,7 @@
   ================================== -->
   <section id="kioskView" class="kiosk-view hidden">
     <header class="kiosk-header">
-      <div class="kiosk-brand"><span class="kiosk-logo">LT</span><div><strong>LINKTECH</strong><small>Customer Queue Ticket</small></div></div>
+      <div class="kiosk-brand"><span class="kiosk-logo">LT</span><div><strong>FLITS</strong><small>Customer Queue Ticket</small></div></div>
       <div id="kioskRoomName" class="kiosk-room-name">Customer Entrance</div>
     </header>
     <main class="kiosk-main">
@@ -808,11 +732,9 @@
        PRINT AREA
   ================================== -->
 
-  <section id="printRoot"
-           class="print-root hidden">
+  <section id="printRoot" class="print-root hidden">
 
-    <div id="printTickets"
-         class="print-tickets"></div>
+    <div id="printTickets" class="print-tickets"></div>
 
   </section>
 
@@ -821,8 +743,7 @@
        NOTIFICATION
   ================================== -->
 
-  <div id="toast"
-       class="toast">
+  <div id="toast" class="toast">
   </div>
 
 
