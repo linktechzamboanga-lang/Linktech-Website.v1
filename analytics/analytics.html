@@ -1,0 +1,52 @@
+<section class="flits-analytics" id="flitsAnalytics">
+  <div class="analytics-header">
+    <div>
+      <h2>FLITS Analytics</h2>
+      <p>Website performance overview</p>
+    </div>
+    <span class="live-status">
+      <i></i> Tracking enabled
+    </span>
+  </div>
+
+  <div class="analytics-grid">
+    <article class="analytics-card">
+      <span>Website visitors</span>
+      <strong id="totalVisitors">—</strong>
+      <small>Awaiting GA4 report</small>
+    </article>
+
+    <article class="analytics-card">
+      <span>Page views</span>
+      <strong id="pageViews">—</strong>
+      <small>Awaiting GA4 report</small>
+    </article>
+
+    <article class="analytics-card">
+      <span>Customer leads</span>
+      <strong id="totalLeads">0</strong>
+      <small>Locally recorded leads</small>
+    </article>
+
+    <article class="analytics-card">
+      <span>Active visitors</span>
+      <strong id="activeVisitors">—</strong>
+      <small>Available through GA4 API</small>
+    </article>
+  </div>
+
+  <div class="analytics-actions">
+    <a href="https://analytics.google.com/"
+       target="_blank" rel="noopener">
+       Open Google Analytics
+    </a>
+    <button onclick="refreshFlitsAnalytics()">
+      Refresh
+    </button>
+  </div>
+
+  <p class="analytics-note">
+    Visitor statistics are not displayed until a secure
+    GA4 reporting connection is configured.
+  </p>
+</section>
