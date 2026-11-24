@@ -68,6 +68,7 @@ FLITS | Freelance IT Specialist
         <link rel="stylesheet" href="css/member.css">
       <link rel="stylesheet" href="css/tool.css">
   <link rel="stylesheet" href="css/analytics.css">
+  <link rel="stylesheet" href="css/flits-video-ads.css">
 
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet">
 
@@ -296,6 +297,58 @@ fbq('track', 'PageView');
   </script>
 
 </section>
+
+
+
+<!-- FLITS SPECIALIST VIDEO ADVERTISING -->
+<section class="flits-video-ads" id="flitsVideoAds">
+  <div class="flits-ad-heading">
+    <span class="flits-ad-label">SPONSORED</span>
+    <h2>Technology Video Advertising</h2>
+    <p>Discover technology, digital services and innovation.</p>
+  </div>
+
+  <div class="flits-video-card">
+    <div class="flits-video-player" id="flitsVideoPlayer">
+
+      <!-- Content video -->
+      <video
+        id="flitsContentVideo"
+        playsinline
+        preload="metadata"
+        controls>
+        <source
+          src="YOUR_CONTENT_VIDEO_URL.mp4"
+          type="video/mp4">
+      </video>
+
+      <!-- Google IMA advertisement layer -->
+      <div id="flitsAdContainer"></div>
+
+      <!-- Loading message -->
+      <div id="flitsAdLoading" hidden>
+        Loading advertisement...
+      </div>
+
+      <!-- Start button -->
+      <button id="flitsAdStart" type="button">
+        ▶ Watch Video
+      </button>
+
+    </div>
+
+    <div class="flits-ad-footer">
+      <span>FLITS Video Network</span>
+      <span id="flitsAdStatus">Ready</span>
+    </div>
+  </div>
+</section>
+
+<!-- Google IMA SDK -->
+<script src="https://imasdk.googleapis.com/js/sdkloader/ima3.js"></script>
+
+<!-- FLITS advertising JavaScript -->
+<script src="/js/flits-video-ads.js" defer></script>
        
 
     <!-- ======================================
