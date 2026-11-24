@@ -1188,7 +1188,7 @@ fbq('track', 'PageView');
 <div id="analyticsContainer"></div>
 
 <script>
-fetch('/analytics.html')
+fetch('analytics/analytics.html')
   .then(response => response.text())
   .then(html => {
     document.getElementById('analyticsContainer')
