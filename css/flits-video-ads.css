@@ -1,0 +1,125 @@
+
+/* FLITS VIDEO ADVERTISING */
+.flits-video-ads {
+  width: min(100% - 24px, 850px);
+  margin: 30px auto;
+  font-family: Poppins, Arial, sans-serif;
+  color: #172b4d;
+}
+
+.flits-ad-heading {
+  margin-bottom: 15px;
+}
+
+.flits-ad-heading h2 {
+  font-size: 21px;
+  margin: 10px 0 5px;
+}
+
+.flits-ad-heading p {
+  color: #64748b;
+  font-size: 13px;
+}
+
+.flits-ad-label {
+  display: inline-block;
+  background: #e0f2fe;
+  color: #0369a1;
+  padding: 5px 10px;
+  border-radius: 20px;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 1px;
+}
+
+.flits-video-card {
+  background: #fff;
+  border: 1px solid #dbeafe;
+  border-radius: 16px;
+  padding: 10px;
+  box-shadow: 0 5px 22px rgba(15, 80, 150, .09);
+}
+
+.flits-video-player {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  background: #071525;
+  overflow: hidden;
+  border-radius: 11px;
+}
+
+#flitsContentVideo {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  display: block;
+}
+
+#flitsAdContainer {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 2;
+}
+
+#flitsAdContainer video {
+  width: 100%;
+  height: 100%;
+}
+
+#flitsAdStart {
+  position: absolute;
+  z-index: 5;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  padding: 13px 24px;
+  border: 0;
+  border-radius: 30px;
+  color: white;
+  background: #0878e8;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+#flitsAdStart:hover {
+  background: #075bb4;
+}
+
+#flitsAdLoading {
+  position: absolute;
+  z-index: 6;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  background: rgba(0, 15, 35, .75);
+  font-size: 14px;
+}
+
+#flitsAdLoading[hidden] {
+  display: none;
+}
+
+.flits-ad-footer {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 12px 3px 3px;
+  color: #64748b;
+  font-size: 11px;
+}
+
+@media (max-width: 480px) {
+  .flits-ad-heading h2 {
+    font-size: 18px;
+  }
+
+  .flits-video-card {
+    padding: 6px;
+  }
+}
