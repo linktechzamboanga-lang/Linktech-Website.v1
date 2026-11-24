@@ -1,0 +1,126 @@
+
+.flits-analytics {
+  font-family: 'Poppins', sans-serif;
+  padding: 22px;
+  background: #fff;
+  border: 1px solid #e5edf5;
+  border-radius: 18px;
+  box-shadow: 0 5px 25px rgba(30,90,150,.07);
+  color: #18334e;
+  max-width: 1100px;
+  margin: 20px auto;
+}
+
+.analytics-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-bottom: 22px;
+}
+
+.analytics-header h2 {
+  margin: 0;
+  font-size: 21px;
+}
+
+.analytics-header p {
+  margin: 5px 0;
+  color: #8293a5;
+  font-size: 13px;
+}
+
+.live-status {
+  color: #168b60;
+  font-size: 12px;
+  background: #e8fff4;
+  padding: 8px 12px;
+  border-radius: 20px;
+}
+
+.live-status i {
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  background: #16b978;
+  border-radius: 50%;
+  margin-right: 5px;
+}
+
+.analytics-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+}
+
+.analytics-card {
+  padding: 17px;
+  border-radius: 13px;
+  background: #f2f8ff;
+  border: 1px solid #e4effa;
+  min-width: 0;
+}
+
+.analytics-card span,
+.analytics-card small {
+  display: block;
+  color: #70849a;
+  font-size: 12px;
+}
+
+.analytics-card strong {
+  display: block;
+  font-size: 27px;
+  margin: 12px 0;
+  color: #1265b0;
+}
+
+.analytics-card small {
+  font-size: 10px;
+}
+
+.analytics-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.analytics-actions a,
+.analytics-actions button {
+  border: 0;
+  border-radius: 9px;
+  padding: 11px 17px;
+  background: #1376c5;
+  color: white;
+  font-size: 12px;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.analytics-actions button {
+  background: #e8f3ff;
+  color: #1265b0;
+}
+
+.analytics-note {
+  font-size: 11px;
+  color: #8191a2;
+  margin-top: 17px;
+}
+
+@media(max-width:650px) {
+  .analytics-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media(max-width:360px) {
+  .analytics-card {
+    padding: 12px;
+  }
+  .analytics-card strong {
+    font-size: 22px;
+  }
+}
