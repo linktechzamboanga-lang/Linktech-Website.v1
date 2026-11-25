@@ -1,0 +1,95 @@
+
+.flits-shopee {
+  padding: 25px 16px;
+  margin: 25px auto;
+  max-width: 1200px;
+  background: #f2f9ff;
+  border: 1px solid #d8eaff;
+  border-radius: 18px;
+  font-family: Poppins, Arial, sans-serif;
+}
+
+.shopee-heading {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 20px;
+}
+
+.shopee-label {
+  color: #087bd4;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 1px;
+}
+
+.shopee-heading h2 {
+  color: #163b5c;
+  margin: 5px 0;
+  font-size: 22px;
+}
+
+.shopee-heading p {
+  color: #687d91;
+  font-size: 13px;
+}
+
+.shopee-logo {
+  background: #ee4d2d;
+  color: white;
+  padding: 9px 14px;
+  border-radius: 10px;
+  font-weight: bold;
+}
+
+.shopee-grid {
+  display: grid;
+  grid-template-columns:
+    repeat(auto-fit, minmax(140px, 1fr));
+  gap: 12px;
+}
+
+.shopee-card {
+  display: block;
+  text-decoration: none;
+  background: white;
+  border: 1px solid #e1edf7;
+  padding: 18px 12px;
+  border-radius: 14px;
+  color: #234765;
+  transition: .25s;
+}
+
+.shopee-card:hover {
+  transform: translateY(-4px);
+  border-color: #ee4d2d;
+  box-shadow: 0 7px 20px #173c5c15;
+}
+
+.shopee-icon {
+  font-size: 32px;
+}
+
+.shopee-card h3 {
+  font-size: 14px;
+  min-height: 35px;
+}
+
+.shopee-card span {
+  color: #ee4d2d;
+  font-size: 12px;
+  font-weight: bold;
+}
+
+.shopee-disclosure {
+  font-size: 11px;
+  color: #718397;
+  margin-top: 20px;
+}
+
+@media(max-width:480px) {
+  .shopee-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
