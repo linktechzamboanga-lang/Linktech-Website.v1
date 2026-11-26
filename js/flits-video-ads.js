@@ -43,7 +43,7 @@
     video.style.display = "block";
 
     if (!video.currentSrc || !video.querySelector("source")?.src ||
-        video.querySelector("source").src.includes("YOUR_CONTENT_VIDEO_URL")) {
+        video.querySelector("source").src.includes("https://github.com/linktechzamboanga-lang/LinkTech-Source-Private-Full/blob/main/videos/clip.mp4")) {
       setStatus("Add your content video URL");
       return;
     }
